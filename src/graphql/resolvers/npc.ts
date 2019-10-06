@@ -1,10 +1,8 @@
 import Npc from "../../models/npc";
-import { IContext, IInput, INpc, INpcInput } from "../../models/types";
+import { IContext, IInput, INpcInput } from "../../models/types";
 import User from "../../models/user";
 import {
-  campaignFromId,
   checkSignedIn,
-  userFromId,
   userIdFromContext
 } from "./helpers";
 
@@ -26,12 +24,7 @@ export default {
           // using spread removes undefined filters from the expression
           ...filters
         }).lean();
-        const transformedNpcs = npcs.map((npc: INpc) => ({
-          ...npc,
-          creator: userFromId(npc.creator),
-          campaign: campaignFromId(npc.campaign)
-        }));
-        return transformedNpcs;
+        return npcs;
       } catch (error) {
         throw error;
       }
@@ -58,11 +51,7 @@ export default {
         }
         dbUser.npcs.push(createdNpc);
         dbUser.save();
-        return {
-          ...createdNpc.toObject(),
-          creator: userFromId(npc.creator),
-          campaign: campaignFromId(npc.campaign)
-        };
+        return createdNpc.toObject();
       } catch (error) {
         throw error;
       }

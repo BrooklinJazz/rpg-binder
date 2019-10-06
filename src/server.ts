@@ -18,7 +18,6 @@ const server = new ApolloServer({
     let user;
     // only throw an error if a token was provided but is invalid
     // because some calls do not require a token
-    console.log("CONTEXT RUNNING");
     if (token) {
       try {
         decodedToken = jwt.verify(
@@ -42,9 +41,12 @@ mongoose
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-o0hne.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
   )
   .then(() => {
-    server.listen().then(({ url }: { url: string }) => {
-      console.log(`🚀  Server ready at ${url}`);
-    }).catch(err => console.log("SERVER ERROR", err))
+    server
+      .listen()
+      .then(({ url }: { url: string }) => {
+        console.log(`🚀  Server ready at ${url}`);
+      })
+      .catch(err => console.log("SERVER ERROR", err));
   })
   .catch(err => {
     console.log(err);

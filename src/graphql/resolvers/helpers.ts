@@ -1,64 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import Campaign from "../../models/campaign";
-import Npc from "../../models/npc";
-import { ICampaign, IContext, INpc, IUser } from "../../models/types";
-import User from "../../models/user";
-
-export const npcsFromIds = (npcIds: string[]): any =>
-  Npc.find({ _id: { $in: npcIds } })
-    .lean()
-    .then((npcs: INpc[]) =>
-      npcs.map(npc => ({
-        ...npc,
-        creator: userFromId(npc.creator),
-        campaign: campaignFromId(npc.campaign)
-      }))
-    );
-
-export const userFromId = (userId: string) =>
-  User.findById(userId)
-    .then(
-      (user) =>
-        user && {
-          ...user.toObject(),
-          npcs: npcsFromIds(user.npcs),
-          campaigns: campaignsFromIds(user.campaigns)
-        }
-    )
-    .catch(err => {
-      throw err;
-    });
-
-export const campaignFromId = (campaignId: string) =>
-  Campaign.findById(campaignId)
-    .lean()
-    .then(
-      (campaign: ICampaign) =>
-        campaign && {
-          ...campaign,
-          npcs: npcsFromIds(campaign.npcs),
-          creator: userFromId(campaign.creator)
-        }
-    )
-    .catch(err => {
-      throw err;
-    });
-
-export const campaignsFromIds = (campaignIds: string[]): Promise<ICampaign[]> =>
-  Campaign.find({ _id: { $in: campaignIds } })
-    .lean()
-    .then(
-      (campaigns: ICampaign[]) =>
-        (campaigns.map(campaign => ({
-          ...campaign,
-          npcs: npcsFromIds(campaign.npcs),
-          creator: userFromId(campaign.creator)
-        })) as unknown) as ICampaign[]
-    )
-    .catch(err => {
-      throw err;
-    });
+import { IContext, IUser } from "../../models/types";
 
 export const checkSignedIn = (context: IContext) => {
   if (!context.user) {

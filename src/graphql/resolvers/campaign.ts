@@ -7,11 +7,12 @@ import {
   IUpdateCampaignInput
 } from "../../models/types";
 import User from "../../models/user";
-import { checkSignedIn, npcsFromIds, userFromId } from "./helpers";
+import { checkSignedIn } from "./helpers";
 
 export default {
   Query: {
-    campaigns: async () => {
+    campaigns: async (root: any, input: undefined, context: IContext) => {
+      checkSignedIn(context);
       try {
         const campaigns = await Campaign.find()
         return campaigns;
@@ -19,26 +20,6 @@ export default {
         throw new Error(error);
       }
     },
-    // campaigns: async (root: any, input: null, context: IContext) => {
-    //   checkSignedIn(context);
-    //   console.log("GET CAMPAIGNS")
-    //   try {
-    //     console.log("finding campaigns")
-    //     const campaigns = await Campaign.find().lean();
-    //     console.log("transforming campaigns")
-    //     const transformedCampaigns = campaigns.map((campaign: ICampaign) => ({
-    //       ...campaign,
-    //       creator: userFromId(campaign.creator),
-    //       npcs: npcsFromIds(campaign.npcs)
-    //     }));
-    //     console.log("returning campaigns")
-    //     return transformedCampaigns;
-    //   } catch (error) {
-    //     console.log("THROWING ERROR")
-    //     throw error;
-    //   }
-    //   console.log("DONE")
-    // },
     campaign: async (
       root: any,
       { input }: IInput<{ _id: string }>,
@@ -50,12 +31,7 @@ export default {
         if (!campaign) {
           throw Error("Campaign not found");
         }
-        const transformedCampaign = {
-          ...campaign,
-          creator: userFromId(campaign.creator),
-          npcs: npcsFromIds(campaign.npcs)
-        };
-        return transformedCampaign;
+        return campaign;
       } catch (error) {
         throw error;
       }
@@ -83,11 +59,7 @@ export default {
         }
         dbUser.campaigns.push(createdCampaign);
         dbUser.save();
-        return {
-          ...createdCampaign.toObject(),
-          npcs: [],
-          creator: userFromId(createdCampaign.creator)
-        };
+        return createdCampaign.toObject()
       } catch (error) {
         throw error;
       }
@@ -117,11 +89,7 @@ export default {
         }
         dbUser.campaigns.push(updatedCampaign._id);
         dbUser.save();
-        return {
-          ...updatedCampaign.toObject(),
-          npcs: npcsFromIds(updatedCampaign.npcs),
-          creator: userFromId(updatedCampaign.creator)
-        };
+        return updatedCampaign.toObject()
       } catch (error) {
         throw error;
       }
@@ -144,11 +112,7 @@ export default {
         if (!deletedCampaign) {
           throw new Error("Campaign Does Not Exist");
         }
-        return {
-          ...deletedCampaign.toObject(),
-          npcs: npcsFromIds(deletedCampaign.npcs),
-          creator: userFromId(deletedCampaign.creator)
-        };
+        return deletedCampaign.toObject()
       } catch (error) {
         throw error;
       }
