@@ -1,0 +1,13 @@
+@import "../../common/variables";
+
+.Close {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  height: $icon-height;
+  width: $icon-width;
+  &:hover {
+      cursor: pointer;
+  }
+}

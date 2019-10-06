@@ -1,0 +1,59 @@
+@import "../../common/variables.scss";
+@import "../../common/theme.scss";
+
+$form-margin: 0.5fr;
+
+.Login_ {
+  @include themed() {
+    background: t($background);
+  }
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: $navbar-height $form-margin 1fr $form-margin $footer-height;
+  grid-template-areas:
+    "navbar navbar navbar"
+    ". . ."
+    ". form ."
+    ". . ."
+    "footer footer footer";
+}
+
+.Login_Form {
+  border-radius: $button-radius;
+  padding: 20px;
+  grid-area: form;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-rows: max-content 1fr $button-height;
+  grid-template-areas:
+    "header header"
+    "content content"
+    ". buttons";
+}
+
+.Login_Header {
+  grid-area: header;
+  text-transform: capitalize;
+}
+
+.Login_Content {
+  grid-area: content;
+}
+
+.Login_Buttons {
+  display: flex;
+  grid-area: buttons;
+}
+
+@media (max-width: $small-screen), not screen {
+  .Login_ {
+    grid-template-columns: 1fr;
+    grid-template-rows: $mobile-navbar-height 1fr $mobile-footer-height;
+    grid-template-areas:
+      "navbar"
+      "form"
+      "footer";
+  }
+}

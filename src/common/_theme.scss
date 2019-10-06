@@ -1,0 +1,65 @@
+$themes: (
+  light: (
+    default: #f5f5f5,
+    primary: #6200ee,
+    primary-variant: #3700b3,
+    secondary: #03dac6,
+    secondary-variant: #018786,
+    info: #1975d2,
+    success: #43a047,
+    warning: #ffa004,
+    danger: #b00020,
+    background: #ffffff,
+    on-primary: #ffffff,
+    on-info: #ffffff,
+    on-warning: #ffffff,
+    on-secondary: #000000,
+    on-background: #000000,
+    on-danger: #ffffff,
+    on-default: #000000,
+    on-success: #ffffff
+  ),
+  dark: (
+    default: #333333,
+    primary: #bb86fc,
+    primary-variant: #3700b3,
+    success: #43a047,
+    warning: #ffa004,
+    info: #90caf9,
+    secondary: #03dac6,
+    secondary-variant: #03dac6,
+    danger: #cf6679,
+    background: #121212,
+    on-primary: #000000,
+    on-info: #000000,
+    on-warning: #000000,
+    on-secondary: #000000,
+    on-background: #ffffff,
+    on-danger: #000000,
+    on-default: #ffffff,
+    on-success: #ffffff
+  )
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

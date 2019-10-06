@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+
+import React from "react";
+import { Route, Switch, Redirect } from "react-router";
+
+import { Routes } from "./common/routes";
+import CampaignSelect from "./pages/CampaignSelect";
 
 const App: React.FC = () => {
+  const activeCampaign = undefined; // TODO implement active campaign redirecting user to campaign page
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route path={Routes.CampaignSelect} component={CampaignSelect} />
+        <Redirect to={Routes.CampaignSelect} />
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;

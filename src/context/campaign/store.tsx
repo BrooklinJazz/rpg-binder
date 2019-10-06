@@ -1,0 +1,61 @@
+import React, { createContext, ReactNode, useContext, useReducer } from "react";
+
+import { LocalStorage } from "../../common/constants";
+import { parseFromStorage } from "../../common/helpers";
+import { ICampaign } from "../../common/types";
+import { CampaignAction, CampaignDispatch, ICampaignState } from "./types";
+
+const campaignReducer = (state: ICampaignState, action: CampaignAction) => {
+  console.log(action.type, "payload" in action && action.payload, state);
+  let nextState = state;
+  switch (action.type) {
+    case "select_campaign":
+      nextState = { ...state, activeCampaign: action.payload.campaign };
+      break;
+    default:
+      throw new Error(`unhandled action type ${action!.type}`);
+  }
+  console.log(action.type, "payload" in action && action.payload, nextState);
+  return nextState;
+};
+
+const CampaignStateContext = createContext<ICampaignState | undefined>(
+  undefined
+);
+
+const CampaignDispatchContext = createContext<CampaignDispatch | undefined>(
+  undefined
+);
+
+const initialState: ICampaignState = {
+  activeCampaign: parseFromStorage(LocalStorage.ACTIVE_CAMPAIGN) as
+    | ICampaign
+    | undefined
+};
+
+export const CampaignProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(campaignReducer, initialState);
+  return (
+    <CampaignStateContext.Provider value={state}>
+      <CampaignDispatchContext.Provider value={dispatch}>
+        {children}
+      </CampaignDispatchContext.Provider>
+    </CampaignStateContext.Provider>
+  );
+};
+
+export const useCampaignState = () => {
+  const context = useContext(CampaignStateContext);
+  if (context === undefined) {
+    throw new Error("useCampaignState must be used within an CampaignProvider");
+  }
+  return context;
+};
+
+export const useCampaignDispatch = () => {
+  const context = useContext(CampaignDispatchContext);
+  if (context === undefined) {
+    throw new Error("useCampaignState must be used within an CampaignProvider");
+  }
+  return context;
+};

@@ -1,0 +1,14 @@
+@import "../../common/theme.scss";
+@import "../../common/variables.scss";
+
+.Base {
+  outline: none;
+  border: none;
+  height: $button-height;
+  width: max-content;
+  min-width: $button-width;
+  border-radius: $button-radius;
+  &:hover {
+    cursor: pointer;
+  }
+}

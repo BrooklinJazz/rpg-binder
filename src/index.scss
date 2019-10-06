@@ -1,0 +1,132 @@
+@import "./common/theme.scss";
+@import "./common/variables.scss";
+
+body {
+  margin: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    // transition: color 5000s ease-in-out 0s;
+}
+
+$theme-list: (
+  1: (
+    ".default",
+    $default,
+    $on-default
+  ),
+  2: (
+    ".primary",
+    $primary,
+    $on-primary
+  ),
+  3: (
+    ".secondary",
+    $secondary,
+    $on-secondary
+  ),
+  4: (
+    ".danger",
+    $danger,
+    $on-danger
+  ),
+  5: (
+    ".success",
+    $success,
+    $on-success
+  ),
+  6: (
+    ".info",
+    $info,
+    $on-info
+  )
+);
+
+@each $theme-list, $key-number in $theme-list {
+  $class: nth($key-number, 1);
+  $theme-bg: nth($key-number, 2);
+  $theme-color: nth($key-number, 3);
+  #{$class}:not(.outlined, .text) {
+    @include themed() {
+      color: t($theme-color);
+      background-color: t($theme-bg);
+    }
+  }
+  // for buttons
+  #{$class}.outlined {
+    @include themed() {
+      color: t($on-background);
+      background-color: t($background);
+      border: solid 2px t($theme-color);
+    }
+  }
+  #{$class}.hoverable:not(.text) {
+    @include themed() {
+      &:hover {
+        background-color: lighten(t($theme-bg), 10%);
+      }
+      &:active {
+        background-color: t($theme-bg);
+      }
+    }
+  }
+  #{$class}.text {
+    @include themed() {
+      color: t($theme-color);
+      background-color: transparent;
+    }
+  }
+  // using opacity means that white and black colors are handled well
+  #{$class}.hoverable.text {
+    @include themed() {
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+$on-theme-list: (
+  1: (
+    ".on-default",
+    $on-default
+  ),
+  2: (
+    ".on-primary",
+    $on-primary
+  ),
+  3: (
+    ".on-secondary",
+    $on-secondary
+  ),
+  4: (
+    ".on-danger",
+    $on-danger
+  ),
+  5: (
+    ".on-success",
+    $on-success
+  ),
+  6:
+  (
+    ".on-info",
+    $on-info
+  )
+);
+
+@each $on-theme-list, $key-number in $on-theme-list {
+  $class: nth($key-number, 1);
+  $theme-color: nth($key-number, 2);
+  #{$class} {
+    @include themed() {
+      color: t($theme-color);
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import "../../common/variables.scss";
+
+.SnackbarContainer {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: $snackbar-radius;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+.SnackbarClose {
+  margin-left: 10px;
+}
+
+.SnackbarText {
+}
+
+.SnackbarAnimation-enter {
+  opacity: 0;
+}
+.SnackbarAnimation-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.SnackbarAnimation-exit {
+  opacity: 1;
+}
+.SnackbarAnimation-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
