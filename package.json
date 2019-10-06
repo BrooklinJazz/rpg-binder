@@ -46,7 +46,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "ts-node-dev -r esm --respawn --transpileOnly ./src/server.ts"
+    "server": "ts-node-dev -r esm --respawn --transpileOnly ./src/server.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
