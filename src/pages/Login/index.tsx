@@ -26,17 +26,14 @@ const Login = () => {
     { login: { token: string } },
     { email: string; password: string }
   >(LOGIN);
-  const error = "Mock"
+  const error = "Mock";
   const dispatch = useAuthDispatch();
   // TODO refactor using onCompleted and onError
   useEffect(() => {
-    console.log(loginRes, signUpRes)
     if (loginRes.data) {
       dispatch(authRequestSuccess({ token: loginRes.data.login.token }));
-      console.log(loginRes.data);
     } else if (signUpRes.data) {
       dispatch(authRequestSuccess({ token: signUpRes.data.createUser.token }));
-      console.log();
     }
   }, [loginRes.data, signUpRes.data]);
   const authenticateUser = () => {
@@ -49,7 +46,6 @@ const Login = () => {
   };
   return (
     <div className={"Login_"}>
-      <button onClick={() => console.log(loginRes)}>test: {loginRes.loading}</button>
       <Form
         isLoading={isSigningUp ? signUpRes.loading : loginRes.loading}
         onSubmit={authenticateUser}

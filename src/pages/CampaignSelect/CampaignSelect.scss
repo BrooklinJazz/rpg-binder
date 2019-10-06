@@ -1,0 +1,46 @@
+@import "../../common/theme";
+@import "../../common/variables";
+
+.CampaignSelect {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-rows: 20% 60% 20%;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-areas:
+    ". . ."
+    ". content ."
+    ". . .";
+
+  @media (max-width: $landscape-breakpoint) {
+    grid-template-rows: 20% 60% 20%;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-areas:
+      ". . ."
+      ". content ."
+      ". . .";
+  }
+  @media (max-width: $tablet-breakpoint) {
+    grid-template-rows: 20% 60% 20%;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "."
+      "content"
+      ".";
+  }
+  @include themed() {
+    background-color: t($background);
+    color: t($background);
+  }
+}
+
+.CampaignSelectContent {
+  grid-area: content;
+  @include themed() {
+    background-color: t($default);
+    color: t($on-default);
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

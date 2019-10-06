@@ -3,7 +3,6 @@ import React, { ReactNode } from "react";
 
 import Loading from "../Loading";
 import { DangerSnackbar } from "../Snackbar";
-import style from "./Input.module.scss";
 
 interface IFormProps extends React.HTMLAttributes<HTMLFormElement> {
   children: ReactNode;
@@ -32,7 +31,7 @@ const Form = ({
       <form
         {...props}
         onSubmit={handleSubmit}
-        className={combineClasses(style.Form, props.className)}
+        className={combineClasses(props.className)}
       >
         {children}
         {isLoading && <Loading />}

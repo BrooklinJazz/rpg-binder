@@ -1,6 +1,7 @@
 import ApolloClient, { gql } from "apollo-boost";
-import { valueFromStorage } from "../common/helpers";
+
 import { LocalStorage } from "../common/constants";
+import { valueFromStorage } from "../common/helpers";
 
 export const client = new ApolloClient({
   uri: "http://localhost:4000",

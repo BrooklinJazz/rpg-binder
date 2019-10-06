@@ -2,7 +2,25 @@ $navbar-height: 40px;
 $footer-height: 40px;
 $mobile-navbar-height: 40px;
 $mobile-footer-height: 40px;
-$small-screen: 600px;
+
+// breakpoints
+$phone-breakpoint: 600px;
+$tablet-breakpoint: 900px;
+$landscape-breakpoint: 1200px;
+// $desktop-breakpoint: 1800px;
+
+// use the following pattern for most responsive styles:
+
+// .Example {
+// ... desktop styling
+// @media (max-width: $landscape-breakpoint) {
+//   .. small screen styling
+// }
+// @media (max-width: $tablet-breakpoint) {
+//   .. mobile screen styling
+// }
+// }
+
 
 // theme variables
 

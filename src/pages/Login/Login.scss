@@ -47,7 +47,7 @@ $form-margin: 0.5fr;
   grid-area: buttons;
 }
 
-@media (max-width: $small-screen), not screen {
+@media (max-width: $phone-breakpoint), not screen {
   .Login_ {
     grid-template-columns: 1fr;
     grid-template-rows: $mobile-navbar-height 1fr $mobile-footer-height;

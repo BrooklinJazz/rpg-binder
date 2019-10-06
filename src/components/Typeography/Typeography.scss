@@ -1,0 +1,53 @@
+@import "../../common/variables";
+
+
+// adapted from: https://typecast.com/blog/a-more-modern-scale-for-web-typography
+.H1 {
+  font-size: 3em;
+  line-height: 1.05em;
+  @media (max-width: $landscape-breakpoint) {
+    font-size: 2.5em;
+    line-height: 1.125em;
+  }
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 2em;
+    line-height: 1.25em;
+  }
+}
+
+.H2 {
+  font-size: 2.25em;
+  line-height: 1.25em;
+  @media (max-width: $landscape-breakpoint) {
+    font-size: 2em;
+    line-height: 1.25em;
+  }
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 1.625em;
+    line-height: 1.15em;
+  }
+}
+
+
+.H3 {
+  font-size: 1.75em;
+  line-height: 1.25em;
+  @media (max-width: $landscape-breakpoint) {
+    font-size: 1.5;
+    line-height: 1.25em;
+  }
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 1.375em;
+    line-height: 1.14em;
+  }
+}
+
+.Body {
+  font-size: 1em;
+  line-height: 1.27em;
+  @media (max-width: $landscape-breakpoint) {
+  }
+  @media (max-width: $tablet-breakpoint) {
+    line-height: 1.25em;
+  }
+}

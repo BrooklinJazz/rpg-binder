@@ -1,15 +1,25 @@
+import "./CampaignSelect.scss";
+
 import React from "react";
+
 import { useQuery } from "@apollo/react-hooks";
+
 import { CAMPAIGN_NAMES } from "../../api/apollo";
+import { H1, H2 } from "../../components/Typeography";
 
 const CampaignSelect = () => {
-  const { data, loading, error } = useQuery<
-    { campaigns: { _id: string; name: string }[] }
-  >(CAMPAIGN_NAMES);
+  const { data, loading, error } = useQuery<{
+    campaigns: { _id: string; name: string }[];
+  }>(CAMPAIGN_NAMES);
   return (
-    <div>
-      <button onClick={() => console.log(data)}>test:</button>
-      {data && data.campaigns.map(campaign => <div>{campaign.name}</div>)}
+    <div className="CampaignSelect">
+      <div className="CampaignSelectContent">
+        <H1>Select Campaign</H1>
+        {data &&
+          data.campaigns.map(campaign => (
+            <H2 key={campaign._id}>{campaign.name}</H2>
+          ))}
+      </div>
     </div>
   );
 };
