@@ -11,28 +11,28 @@ import User from "./models/user";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: async ({ req }): Promise<IContext> => {
-  //   const token =
-  //     req.headers.authorization && req.headers.authorization.split(" ")[1];
-  //   let decodedToken;
-  //   let user;
-  //   // only throw an error if a token was provided but is invalid
-  //   // because some calls do not require a token
-  //   console.log("CONTEXT RUNNING");
-  //   if (token) {
-  //     try {
-  //       decodedToken = jwt.verify(
-  //         token,
-  //         process.env.JWT_SECRET_KEY || ""
-  //       ) as IAuthData;
-  //       user = decodedToken && (await User.findById(decodedToken.userId));
-  //     } catch (error) {
-  //       throw new AuthenticationError(error);
-  //     }
-  //   }
-  //   // NOTE using || undefined to get around possible null type.
-  //   return { user: user || undefined };
-  // }
+  context: async ({ req }): Promise<IContext> => {
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
+    let decodedToken;
+    let user;
+    // only throw an error if a token was provided but is invalid
+    // because some calls do not require a token
+    console.log("CONTEXT RUNNING");
+    if (token) {
+      try {
+        decodedToken = jwt.verify(
+          token,
+          process.env.JWT_SECRET_KEY || ""
+        ) as IAuthData;
+        user = decodedToken && (await User.findById(decodedToken.userId));
+      } catch (error) {
+        throw new AuthenticationError(error);
+      }
+    }
+    // NOTE using || undefined to get around possible null type.
+    return { user: user || undefined };
+  }
 });
 
 dotenv.config();
@@ -44,7 +44,7 @@ mongoose
   .then(() => {
     server.listen().then(({ url }: { url: string }) => {
       console.log(`🚀  Server ready at ${url}`);
-    });
+    }).catch(err => console.log("SERVER ERROR", err))
   })
   .catch(err => {
     console.log(err);

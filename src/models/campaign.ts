@@ -9,14 +9,18 @@ const campaignSchema = new Schema({
   npcs: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Npc"
+      ref: "Npc",
+      autopopulate: true,
     }
   ],
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true
+    autopopulate: true,
+    required: true,
   }
 });
+
+campaignSchema.plugin(require('mongoose-autopopulate'))
 
 export default model<ICampaign>("Campaign", campaignSchema);

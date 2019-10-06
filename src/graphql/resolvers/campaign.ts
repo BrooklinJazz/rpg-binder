@@ -11,20 +11,34 @@ import { checkSignedIn, npcsFromIds, userFromId } from "./helpers";
 
 export default {
   Query: {
-    campaigns: async (root: any, input: null, context: IContext) => {
-      checkSignedIn(context);
+    campaigns: async () => {
       try {
-        const campaigns = await Campaign.find().lean();
-        const transformedNpcs = campaigns.map((campaign: ICampaign) => ({
-          ...campaign,
-          creator: userFromId(campaign.creator),
-          npcs: npcsFromIds(campaign.npcs)
-        }));
-        return transformedNpcs;
+        const campaigns = await Campaign.find()
+        return campaigns;
       } catch (error) {
-        throw error;
+        throw new Error(error);
       }
     },
+    // campaigns: async (root: any, input: null, context: IContext) => {
+    //   checkSignedIn(context);
+    //   console.log("GET CAMPAIGNS")
+    //   try {
+    //     console.log("finding campaigns")
+    //     const campaigns = await Campaign.find().lean();
+    //     console.log("transforming campaigns")
+    //     const transformedCampaigns = campaigns.map((campaign: ICampaign) => ({
+    //       ...campaign,
+    //       creator: userFromId(campaign.creator),
+    //       npcs: npcsFromIds(campaign.npcs)
+    //     }));
+    //     console.log("returning campaigns")
+    //     return transformedCampaigns;
+    //   } catch (error) {
+    //     console.log("THROWING ERROR")
+    //     throw error;
+    //   }
+    //   console.log("DONE")
+    // },
     campaign: async (
       root: any,
       { input }: IInput<{ _id: string }>,

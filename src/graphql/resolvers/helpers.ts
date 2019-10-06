@@ -18,11 +18,10 @@ export const npcsFromIds = (npcIds: string[]): any =>
 
 export const userFromId = (userId: string) =>
   User.findById(userId)
-    .lean()
     .then(
-      (user: IUser) =>
+      (user) =>
         user && {
-          ...user,
+          ...user.toObject(),
           npcs: npcsFromIds(user.npcs),
           campaigns: campaignsFromIds(user.campaigns)
         }
