@@ -75,3 +75,9 @@ export const CAMPAIGN_NAMES = gql(`
     }
   }
 `);
+
+export const AUTO_LOGIN = gql(`
+  query {
+    login
+  }
+`);

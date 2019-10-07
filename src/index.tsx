@@ -12,24 +12,28 @@ import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
 import { selectIsLoggedIn } from "./context/auth/selectors";
 import { AuthProvider, useAuthState } from "./context/auth/store";
+import { CampaignProvider } from "./context/campaign/store";
+import { ThemeProvider } from "./context/theme/store";
+import DevComponents from "./DevComponents";
 import Login from "./pages/Login";
 import * as serviceWorker from "./serviceWorker";
-import { ThemeProvider } from "./ThemeProvider";
-import { CampaignProvider } from "./context/campaign/store";
 
 const PageRouting = () => {
   const state = useAuthState();
   const isLoggedIn = selectIsLoggedIn(state);
   return (
-    <Switch>
-      <AuthRoute
-        isAuth={!isLoggedIn}
-        redirectUrl={Routes.APP}
-        path={Routes.LOGIN}
-        component={Login}
-      />
-      <AuthRoute isAuth={isLoggedIn} path={Routes.APP} component={App} />
-    </Switch>
+    <>
+      {process.env.NODE_ENV === "development" && <DevComponents />}
+      <Switch>
+        <AuthRoute
+          isAuth={!isLoggedIn}
+          redirectUrl={Routes.APP}
+          path={Routes.LOGIN}
+          component={Login}
+        />
+        <AuthRoute isAuth={isLoggedIn} path={Routes.APP} component={App} />
+      </Switch>
+    </>
   );
 };
 
@@ -39,7 +43,7 @@ ReactDOM.render(
       <ThemeProvider>
         <AuthProvider>
           <CampaignProvider>
-          <PageRouting />
+            <PageRouting />
           </CampaignProvider>
         </AuthProvider>
       </ThemeProvider>

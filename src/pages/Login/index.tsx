@@ -26,7 +26,9 @@ const Login = () => {
     { login: { token: string } },
     { email: string; password: string }
   >(LOGIN);
-  const error = "Mock";
+  const error = isSigningUp
+    ? signUpRes.error && signUpRes.error.message
+    : loginRes.error && loginRes.error.message;
   const dispatch = useAuthDispatch();
   // TODO refactor using onCompleted and onError
   useEffect(() => {

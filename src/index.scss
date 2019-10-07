@@ -5,6 +5,12 @@ body {
   margin: 0;
 }
 
+.DevComponents {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react";
 
 import { LocalStorage } from "../../common/constants";
-import { parseFromStorage } from "../../common/helpers";
+import { parseFromStorage, valueFromStorage } from "../../common/helpers";
 import { ICampaign } from "../../common/types";
 import { CampaignAction, CampaignDispatch, ICampaignState } from "./types";
 
@@ -28,9 +28,7 @@ const CampaignDispatchContext = createContext<CampaignDispatch | undefined>(
 );
 
 const initialState: ICampaignState = {
-  activeCampaign: parseFromStorage(LocalStorage.ACTIVE_CAMPAIGN) as
-    | ICampaign
-    | undefined
+  activeCampaign: valueFromStorage(LocalStorage.ACTIVE_CAMPAIGN)
 };
 
 export const CampaignProvider = ({ children }: { children: ReactNode }) => {
