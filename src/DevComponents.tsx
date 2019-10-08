@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 
@@ -23,6 +23,17 @@ const DevComponents = () => {
       })
     );
   };
+  const [hide, setHide] = useState(true);
+  if (hide) {
+    return (
+      <button
+        onClick={() => setHide(false)}
+        className="DevComponents hidden"
+      >
+        Show
+      </button>
+    );
+  }
   return (
     <div className="DevComponents">
       <button onClick={() => authDispatch(logoutAction())}>Logout</button>
@@ -35,6 +46,9 @@ const DevComponents = () => {
       </button>
       <button onClick={toggleTheme} className="ThemeToggle">
         Toggle Theme
+      </button>
+      <button onClick={() => setHide(true)}>
+        Hide
       </button>
     </div>
   );

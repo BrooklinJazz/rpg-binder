@@ -3,6 +3,7 @@
 
 body {
   margin: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 .DevComponents {
@@ -11,12 +12,19 @@ body {
   flex-direction: column;
 }
 
+.DevComponents.hidden {
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    // transition: color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+  // transition: color 5000s ease-in-out 0s;
 }
 
 $theme-list: (
@@ -120,8 +128,7 @@ $on-theme-list: (
     ".on-success",
     $on-success
   ),
-  6:
-  (
+  6: (
     ".on-info",
     $on-info
   )
