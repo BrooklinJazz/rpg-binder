@@ -1,5 +1,6 @@
 export enum Routes {
   APP = "/",
-  CampaignSelect = "/campaign-select",
+  CAMPAIGN_SELECT = "/campaign-select",
+  DASHBOARD = "/dashboard",
   LOGIN = "/login"
 }

@@ -81,3 +81,13 @@ export const AUTO_LOGIN = gql(`
     login
   }
 `);
+
+export const GET_CAMPAIGN = gql(`
+  query getCampaign($campaignId: ID!) {
+      campaign(input: {_id: $campaignId}) {
+        _id
+        name
+        description
+      }
+    }
+`);

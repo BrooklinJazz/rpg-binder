@@ -40,7 +40,24 @@
     background-color: t($default);
     color: t($on-default);
   }
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: max-content 1fr;
+  grid-row-gap: 20px;
+  grid-template-areas:
+    "campaign-content-header campaign-content-add"
+    "campaign-content-list campaign-content-list";
+}
+
+.CampaignSelectHeader {
+  grid-area: campaign-content-header;
+}
+.CampaignSelectList {
+  grid-area: campaign-content-list;
+}
+.CampaignSelectAdd {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  grid-area: campaign-content-add;
 }
