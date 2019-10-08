@@ -1,11 +1,11 @@
 @import "../../common/theme";
 @import "../../common/variables";
 
+// gta PAGE
 .CampaignSelect {
   display: grid;
-  height: 100vh;
-  width: 100vw;
-  grid-template-rows: 20% 60% 20%;
+  padding-top: 20px;
+  grid-template-rows: 20px 60% 20%;
   grid-template-columns: 20% 60% 20%;
   grid-template-areas:
     ". . ."
@@ -13,7 +13,7 @@
     ". . .";
 
   @media (max-width: $landscape-breakpoint) {
-    grid-template-rows: 20% 60% 20%;
+    grid-template-rows: 20px 60% 20%;
     grid-template-columns: 10% 80% 10%;
     grid-template-areas:
       ". . ."
@@ -21,7 +21,7 @@
       ". . .";
   }
   @media (max-width: $tablet-breakpoint) {
-    grid-template-rows: 20% 60% 20%;
+    grid-template-rows: 20px 60% 20%;
     grid-template-columns: 100%;
     grid-template-areas:
       "."
@@ -37,21 +37,22 @@
 .CampaignSelectContent {
   grid-area: content;
   @include themed() {
-    background-color: t($default);
-    color: t($on-default);
+    color: t($on-background);
   }
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: max-content 1fr;
-  grid-row-gap: 20px;
-  grid-template-areas:
-    "campaign-content-header campaign-content-add"
-    "campaign-content-list campaign-content-list";
 }
 
 .CampaignSelectHeader {
-  grid-area: campaign-content-header;
 }
+.CampaignSelectNew {
+  @include themed() {
+    &:hover {
+      cursor: pointer;
+      color: desaturate(t($on-default), 70%);
+    }
+    background-color: t($default);
+  }
+}
+
 .CampaignSelectList {
   grid-area: campaign-content-list;
 }

@@ -9,10 +9,6 @@ export enum Theme {
   warning = "warning",
   danger = "danger",
   background = "background",
-  hoverable = "hoverable"
-}
-
-export enum OnTheme {
   onPrimary = "on-primary",
   onSecondary = "on-secondary",
   onBackground = "on-background",

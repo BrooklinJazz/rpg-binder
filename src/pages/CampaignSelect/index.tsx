@@ -7,11 +7,14 @@ import { useQuery } from "@apollo/react-hooks";
 import { CAMPAIGN_NAMES } from "../../api/apollo";
 import { SuccessButton } from "../../components/Button";
 import Loading from "../../components/Loading";
-import { H1, H2 } from "../../components/Typeography";
+import { H1, H2, Body } from "../../components/Typeography";
 import { selectCampaign } from "../../context/campaign/actions";
 import { useCampaignDispatch } from "../../context/campaign/store";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Routes } from "../../common/routes";
+import combineClasses from "combine-classes/lib";
+import { GridTemplateAreas } from "../../common/constants";
+import { Theme } from "../../common/theme";
 
 const CampaignSelect = ({ history }: RouteComponentProps) => {
   const { data, loading, error } = useQuery<{
@@ -19,9 +22,18 @@ const CampaignSelect = ({ history }: RouteComponentProps) => {
   }>(CAMPAIGN_NAMES);
   const dispatch = useCampaignDispatch();
   return (
-    <div className="CampaignSelect">
+    <div className={combineClasses("CampaignSelect", GridTemplateAreas.PAGE)}>
       <div className="CampaignSelectContent">
-        <H1 className="CampaignSelectHeader">Select Campaign</H1>
+        <div className="CampaignSelectHeader">
+          <H1 fontWeight="light" elementStyle="H2">
+            Campaigns
+          </H1>
+        </div>
+        <div className={Theme.default}>
+          <Body className={combineClasses(Theme.onDefault, Theme.hoverable)}>
+            + New
+          </Body>
+        </div>
         <div className="CampaignSelectList">
           {loading && <Loading />}
           {data &&
@@ -36,9 +48,6 @@ const CampaignSelect = ({ history }: RouteComponentProps) => {
                 </H2>
               );
             })}
-        </div>
-        <div className="CampaignSelectAdd">
-          <SuccessButton>Add Campaign</SuccessButton>
         </div>
       </div>
     </div>

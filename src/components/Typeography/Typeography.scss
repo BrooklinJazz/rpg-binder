@@ -1,6 +1,5 @@
 @import "../../common/variables";
 
-
 // adapted from: https://typecast.com/blog/a-more-modern-scale-for-web-typography
 .H1 {
   font-size: 3em;
@@ -28,7 +27,6 @@
   }
 }
 
-
 .H3 {
   font-size: 1.75em;
   line-height: 1.25em;
@@ -50,4 +48,17 @@
   @media (max-width: $tablet-breakpoint) {
     line-height: 1.25em;
   }
+}
+
+.bold {
+  font-weight: 700;
+}
+.normal {
+  font-weight: 500;
+}
+.regular {
+  font-weight: 400;
+}
+.light {
+  font-weight: 300;
 }

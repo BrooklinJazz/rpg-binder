@@ -4,12 +4,12 @@ import combineClasses from "combine-classes";
 import React, { useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 
-import { OnTheme, Theme } from "../../common/theme";
+import { Theme } from "../../common/theme";
 import Close from "../Close";
 
 interface IBaseSnackbarProps extends ISnackbarProps {
   theme: Theme;
-  onTheme: OnTheme;
+  onTheme: Theme;
 }
 
 const AUTO_HIDE_DURATION = 4000;
@@ -53,14 +53,14 @@ interface ISnackbarProps {
 }
 
 export const DangerSnackbar = (props: ISnackbarProps) => (
-  <BaseSnackbar {...props} onTheme={OnTheme.onDanger} theme={Theme.danger} />
+  <BaseSnackbar {...props} onTheme={Theme.onDanger} theme={Theme.danger} />
 );
 export const InfoSnackbar = (props: ISnackbarProps) => (
-  <BaseSnackbar {...props} onTheme={OnTheme.onInfo} theme={Theme.info} />
+  <BaseSnackbar {...props} onTheme={Theme.onInfo} theme={Theme.info} />
 );
 export const SuccessSnackbar = (props: ISnackbarProps) => (
-  <BaseSnackbar {...props} onTheme={OnTheme.onSuccess} theme={Theme.success} />
+  <BaseSnackbar {...props} onTheme={Theme.onSuccess} theme={Theme.success} />
 );
 export const WarningSnackbar = (props: ISnackbarProps) => (
-  <BaseSnackbar {...props} onTheme={OnTheme.onWarning} theme={Theme.warning} />
+  <BaseSnackbar {...props} onTheme={Theme.onWarning} theme={Theme.warning} />
 );

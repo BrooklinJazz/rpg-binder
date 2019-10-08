@@ -7,4 +7,31 @@
   @include themed() {
     background-color: t($background);
   }
+  display: grid;
+  background: black;
+  grid-template-rows: $navbar-height 1fr;
+  grid-template-columns: min-content 1fr;
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+
+.NAVBAR {
+  grid-area: navbar;
+  // TODO remove
+  background-color: purple;
+}
+
+.PAGE {
+  grid-area: sidebar / sidebar / content / content;
+}
+
+.SIDEBAR {
+  opacity: 0.5;
+  grid-area: sidebar;
+}
+
+.CONTENT {
+  opacity: 0.5;
+  grid-area: content;
 }
