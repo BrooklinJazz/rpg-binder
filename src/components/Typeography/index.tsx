@@ -6,14 +6,14 @@ import React, { ReactNode } from "react";
 interface IProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;
   elementStyle?: "H1" | "H2" | "H3" | "Body";
-  fontWeight?: "light" | "regular" | "medium" | "bold";
+  fontWeight?: "light" | "normal" | "medium" | "bold";
 }
 
 export const H1 = ({
   children,
   className,
   elementStyle = "H1",
-  fontWeight = "regular",
+  fontWeight = "normal",
   ...props
 }: IProps) => (
   <h1
@@ -27,7 +27,7 @@ export const H2 = ({
   children,
   className,
   elementStyle = "H2",
-  fontWeight = "regular",
+  fontWeight = "normal",
   ...props
 }: IProps) => (
   <h2
@@ -42,7 +42,7 @@ export const H3 = ({
   children,
   className,
   elementStyle = "H2",
-  fontWeight = "regular",
+  fontWeight = "normal",
   ...props
 }: IProps) => (
   <h3
@@ -53,17 +53,24 @@ export const H3 = ({
   </h3>
 );
 
-export const Body = ({
+interface ITextProps extends IProps {
+  size?: "small" | "regular" | "large";
+}
+
+export const Text = ({
   children,
   className,
   elementStyle = "Body",
-  fontWeight = "regular",
+  fontWeight = "normal",
   ...props
-}: IProps) => (
-  <h3
-    {...props}
-    className={combineClasses(elementStyle, className, fontWeight)}
-  >
-    {children}
-  </h3>
-);
+}: ITextProps) => {
+  const { size = elementStyle ? undefined : (props.size || "regular") } = props;
+  return (
+    <h3
+      {...props}
+      className={combineClasses(elementStyle, className, fontWeight, size)}
+    >
+      {children}
+    </h3>
+  );
+};
