@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 
 interface IProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;
-  elementStyle?: "H1" | "H2" | "H3" | "Body";
+  elementStyle?: "H1" | "H2" | "H3" | "Text";
   fontWeight?: "light" | "normal" | "medium" | "bold";
 }
 
@@ -60,7 +60,7 @@ interface ITextProps extends IProps {
 export const Text = ({
   children,
   className,
-  elementStyle = "Body",
+  elementStyle = "Text",
   fontWeight = "normal",
   ...props
 }: ITextProps) => {
@@ -68,7 +68,7 @@ export const Text = ({
   return (
     <h3
       {...props}
-      className={combineClasses(elementStyle, className, fontWeight, size)}
+      className={combineClasses(className, elementStyle, fontWeight, size)}
     >
       {children}
     </h3>

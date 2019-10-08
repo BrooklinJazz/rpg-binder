@@ -1,5 +1,4 @@
 @import "./variables";
-
 $themes: (
   light: (
     default: #f5f5f5,
@@ -197,7 +196,12 @@ $theme-list: (
     ".info",
     $info,
     $on-info
-  )
+  ),
+  7: (
+    ".background",
+    $background,
+    $on-background
+  ),
 );
 
 @each $theme-list, $key-number in $theme-list {

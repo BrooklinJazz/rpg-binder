@@ -1,6 +1,13 @@
 @import "../../common/variables";
 
 // adapted from: https://typecast.com/blog/a-more-modern-scale-for-web-typography
+.H1,
+.H2,
+.H3,
+.Text {
+  margin: 0;
+}
+
 .H1 {
   font-size: 3em;
   line-height: 1.05em;
@@ -41,7 +48,8 @@
 }
 
 // matches an h4
-.Body.regular {
+.Text.regular {
+  padding: 0.1em 0;
   font-size: 1em;
   line-height: 1.375em;
   @media (max-width: $landscape-breakpoint) {
@@ -51,7 +59,7 @@
   }
 }
 
-.Body.large {
+.Text.large {
   font-size: 1.125em;
   line-height: 1.222em;
   @media (max-width: $landscape-breakpoint) {
@@ -61,7 +69,7 @@
   }
 }
 
-.Body.small {
+.Text.small {
   font-size: 0.75em;
   line-height: 1.25em;
   @media (max-width: $landscape-breakpoint) {

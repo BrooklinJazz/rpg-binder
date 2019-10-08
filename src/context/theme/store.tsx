@@ -36,7 +36,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeStateContext.Provider value={state}>
       <ThemeDispatchContext.Provider value={dispatch}>
-        <div className={state.theme}>{children}</div>;
+        <div className={state.theme}>{children}</div>
       </ThemeDispatchContext.Provider>
     </ThemeStateContext.Provider>
   );
