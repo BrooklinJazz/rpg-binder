@@ -4,11 +4,12 @@
 .ModalWrapper {
   position: absolute;
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
+  // background-color: blue;
 }
 .Modal {
   width: 100px;

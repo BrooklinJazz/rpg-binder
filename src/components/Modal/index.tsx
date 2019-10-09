@@ -4,7 +4,7 @@ import "./Modal.scss";
 const Modal = () => {
   return (
     <div className="ModalWrapper">
-      <div>Modal Placeholder</div>
+      <div className="Modal">Modal Placeholder</div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import "./CampaignSelect.scss";
 
 import combineClasses from "combine-classes/lib";
-import React from "react";
+import React, { useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import { useQuery } from "@apollo/react-hooks";
@@ -24,16 +24,20 @@ const CampaignSelect = ({ history }: RouteComponentProps) => {
     campaigns: { _id: string; name: string }[];
   }>(CAMPAIGN_NAMES);
   const dispatch = useCampaignDispatch();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <>
-      {/* <Modal /> */}
+      {modalIsOpen && <Modal />}
       <div className={combineClasses("CampaignSelect", GridTemplateAreas.PAGE)}>
         <div className="CampaignSelectContent">
           <div className="CampaignSelectHeader">
             <H1 fontWeight="light">Campaigns</H1>
           </div>
           <div className={combineClasses(Theme.default, "CampaignSelectNew")}>
-            <Text className={combineClasses(Theme.onDefault, Theme.hoverable)}>
+            <Text
+              onClick={() => setModalIsOpen(true)}
+              className={combineClasses(Theme.onDefault, Theme.hoverable)}
+            >
               + New
             </Text>
           </div>
