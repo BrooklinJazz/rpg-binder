@@ -83,11 +83,20 @@ export const AUTO_LOGIN = gql(`
 `);
 
 export const GET_CAMPAIGN = gql(`
-  query getCampaign($campaignId: ID!) {
+  query Campaign($campaignId: ID!) {
       campaign(input: {_id: $campaignId}) {
         _id
         name
         description
+      }
+    }
+`);
+
+export const CREATE_CAMPAIGN = gql(`
+  mutation CreateCampaign($name: String!) {
+      createCampaign(input: {name: $name}) {
+        _id
+        name
       }
     }
 `);

@@ -3,6 +3,7 @@
   "extends": ["tslint:recommended", "tslint-react", "tslint-react-a11y"],
   "jsRules": {},
   "rules": {
+    "jsx-no-lamda": false,
     "no-var-requires": false,
     "trailing-comma": false,
     "object-literal-sort-keys": false,

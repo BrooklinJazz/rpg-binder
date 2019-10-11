@@ -3,25 +3,6 @@ $footer-height: 40px;
 $mobile-navbar-height: 40px;
 $mobile-footer-height: 40px;
 
-// breakpoints
-$phone-breakpoint: 600px;
-$tablet-breakpoint: 900px;
-$landscape-breakpoint: 1200px;
-// $desktop-breakpoint: 1800px;
-
-// use the following pattern for most responsive styles:
-
-// .Example {
-// ... desktop styling
-// @media (max-width: $landscape-breakpoint) {
-//   .. small screen styling
-// }
-// @media (max-width: $tablet-breakpoint) {
-//   .. mobile screen styling
-// }
-// }
-
-
 // theme variables
 
 $default: "default";
@@ -59,3 +40,30 @@ $snackbar-radius: 5px;
 // icons
 $icon-height: 30px;
 $icon-width: 30px;
+
+// modal
+$modal-spacing: 30px;
+
+// media styles
+
+// breakpoints
+$phone-breakpoint: 600px;
+$tablet-breakpoint: 900px;
+$landscape-breakpoint: 1200px;
+// $desktop-breakpoint: 1800px;
+
+@mixin mobileStyles() {
+  @media (max-width: $phone-breakpoint) {
+    @content;
+  }
+}
+@mixin tabletStyles() {
+  @media (max-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+@mixin landscapeStyles() {
+  @media (max-width: $landscape-breakpoint) {
+    @content;
+  }
+}

@@ -17,3 +17,5 @@ export enum GridTemplateAreas {
   SIDEBAR = "SIDEBAR",
   CONTENT = "CONTENT"
 }
+
+export const pollInterval = 1000;

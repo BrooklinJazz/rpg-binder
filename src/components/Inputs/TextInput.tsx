@@ -5,8 +5,8 @@ import style from "./Input.module.scss";
 
 interface ITextProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Text = (props: ITextProps) => (
+const TextInput = (props: ITextProps) => (
   <input {...props} className={combineClasses(style.Text, props.className)} />
 );
 
-export default Text;
+export default TextInput;

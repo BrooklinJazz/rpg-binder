@@ -7,11 +7,10 @@
   height: $input-height;
   padding: $input-padding;
   outline: none;
-  border: none;
 }
 
 .Label {
-  margin-top: 20px;
+  margin-top: $modal-spacing;
   width: 100%;
   display: inline-block;
   * {

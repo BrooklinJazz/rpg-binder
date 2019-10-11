@@ -9,14 +9,22 @@
   justify-content: center;
   align-items: center;
   z-index: 100;
-  // background-color: blue;
 }
 .Modal {
-  width: 100px;
-  height: 150px;
-  background-color: red;
-  //   @include themed() {
-  //     background-color: t($default);
-  //     color: t($default);
-  //   }
+  padding: $modal-spacing;
+  width: 500px;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: max-content;
+  @include themed() {
+    background-color: t($default);
+    color: t($on-default);
+    border: solid 1px t($primary)
+  }
+  @include mobileStyles() {
+  }
+  @include tabletStyles() {
+  }
+  @include landscapeStyles() {
+  }
 }

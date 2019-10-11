@@ -160,9 +160,9 @@ $linear-channel-values: 0 0.0003035269835488375 0.000607053967097675
   $darkContrast: contrast($color, black);
 
   @if ($lightContrast > $darkContrast) {
-    @return lighten($color, 15%);
+    @return lighten($color, 30%);
   } @else {
-    @return darken($color, 5%);
+    @return darken($color, 30%);
   }
 }
 

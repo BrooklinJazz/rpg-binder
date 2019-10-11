@@ -14,7 +14,6 @@ const BaseButton = (props: IButtonProps) => (
     {...props}
     className={combineClasses(
       "Base",
-      Theme.hoverable,
       props.className,
       props.variant
     )}

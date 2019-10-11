@@ -9,25 +9,26 @@ import { faBookDead } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { CAMPAIGN_NAMES } from "../../api/apollo";
-import { GridTemplateAreas } from "../../common/constants";
+import { GridTemplateAreas, pollInterval } from "../../common/constants";
 import { Routes } from "../../common/routes";
 import { Theme } from "../../common/theme";
 import { SuccessButton } from "../../components/Button";
 import Loading from "../../components/Loading";
-import Modal from "../../components/Modal";
 import { H1, H2, Text } from "../../components/Typeography";
 import { selectCampaign } from "../../context/campaign/actions";
 import { useCampaignDispatch } from "../../context/campaign/store";
-
+import CreateCampaignModal from "./CampaignModal";
 const CampaignSelect = ({ history }: RouteComponentProps) => {
   const { data, loading, error } = useQuery<{
     campaigns: { _id: string; name: string }[];
-  }>(CAMPAIGN_NAMES);
+  }>(CAMPAIGN_NAMES, {pollInterval});
   const dispatch = useCampaignDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <>
-      {modalIsOpen && <Modal />}
+      {modalIsOpen && (
+        <CreateCampaignModal close={() => setModalIsOpen(false)} />
+      )}
       <div className={combineClasses("CampaignSelect", GridTemplateAreas.PAGE)}>
         <div className="CampaignSelectContent">
           <div className="CampaignSelectHeader">

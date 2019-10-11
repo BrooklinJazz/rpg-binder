@@ -10,7 +10,7 @@ import { Theme } from "../../common/theme";
 import { DefaultButton, SuccessButton } from "../../components/Button";
 import Form from "../../components/Inputs/Form";
 import Label from "../../components/Inputs/Label";
-import Text from "../../components/Inputs/Text";
+import Text from "../../components/Inputs/TextInput";
 import { authRequestSuccess } from "../../context/auth/actions";
 import { useAuthDispatch } from "../../context/auth/store";
 

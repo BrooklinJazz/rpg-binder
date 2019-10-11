@@ -23,7 +23,7 @@ const PageRouting = () => {
   const isLoggedIn = selectIsLoggedIn(state);
   return (
     <>
-      {process.env.NODE_ENV === "development" && <DevComponents />}
+    {process.env.NODE_ENV === "development" && <DevComponents />}
       <Switch>
         <AuthRoute
           isAuth={!isLoggedIn}

@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Modal.scss";
+import combineClasses from "combine-classes/lib";
 
-const Modal = () => {
+interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
+  close: () => void;
+}
+
+const Modal = ({ children, className, close, ...props }: IModalProps) => {
+  useEffect(() => {
+    document.addEventListener("keyup", event => {
+      const key = event.key || event.keyCode;
+      const isEscape = ["Escape", "Esc", 27].some(
+        escapeCode => escapeCode === key
+      );
+      if (isEscape) {
+        close();
+      }
+    });
+    return document.removeEventListener("keyup", close);
+  });
   return (
     <div className="ModalWrapper">
-      <div className="Modal">Modal Placeholder</div>
+      <div {...props} className={combineClasses("Modal", className)}>
+        {children}
+      </div>
     </div>
   );
 };
