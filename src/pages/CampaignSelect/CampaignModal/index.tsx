@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const CampaignModal = ({ close }: IProps) => {
-  const [create, { data, loading, error }] = useMutation<any, { name: string }>(
+  const [create, { loading, error }] = useMutation<any, { name: string }>(
     CREATE_CAMPAIGN,
     { onCompleted: close }
   );
