@@ -5,27 +5,26 @@ import { Redirect, Route, Switch } from "react-router";
 
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
+import Navbar from "./pages/Journal/JournalNavbar";
 import { useCampaignState } from "./context/campaign/store";
 import CampaignSelect from "./pages/CampaignSelect";
-import Dashboard from "./pages/Dashboard";
-import { GridTemplateAreas } from "./common/constants";
+import Journal from "./pages/Journal";
 
 const App: React.FC = () => {
   const { activeCampaign } = useCampaignState();
 
   return (
     <div className="App">
-      <div className={GridTemplateAreas.NAVBAR}>Navbar Placeholder</div>
       <Switch>
         <AuthRoute
-          path={Routes.DASHBOARD}
+          path={Routes.JOURNAL}
           isAuth={Boolean(activeCampaign)}
-          component={Dashboard}
+          component={Journal}
           redirectUrl={Routes.CAMPAIGN_SELECT}
         />
         <Route path={Routes.CAMPAIGN_SELECT} component={CampaignSelect} />
         <Redirect
-          to={activeCampaign ? Routes.DASHBOARD : Routes.CAMPAIGN_SELECT}
+          to={activeCampaign ? Routes.JOURNAL : Routes.CAMPAIGN_SELECT}
         />
       </Switch>
     </div>

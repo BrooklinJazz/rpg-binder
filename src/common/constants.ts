@@ -18,4 +18,6 @@ export enum GridTemplateAreas {
   CONTENT = "CONTENT"
 }
 
+export const PROJECT_NAME = "DM Binder";
+
 export const pollInterval = 1000;

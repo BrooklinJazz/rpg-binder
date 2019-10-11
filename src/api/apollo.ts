@@ -82,7 +82,7 @@ export const AUTO_LOGIN = gql(`
   }
 `);
 
-export const GET_CAMPAIGN = gql(`
+export const CAMPAIGN = gql(`
   query Campaign($campaignId: ID!) {
       campaign(input: {_id: $campaignId}) {
         _id

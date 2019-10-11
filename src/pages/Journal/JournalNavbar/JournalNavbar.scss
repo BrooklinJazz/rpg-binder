@@ -1,0 +1,18 @@
+@import "../../../common/variables";
+
+.JournalNavbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 $navbar-spacing;
+}
+
+.JournalNavbarRight {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.JournalNavbarSpacing {
+    margin-right: $navbar-spacing;
+}

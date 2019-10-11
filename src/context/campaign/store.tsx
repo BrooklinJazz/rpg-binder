@@ -1,8 +1,7 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react";
 
 import { LocalStorage } from "../../common/constants";
-import { parseFromStorage, valueFromStorage } from "../../common/helpers";
-import { ICampaign } from "../../common/types";
+import { setInStorage, valueFromStorage } from "../../common/helpers";
 import { CampaignAction, CampaignDispatch, ICampaignState } from "./types";
 
 const campaignReducer = (state: ICampaignState, action: CampaignAction) => {
@@ -10,6 +9,7 @@ const campaignReducer = (state: ICampaignState, action: CampaignAction) => {
   let nextState = state;
   switch (action.type) {
     case "select_campaign":
+      setInStorage(LocalStorage.ACTIVE_CAMPAIGN, action.payload.campaign);
       nextState = { ...state, activeCampaign: action.payload.campaign };
       break;
     default:

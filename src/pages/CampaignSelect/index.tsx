@@ -47,7 +47,7 @@ const CampaignSelect = ({ history }: RouteComponentProps) => {
             {data &&
               data.campaigns.map(campaign => {
                 const setCampaign = () => {
-                  history.push(Routes.DASHBOARD);
+                  history.push(Routes.JOURNAL);
                   dispatch(selectCampaign({ campaign: campaign._id }));
                 };
                 return (

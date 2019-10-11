@@ -6,6 +6,7 @@
     "@apollo/react-hooks": "^3.1.1",
     "@craco/craco": "^5.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@types/bcryptjs": "^2.4.2",

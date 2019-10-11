@@ -13,7 +13,7 @@ export const H1 = ({
   children,
   className,
   elementStyle = "H1",
-  fontWeight = "normal",
+  fontWeight = "light",
   ...props
 }: IProps) => (
   <h1
@@ -27,7 +27,7 @@ export const H2 = ({
   children,
   className,
   elementStyle = "H2",
-  fontWeight = "normal",
+  fontWeight = "light",
   ...props
 }: IProps) => (
   <h2
@@ -42,7 +42,7 @@ export const H3 = ({
   children,
   className,
   elementStyle = "H2",
-  fontWeight = "normal",
+  fontWeight = "light",
   ...props
 }: IProps) => (
   <h3
@@ -60,15 +60,15 @@ interface ITextProps extends IProps {
 export const Text = ({
   children,
   className,
-  elementStyle = "Text",
-  fontWeight = "normal",
+  elementStyle,
+  fontWeight = "light",
   ...props
 }: ITextProps) => {
   const { size = elementStyle ? undefined : (props.size || "regular") } = props;
   return (
     <h3
       {...props}
-      className={combineClasses(className, elementStyle, fontWeight, size)}
+      className={combineClasses(className, elementStyle, fontWeight, size, "Text")}
     >
       {children}
     </h3>

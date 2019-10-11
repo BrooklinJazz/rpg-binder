@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react";
 
 import { LocalStorage } from "../../common/constants";
-import { valueFromStorage } from "../../common/helpers";
+import { valueFromStorage, setInStorage } from "../../common/helpers";
 import { IThemeState, ThemeAction, ThemeDispatch, ThemeOption } from "./types";
 
 const campaignReducer = (state: IThemeState, action: ThemeAction) => {
@@ -9,6 +9,7 @@ const campaignReducer = (state: IThemeState, action: ThemeAction) => {
   let nextState = state;
   switch (action.type) {
     case "set_theme":
+      setInStorage(LocalStorage.THEME, action.payload.theme);
       nextState = { ...state, theme: action.payload.theme };
       break;
     default:
@@ -26,7 +27,7 @@ const ThemeDispatchContext = createContext<ThemeDispatch | undefined>(
 
 const initialState: IThemeState = {
   theme:
-    (valueFromStorage(LocalStorage.ACTIVE_CAMPAIGN) as
+    (valueFromStorage(LocalStorage.THEME) as
       | ThemeOption
       | undefined) || "theme-light"
 };

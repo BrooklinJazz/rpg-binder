@@ -3,6 +3,8 @@
 
 $form-margin: 0.5fr;
 
+// TODO revamp login form
+
 .Login_ {
   @include themed() {
     background: t($background);
@@ -11,13 +13,11 @@ $form-margin: 0.5fr;
   height: 100vh;
   width: 100vw;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: $navbar-height $form-margin 1fr $form-margin $footer-height;
+  grid-template-rows: $form-margin 1fr $form-margin;
   grid-template-areas:
-    "navbar navbar navbar"
     ". . ."
     ". form ."
     ". . ."
-    "footer footer footer";
 }
 
 .Login_Form {
@@ -45,15 +45,4 @@ $form-margin: 0.5fr;
 .Login_Buttons {
   display: flex;
   grid-area: buttons;
-}
-
-@media (max-width: $phone-breakpoint), not screen {
-  .Login_ {
-    grid-template-columns: 1fr;
-    grid-template-rows: $mobile-navbar-height 1fr $mobile-footer-height;
-    grid-template-areas:
-      "navbar"
-      "form"
-      "footer";
-  }
 }
