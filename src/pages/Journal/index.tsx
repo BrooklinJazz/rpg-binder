@@ -4,6 +4,8 @@ import React from "react";
 import { GridTemplateAreas } from "../../common/constants";
 import { useCampaignState } from "../../context/campaign/store";
 import Navbar from "./JournalNavbar";
+import Navigator from "./Navigator";
+import Entry from "./Entry";
 
 const Journal = () => {
   const { activeCampaign } = useCampaignState();
@@ -13,9 +15,8 @@ const Journal = () => {
   return (
     <>
       <Navbar />
-      <div className={combineClasses(GridTemplateAreas.PAGE)}>
-        Journal Placeholder
-      </div>
+      <Navigator />
+      <Entry />
     </>
   );
 };

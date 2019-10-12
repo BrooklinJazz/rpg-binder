@@ -43,7 +43,6 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
           fontWeight="light"
           elementStyle="H3"
         >
-          >
         </H1>
         <Text fontWeight="medium" size="large">
           {campaignName ? campaignName : <Loading />}
@@ -93,7 +92,6 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
             </Text>
           </div>
         </CSSTransition>
-      )}
     </>
   );
 };

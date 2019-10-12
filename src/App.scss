@@ -12,10 +12,18 @@
   display: grid;
   background: black;
   grid-template-rows: $navbar-height 1fr;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: minmax(max-content, 1fr) 2fr;
   grid-template-areas:
-    "navbar navbar"
-    "sidebar content";
+  "navbar navbar"
+  "sidebar content";
+  @include mobileStyles() {
+    grid-template-columns: 100%;
+    grid-template-rows: $navbar-height minmax(max-content, 1fr) minmax(max-content, 1fr);
+      grid-template-areas:
+        "navbar"
+        "sidebar"
+        "content"
+  }
 }
 
 .NAVBAR {
@@ -27,11 +35,9 @@
 }
 
 .SIDEBAR {
-  opacity: 0.5;
   grid-area: sidebar;
 }
 
 .CONTENT {
-  opacity: 0.5;
   grid-area: content;
 }

@@ -26,6 +26,8 @@ export const phoneBreakpoint = 600;
 export const tabletBreakpoint = 900;
 export const landscapeBreakpoint = 1200;
 
+export const navbarHeight = 90;
+
 export enum Provider {
   FACEBOOK = "facebook",
   TWITTER = "twitter",
