@@ -59,7 +59,7 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
           classNames="JournalMobileNav"
           unmountOnExit
           in={menuOpen}
-          timeout={1000}
+          timeout={500}
         >
           <div className={combineClasses("JournalMobileNavbarDropdown")}>
             {ProviderList.map(provider => (
