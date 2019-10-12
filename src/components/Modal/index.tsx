@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
 import "./Modal.scss";
+
 import combineClasses from "combine-classes/lib";
+import React, { useEffect } from "react";
 
 interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
   close: () => void;
@@ -20,8 +21,12 @@ const Modal = ({ children, className, close, ...props }: IModalProps) => {
     return document.removeEventListener("keyup", close);
   });
   return (
-    <div className="ModalWrapper">
-      <div {...props} className={combineClasses("Modal", className)}>
+    <div onClick={() => console.log("CLO")} className="ModalWrapper">
+      <div
+        onClick={e => e.stopPropagation()}
+        {...props}
+        className={combineClasses("Modal", className)}
+      >
         {children}
       </div>
     </div>
