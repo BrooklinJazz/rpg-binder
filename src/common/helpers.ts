@@ -1,4 +1,4 @@
-import { LocalStorage } from "./constants";
+import { LocalStorage, Provider } from "./constants";
 
 export const valueFromStorage = (key: LocalStorage) =>
   localStorage.getItem(key) || undefined;
@@ -13,3 +13,8 @@ export const setInStorage = (key: LocalStorage, value: string) =>
 
 export const removeFromStorage = (key: LocalStorage) =>
   localStorage.removeItem(key);
+
+export const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
+export const ProviderList = Object.values(Provider);

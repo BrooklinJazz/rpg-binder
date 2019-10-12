@@ -21,3 +21,15 @@ export enum GridTemplateAreas {
 export const PROJECT_NAME = "DM Binder";
 
 export const pollInterval = 1000;
+
+export const phoneBreakpoint = 600;
+export const tabletBreakpoint = 900;
+export const landscapeBreakpoint = 1200;
+
+export enum Provider {
+  FACEBOOK = "facebook",
+  TWITTER = "twitter",
+  LINKEDIN = "linkedin",
+  MEDIUM = "medium",
+  PATREON = "patreon"
+}

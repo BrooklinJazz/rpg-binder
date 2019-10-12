@@ -1,46 +1,64 @@
 @import "./variables";
+$light-default: #f5f5f5;
+$light-primary: #6200ee;
+$light-primary-variant: #3700b3;
+$light-secondary: #03dac6;
+$light-secondary-variant: #018786;
+$light-info: #1975d2;
+$light-success: #43a047;
+$light-warning: #ffa004;
+$light-danger: #b00020;
+
+$dark-default: #333333;
+$dark-primary: #bb86fc;
+$dark-primary-variant: #3700b3;
+$dark-secondary: #03dac6;
+$dark-secondary-variant: #03dac6;
+$dark-info: #90caf9;
+$dark-success: #43a047;
+$dark-warning: #ffa004;
+$dark-danger: #cf6679;
+
 $themes: (
   light: (
-    default: #f5f5f5,
-    primary: #6200ee,
-    primary-variant: #3700b3,
-    secondary: #03dac6,
-    secondary-variant: #018786,
-    info: #1975d2,
-    success: #43a047,
-    warning: #ffa004,
-    danger: #b00020,
-    background: #ffffff,
-    background-hover: darken(#ffffff, 20%),
-    on-primary: #ffffff,
-    on-info: #ffffff,
-    on-warning: #ffffff,
-    on-secondary: #000000,
-    on-background: #000000,
-    on-danger: #ffffff,
-    on-default: #000000,
-    on-success: #ffffff
+    default:$light-default,
+    primary: $light-primary,
+    primary-variant: $light-primary-variant,
+    secondary: $light-secondary,
+    secondary-variant: $light-secondary-variant,
+    info: $light-info,
+    success: $light-success,
+    warning: $light-warning,
+    danger: $light-danger,
+    background: white,
+    on-primary: white,
+    on-info: white,
+    on-warning: white,
+    on-secondary: black,
+    on-background: black,
+    on-danger: white,
+    on-default: black,
+    on-success: white
   ),
   dark: (
-    default: #333333,
-    primary: #bb86fc,
-    primary-variant: #3700b3,
-    success: #43a047,
-    warning: #ffa004,
-    info: #90caf9,
-    secondary: #03dac6,
-    secondary-variant: #03dac6,
-    danger: #cf6679,
+    default:$dark-default,
+    primary: $dark-primary,
+    primary-variant: $dark-primary-variant,
+    secondary: $dark-secondary,
+    secondary-variant: $dark-secondary-variant,
+    info: $dark-info,
+    success: $dark-success,
+    warning: $dark-warning,
+    danger: $dark-danger,
     background: #121212,
-    background-hover: lighten(#121212, 20%),
-    on-primary: #000000,
-    on-info: #000000,
-    on-warning: #000000,
-    on-secondary: #000000,
-    on-background: #ffffff,
-    on-danger: #000000,
-    on-default: #ffffff,
-    on-success: #ffffff
+    on-primary: black,
+    on-info: black,
+    on-warning: black,
+    on-secondary: black,
+    on-background: white,
+    on-danger: black,
+    on-default: white,
+    on-success: white
   )
 );
 
@@ -155,7 +173,7 @@ $linear-channel-values: 0 0.0003035269835488375 0.000607053967097675
   @return max($backLum, $foreLum) / min($backLum, $foreLum);
 }
 
-@function hover-color($color) {
+@function text-hover-color($color) {
   $lightContrast: contrast($color, white);
   $darkContrast: contrast($color, black);
 
@@ -166,21 +184,32 @@ $linear-channel-values: 0 0.0003035269835488375 0.000607053967097675
   }
 }
 
+@function bg-hover-color($color) {
+  $lightContrast: contrast($color, white);
+  $darkContrast: contrast($color, black);
+
+  @if ($lightContrast > $darkContrast) {
+    @return lighten($color, 15%);
+  } @else {
+    @return darken($color, 15%);
+  }
+}
+
 $theme-list: (
   1: (
     ".default",
     $default,
-    $on-default
+    $on-default,
   ),
   2: (
     ".primary",
     $primary,
-    $on-primary
+    $on-primary,
   ),
   3: (
     ".secondary",
     $secondary,
-    $on-secondary
+    $on-secondary,
   ),
   4: (
     ".danger",
@@ -190,18 +219,23 @@ $theme-list: (
   5: (
     ".success",
     $success,
-    $on-success
+    $on-success,
   ),
   6: (
     ".info",
     $info,
-    $on-info
+    $on-info,
   ),
   7: (
     ".background",
     $background,
     $on-background
   ),
+  8: (
+    ".primary-variant",
+    $primary-variant,
+    $on-primary
+  )
 );
 
 @each $theme-list, $key-number in $theme-list {
@@ -216,8 +250,7 @@ $theme-list: (
   }
   #{$class}.hoverable:hover {
     @include themed() {
-      color: hover-color(t($theme-color));
-      background: hover-color(t($theme-bg));
+      background: bg-hover-color(t($theme-bg));
       cursor: pointer;
     }
   }
@@ -256,13 +289,15 @@ $on-theme-list: (
   #{$class} {
     @include themed() {
       cursor: pointer;
+      background: none;
       color: t($theme-color);
     }
   }
   #{$class}.hoverable:hover {
     @include themed() {
       cursor: pointer;
-      color: hover-color(t($theme-color));
+      background: none;
+      color: text-hover-color(t($theme-color));
     }
   }
 }

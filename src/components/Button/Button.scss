@@ -8,9 +8,4 @@
   width: max-content;
   min-width: $button-width;
   border-radius: 0;
-  &:hover {
-    cursor: pointer;
-    -webkit-filter: brightness(0.8);
-    filter: brightness(0.8);
-  }
 }

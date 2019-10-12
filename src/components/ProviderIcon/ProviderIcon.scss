@@ -1,0 +1,38 @@
+@import "../../common/variables";
+
+$providers: ("facebook", "twitter", "linkedin", "medium", "patreon");
+
+.ProviderIcon.hover {
+  cursor: pointer;
+}
+
+@function provider-color($provider) {
+  @if ($provider == "facebook") {
+    @return $facebook-blue;
+  }
+  @if ($provider == "twitter") {
+    @return $twitter-blue;
+  }
+  @if ($provider == "linkedin") {
+    @return $linkedin-blue;
+  }
+  @if ($provider == "medium") {
+    @return $medium-green;
+  }
+  @if ($provider == "patreon") {
+    @return $patreon-orange;
+  }
+}
+
+@each $provider in $providers {
+  .ProviderIcon.#{$provider}.colored {
+    color: provider-color($provider);
+  }
+  .ProviderIcon.#{$provider}.hover:hover {
+    color: provider-color($provider);
+  }
+
+  .ProviderIcon.#{$provider}.colored.hover:hover {
+    color: darken(provider-color($provider), 10%);
+  }
+}

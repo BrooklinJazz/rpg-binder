@@ -6,19 +6,34 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import {
   faFacebook,
-  faTwitter,
   faInstagram,
   faLinkedin,
-  faPatreon
+  faMedium,
+  faPatreon,
+  faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { CAMPAIGN } from "../../../api/apollo";
-import { GridTemplateAreas, PROJECT_NAME } from "../../../common/constants";
+import {
+  GridTemplateAreas,
+  phoneBreakpoint,
+  PROJECT_NAME
+} from "../../../common/constants";
 import { Theme } from "../../../common/theme";
 import Loading from "../../../components/Loading";
 import { H1, H2, Text } from "../../../components/Typeography";
+import { logoutAction } from "../../../context/auth/actions";
+import { useAuthDispatch } from "../../../context/auth/store";
 import { useCampaignState } from "../../../context/campaign/store";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import DesktopNavbar from "./desktop";
+import MobileNavbar from "./mobile";
+
+export interface IJournalNavbarProps {
+  campaignName: string | undefined;
+  logout: () => void;
+}
 
 const JournalNavbar = () => {
   const { activeCampaign } = useCampaignState();
@@ -26,30 +41,19 @@ const JournalNavbar = () => {
     { campaign: { name: string } },
     { campaignId: string }
   >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
-  return (
-    <div
-      className={combineClasses(
-        GridTemplateAreas.NAVBAR,
-        Theme.primary,
-        "JournalNavbar"
-      )}
-    >
-      <H1 fontWeight="light" elementStyle="H3">
-        {PROJECT_NAME}
-      </H1>
-      <Text fontWeight="medium" size="large">
-        {data ? data.campaign.name : <Loading />}
-      </Text>
-      <div className="JournalNavbarRight">
-        <FontAwesomeIcon className="JournalNavbarSpacing" icon={faFacebook} />
-        <FontAwesomeIcon className="JournalNavbarSpacing" icon={faTwitter} />
-        <FontAwesomeIcon className="JournalNavbarSpacing" icon={faLinkedin} />
-        <FontAwesomeIcon className="JournalNavbarSpacing" icon={faInstagram} />
-        <FontAwesomeIcon className="JournalNavbarSpacing" icon={faPatreon} />
-        <Text className="JournalNavbarSpacing">Sign Out</Text>
-      </div>
-    </div>
-  );
+  const dispatch = useAuthDispatch();
+  const { width } = useWindowDimensions();
+  const logout = () => dispatch(logoutAction());
+  if (width < phoneBreakpoint) {
+    return <MobileNavbar campaignName={data && data.campaign.name} logout={logout} />;
+  } else {
+    return (
+      <DesktopNavbar
+        campaignName={data && data.campaign.name}
+        logout={logout}
+      />
+    );
+  }
 };
 
 export default JournalNavbar;

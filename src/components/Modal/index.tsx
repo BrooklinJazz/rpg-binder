@@ -21,7 +21,7 @@ const Modal = ({ children, className, close, ...props }: IModalProps) => {
     return document.removeEventListener("keyup", close);
   });
   return (
-    <div onClick={() => console.log("CLO")} className="ModalWrapper">
+    <div onClick={() => close()} className="ModalWrapper">
       <div
         onClick={e => e.stopPropagation()}
         {...props}

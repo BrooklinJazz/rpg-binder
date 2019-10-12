@@ -12,7 +12,7 @@
     "interface-name": true,
     "array-type": false,
     "jsx-no-multiline-js": false,
-    "no-unused-variable": true
+    "no-unused-variable": true,
   },
   "rulesDirectory": []
 }
