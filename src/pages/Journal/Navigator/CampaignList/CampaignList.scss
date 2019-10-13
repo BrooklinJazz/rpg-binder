@@ -1,10 +1,18 @@
 @import "../../../../common/variables";
 @import "../../../../common/theme";
 
-$navigator-campaigns-width: $navigator-width / 2;
+@mixin breakpoint-adjusted-width() {
+  width: $navigator-width / 2;
+  @include tabletStyles() {
+    width: 20vw;
+  }
+  @include mobileStyles() {
+    width: 50vw;
+  }
+}
 
 .NavigatorCampaigns {
-  width: $navigator-campaigns-width;
+  @include breakpoint-adjusted-width();
 }
 
 .navigator-campaigns-enter {
@@ -13,13 +21,13 @@ $navigator-campaigns-width: $navigator-width / 2;
 }
 .navigator-campaigns-enter-active {
   overflow: hidden;
-  width: $navigator-campaigns-width;
   transition: all 200ms;
+  @include breakpoint-adjusted-width();
 }
 
 .navigator-campaigns-exit {
   overflow: hidden;
-  width: $navigator-campaigns-width;
+  @include breakpoint-adjusted-width();
 }
 .navigator-campaigns-exit-active {
   overflow: hidden;

@@ -14,6 +14,12 @@
   grid-template-areas:
     "navigator-header navigator-header"
     "navigator-sections navigator-pages";
+  @include tabletStyles() {
+    width: 50vw;
+  }
+  @include mobileStyles() {
+    width: 100vw;
+  }
 }
 
 .NavigatorHeading {
