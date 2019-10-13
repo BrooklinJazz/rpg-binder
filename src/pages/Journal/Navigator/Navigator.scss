@@ -1,4 +1,43 @@
-.JournalNavigator {
-    display: grid;
-    grid-template-areas: K
+@import "../../../common/variables";
+@import "../../../common/theme";
+
+.NavigatorContainer {
+  display: flex;
+}
+
+.Navigator {
+  width: $navigator-width;
+
+  display: grid;
+  grid-template-rows: $navigator-heading-height 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "navigator-header navigator-header"
+    "navigator-sections navigator-pages";
+}
+
+.NavigatorHeading {
+  grid-area: navigator-header;
+  padding: 0 $navbar-spacing;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.NavigatorBars {
+  @include themed() {
+    color: t($primary);
+    &:hover {
+      color: text-hover-color(t($primary));
+      cursor: pointer;
+    }
+  }
+}
+
+.NavigatorPages {
+  grid-area: navigator-pages;
+}
+
+.NavigatorSections {
+  grid-area: navigator-sections;
 }

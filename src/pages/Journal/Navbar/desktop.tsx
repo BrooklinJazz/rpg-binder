@@ -4,7 +4,7 @@ import { GridTemplateAreas, PROJECT_NAME } from "../../../common/constants";
 import { Theme } from "../../../common/theme";
 import Loading from "../../../components/Loading";
 import { H1, Text } from "../../../components/Typeography";
-import { IJournalNavbarProps } from "./";
+import { IJournalNavbarProps } from ".";
 import { ProviderList } from "../../../common/helpers";
 import ProviderIcon from "../../../components/ProviderIcon";
 

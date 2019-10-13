@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useCampaignState } from "../../context/campaign/store";
-import Navbar from "./JournalNavbar";
+import Navbar from "./Navbar";
 import Navigator from "./Navigator";
 import Entry from "./Entry";
 

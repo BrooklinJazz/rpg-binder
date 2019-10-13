@@ -15,7 +15,7 @@ import { GridTemplateAreas, PROJECT_NAME } from "../../../common/constants";
 import { Theme } from "../../../common/theme";
 import Loading from "../../../components/Loading";
 import { H1, H2, Text } from "../../../components/Typeography";
-import { IJournalNavbarProps } from "./";
+import { IJournalNavbarProps } from ".";
 import { capitalize, ProviderList } from "../../../common/helpers";
 import ProviderIcon from "../../../components/ProviderIcon";
 import { CSSTransition } from "react-transition-group";
@@ -44,9 +44,9 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
           elementStyle="H3"
         >
         </H1>
-        <Text fontWeight="medium" size="large">
+        {/* <Text fontWeight="medium" size="large">
           {campaignName ? campaignName : <Loading />}
-        </Text>
+        </Text> */}
         <Text
           className="JournalNavbarIcon JournalMobileNavbarIcon"
           onClick={() => setMenuOpen(!menuOpen)}

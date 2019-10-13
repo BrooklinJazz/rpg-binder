@@ -92,6 +92,18 @@ export const CAMPAIGN = gql(`
     }
 `);
 
+export const NAVIGATOR_CAMPAIGN = gql(`
+  query Campaign($campaignId: ID!) {
+      campaign(input: {_id: $campaignId}) {
+        _id
+        name
+        description
+        npcs
+        locations
+      }
+    }
+`);
+
 export const CREATE_CAMPAIGN = gql(`
   mutation CreateCampaign($name: String!) {
       createCampaign(input: {name: $name}) {

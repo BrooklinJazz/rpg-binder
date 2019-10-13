@@ -15,12 +15,12 @@ export interface IDecodedToken {
   iat: number;
 }
 
-export interface INPCInput {
+export interface INpcInput {
   name: string;
   description?: string;
 }
 
-export interface INPC extends INPCInput {
+export interface INpc extends INpcInput {
   _id: string;
 }
 
@@ -31,7 +31,7 @@ export interface ICampaignInput {
 
 export interface ICampaign extends ICampaignInput {
   _id: string;
-  npcs: INPC[];
+  npcs: INpc[];
 }
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

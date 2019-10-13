@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from "react-router";
 
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
-import Navbar from "./pages/Journal/JournalNavbar";
+import Navbar from "./pages/Journal/Navbar";
 import { useCampaignState } from "./context/campaign/store";
 import CampaignSelect from "./pages/CampaignSelect";
 import Journal from "./pages/Journal";

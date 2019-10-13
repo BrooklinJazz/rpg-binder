@@ -1,0 +1,40 @@
+@import "../../../../common/variables";
+@import "../../../../common/theme";
+
+$navigator-campaigns-width: $navigator-width / 2;
+
+.NavigatorCampaigns {
+  width: $navigator-campaigns-width;
+}
+
+.navigator-campaigns-enter {
+  width: 0px;
+  overflow: hidden;
+}
+.navigator-campaigns-enter-active {
+  overflow: hidden;
+  width: $navigator-campaigns-width;
+  transition: all 200ms;
+}
+
+.navigator-campaigns-exit {
+  overflow: hidden;
+  width: $navigator-campaigns-width;
+}
+.navigator-campaigns-exit-active {
+  overflow: hidden;
+  width: 0;
+  transition: all 200ms;
+}
+
+.NavigatorCampaignsHeading {
+  box-sizing: border-box;
+  @include themed() {
+    border-right: solid 1px t($primary-variant);
+  }
+  height: $navigator-heading-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $navbar-spacing;
+}

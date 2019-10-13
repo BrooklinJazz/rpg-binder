@@ -15,7 +15,7 @@ export enum GridTemplateAreas {
   NAVBAR = "NAVBAR",
   PAGE = "PAGE",
   SIDEBAR = "SIDEBAR",
-  CONTENT = "CONTENT"
+  CONTENT = "CONTENT",
 }
 
 export const PROJECT_NAME = "DM Binder";
