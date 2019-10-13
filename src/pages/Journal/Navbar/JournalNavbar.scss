@@ -37,7 +37,6 @@
 .JournalMobileNavbarDropdown {
   position: absolute;
   top: $navbar-height;
-  min-height: 40px;
   height: max-content;
   width: 100%;
 }
@@ -57,7 +56,6 @@ $icon-default-width: 16px;
 }
 
 .JournalMobileNav-enter {
-  opacity: 1;
   height: 0px;
   max-height: 0px;
   overflow: hidden;
@@ -67,20 +65,17 @@ $icon-default-width: 16px;
   overflow: hidden;
   height: 500px;
   max-height: 500px;
-  opacity: 1;
   transition: all 300ms;
 }
 
 .JournalMobileNav-exit {
   overflow: hidden;
-  opacity: 1;
   height: 500px;
   max-height: 500px;
 }
 
 .JournalMobileNav-exit-active {
   overflow: hidden;
-  opacity: 0.01;
   height: 0px;
   max-height: 0px;
   transition: all 300ms;

@@ -60,7 +60,7 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
           in={menuOpen}
           timeout={500}
         >
-          <div className={combineClasses("JournalMobileNavbarDropdown")}>
+          <div className="JournalMobileNavbarDropdown">
             {ProviderList.map(provider => (
               <Text
                 key={provider}
