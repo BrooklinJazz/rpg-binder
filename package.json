@@ -20,6 +20,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@types/react-transition-group": "^4.2.2",
     "@types/reselect": "^2.2.0",
+    "@xstate/react": "^0.7.1",
     "apollo-boost": "^0.4.4",
     "apollo-server": "^2.9.5",
     "apollo-server-express": "^2.9.4",
@@ -43,7 +44,8 @@
     "tslint": "^5.20.0",
     "tslint-react": "^4.1.0",
     "tslint-react-a11y": "^1.0.0",
-    "typescript": "3.6.3"
+    "typescript": "3.6.3",
+    "xstate": "^4.6.7"
   },
   "scripts": {
     "start": "react-scripts start",

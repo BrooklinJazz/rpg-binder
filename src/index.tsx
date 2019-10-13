@@ -2,7 +2,7 @@ import "./index.scss";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 
@@ -17,14 +17,16 @@ import { ThemeProvider } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login";
 import * as serviceWorker from "./serviceWorker";
+import { Test } from "./Test";
 
 const PageRouting = () => {
   const state = useAuthState();
   const isLoggedIn = selectIsLoggedIn(state);
   return (
     <>
-    {process.env.NODE_ENV === "development" && <DevComponents />}
+      {process.env.NODE_ENV === "development" && <DevComponents />}
       <Switch>
+        <Route path="/test" component={Test} />
         <AuthRoute
           isAuth={!isLoggedIn}
           redirectUrl={Routes.APP}
