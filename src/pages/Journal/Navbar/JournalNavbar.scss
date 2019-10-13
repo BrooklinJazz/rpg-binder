@@ -68,7 +68,7 @@ $icon-default-width: 16px;
   height: 500px;
   max-height: 500px;
   opacity: 1;
-  transition: all 500ms;
+  transition: all 300ms;
 }
 
 .JournalMobileNav-exit {
@@ -83,5 +83,5 @@ $icon-default-width: 16px;
   opacity: 0.01;
   height: 0px;
   max-height: 0px;
-  transition: all 500ms;
+  transition: all 300ms;
 }
