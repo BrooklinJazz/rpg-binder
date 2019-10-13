@@ -1,7 +1,5 @@
-import combineClasses from "combine-classes/lib";
 import React from "react";
 
-import { GridTemplateAreas } from "../../common/constants";
 import { useCampaignState } from "../../context/campaign/store";
 import Navbar from "./JournalNavbar";
 import Navigator from "./Navigator";
