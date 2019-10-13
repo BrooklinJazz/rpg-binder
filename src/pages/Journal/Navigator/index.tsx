@@ -26,7 +26,7 @@ const Navigator = () => {
       )}
     >
       <CampaignList open={open} />
-      <div className={"Navigator"}>
+      <div className="Navigator">
         <Heading
           toggleCampaignList={() => setOpen(!open)}
           campaignName={data && data.campaign.name}
