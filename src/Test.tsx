@@ -124,39 +124,42 @@ export const journalMachine = Machine({
       ]
     },
     DISPLAY_LOCATION_NPCS: {
-      target: "selectedLocation.displayNpcs"
+      target: "selectedLocation.displayNpcs",
+      cond: "locationSelected"
     },
-    // DISPLAY_LOCATION_LOCATIONS: {
-    //   target: "selectedLocation.displayLocations"
-    // },
-    // DISPLAY_LOCATION_ORGANIZATIONS: {
-    //   target: "selectedLocation.displayOrganizations"
-    // },
+    DISPLAY_LOCATION_LOCATIONS: {
+      target: "selectedLocation.displayLocations",
+      cond: "locationSelected"
+    },
+    DISPLAY_LOCATION_ORGANIZATIONS: {
+      target: "selectedLocation.displayOrganizations",
+      cond: "locationSelected"
+    },
     SELECT_LOCATION_NPC: {
       target: "selectedLocation.selectedNpc",
       actions: [
         assign({ selectedNpc: (_: any, event: any) => event.selectedNpc })
       ]
     },
-    // SELECT_LOCATION_ORGANIZATION: {
-    //   target: "selectedLocation.selectedOrganization",
-    //   actions: [
-    //     assign({
-    //       selectedOrganization: (_: any, event: any) =>
-    //         event.selectedOrganization
-    //     })
-    //   ]
-    // },
-    // SELECT_LOCATION_LOCATION: {
-    //   target: "selectedLocation.selectedLocation",
-    //   actions: [
-    //     assign({
-    //       selectedLocation: (context: any, event: any) =>
-    //         context.selectedLocation,
-    //       selectedSubLocation: (_: any, event: any) => event.selectedLocation
-    //     })
-    //   ]
-    // }
+    SELECT_LOCATION_ORGANIZATION: {
+      target: "selectedLocation.selectedOrganization",
+      actions: [
+        assign({
+          selectedOrganization: (_: any, event: any) =>
+            event.selectedOrganization
+        })
+      ]
+    },
+    SELECT_LOCATION_LOCATION: {
+      target: "selectedLocation.selectedLocation",
+      actions: [
+        assign({
+          selectedLocation: (context: any, event: any) =>
+            context.selectedLocation,
+          selectedSubLocation: (_: any, event: any) => event.selectedLocation
+        })
+      ]
+    }
   },
   states: {
     init: {},
@@ -173,13 +176,14 @@ export const journalMachine = Machine({
         displayLocations: {},
         displayOrganizations: {},
         selectedNpc: {},
-        selectedLocation: {
-        },
+        selectedLocation: {},
         selectedOrganization: {}
       }
     }
   }
-});
+}, {guards: {
+  locationSelected: (context) => Boolean(context.selectedLocation)
+}});
 
 export function Test() {
   const [current, send] = useMachine(journalMachine);
@@ -187,7 +191,7 @@ export function Test() {
   return (
     <>
       <div>
-        {/* STATE: {current.value} */}
+        STATE: {JSON.stringify(current.value)}
         SELECTED LOCATION: {current.context.selectedLocation}
         SELECTED NPC: {current.context.selectedNpc}
         SELECTED ORGANIZATION: {current.context.selectedOrganization}
@@ -233,12 +237,32 @@ export function Test() {
         <button
           onClick={() =>
             send("DISPLAY_LOCATION_NPCS", {
-            //   selectedNpc: "my example location npc id"
+              //   selectedNpc: "my example location npc id"
             })
           }
         >
-          DISPLAY LOCATION NPC
+          DISPLAY LOCATION NPCS
         </button>
+        <button
+          onClick={() =>
+            send("DISPLAY_LOCATION_ORGANIZATIONS", {
+              //   selectedNpc: "my example location npc id"
+            })
+          }
+        >
+          DISPLAY LOCATION ORGANIZATIONS
+        </button>
+        <button
+          onClick={() =>
+            send("DISPLAY_LOCATION_LOCATIONS", {
+              //   selectedNpc: "my example location npc id"
+            })
+          }
+        >
+          DISPLAY LOCATION LOCATIONS
+        </button>
+      </div>
+      <div style={{ display: "flex", height: 200 }}>
         <button
           onClick={() =>
             send("SELECT_LOCATION_NPC", {
