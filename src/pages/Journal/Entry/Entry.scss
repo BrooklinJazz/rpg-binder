@@ -1,9 +1,14 @@
+@import "../../../common/variables";
+
 .JournalEntry {
   background-color: lightgrey;
 }
 
+// 75 is a magic number that through T&E makes the entry almost overlap the navigator header
+$open-entry-margin: calc(((100vh - #{$navbar-height} - 75px) / -2));
+
 .JournalEntry.open {
-  margin-top: -40vh;
+  margin-top: $open-entry-margin;
   animation-duration: 500ms;
   animation-name: mobile-slider;
 }
@@ -19,13 +24,13 @@
     margin-top: 0;
   }
   to {
-    margin-top: -40vh;
+    margin-top: $open-entry-margin;
   }
 }
 
 @keyframes reverse-mobile-slider {
   from {
-    margin-top: -40vh;
+    margin-top: $open-entry-margin;
   }
   to {
     margin-top: 0;
