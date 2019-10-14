@@ -5,7 +5,7 @@ export enum JournalStates {
   displayLocations = "displayLocations",
   selectedNpc = "selectedNpc",
   selectedOrganization = "selectedOrganization",
-  selectedLocations = "selectedLocation"
+  selectedLocation = "selectedLocation"
 }
 
 export interface IJournalContext {

@@ -9,13 +9,19 @@ const NavigatorSections = () => {
     <div className="NavigatorSections">
       <ListItem
         onClick={() => actions.displayNpcs()}
-        active={state === JournalStates.displayNpcs}
+        active={
+          state === JournalStates.displayNpcs ||
+          state === JournalStates.selectedNpc
+        }
       >
         Npcs
       </ListItem>
       <ListItem
         onClick={() => actions.displayOrganizations()}
-        active={state === JournalStates.displayOrganizations}
+        active={
+          state === JournalStates.displayOrganizations ||
+          state === JournalStates.selectedOrganization
+        }
       >
         Organizations
       </ListItem>

@@ -2,6 +2,7 @@
 
 .JournalEntry {
   background-color: lightgrey;
+  z-index: $entry-z-index;
 }
 
 // 75 is a magic number that through T&E makes the entry almost overlap the navigator header

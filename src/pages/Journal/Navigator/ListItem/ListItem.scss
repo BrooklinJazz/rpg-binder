@@ -2,7 +2,7 @@
 @import "../../../../common/variables";
 
 .NavigatorListItem {
-  height: $navigator-item-height;
+  min-height: $navigator-item-height;
   display: flex;
   padding: 0 $navbar-spacing;
   // justify-content: center;

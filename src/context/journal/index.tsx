@@ -32,7 +32,7 @@ export const JournalProvider = ({ children }: { children: ReactNode }) => {
   const selectNpc = (id: string) =>
     send(JournalEvents.SELECT_NPC, { selectedNpc: id });
   const selectLocation = (id: string) =>
-    send(JournalEvents.DISPLAY_NPCS, { selectedLocation: id });
+    send(JournalEvents.SELECT_LOCATION, { selectedLocation: id });
 
   return (
     <JournalStateContext.Provider

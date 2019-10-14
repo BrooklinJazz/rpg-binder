@@ -93,7 +93,7 @@ export const CAMPAIGN = gql(`
 `);
 
 export const LOCATION_NAME = gql(`
-  query Location($locationId: String!) {
+  query Location($locationId: ID!) {
       location(input: {_id: $locationId}) {
         _id
         name

@@ -5,7 +5,6 @@ import { NPCS, ORGANIZATIONS, LOCATIONS } from "../../../../api/apollo";
 import { useJournalMachine } from "../../../../context/journal";
 import { JournalStates } from "../../../../context/journal/types";
 import ListItem from "../ListItem";
-import { DefaultButton } from "../../../../components/Button";
 
 const NavigatorPages = () => {
   const { activeCampaign } = useCampaignState();
@@ -42,8 +41,10 @@ const NavigatorPages = () => {
       case JournalStates.displayLocations:
         return actions.selectLocation(id);
       case JournalStates.displayNpcs:
+      case JournalStates.selectedNpc:
         return actions.selectNpc(id);
       case JournalStates.displayOrganizations:
+      case JournalStates.selectedOrganization:
         return actions.selectOrganization(id);
       default:
         throw new Error("selectAction called during invalid state: " + state);
@@ -57,7 +58,7 @@ const NavigatorPages = () => {
       case JournalStates.selectedOrganization:
         return context.selectedOrganization === id;
       // this shouldn't happen but might trigger for a split second
-      case JournalStates.selectedLocations:
+      case JournalStates.selectedLocation:
         return context.selectedLocation === id;
       default:
         return false;
@@ -66,10 +67,12 @@ const NavigatorPages = () => {
 
   const pageList = () => {
     switch (state) {
-      case JournalStates.displayNpcs || JournalStates.selectedNpc:
+      // NPCS
+      case JournalStates.displayNpcs:
+      case JournalStates.selectedNpc:
         return npcsData && npcsData.npcs;
-      case JournalStates.displayOrganizations ||
-        JournalStates.selectedOrganization:
+      case JournalStates.displayOrganizations:
+      case JournalStates.selectedOrganization:
         return organizationsData && organizationsData.organizations;
       // when a location is selected pageList should be empty
       // I may want to change this behavior to make selecting between parent locations easier.
@@ -81,16 +84,10 @@ const NavigatorPages = () => {
   };
   return (
     <div className="NavigatorPages">
-      <DefaultButton
-        onClick={() =>
-          console.log({ npcsData, organizationsData, locationsData, pageList: pageList() })
-        }
-      >
-        log data
-      </DefaultButton>
       {pageList() &&
         pageList()!.map(page => (
           <ListItem
+            key={page._id}
             active={isActive(page._id)}
             onClick={() => selectAction(page._id)}
           >

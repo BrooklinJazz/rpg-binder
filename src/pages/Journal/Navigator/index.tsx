@@ -21,16 +21,19 @@ const Navigator = () => {
     { campaignId: string }
   >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
 
-  const {data: locationData} = useQuery<
-    { location: { name: string} },
+  const { data: locationData } = useQuery<
+    { location: { name: string } },
     { locationId: string }
     // NOTE skiping if selected location does not exist may still cause an error
-  >(LOCATION_NAME, { variables: { locationId: context.selectedLocation! }, skip: !context.selectedLocation });
+  >(LOCATION_NAME, {
+    variables: { locationId: context.selectedLocation! }
+    // skip: !context.selectedLocation
+  });
 
   // heading can be for campaign or selected location
   const campaignHeading = campaignData && campaignData.campaign.name;
   const locationHeading = locationData && locationData.location.name;
-  const heading = context.selectedLocation ? locationHeading : campaignHeading
+  const heading = context.selectedLocation ? locationHeading : campaignHeading;
 
   return (
     <div
@@ -41,9 +44,7 @@ const Navigator = () => {
     >
       <CampaignList open={open} />
       <div className="Navigator">
-        <Heading toggleCampaignList={() => setOpen(!open)}>
-          {heading}
-        </Heading>
+        <Heading toggleCampaignList={() => setOpen(!open)}>{heading}</Heading>
         <Sections />
         <Pages />
       </div>

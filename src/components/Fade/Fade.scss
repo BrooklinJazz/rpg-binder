@@ -1,0 +1,14 @@
+.Fade-enter {
+  opacity: 0;
+}
+.Fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.Fade-exit {
+  opacity: 1;
+}
+.Fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
