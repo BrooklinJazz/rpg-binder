@@ -1,4 +1,5 @@
 import { Document } from "mongoose";
+import { INPC } from "../common/types";
 
 export interface IInput<T> {
   input: T;
@@ -16,8 +17,7 @@ export interface IAuthData {
 }
 
 export interface IUser extends Document, IUserInput {
-  npcs: Array<INpc["_id"]>;
-  campaigns: Array<ICampaign["_id"]>;
+  campaigns: ICampaign["_id"];
 }
 
 export interface ICampaignInput {
@@ -30,20 +30,53 @@ export interface IUpdateCampaignInput extends ICampaignInput {
 }
 
 export interface ICampaign extends Document, ICampaignInput {
-  npcs: Array<INpc["_id"]>;
+  npcs: INpc["_id"][];
   creator: IUser["_id"];
+  organizations: IOrganization["_id"][];
+  locations: ILocation["_id"][];
 }
 
 export interface INpcInput {
   name: string;
-  description: string;
-  creator: IUser;
-  campaign: IUser;
+  description?: string;
+  campaign: ICampaign["_id"];
+  organizations: IOrganization["_id"][];
+}
+
+export interface IUpdateNpcInput extends INpcInput {
+  _id: string;
 }
 
 export interface INpc extends Document, INpcInput {
   creator: IUser["_id"];
+}
+
+export interface IOrganizationInput {
+  name: string;
+  description?: string;
   campaign: ICampaign["_id"];
+}
+
+export interface IOrganization extends Document, IOrganizationInput {
+  npcs: INpc["_id"][];
+  creator: IUser["_id"];
+}
+
+export interface ILocationInput {
+  name: string;
+  description?: string;
+  campaign: ICampaign["_id"];
+  parentLocation?: ILocation["_id"];
+}
+export interface IUpdateLocationInput extends ILocationInput {
+  _id: string;
+}
+
+export interface ILocation extends Document, ILocationInput {
+  creator: IUser["_id"];
+  npcs: INpc["_id"][];
+  organizations: IOrganization["_id"][];
+  locations: ILocation["_id"][];
 }
 
 export interface IContext {

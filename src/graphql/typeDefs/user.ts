@@ -10,7 +10,6 @@ export default gql`
     _id: ID
     email: String!
     password: String
-    npcs: [Npc!]!
     campaigns: [Campaign!]!
   }
 

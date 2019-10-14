@@ -1,32 +1,33 @@
 import { model, Schema } from "mongoose";
-import { INpc } from "./types";
-
-const npcSchema = new Schema({
+import { IOrganization } from "./types";
+const organizationSchema = new Schema({
   name: {
     type: String,
     required: true
   },
   description: String,
-  creator: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-    autopopulate: true
-  },
-  organizations: [
+  npcs: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Organization",
+      ref: "Npc",
       autopopulate: true,
     }
   ],
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    autopopulate: true,
+    required: true,
+  },
   campaign: {
     // not autopopulating this for now as it should never be requested
     // and should only be used for filtering
     type: Schema.Types.ObjectId,
-    ref: "Campaign",
+    ref: "Organization",
     required: true
   }
 });
 
-export default model<INpc>("Npc", npcSchema);
+organizationSchema.plugin(require('mongoose-autopopulate'))
+
+export default model<IOrganization>("Organization", organizationSchema);

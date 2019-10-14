@@ -1,6 +1,6 @@
-import Npc from "../../models/npc";
-import { IContext, IInput, INpcInput } from "../../models/types";
+import { IContext, IInput, IOrganizationInput } from "../../models/types";
 import User from "../../models/user";
+import Organization from "../../models/organization";
 import {
   checkSignedIn,
   userIdFromContext
@@ -8,7 +8,7 @@ import {
 
 export default {
   Query: {
-    npcs: async (
+    organizations: async (
       root: any,
       { input }: IInput<{ campaign?: string }>,
       context: IContext
@@ -20,11 +20,27 @@ export default {
         campaign: input && input.campaign
       };
       try {
-        const npcs = await Npc.find({
+        const organizations = await Organization.find({
           // using spread removes undefined filters from the expression
           ...filters
         }).lean();
-        return npcs;
+        return organizations;
+      } catch (error) {
+        throw error;
+      }
+    },
+    organization: async (
+      root: any,
+      { input }: IInput<{ _id: string }>,
+      context: IContext
+    ) => {
+      checkSignedIn(context);
+      try {
+        const organization = await Organization.findById(input._id).lean();
+        if (!organization) {
+          throw Error("Organization not found");
+        }
+        return organization;
       } catch (error) {
         throw error;
       }
@@ -32,26 +48,27 @@ export default {
   },
   Mutation: {
     // TODO determine req type
-    createNpc: async (
+    createOrganization: async (
       root: any,
-      { input }: IInput<INpcInput>,
+      { input }: IInput<IOrganizationInput>,
       context: IContext
     ) => {
       checkSignedIn(context);
       const userId = userIdFromContext(context);
-      const npc = new Npc({
+      const organization = new Organization({
         ...input,
-        creator: userId
+        npcs: [],
+        creator: userId,
       });
       try {
-        const createdNpc = await npc.save();
+        const createdOrganization = await organization.save();
         const dbUser = await User.findById(userId);
         if (!dbUser) {
           throw new Error("User Does Not Exist");
         }
-        dbUser.npcs.push(createdNpc);
+        // dbUser.organizations.push(createdOrganization);
         dbUser.save();
-        return createdNpc.toObject();
+        return createdOrganization.toObject();
       } catch (error) {
         throw error;
       }

@@ -1,5 +1,7 @@
 import campaigns from "./campaign";
-import npcs from "./npc";
-import users from "./user";
+import npcs from "./npcs";
+import user from "./user";
+import organizations from "./organizations";
+import locations from "./locations";
 
-export default [users, npcs, campaigns];
+export default [user, npcs, campaigns, organizations, locations];

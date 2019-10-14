@@ -6,6 +6,8 @@ export default gql`
     name: String!
     description: String
     npcs: [Npc!]!
+    organizations: [Organization!]!
+    locations: [Location!]!
     creator: User!
   }
 

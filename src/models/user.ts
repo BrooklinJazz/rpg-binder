@@ -9,13 +9,6 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  npcs: [
-    {
-      // not autopopulating for now
-      type: Schema.Types.ObjectId,
-      ref: "Npc"
-    }
-  ],
   campaigns: [
     {
       // not autopopulating for now

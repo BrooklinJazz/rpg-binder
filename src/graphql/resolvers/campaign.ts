@@ -14,7 +14,7 @@ export default {
     campaigns: async (root: any, input: undefined, context: IContext) => {
       checkSignedIn(context);
       try {
-        const campaigns = await Campaign.find()
+        const campaigns = await Campaign.find({creator: context.user})
         return campaigns;
       } catch (error) {
         throw new Error(error);
@@ -49,16 +49,18 @@ export default {
       const campaign = new Campaign({
         ...input,
         creator: userId,
-        npcs: []
+        npcs: [],
+        organizations: [],
+        locations: [],
       });
       try {
         const createdCampaign = await campaign.save();
-        const dbUser = await User.findById(userId);
-        if (!dbUser) {
+        const user = await User.findById(userId);
+        if (!user) {
           throw new Error("User Does Not Exist");
         }
-        dbUser.campaigns.push(createdCampaign);
-        dbUser.save();
+        user.campaigns.push(createdCampaign);
+        user.save();
         return createdCampaign.toObject()
       } catch (error) {
         throw error;
@@ -87,6 +89,7 @@ export default {
         if (!updatedCampaign) {
           throw new Error("Campaign Does Not Exist");
         }
+        // NOTE is this necessary?
         dbUser.campaigns.push(updatedCampaign._id);
         dbUser.save();
         return updatedCampaign.toObject()
@@ -105,13 +108,10 @@ export default {
         const deletedCampaign: ICampaign | null = await Campaign.findByIdAndDelete(
           input._id
         );
-        const dbUser = await User.findById(userId);
-        if (!dbUser) {
-          throw new Error("User Does Not Exist");
-        }
         if (!deletedCampaign) {
           throw new Error("Campaign Does Not Exist");
         }
+        // NOTE TODO remove campaign from user?
         return deletedCampaign.toObject()
       } catch (error) {
         throw error;
