@@ -1,0 +1,17 @@
+@import "../../../../common/theme";
+@import "../../../../common/variables";
+
+.NavigatorListItem {
+  height: $navigator-item-height;
+  display: flex;
+  padding: 0 $navbar-spacing;
+  // justify-content: center;
+  margin-top: 2px;
+  align-items: center;
+}
+
+.NavigatorListItem.active {
+  @include themed() {
+    background-color: text-hover-color(t($default)) !important;
+  }
+}

@@ -45,5 +45,7 @@
 }
 
 .NavigatorSections {
+  display: flex;
+  flex-direction: column;
   grid-area: navigator-sections;
 }

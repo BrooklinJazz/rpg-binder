@@ -92,14 +92,11 @@ export const CAMPAIGN = gql(`
     }
 `);
 
-export const NAVIGATOR_CAMPAIGN = gql(`
-  query Campaign($campaignId: ID!) {
-      campaign(input: {_id: $campaignId}) {
+export const LOCATION_NAME = gql(`
+  query Campaign($locationId: ID!) {
+      location(input: {_id: $locationId}) {
         _id
         name
-        description
-        npcs
-        locations
       }
     }
 `);

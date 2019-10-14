@@ -1,7 +1,8 @@
 export enum JournalStates {
   init = "init",
-  displayNpcs = "displayNps",
+  displayNpcs = "displayNpcs",
   displayOrganizations = "displayOrganizations",
+  displayLocations = "displayLocations",
   selectedNpc = "selectedNpc",
   selectedOrganization = "selectedOrganization",
   selectedLocations = "selectedLocation"

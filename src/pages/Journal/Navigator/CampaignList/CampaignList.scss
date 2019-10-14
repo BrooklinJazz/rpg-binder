@@ -37,9 +37,7 @@
 
 .NavigatorCampaignsHeading {
   box-sizing: border-box;
-  @include themed() {
-    border-right: solid 1px t($primary-variant);
-  }
+  margin-right: 2px;
   height: $navigator-heading-height;
   display: flex;
   justify-content: space-between;
