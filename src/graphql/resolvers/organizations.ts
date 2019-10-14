@@ -23,7 +23,7 @@ export default {
         const organizations = await Organization.find({
           // using spread removes undefined filters from the expression
           ...filters
-        }).lean();
+        });
         return organizations;
       } catch (error) {
         throw error;
@@ -36,7 +36,7 @@ export default {
     ) => {
       checkSignedIn(context);
       try {
-        const organization = await Organization.findById(input._id).lean();
+        const organization = await Organization.findById(input._id);
         if (!organization) {
           throw Error("Organization not found");
         }

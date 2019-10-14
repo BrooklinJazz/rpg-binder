@@ -29,4 +29,6 @@ const npcSchema = new Schema({
   }
 });
 
+npcSchema.plugin(require('mongoose-autopopulate'))
+
 export default model<INpc>("Npc", npcSchema);

@@ -1,5 +1,4 @@
 import { Document } from "mongoose";
-import { INPC } from "../common/types";
 
 export interface IInput<T> {
   input: T;

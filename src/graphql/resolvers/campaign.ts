@@ -27,7 +27,7 @@ export default {
     ) => {
       checkSignedIn(context);
       try {
-        const campaign = await Campaign.findById(input._id).lean();
+        const campaign = await Campaign.findById(input._id);
         if (!campaign) {
           throw Error("Campaign not found");
         }

@@ -141,3 +141,7 @@ export const journalMachine = Machine(
     }
   }
 );
+
+  // const CampaignStateContext = createContext<ICampaignState | undefined>(
+  //   undefined
+  // );
