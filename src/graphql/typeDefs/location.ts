@@ -10,6 +10,7 @@ export default gql`
     npcs: [Npc!]!
     organizations: [Organization!]!
     locations: [Location!]!
+    parentLocation: Location
   }
 
   input LocationInput {

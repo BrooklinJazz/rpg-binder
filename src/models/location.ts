@@ -29,7 +29,8 @@ const locationSchema = new Schema({
   ],
   parentLocation: {
     type: Schema.Types.ObjectId,
-    ref: "Location"
+    ref: "Location",
+    autopopulate: true
   },
   creator: {
     type: Schema.Types.ObjectId,

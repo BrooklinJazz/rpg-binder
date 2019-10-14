@@ -20,6 +20,13 @@ const campaignSchema = new Schema({
       autopopulate: true,
     }
   ],
+  locations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Location",
+      autopopulate: true,
+    }
+  ],
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",

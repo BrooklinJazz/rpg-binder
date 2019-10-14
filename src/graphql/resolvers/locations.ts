@@ -71,7 +71,8 @@ export default {
           parentLocation.locations.push();
           parentLocation.save();
         }
-        return createdLocation.toObject();
+        const populatedLocation = Location.findById(createdLocation._id)
+        return populatedLocation;
       } catch (error) {
         throw error;
       }
