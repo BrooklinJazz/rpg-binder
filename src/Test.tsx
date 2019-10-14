@@ -72,130 +72,170 @@ import { DefaultButton } from "./components/Button";
 //   | ISelectOrganization
 //   | IDisplayLocations
 //   | ISelectLocation;
-// TODO implement advanced location states
 
-// This machine is completely decoupled from React
+// interface IJournalContext {
+//   selectedNpc: undefined | string,
+//   parentLocations: string[],
+//   selectedLocation: undefined | string,
+//   selectedOrganization: undefined | string
+// }
+
 const initialContext = {
   selectedNpc: undefined,
+  parentLocations: [],
   selectedLocation: undefined,
-  selectedSubLocation: undefined,
   selectedOrganization: undefined
 };
-export const journalMachine = Machine({
-  id: "journalMachine",
-  initial: "init",
-  context: initialContext,
-  on: {
-    DISPLAY_NPCS: {
-      target: "displayNpcs"
+
+export const journalMachine = Machine(
+  {
+    id: "journalMachine",
+    initial: "init",
+    context: initialContext,
+    on: {
+      DISPLAY_NPCS: {
+        target: "displayNpcs"
+      },
+      DISPLAY_LOCATIONS: {
+        target: "displayLocations"
+      },
+      DISPLAY_ORGANIZATIONS: {
+        target: "displayOrganizations"
+      },
+      SELECT_NPC: {
+        target: "selectedNpc",
+        actions: [
+          assign({
+            ...initialContext,
+            selectedNpc: (_: any, event: any) => event.selectedNpc
+          })
+        ]
+      },
+      SELECT_ORGANIZATION: {
+        target: "selectedOrganization",
+        actions: [
+          assign({
+            ...initialContext,
+            selectedOrganization: (_: any, event: any) =>
+              event.selectedOrganization
+          })
+        ]
+      },
+      SELECT_LOCATION: {
+        target: "selectedLocation",
+        actions: [
+          assign({
+            ...initialContext,
+            selectedLocation: (_: any, event: any) => event.selectedLocation
+          })
+        ]
+      },
+      DISPLAY_LOCATION_NPCS: {
+        target: "selectedLocation.displayNpcs",
+        cond: "locationSelected"
+      },
+      DISPLAY_LOCATION_LOCATIONS: {
+        target: "selectedLocation.displayLocations",
+        cond: "locationSelected"
+      },
+      DISPLAY_LOCATION_ORGANIZATIONS: {
+        target: "selectedLocation.displayOrganizations",
+        cond: "locationSelected"
+      },
+      SELECT_LOCATION_NPC: {
+        target: "selectedLocation.selectedNpc",
+        actions: [
+          assign({ selectedNpc: (_: any, event: any) => event.selectedNpc })
+        ]
+      },
+      SELECT_LOCATION_ORGANIZATION: {
+        target: "selectedLocation.selectedOrganization",
+        actions: [
+          assign({
+            selectedOrganization: (_: any, event: any) =>
+              event.selectedOrganization
+          })
+        ]
+      },
+      // I could probably have a single SELECT_LOCATION action
+      SELECT_LOCATION_LOCATION: {
+        target: "selectedLocation",
+        actions: [
+          assign({
+            ...initialContext,
+            parentLocations: (
+              { parentLocations, selectedLocation }: any,
+              _: any
+            ) => [selectedLocation, ...parentLocations],
+            selectedLocation: (context: any, event: any) =>
+              event.selectedLocation
+          })
+        ]
+      },
+      BACK: {
+        target: "displayLocations",
+        actions: [
+          assign({
+            ...initialContext
+          })
+        ],
+        cond: "locationSelected"
+      },
+      BACK_TO_PARENT_LOCATION: {
+        target: "selectedLocation",
+        actions: [
+          assign({
+            selectedLocation: (context: any) => context.parentLocations[0],
+            parentLocations: (context: any) =>
+              context.parentLocations.filter(
+                (_: any, index: number) => index > 0
+              )
+          })
+        ],
+        cond: "locationSelected"
+      }
     },
-    DISPLAY_LOCATIONS: {
-      target: "displayLocations"
-    },
-    DISPLAY_ORGANIZATIONS: {
-      target: "displayOrganizations"
-    },
-    SELECT_NPC: {
-      target: "selectedNpc",
-      actions: [
-        assign({
-          ...initialContext,
-          selectedNpc: (_: any, event: any) => event.selectedNpc
-        })
-      ]
-    },
-    SELECT_ORGANIZATION: {
-      target: "selectedOrganization",
-      actions: [
-        assign({
-          ...initialContext,
-          selectedOrganization: (_: any, event: any) =>
-            event.selectedOrganization
-        })
-      ]
-    },
-    SELECT_LOCATION: {
-      target: "selectedLocation",
-      actions: [
-        assign({
-          ...initialContext,
-          selectedLocation: (_: any, event: any) => event.selectedLocation
-        })
-      ]
-    },
-    DISPLAY_LOCATION_NPCS: {
-      target: "selectedLocation.displayNpcs",
-      cond: "locationSelected"
-    },
-    DISPLAY_LOCATION_LOCATIONS: {
-      target: "selectedLocation.displayLocations",
-      cond: "locationSelected"
-    },
-    DISPLAY_LOCATION_ORGANIZATIONS: {
-      target: "selectedLocation.displayOrganizations",
-      cond: "locationSelected"
-    },
-    SELECT_LOCATION_NPC: {
-      target: "selectedLocation.selectedNpc",
-      actions: [
-        assign({ selectedNpc: (_: any, event: any) => event.selectedNpc })
-      ]
-    },
-    SELECT_LOCATION_ORGANIZATION: {
-      target: "selectedLocation.selectedOrganization",
-      actions: [
-        assign({
-          selectedOrganization: (_: any, event: any) =>
-            event.selectedOrganization
-        })
-      ]
-    },
-    SELECT_LOCATION_LOCATION: {
-      target: "selectedLocation.selectedLocation",
-      actions: [
-        assign({
-          selectedLocation: (context: any, event: any) =>
-            context.selectedLocation,
-          selectedSubLocation: (_: any, event: any) => event.selectedLocation
-        })
-      ]
-    }
-  },
-  states: {
-    init: {},
-    displayNpcs: {},
-    displayOrganizations: {},
-    displayLocations: {},
-    selectedNpc: {},
-    selectedOrganization: {},
-    selectedLocation: {
-      initial: "init",
-      states: {
-        init: {},
-        displayNpcs: {},
-        displayLocations: {},
-        displayOrganizations: {},
-        selectedNpc: {},
-        selectedLocation: {},
-        selectedOrganization: {}
+    states: {
+      init: {},
+      displayNpcs: {},
+      displayOrganizations: {},
+      displayLocations: {},
+      selectedNpc: {},
+      selectedOrganization: {},
+      selectedLocation: {
+        initial: "init",
+        states: {
+          init: {},
+          displayNpcs: {},
+          displayLocations: {},
+          displayOrganizations: {},
+          selectedNpc: {},
+          selectedOrganization: {}
+        }
       }
     }
+  },
+  {
+    guards: {
+      locationSelected: (context: any) => Boolean(context.selectedLocation)
+    }
   }
-}, {guards: {
-  locationSelected: (context) => Boolean(context.selectedLocation)
-}});
+);
 
 export function Test() {
   const [current, send] = useMachine(journalMachine);
 
   return (
     <>
-      <div>
-        STATE: {JSON.stringify(current.value)}
-        SELECTED LOCATION: {current.context.selectedLocation}
-        SELECTED NPC: {current.context.selectedNpc}
-        SELECTED ORGANIZATION: {current.context.selectedOrganization}
-        SELECTED SUB LOCATION: {current.context.selectedSubLocation}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div>STATE: {JSON.stringify(current.value)}</div>
+        <div>
+          SELECTED PARENT LOCATIONS:{" "}
+          {current.context.parentLocations.toString()}
+        </div>
+        <div>SELECTED ORGANIZATION: {current.context.selectedOrganization}</div>
+        <div>SELECTED NPC: {current.context.selectedNpc}</div>
+        <div>SELECTED LOCATION: {current.context.selectedLocation}</div>
       </div>
       <div style={{ display: "flex", height: 200 }}>
         <button onClick={() => send("DISPLAY_NPCS")}>DISPLAY NPC</button>
@@ -274,7 +314,7 @@ export function Test() {
         </button>
         <button
           onClick={() =>
-            send("SELECT_ORGANIZATION_NPC", {
+            send("SELECT_ORGANIZATION_ORGANIZATION", {
               selectedOrganization: "my example location organization id"
             })
           }
@@ -289,6 +329,12 @@ export function Test() {
           }
         >
           SELECT LOCATION LOCATION
+        </button>
+      </div>
+      <div style={{ display: "flex", height: 200 }}>
+        <button onClick={() => send("BACK")}>BACK</button>
+        <button onClick={() => send("BACK_TO_PARENT_LOCATION")}>
+          BACK TO PARENT LOCATION
         </button>
       </div>
       <DefaultButton onClick={() => console.table(current)}>
