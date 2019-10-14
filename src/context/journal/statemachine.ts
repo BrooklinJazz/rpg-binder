@@ -13,6 +13,7 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
     id: "journalMachine",
     initial: "init",
     context: initialContext,
+    // @ts-ignore
     on: {
       DISPLAY_NPCS: {
         target: "displayNpcs"
@@ -28,8 +29,8 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
         actions: [
           assign({
             ...initialContext,
-            parentLocations: (context) => context.parentLocations,
-            selectedLocation: (context) => context.selectedLocation,
+            parentLocations: (context: IJournalContext) => context.parentLocations,
+            selectedLocation: (context: IJournalContext) => context.selectedLocation,
             selectedNpc: (_: any, event: any) => event.selectedNpc
           })
         ]
@@ -39,8 +40,8 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
         actions: [
           assign({
             ...initialContext,
-            parentLocations: (context) => context.parentLocations,
-            selectedLocation: (context) => context.selectedLocation,
+            parentLocations: (context: IJournalContext) => context.parentLocations,
+            selectedLocation: (context: IJournalContext) => context.selectedLocation,
             selectedOrganization: (_: any, event: any) =>
               event.selectedOrganization
           })
@@ -65,8 +66,8 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
         actions: [
           assign({
             ...initialContext,
-            selectedLocation: (context) => context.parentLocations[0],
-            parentLocations: (context) =>
+            selectedLocation: (context: IJournalContext) => context.parentLocations[0],
+            parentLocations: (context: IJournalContext) =>
               context.parentLocations.filter(
                 (_: any, index: number) => index > 0
               )

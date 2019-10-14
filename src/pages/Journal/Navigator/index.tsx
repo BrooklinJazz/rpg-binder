@@ -31,9 +31,6 @@ const Navigator = () => {
       <CampaignList open={open} />
       <div className="Navigator">
         <Heading toggleCampaignList={() => setOpen(!open)}>
-          {
-            context
-          }
           {data && data.campaign.name}
         </Heading>
         <Sections />

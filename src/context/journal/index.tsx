@@ -22,6 +22,7 @@ const JournalStateContext = createContext<IJournalState | undefined>(undefined);
 export const JournalProvider = ({ children }: { children: ReactNode }) => {
   const [current, send] = useMachine(journalMachine);
   const back = () => send(JournalEvents.BACK);
+
   const displayLocations = () => send(JournalEvents.DISPLAY_LOCATIONS);
   const displayOrganizations = () => send(JournalEvents.DISPLAY_ORGANIZATIONS);
   const displayNpcs = () => send(JournalEvents.DISPLAY_NPCS);
@@ -32,7 +33,6 @@ export const JournalProvider = ({ children }: { children: ReactNode }) => {
     send(JournalEvents.SELECT_NPC, { selectedNpc: id });
   const selectLocation = (id: string) =>
     send(JournalEvents.DISPLAY_NPCS, { selectedLocation: id });
-  current.context;
 
   return (
     <JournalStateContext.Provider
