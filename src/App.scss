@@ -18,8 +18,8 @@
     "sidebar content";
   @include mobileStyles() {
     grid-template-columns: 100%;
-    grid-template-rows: $navbar-height minmax(max-content, 1fr) minmax(
-        max-content,
+    grid-template-rows: $navbar-height minmax(0, 1fr) minmax(
+        0,
         1fr
       );
     grid-template-areas:
