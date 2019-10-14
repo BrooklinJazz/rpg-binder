@@ -9,15 +9,18 @@ import { useQuery } from "@apollo/react-hooks";
 import { CAMPAIGN } from "../../../api/apollo";
 import { useCampaignState } from "../../../context/campaign/store";
 import { INpc } from "../../../common/types";
-import { Theme } from "../../../common/theme";
 import CampaignList from "./CampaignList";
+import { useJournalMachine } from "../../../context/journal";
 const Navigator = () => {
+  const {actions, state, context} = useJournalMachine()
   const { activeCampaign } = useCampaignState();
   const [open, setOpen] = useState(false);
+
   const { data } = useQuery<
     { campaign: { name: string; npcs: INpc[] } },
     { campaignId: string }
   >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
+
   return (
     <div
       className={combineClasses(
@@ -27,10 +30,12 @@ const Navigator = () => {
     >
       <CampaignList open={open} />
       <div className="Navigator">
-        <Heading
-          toggleCampaignList={() => setOpen(!open)}
-          campaignName={data && data.campaign.name}
-        />
+        <Heading toggleCampaignList={() => setOpen(!open)}>
+          {
+            context
+          }
+          {data && data.campaign.name}
+        </Heading>
         <Sections />
         <Pages />
       </div>
