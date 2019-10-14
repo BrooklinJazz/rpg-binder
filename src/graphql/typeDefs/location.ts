@@ -32,6 +32,7 @@ export default gql`
 
   input Locations {
     campaign: String
+    location: String
   }
 
   extend type Query {

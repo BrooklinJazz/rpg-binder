@@ -1,28 +1,21 @@
 import { IContext, IInput, IOrganizationInput } from "../../models/types";
 import User from "../../models/user";
 import Organization from "../../models/organization";
-import {
-  checkSignedIn,
-  userIdFromContext
-} from "./helpers";
+import { checkSignedIn, userIdFromContext } from "./helpers";
 
 export default {
   Query: {
     organizations: async (
       root: any,
-      { input }: IInput<{ campaign?: string }>,
+      { input }: IInput<{ campaign?: string; location?: string }>,
       context: IContext
     ) => {
       checkSignedIn(context);
       const userId = userIdFromContext(context);
-      const filters = {
-        creator: userId,
-        campaign: input && input.campaign
-      };
       try {
         const organizations = await Organization.find({
-          // using spread removes undefined filters from the expression
-          ...filters
+          ...input,
+          creator: userId
         });
         return organizations;
       } catch (error) {
@@ -58,7 +51,7 @@ export default {
       const organization = new Organization({
         ...input,
         npcs: [],
-        creator: userId,
+        creator: userId
       });
       try {
         const createdOrganization = await organization.save();

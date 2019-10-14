@@ -30,6 +30,7 @@ export default gql`
 
   input CampaignNpcInput {
     campaign: String
+    location: String
   }
 
   extend type Query {

@@ -14,7 +14,7 @@ export default {
   Query: {
     locations: async (
       root: any,
-      { input }: IInput<{ campaign?: string; parentLocation?: string }>,
+      { input }: IInput<{ campaign?: string; location?: string }>,
       context: IContext
     ) => {
       checkSignedIn(context);

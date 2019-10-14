@@ -93,8 +93,35 @@ export const CAMPAIGN = gql(`
 `);
 
 export const LOCATION_NAME = gql(`
-  query Campaign($locationId: ID!) {
+  query Location($locationId: String!) {
       location(input: {_id: $locationId}) {
+        _id
+        name
+      }
+    }
+`);
+
+export const NPCS = gql(`
+  query Npcs($locationId: String, $campaignId: String) {
+      npcs(input: {location: $locationId, campaign: $campaignId}) {
+        _id
+        name
+      }
+    }
+`);
+
+export const ORGANIZATIONS = gql(`
+  query Organizations($locationId: String, $campaignId: String) {
+      organizations(input: {location: $locationId, campaign: $campaignId}) {
+        _id
+        name
+      }
+    }
+`);
+
+export const LOCATIONS = gql(`
+  query Locations($locationId: String, $campaignId: String) {
+      locations(input: {location: $locationId, campaign: $campaignId}) {
         _id
         name
       }

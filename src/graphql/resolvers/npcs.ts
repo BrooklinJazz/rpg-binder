@@ -14,7 +14,7 @@ export default {
   Query: {
     npcs: async (
       root: any,
-      { input }: IInput<{ campaign?: string }>,
+      { input }: IInput<{ campaign?: string, location?: string }>,
       context: IContext
     ) => {
       checkSignedIn(context);
