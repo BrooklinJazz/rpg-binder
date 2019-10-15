@@ -68,7 +68,7 @@ export default {
         campaign.save();
         const parentLocation = await Location.findById(input.parentLocation);
         if (parentLocation) {
-          parentLocation.locations.push();
+          parentLocation.locations.push(createdLocation);
           parentLocation.save();
         }
         const populatedLocation = Location.findById(createdLocation._id)
