@@ -3,11 +3,14 @@
 
 @mixin breakpoint-adjusted-width() {
   width: $navigator-width / 2;
+  min-width: $navigator-width / 2;
   @include tabletStyles() {
     width: 20vw;
+    min-width: 20vw;
   }
   @include mobileStyles() {
     width: 50vw;
+    min-width: 50vw;
   }
 }
 
@@ -27,6 +30,7 @@
 
 .navigator-campaigns-enter {
   width: 0px;
+  min-width: 0px;
   overflow: hidden;
 }
 .navigator-campaigns-enter-active {
@@ -42,6 +46,7 @@
 .navigator-campaigns-exit-active {
   overflow: hidden;
   width: 0;
+  min-width: 0;
   transition: all 200ms;
 }
 
