@@ -11,6 +11,8 @@ import { useCampaignState } from "../../../context/campaign/store";
 import { INpc } from "../../../common/types";
 import CampaignList from "./CampaignList";
 import { useJournalMachine } from "../../../context/journal";
+import AddSection from "./AddSection";
+import AddPage from "./AddPage";
 const Navigator = () => {
   const { context } = useJournalMachine();
   const { activeCampaign } = useCampaignState();
@@ -32,7 +34,8 @@ const Navigator = () => {
 
   // heading can be for campaign or selected location
   const campaignHeading = campaignData && campaignData.campaign.name;
-  const locationHeading = locationData && !locationLoading && locationData.location.name;
+  const locationHeading =
+    locationData && !locationLoading && locationData.location.name;
   const heading = context.selectedLocation ? locationHeading : campaignHeading;
 
   return (
@@ -47,6 +50,8 @@ const Navigator = () => {
         <Heading toggleCampaignList={() => setOpen(!open)}>{heading}</Heading>
         <Sections />
         <Pages />
+        <AddSection />
+        <AddPage />
       </div>
     </div>
   );

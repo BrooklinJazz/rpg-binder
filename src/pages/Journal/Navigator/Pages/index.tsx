@@ -118,11 +118,11 @@ const NavigatorPages = () => {
     ));
   return (
     <div className="NavigatorPages">
-      {isLoading() ? (
+      {isLoading() || !pageItems ? (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           <Loading />
         </div>
-      ) : pageItems!.length > 0 ? (
+      ) : pageItems.length > 0 ? (
         pageItems
       ) : (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>

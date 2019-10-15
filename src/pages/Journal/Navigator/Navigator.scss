@@ -9,11 +9,12 @@
   width: $navigator-width;
   overflow: hidden;
   display: grid;
-  grid-template-rows: $navigator-heading-height 1fr;
+  grid-template-rows: $navigator-heading-height minmax(0, 1fr) $navigator-item-height;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "navigator-header navigator-header"
-    "navigator-sections navigator-pages";
+    "navigator-sections navigator-pages"
+    "add-section add-page";
   @include tabletStyles() {
     width: 50vw;
   }
@@ -67,4 +68,27 @@
 .NavigatorSections {
   padding-right: 2px;
   grid-area: navigator-sections;
+}
+
+.NavigatorAddSection, .NavigatorAddPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // makes the space between navigator and content look nicer
+  @include mobileStyles() {
+    margin-bottom: 2px;
+  }
+}
+
+.NavigatorAddPage {
+  grid-area: add-page
+}
+
+.NavigatorAddSection {
+  grid-area: add-section;
+  margin-right: 2px;
+}
+
+.NavigatorPlusIcon {
+  margin-right: 10px
 }
