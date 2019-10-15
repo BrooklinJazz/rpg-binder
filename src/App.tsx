@@ -9,7 +9,6 @@ import Navbar from "./pages/Journal/Navbar";
 import { useCampaignState } from "./context/campaign/store";
 import CampaignSelect from "./pages/CampaignSelect";
 import Journal from "./pages/Journal";
-import { Test } from "./Test";
 
 const App: React.FC = () => {
   const { activeCampaign } = useCampaignState();

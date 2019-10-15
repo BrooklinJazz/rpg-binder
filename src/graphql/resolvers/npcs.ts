@@ -1,5 +1,6 @@
 import Npc from "../../models/npc";
 import Organization from "../../models/organization";
+import Location from "../../models/location";
 import {
   IContext,
   IInput,
@@ -22,7 +23,7 @@ export default {
       try {
         return await Npc.find({
           creator: userId,
-          ...input
+          locations: input.location
         });
       } catch (error) {
         throw error;
@@ -72,6 +73,14 @@ export default {
           await Organization.updateMany(
             {
               _id: { $in: input.organizations }
+            },
+            { $push: { npcs: createdNpc } }
+          );
+        }
+        if (input.locations.length > 0) {
+          await Location.updateMany(
+            {
+              _id: { $in: input.locations }
             },
             { $push: { npcs: createdNpc } }
           );

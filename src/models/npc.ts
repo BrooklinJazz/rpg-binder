@@ -20,6 +20,13 @@ const npcSchema = new Schema({
       autopopulate: true,
     }
   ],
+  locations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Location",
+      autopopulate: true,
+    }
+  ],
   campaign: {
     // not autopopulating this for now as it should never be requested
     // and should only be used for filtering

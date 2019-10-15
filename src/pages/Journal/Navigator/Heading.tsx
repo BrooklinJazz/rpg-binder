@@ -27,11 +27,14 @@ const NavigatorHeading = ({ children, toggleCampaignList }: IProps) => {
         <Text onClick={toggleCampaignList} className="NavigatorBars">
           <FontAwesomeIcon icon={faBars} />
         </Text>
-        {/* add fade in/out animation */}
-        <Fade in={context.selectedLocation}>
+        <Fade in={Boolean(context.selectedLocation)}>
           <Text
             onClick={actions.back}
-            className={combineClasses("NavigatorHeadingArrow", Theme.onDefault, Theme.hoverable)}
+            className={combineClasses(
+              "NavigatorHeadingArrow",
+              Theme.onDefault,
+              Theme.hoverable
+            )}
           >
             <FontAwesomeIcon
               className={combineClasses(Theme.onDefault, Theme.hoverable)}

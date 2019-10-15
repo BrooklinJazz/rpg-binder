@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { useMachine } from "@xstate/react";
-import { journalMachine } from "../../Test";
+import { journalMachine } from "./statemachine";
 import { JournalStates, JournalEvents, IJournalContext } from "./types";
 
 interface IJournalState {
@@ -46,7 +46,7 @@ export const JournalProvider = ({ children }: { children: ReactNode }) => {
           selectLocation,
           back
         },
-        context: current.context,
+        context: current.context as IJournalContext,
         state: current.value as JournalStates // NOTE this may not be accurate
       }}
     >

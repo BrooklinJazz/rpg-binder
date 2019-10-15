@@ -21,7 +21,7 @@ const Navigator = () => {
     { campaignId: string }
   >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
 
-  const { data: locationData } = useQuery<
+  const { data: locationData, loading: locationLoading } = useQuery<
     { location: { name: string } },
     { locationId: string }
     // NOTE skiping if selected location does not exist may still cause an error
@@ -32,7 +32,7 @@ const Navigator = () => {
 
   // heading can be for campaign or selected location
   const campaignHeading = campaignData && campaignData.campaign.name;
-  const locationHeading = locationData && locationData.location.name;
+  const locationHeading = locationData && !locationLoading && locationData.location.name;
   const heading = context.selectedLocation ? locationHeading : campaignHeading;
 
   return (

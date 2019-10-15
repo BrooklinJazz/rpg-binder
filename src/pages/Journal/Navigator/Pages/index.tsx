@@ -5,11 +5,16 @@ import { NPCS, ORGANIZATIONS, LOCATIONS } from "../../../../api/apollo";
 import { useJournalMachine } from "../../../../context/journal";
 import { JournalStates } from "../../../../context/journal/types";
 import ListItem from "../ListItem";
+import Load from "../../../../components/Load";
+import combineClasses from "combine-classes/lib";
+import { Theme } from "../../../../common/theme";
+import "./Pages.scss";
+import Loading from "../../../../components/Loading";
 
 const NavigatorPages = () => {
   const { activeCampaign } = useCampaignState();
   const { context, state, actions } = useJournalMachine();
-  const { data: npcsData } = useQuery<
+  const { loading: npcsLoading, data: npcsData } = useQuery<
     { npcs: { _id: string; name: string }[] },
     { campaignId: string; locationId?: string }
   >(NPCS, {
@@ -18,7 +23,7 @@ const NavigatorPages = () => {
       locationId: context.selectedLocation
     }
   });
-  const { data: organizationsData } = useQuery<
+  const { loading: organizationsLoading, data: organizationsData } = useQuery<
     { organizations: { _id: string; name: string }[] },
     { campaignId: string; locationId?: string }
   >(ORGANIZATIONS, {
@@ -27,7 +32,7 @@ const NavigatorPages = () => {
       locationId: context.selectedLocation
     }
   });
-  const { data: locationsData } = useQuery<
+  const { loading: locationsLoading, data: locationsData } = useQuery<
     { locations: { _id: string; name: string }[] },
     { campaignId: string; locationId?: string }
   >(LOCATIONS, {
@@ -82,18 +87,46 @@ const NavigatorPages = () => {
         return [];
     }
   };
+
+  const isLoading = () => {
+    switch (state) {
+      // NPCS
+      case JournalStates.displayNpcs:
+      case JournalStates.selectedNpc:
+        return npcsLoading;
+      case JournalStates.displayOrganizations:
+      case JournalStates.selectedOrganization:
+        return organizationsLoading;
+      case JournalStates.displayLocations:
+      case JournalStates.selectedLocation:
+        return locationsLoading;
+      // handles init
+      default:
+        return false;
+    }
+  };
+  const pageItems =
+    pageList() &&
+    pageList()!.map(page => (
+      <ListItem
+        key={page._id}
+        active={isActive(page._id)}
+        onClick={() => selectAction(page._id)}
+      >
+        {page.name}
+      </ListItem>
+    ));
   return (
     <div className="NavigatorPages">
-      {pageList() &&
-        pageList()!.map(page => (
-          <ListItem
-            key={page._id}
-            active={isActive(page._id)}
-            onClick={() => selectAction(page._id)}
-          >
-            {page.name}
-          </ListItem>
-        ))}
+      {isLoading() ? (
+        <div
+          className={combineClasses("NavigatorLoadingPages", Theme.onDefault)}
+        >
+          <Loading />
+        </div>
+      ) : (
+        pageItems
+      )}
     </div>
   );
 };

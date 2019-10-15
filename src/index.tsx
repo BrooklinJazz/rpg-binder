@@ -17,7 +17,6 @@ import { ThemeProvider } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login";
 import * as serviceWorker from "./serviceWorker";
-import { Test } from "./Test";
 
 const PageRouting = () => {
   const state = useAuthState();
@@ -26,7 +25,6 @@ const PageRouting = () => {
     <>
       {process.env.NODE_ENV === "development" && <DevComponents />}
       <Switch>
-        <Route path="/test" component={Test} />
         <AuthRoute
           isAuth={!isLoggedIn}
           redirectUrl={Routes.APP}

@@ -23,7 +23,7 @@ export default {
         return await Location.find({
           creator: userId,
           ...input
-        }).lean();
+        });
       } catch (error) {
         throw error;
       }
@@ -35,7 +35,7 @@ export default {
     ) => {
       checkSignedIn(context);
       try {
-        const location = await Location.findById(input._id).lean();
+        const location = await Location.findById(input._id);
         if (!location) {
           throw Error("Location not found");
         }

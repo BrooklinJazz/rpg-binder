@@ -8,6 +8,7 @@ export default gql`
     creator: User!
     campaign: Campaign!
     organizations: [Organization!]!
+    locations: [Location!]!
   }
 
   input NpcInput {
@@ -15,6 +16,7 @@ export default gql`
     description: String
     campaign: String!
     organizations: [ID!]!
+    locations: [ID!]!
   }
 
   input UpdateNpcInput {
@@ -22,6 +24,7 @@ export default gql`
     name: String!
     description: String
     organizations: [ID!]!
+    locations: [ID!]!
   }
 
   input SingleNpcInput {

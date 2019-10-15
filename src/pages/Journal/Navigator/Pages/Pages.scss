@@ -1,0 +1,10 @@
+@import "../../../../common/variables";
+@import "../../../../common/theme";
+
+.NavigatorLoadingPages {
+  height: $navigator-item-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

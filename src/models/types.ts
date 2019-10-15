@@ -39,6 +39,7 @@ export interface INpcInput {
   name: string;
   description?: string;
   campaign: ICampaign["_id"];
+  locations: ILocation["_id"][];
   organizations: IOrganization["_id"][];
 }
 
