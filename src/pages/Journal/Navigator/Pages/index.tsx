@@ -119,13 +119,18 @@ const NavigatorPages = () => {
   return (
     <div className="NavigatorPages">
       {isLoading() ? (
-        <div
-          className={combineClasses("NavigatorLoadingPages", Theme.onDefault)}
-        >
+        <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           <Loading />
         </div>
-      ) : (
+      ) : pageItems!.length > 0 ? (
         pageItems
+      ) : (
+        <div className={combineClasses("NavigatorText", Theme.onDefault)}>
+          {state === JournalStates.init ||
+          state === JournalStates.selectedLocation
+            ? "No section selected yet!"
+            : "Nothing here!"}
+        </div>
       )}
     </div>
   );
