@@ -121,7 +121,6 @@ const NavigatorPages = () => {
     ));
   return (
     <div className="NavigatorPages">
-      <button onClick={() => console.log({locationsData, selectedLocation: context.selectedLocation})}>location data</button>
       {isLoading() || !pageItems ? (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           <Loading />

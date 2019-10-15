@@ -36,6 +36,9 @@
 .NavigatorLeftContent {
   display: flex;
   margin-right: -30px;
+  @include mobileStyles() {
+    margin-right: 0px;
+  }
 }
 
 .NavigatorBars {
@@ -53,6 +56,9 @@
 // after the fade animation finishes
 .NavigatorHeadingArrow {
   width: 0px;
+  @include mobileStyles() {
+    width: min-content;
+  }
 }
 
 .NavigatorPages,
@@ -72,14 +78,15 @@
   grid-area: navigator-sections;
 }
 
-.NavigatorAddSection, .NavigatorAddPage {
+.NavigatorAddSection,
+.NavigatorAddPage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .NavigatorAddPage {
-  grid-area: add-page
+  grid-area: add-page;
 }
 
 .NavigatorAddSection {
@@ -87,5 +94,5 @@
 }
 
 .NavigatorPlusIcon {
-  margin-right: 10px
+  margin-right: 10px;
 }

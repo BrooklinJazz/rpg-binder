@@ -12,12 +12,16 @@
 }
 
 .NavigatorCampaigns {
+  margin-right: 2px;
   @include breakpoint-adjusted-width();
 }
 
 .NavigatorCampaignsItem {
-  padding: 0 !important;
   @include tabletStyles() {
+    padding-left: 5px !important;
+  }
+  @include mobileStyles() {
+    padding-left: 0 !important;
   }
 }
 
@@ -43,7 +47,7 @@
 
 .NavigatorCampaignsHeading {
   box-sizing: border-box;
-  margin-right: 2px;
+  margin-bottom: 2px;
   height: $navigator-heading-height;
   display: flex;
   justify-content: space-between;
