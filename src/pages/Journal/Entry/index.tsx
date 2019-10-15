@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   GridTemplateAreas,
-  navbarHeight,
   phoneBreakpoint
 } from "../../../common/constants";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";

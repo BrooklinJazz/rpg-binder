@@ -11,6 +11,8 @@
   display: grid;
   grid-template-rows: $navigator-heading-height minmax(0, 1fr) $navigator-item-height;
   grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
   grid-template-areas:
     "navigator-header navigator-header"
     "navigator-sections navigator-pages"
@@ -74,10 +76,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // makes the space between navigator and content look nicer
-  @include mobileStyles() {
-    margin-bottom: 2px;
-  }
 }
 
 .NavigatorAddPage {
@@ -86,7 +84,6 @@
 
 .NavigatorAddSection {
   grid-area: add-section;
-  margin-right: 2px;
 }
 
 .NavigatorPlusIcon {

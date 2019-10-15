@@ -12,14 +12,13 @@ import { CAMPAIGN_NAMES } from "../../api/apollo";
 import { GridTemplateAreas, pollInterval } from "../../common/constants";
 import { Routes } from "../../common/routes";
 import { Theme } from "../../common/theme";
-import { SuccessButton } from "../../components/Button";
 import Loading from "../../components/Loading";
-import { H1, H2, Text } from "../../components/Typeography";
+import { H1, Text } from "../../components/Typeography";
 import { selectCampaign } from "../../context/campaign/actions";
 import { useCampaignDispatch } from "../../context/campaign/store";
 import CreateCampaignModal from "./CampaignModal";
 const CampaignSelect = ({ history }: RouteComponentProps) => {
-  const { data, loading, error } = useQuery<{
+  const { data, loading } = useQuery<{
     campaigns: { _id: string; name: string }[];
   }>(CAMPAIGN_NAMES, {pollInterval});
   const dispatch = useCampaignDispatch();

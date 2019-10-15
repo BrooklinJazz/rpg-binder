@@ -22,7 +22,8 @@ export default {
       try {
         return await Location.find({
           creator: userId,
-          ...input
+          campaign: input.campaign,
+          parentLocation: input.location
         });
       } catch (error) {
         throw error;
@@ -68,7 +69,7 @@ export default {
         campaign.save();
         const parentLocation = await Location.findById(input.parentLocation);
         if (parentLocation) {
-          parentLocation.locations.push(createdLocation);
+          parentLocation.locations.push(createdLocation._id);
           parentLocation.save();
         }
         const populatedLocation = Location.findById(createdLocation._id)

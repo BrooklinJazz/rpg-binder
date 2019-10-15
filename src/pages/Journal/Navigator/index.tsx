@@ -26,9 +26,9 @@ const Navigator = () => {
   const { data: locationData, loading: locationLoading } = useQuery<
     { location: { name: string } },
     { locationId: string }
-    // NOTE skiping if selected location does not exist may still cause an error
   >(LOCATION_NAME, {
     variables: { locationId: context.selectedLocation! }
+    // skip doesn't seem to work when value is defined
     // skip: !context.selectedLocation
   });
 

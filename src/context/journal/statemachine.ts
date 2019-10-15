@@ -8,7 +8,11 @@ const initialContext = {
   selectedOrganization: undefined
 };
 
-export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJournalActions>(
+export const journalMachine = Machine<
+  IJournalContext,
+  IJournalStateSchema,
+  IJournalActions
+>(
   {
     id: "journalMachine",
     initial: "init",
@@ -24,13 +28,19 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
       DISPLAY_ORGANIZATIONS: {
         target: "displayOrganizations"
       },
+      CHANGE_CAMPAIGN: {
+        target: "init",
+        actions: [assign(initialContext)]
+      },
       SELECT_NPC: {
         target: "selectedNpc",
         actions: [
           assign({
             ...initialContext,
-            parentLocations: (context: IJournalContext) => context.parentLocations,
-            selectedLocation: (context: IJournalContext) => context.selectedLocation,
+            parentLocations: (context: IJournalContext) =>
+              context.parentLocations,
+            selectedLocation: (context: IJournalContext) =>
+              context.selectedLocation,
             selectedNpc: (_: any, event: any) => event.selectedNpc
           })
         ]
@@ -40,8 +50,10 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
         actions: [
           assign({
             ...initialContext,
-            parentLocations: (context: IJournalContext) => context.parentLocations,
-            selectedLocation: (context: IJournalContext) => context.selectedLocation,
+            parentLocations: (context: IJournalContext) =>
+              context.parentLocations,
+            selectedLocation: (context: IJournalContext) =>
+              context.selectedLocation,
             selectedOrganization: (_: any, event: any) =>
               event.selectedOrganization
           })
@@ -54,9 +66,12 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
             ...initialContext,
             // set parent location if there was a previously selected location
             parentLocations: (
-              { parentLocations: prevParents, selectedLocation: prevSelected }: any,
+              {
+                parentLocations: prevParents,
+                selectedLocation: prevSelected
+              }: any,
               _: any
-            ) => prevSelected && [prevSelected, ...prevParents] || [],
+            ) => (prevSelected && [prevSelected, ...prevParents]) || [],
             selectedLocation: (_: any, event: any) => event.selectedLocation
           })
         ]
@@ -66,7 +81,8 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
         actions: [
           assign({
             ...initialContext,
-            selectedLocation: (context: IJournalContext) => context.parentLocations[0],
+            selectedLocation: (context: IJournalContext) =>
+              context.parentLocations[0],
             parentLocations: (context: IJournalContext) =>
               context.parentLocations.filter(
                 (_: any, index: number) => index > 0
@@ -88,7 +104,8 @@ export const journalMachine = Machine<IJournalContext, IJournalStateSchema, IJou
   },
   {
     guards: {
-      locationSelected: (context: IJournalContext) => Boolean(context.selectedLocation)
+      locationSelected: (context: IJournalContext) =>
+        Boolean(context.selectedLocation)
     }
   }
 );

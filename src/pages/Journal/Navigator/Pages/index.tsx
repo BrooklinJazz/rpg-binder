@@ -21,7 +21,8 @@ const NavigatorPages = () => {
     variables: {
       campaignId: activeCampaign!,
       locationId: context.selectedLocation
-    }
+    },
+    pollInterval: 6000
   });
   const { loading: organizationsLoading, data: organizationsData } = useQuery<
     { organizations: { _id: string; name: string }[] },
@@ -30,7 +31,8 @@ const NavigatorPages = () => {
     variables: {
       campaignId: activeCampaign!,
       locationId: context.selectedLocation
-    }
+    },
+    pollInterval: 6000
   });
   const { loading: locationsLoading, data: locationsData } = useQuery<
     { locations: { _id: string; name: string }[] },
@@ -39,7 +41,8 @@ const NavigatorPages = () => {
     variables: {
       campaignId: activeCampaign!,
       locationId: context.selectedLocation
-    }
+    },
+    pollInterval: 6000
   });
   const selectAction = (id: string) => {
     switch (state) {
@@ -118,6 +121,7 @@ const NavigatorPages = () => {
     ));
   return (
     <div className="NavigatorPages">
+      <button onClick={() => console.log({locationsData, selectedLocation: context.selectedLocation})}>location data</button>
       {isLoading() || !pageItems ? (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           <Loading />

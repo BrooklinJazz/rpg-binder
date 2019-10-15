@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { H2, Text } from "../../../components/Typeography";
+import { Text } from "../../../components/Typeography";
 import Load from "../../../components/Load";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,8 +10,6 @@ import {
 import { Theme } from "../../../common/theme";
 import combineClasses from "combine-classes/lib";
 import { useJournalMachine } from "../../../context/journal";
-import { JournalStates } from "../../../context/journal/types";
-import { CSSTransition } from "react-transition-group";
 import Fade from "../../../components/Fade";
 
 interface IProps {

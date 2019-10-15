@@ -3,10 +3,11 @@
 
 .NavigatorListItem {
   min-height: $navigator-item-height;
+  max-height: $navigator-item-height;
+  white-space: nowrap;
   display: flex;
   padding: 0 $navbar-spacing;
-  // justify-content: center;
-  margin-top: 2px;
+  margin-bottom: 2px;
   align-items: center;
 }
 

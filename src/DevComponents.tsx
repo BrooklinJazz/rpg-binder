@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 
 import { LOGIN } from "./api/apollo";
 import { logoutAction, authRequestSuccess } from "./context/auth/actions";
-import { useAuthDispatch, useAuthState } from "./context/auth/store";
+import { useAuthDispatch } from "./context/auth/store";
 import { setTheme } from "./context/theme/actions";
 import { useThemeDispatch, useThemeState } from "./context/theme/store";
 

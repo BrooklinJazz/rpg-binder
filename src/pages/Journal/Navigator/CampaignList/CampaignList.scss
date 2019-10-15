@@ -15,6 +15,12 @@
   @include breakpoint-adjusted-width();
 }
 
+.NavigatorCampaignsItem {
+  padding: 0 !important;
+  @include tabletStyles() {
+  }
+}
+
 .navigator-campaigns-enter {
   width: 0px;
   overflow: hidden;

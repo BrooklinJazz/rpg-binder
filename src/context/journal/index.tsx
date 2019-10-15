@@ -2,6 +2,8 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { useMachine } from "@xstate/react";
 import { journalMachine } from "./statemachine";
 import { JournalStates, JournalEvents, IJournalContext } from "./types";
+import { useCampaignDispatch } from "../campaign/store";
+import { selectCampaign } from "../campaign/actions";
 
 interface IJournalState {
   context: IJournalContext;
@@ -13,6 +15,7 @@ interface IJournalState {
     selectLocation: (id: string) => any;
     selectOrganization: (id: string) => any;
     selectNpc: (id: string) => any;
+    changeCampaign: (id: string) => any;
   };
   state: JournalStates;
 }
@@ -34,6 +37,13 @@ export const JournalProvider = ({ children }: { children: ReactNode }) => {
   const selectLocation = (id: string) =>
     send(JournalEvents.SELECT_LOCATION, { selectedLocation: id });
 
+  const dispatch = useCampaignDispatch();
+
+  const changeCampaign = (id: string) => {
+    dispatch(selectCampaign({ campaign: id }));
+    send(JournalEvents.CHANGE_CAMPAIGN);
+  };
+
   return (
     <JournalStateContext.Provider
       value={{
@@ -44,7 +54,8 @@ export const JournalProvider = ({ children }: { children: ReactNode }) => {
           selectOrganization,
           selectNpc,
           selectLocation,
-          back
+          back,
+          changeCampaign
         },
         context: current.context as IJournalContext,
         state: current.value as JournalStates // NOTE this may not be accurate

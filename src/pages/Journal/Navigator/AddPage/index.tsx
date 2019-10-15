@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import combineClasses from "combine-classes/lib";
@@ -9,7 +9,7 @@ import Fade from "../../../../components/Fade";
 
 const AddPage = () => {
   const { state } = useJournalMachine();
-  const typeToCreateFromState = () => {
+  const typeToCreate = () => {
     switch (state) {
       case JournalStates.displayLocations:
         return "Location";
@@ -23,9 +23,8 @@ const AddPage = () => {
         return undefined;
     }
   };
-  const typeToCreate = useMemo(() => typeToCreateFromState(), [state]);
   return (
-    <Fade in={Boolean(typeToCreate)}>
+    <Fade in={Boolean(typeToCreate())}>
       <div
         className={combineClasses(
           "NavigatorAddPage",
@@ -34,7 +33,7 @@ const AddPage = () => {
         )}
       >
         <FontAwesomeIcon className="NavigatorPlusIcon" icon={faPlus} />{" "}
-        {typeToCreate}
+        {typeToCreate()}
       </div>
     </Fade>
   );

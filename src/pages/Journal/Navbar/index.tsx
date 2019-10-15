@@ -1,28 +1,11 @@
 import "./JournalNavbar.scss";
 
-import combineClasses from "combine-classes/lib";
 import React from "react";
 
 import { useQuery } from "@apollo/react-hooks";
-import {
-  faFacebook,
-  faInstagram,
-  faLinkedin,
-  faMedium,
-  faPatreon,
-  faTwitter
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { CAMPAIGN } from "../../../api/apollo";
-import {
-  GridTemplateAreas,
-  phoneBreakpoint,
-  PROJECT_NAME
-} from "../../../common/constants";
-import { Theme } from "../../../common/theme";
-import Loading from "../../../components/Loading";
-import { H1, H2, Text } from "../../../components/Typeography";
+import { phoneBreakpoint } from "../../../common/constants";
 import { logoutAction } from "../../../context/auth/actions";
 import { useAuthDispatch } from "../../../context/auth/store";
 import { useCampaignState } from "../../../context/campaign/store";
@@ -45,7 +28,9 @@ const JournalNavbar = () => {
   const { width } = useWindowDimensions();
   const logout = () => dispatch(logoutAction());
   if (width < phoneBreakpoint) {
-    return <MobileNavbar campaignName={data && data.campaign.name} logout={logout} />;
+    return (
+      <MobileNavbar campaignName={data && data.campaign.name} logout={logout} />
+    );
   } else {
     return (
       <DesktopNavbar

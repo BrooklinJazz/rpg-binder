@@ -31,6 +31,7 @@ export enum JournalEvents {
   DISPLAY_NPCS = "DISPLAY_NPCS",
   DISPLAY_LOCATIONS = "DISPLAY_LOCATIONS",
   DISPLAY_ORGANIZATIONS = "DISPLAY_ORGANIZATIONS",
+  CHANGE_CAMPAIGN = "CHANGE_CAMPAIGN",
   SELECT_NPC = "SELECT_NPC",
   SELECT_ORGANIZATION = "SELECT_ORGANIZATION",
   SELECT_LOCATION = "SELECT_LOCATION",
@@ -49,6 +50,10 @@ export interface IDisplayOrganizations {
 
 export interface IBack {
   type: JournalEvents.BACK;
+}
+
+export interface IChangeCampaign {
+  type: JournalEvents.CHANGE_CAMPAIGN;
 }
 
 export interface ISelectNpc {
@@ -71,4 +76,5 @@ export type IJournalActions =
   | IDisplayNpcs
   | IDisplayLocations
   | IBack
+  | IChangeCampaign
   | IDisplayOrganizations;

@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import React, { createContext, ReactNode, useReducer } from "react";
 
 import { LocalStorage } from "../../common/constants";

@@ -9,32 +9,28 @@ const campaignSchema = new Schema({
   npcs: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Npc",
-      autopopulate: true,
+      ref: "Npc"
     }
   ],
   organizations: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Organization",
-      autopopulate: true,
+      ref: "Organization"
     }
   ],
   locations: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Location",
-      autopopulate: true,
+      ref: "Location"
     }
   ],
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    autopopulate: true,
-    required: true,
+    required: true
   }
 });
 
-campaignSchema.plugin(require('mongoose-autopopulate'))
+campaignSchema.plugin(require("mongoose-autopopulate"));
 
 export default model<ICampaign>("Campaign", campaignSchema);
