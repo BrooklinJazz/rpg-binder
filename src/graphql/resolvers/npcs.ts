@@ -22,8 +22,9 @@ export default {
       const userId = userIdFromContext(context);
       try {
         return await Npc.find({
-          creator: userId,
-          locations: input.location
+          ...input,
+          creator: userId
+          // locations: input.location
         });
       } catch (error) {
         throw error;
