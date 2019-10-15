@@ -128,9 +128,7 @@ const NavigatorPages = () => {
           <Loading />
         </div>
       )}
-      <Fade in={Boolean(pageItems && pageItems.length && !loading)}>
-        <>{pageItems}</>
-      </Fade>
+      <>{pageItems && pageItems.length && !loading && pageItems}</>
       {!loading && pageItems && pageItems.length === 0 && (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           {state === JournalStates.init ||
