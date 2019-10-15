@@ -10,7 +10,7 @@ interface IProps
 }
 
 const Fade = ({ children, ...props }: IProps) => (
-  <CSSTransition {...props} classNames="Fade" unmountOnExit timeout={500}>
+  <CSSTransition {...props} classNames="Fade" unmountOnExit timeout={200}>
     {children}
   </CSSTransition>
 );

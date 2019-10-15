@@ -10,6 +10,7 @@ import combineClasses from "combine-classes/lib";
 import { Theme } from "../../../../common/theme";
 import "./Pages.scss";
 import Loading from "../../../../components/Loading";
+import Fade from "../../../../components/Fade";
 
 const NavigatorPages = () => {
   const { activeCampaign } = useCampaignState();
@@ -119,15 +120,18 @@ const NavigatorPages = () => {
         {page.name}
       </ListItem>
     ));
+  const loading = isLoading();
   return (
     <div className="NavigatorPages">
-      {isLoading() || !pageItems ? (
+      {loading && (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           <Loading />
         </div>
-      ) : pageItems.length > 0 ? (
-        pageItems
-      ) : (
+      )}
+      <Fade in={Boolean(pageItems && pageItems.length && !loading)}>
+        <>{pageItems}</>
+      </Fade>
+      {!loading && pageItems && pageItems.length === 0 && (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           {state === JournalStates.init ||
           state === JournalStates.selectedLocation

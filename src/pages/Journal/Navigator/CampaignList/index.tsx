@@ -43,6 +43,7 @@ const CampaignList = ({ open }: IProps) => {
         ) : (
           data.campaigns.map(campaign => (
             <ListItem
+              key={campaign._id}
               className="NavigatorCampaignsItem"
               onClick={() => actions.changeCampaign(campaign._id)}
               active={activeCampaign === campaign._id}

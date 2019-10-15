@@ -35,6 +35,7 @@
 }
 
 .JournalMobileNavbarDropdown {
+  z-index: $navbar-z-index;
   position: absolute;
   top: $navbar-height;
   height: max-content;
