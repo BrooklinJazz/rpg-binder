@@ -4,10 +4,12 @@ import { CSSTransitionProps } from "react-transition-group/CSSTransition";
 import { Omit } from "../../common/types";
 import "./Fade.scss";
 
-const Fade = ({
-  children,
-  ...props
-}: Omit<CSSTransitionProps, "classNames" | "unmountOnExit" | "timeout">) => (
+interface IProps
+  extends Omit<CSSTransitionProps, "classNames" | "unmountOnExit" | "timeout"> {
+  in: boolean;
+}
+
+const Fade = ({ children, ...props }: IProps) => (
   <CSSTransition {...props} classNames="Fade" unmountOnExit timeout={500}>
     {children}
   </CSSTransition>
