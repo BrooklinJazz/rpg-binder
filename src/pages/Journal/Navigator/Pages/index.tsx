@@ -128,7 +128,7 @@ const NavigatorPages = () => {
           <Loading />
         </div>
       )}
-      <>{pageItems && pageItems.length && !loading && pageItems}</>
+      <>{pageItems && pageItems.length > 0 && !loading && pageItems}</>
       {!loading && pageItems && pageItems.length === 0 && (
         <div className={combineClasses("NavigatorText", Theme.onDefault)}>
           {state === JournalStates.init ||
