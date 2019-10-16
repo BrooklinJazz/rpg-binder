@@ -59,6 +59,8 @@ export const titleFromJournalModalState = (state: JournalModalStates) => {
       return "Create Organization";
     case JournalModalStates.CREATE_NPC:
       return "Create Npc";
+    case JournalModalStates.CREATE_SECTION:
+      return "Create Section";
     default:
       break;
   }

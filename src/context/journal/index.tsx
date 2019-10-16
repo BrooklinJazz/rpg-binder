@@ -36,7 +36,8 @@ const JournalModalContext = createContext<
 export enum JournalModalStates {
   CREATE_LOCATION = "CREATE_LOCATION",
   CREATE_ORGANIZATION = "CREATE_ORGANIZATION",
-  CREATE_NPC = "CREATE_NPC"
+  CREATE_NPC = "CREATE_NPC",
+  CREATE_SECTION = "CREATE_SECTION",
 }
 
 export const JournalModalProvider = ({ children }: { children: ReactNode }) => {

@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { titleFromJournalModalState } from "../../../common/helpers";
 import { Theme } from "../../../common/theme";
 import Fade from "../../../components/Fade";
 import Modal from "../../../components/Modal";
-import {
-  useJournalMachine,
-  useJournalModalState
-} from "../../../context/journal";
+import { useJournalModalState } from "../../../context/journal";
 import ModalHandler from "./ModalHandler";
 
 const JournalCreateModal = () => {
