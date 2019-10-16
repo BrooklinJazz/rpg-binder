@@ -1,6 +1,8 @@
 // z-indexs
 $entry-z-index: 100;
 $navbar-z-index: 200;
+$modal-z-index: 400;
+$modal-wrapper-z-index: 300;
 
 $navbar-height: 60px;
 $navbar-spacing: 20px;
@@ -33,7 +35,7 @@ $button-radius: 10px;
 
 // form & inputs
 $input-height: 35px;
-$input-radius: 5px;
+$input-radius: 0;
 $input-padding: 5px;
 
 // snackbar

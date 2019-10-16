@@ -1,31 +1,29 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import combineClasses from "combine-classes/lib";
+import React from "react";
+
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+  modalStateFromTypeToCreate,
+  typeToCreateFromState
+} from "../../../../common/helpers";
 import { Theme } from "../../../../common/theme";
-import { useJournalMachine } from "../../../../context/journal";
-import { JournalStates } from "../../../../context/journal/types";
 import Fade from "../../../../components/Fade";
+import {
+  useJournalMachine,
+  useJournalModalState
+} from "../../../../context/journal";
 
 const AddPage = () => {
   const { state } = useJournalMachine();
-  const typeToCreate = () => {
-    switch (state) {
-      case JournalStates.displayLocations:
-        return "Location";
-      case JournalStates.displayNpcs:
-      case JournalStates.selectedNpc:
-        return "Npc";
-      case JournalStates.displayOrganizations:
-      case JournalStates.selectedOrganization:
-        return "Organization";
-      default:
-        return undefined;
-    }
-  };
+  const { open } = useJournalModalState();
+  const typeToCreate = typeToCreateFromState(state);
+  const selectedState = modalStateFromTypeToCreate(typeToCreate);
   return (
-    <Fade in={Boolean(typeToCreate())}>
+    <Fade in={Boolean(typeToCreate)}>
       <div
+        onClick={() => selectedState && open(selectedState)}
         className={combineClasses(
           "NavigatorAddPage",
           Theme.default,
@@ -33,7 +31,7 @@ const AddPage = () => {
         )}
       >
         <FontAwesomeIcon className="NavigatorPlusIcon" icon={faPlus} />{" "}
-        {typeToCreate()}
+        {typeToCreate}
       </div>
     </Fade>
   );

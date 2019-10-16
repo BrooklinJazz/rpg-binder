@@ -8,18 +8,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: $modal-wrapper-z-index;
+  @include themed() {
+    background-color: rgba(t($background), 0.5);
+  }
 }
 .Modal {
   padding: $modal-spacing;
+  z-index: $modal-z-index;
+  opacity: 1;
   width: 500px;
   max-width: 100%;
   box-sizing: border-box;
   height: max-content;
   @include themed() {
-    background-color: t($default);
-    color: t($on-default);
-    border: solid 1px t($primary)
+    border: solid 1px t($primary);
   }
   @include mobileStyles() {
   }
@@ -27,4 +30,20 @@
   }
   @include landscapeStyles() {
   }
+}
+
+.ModalTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ModalClose {
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  @include themed() {
+    color: t($danger);
+  }
+  font-size: 20px;
+  height: $modal-spacing;
 }

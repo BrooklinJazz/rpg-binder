@@ -27,11 +27,10 @@ const CampaignDispatchContext = createContext<CampaignDispatch | undefined>(
   undefined
 );
 
-const initialState: ICampaignState = {
-  activeCampaign: valueFromStorage(LocalStorage.ACTIVE_CAMPAIGN)
-};
-
 export const CampaignProvider = ({ children }: { children: ReactNode }) => {
+  const initialState: ICampaignState = {
+    activeCampaign: valueFromStorage(LocalStorage.ACTIVE_CAMPAIGN)
+  };
   const [state, dispatch] = useReducer(campaignReducer, initialState);
   return (
     <CampaignStateContext.Provider value={state}>

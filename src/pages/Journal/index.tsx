@@ -4,7 +4,11 @@ import { useCampaignState } from "../../context/campaign/store";
 import Navbar from "./Navbar";
 import Navigator from "./Navigator";
 import Entry from "./Entry";
-import { JournalProvider } from "../../context/journal";
+import {
+  JournalStateProvider,
+  JournalModalProvider
+} from "../../context/journal";
+import JournalCreateModal from "./CreateModal";
 
 const Journal = () => {
   const { activeCampaign } = useCampaignState();
@@ -12,11 +16,14 @@ const Journal = () => {
     throw new Error("Rendered Journal with no Active Campaign");
   }
   return (
-    <JournalProvider>
-      <Navbar />
-      <Navigator />
-      <Entry />
-    </JournalProvider>
+    <JournalStateProvider>
+      <JournalModalProvider>
+        <Navbar />
+        <Navigator />
+        <Entry />
+        <JournalCreateModal />
+      </JournalModalProvider>
+    </JournalStateProvider>
   );
 };
 
