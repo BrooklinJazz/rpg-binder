@@ -1,20 +1,43 @@
 @import "../../../common/variables";
+@import "../../../common/theme";
 
-.JournalEntry {
+.Entry {
   background-color: lightgrey;
   z-index: $entry-z-index;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 3fr 1fr;
+  grid-template-areas:
+    "entry-heading ."
+    "entry-content entry-sidebar";
+  @include tabletStyles() {
+    grid-template-rows: minmax(0, 1fr) minmax(0, 3fr);
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "entry-heading"
+      "entry-sidebar"
+      "entry-content";
+  }
+  @include mobileStyles() {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      // "entry-sidebar"
+      "entry-heading"
+      "entry-content";
+  }
 }
 
 // 75 is a magic number that through T&E makes the entry almost overlap the navigator header
 $open-entry-margin: calc(((100vh - #{$navbar-height} - 75px) / -2));
 
-.JournalEntry.open {
+.Entry.open {
   margin-top: $open-entry-margin;
   animation-duration: 500ms;
   animation-name: mobile-slider;
 }
 
-.JournalEntry.closed {
+.Entry.closed {
   margin-top: 0;
   animation-duration: 500ms;
   animation-name: reverse-mobile-slider;
@@ -35,5 +58,20 @@ $open-entry-margin: calc(((100vh - #{$navbar-height} - 75px) / -2));
   }
   to {
     margin-top: 0;
+  }
+}
+
+.ENTRY_HEADING {
+  grid-area: entry-heading;
+}
+
+.ENTRY_CONTENT {
+  grid-area: entry-content;
+}
+
+.ENTRY_SIDEBAR {
+  grid-area: entry-sidebar;
+  @include mobileStyles() {
+    display: none;
   }
 }

@@ -8,11 +8,16 @@ export enum JournalStates {
   selectedLocation = "selectedLocation"
 }
 
+export interface INameAndId {
+  id: string;
+  name: string;
+}
+
 export interface IJournalContext {
-  selectedNpc: undefined | string;
-  parentLocations: string[];
-  selectedLocation: undefined | string;
-  selectedOrganization: undefined | string;
+  selectedNpc: undefined | INameAndId;
+  parentLocations: INameAndId[];
+  selectedLocation: undefined | INameAndId;
+  selectedOrganization: undefined | INameAndId;
 }
 
 export interface IJournalStateSchema {

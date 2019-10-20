@@ -1,0 +1,26 @@
+.OrganizationEntry {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    grid-template-areas:
+      "description image description"
+      "description details details";
+    @include tabletStyles() {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-areas:
+        "image description"
+        "stats stats"
+        "details details";
+    }
+    @include mobileStyles() {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+      grid-template-areas:
+        "image"
+        "description"
+        "details"
+        "stats";
+    }
+  }
+  

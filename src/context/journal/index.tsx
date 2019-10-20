@@ -5,7 +5,12 @@ import { useMachine } from "@xstate/react";
 import { selectCampaign } from "../campaign/actions";
 import { useCampaignDispatch } from "../campaign/store";
 import { journalMachine } from "./statemachine";
-import { IJournalContext, JournalEvents, JournalStates } from "./types";
+import {
+  IJournalContext,
+  INameAndId,
+  JournalEvents,
+  JournalStates
+} from "./types";
 
 interface IJournalState {
   context: IJournalContext;
@@ -14,9 +19,9 @@ interface IJournalState {
     displayLocations: () => any;
     displayOrganizations: () => any;
     displayNpcs: () => any;
-    selectLocation: (id: string) => any;
-    selectOrganization: (id: string) => any;
-    selectNpc: (id: string) => any;
+    selectLocation: (params: INameAndId) => any;
+    selectOrganization: (params: INameAndId) => any;
+    selectNpc: (params: INameAndId) => any;
     changeCampaign: (id: string) => any;
   };
   state: JournalStates;
@@ -37,7 +42,7 @@ export enum JournalModalStates {
   CREATE_LOCATION = "CREATE_LOCATION",
   CREATE_ORGANIZATION = "CREATE_ORGANIZATION",
   CREATE_NPC = "CREATE_NPC",
-  CREATE_SECTION = "CREATE_SECTION",
+  CREATE_SECTION = "CREATE_SECTION"
 }
 
 export const JournalModalProvider = ({ children }: { children: ReactNode }) => {
@@ -64,12 +69,14 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
   const displayOrganizations = () => send(JournalEvents.DISPLAY_ORGANIZATIONS);
   const displayNpcs = () => send(JournalEvents.DISPLAY_NPCS);
 
-  const selectOrganization = (id: string) =>
-    send(JournalEvents.SELECT_ORGANIZATION, { selectedOrganization: id });
-  const selectNpc = (id: string) =>
-    send(JournalEvents.SELECT_NPC, { selectedNpc: id });
-  const selectLocation = (id: string) =>
-    send(JournalEvents.SELECT_LOCATION, { selectedLocation: id });
+  const selectOrganization = (params: INameAndId) =>
+    send(JournalEvents.SELECT_ORGANIZATION, {
+      selectedOrganization: { ...params }
+    });
+  const selectNpc = (params: INameAndId) =>
+    send(JournalEvents.SELECT_NPC, { selectedNpc: { ...params } });
+  const selectLocation = (params: INameAndId) =>
+    send(JournalEvents.SELECT_LOCATION, { selectedLocation: { ...params } });
 
   const dispatch = useCampaignDispatch();
 

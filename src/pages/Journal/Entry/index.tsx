@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import {
-  GridTemplateAreas,
-  phoneBreakpoint
-} from "../../../common/constants";
-import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import "./Entry.scss";
+
 import combineClasses from "combine-classes/lib";
-import { DefaultButton } from "../../../components/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect, useLayoutEffect } from "react";
+
 import {
-  faCaretSquareUp,
-  faCaretSquareDown
+  faCaretSquareDown,
+  faCaretSquareUp
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { GridTemplateAreas, phoneBreakpoint } from "../../../common/constants";
+import { DefaultButton } from "../../../components/Button";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import ReferenceSidebar from "./ReferenceSidebar";
+import ContentHandler from "./ContentHandler";
 
 const Entry = () => {
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [open, setOpen] = useState();
   const MobileOpenButton = () =>
     open ? (
@@ -26,17 +28,27 @@ const Entry = () => {
         <FontAwesomeIcon icon={faCaretSquareUp} />
       </DefaultButton>
     );
+
+  // quick hack to debug css open styles when outside of phoneBreakpoint size
+  useLayoutEffect(() => {
+    if (width > phoneBreakpoint && open) {
+      setOpen(false);
+    }
+  }, [width]);
+
   return (
     <div
       className={combineClasses(
         GridTemplateAreas.CONTENT,
-        "JournalEntry",
+        "Entry",
         [open, "open"],
         // using === false to avoid initial animation
         [open === false, "closed"]
       )}
     >
       {width <= phoneBreakpoint && MobileOpenButton()}
+      <ContentHandler/>
+      <ReferenceSidebar />
     </div>
   );
 };

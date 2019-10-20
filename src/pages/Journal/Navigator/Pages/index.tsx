@@ -1,27 +1,29 @@
-import React from "react";
-import { useCampaignState } from "../../../../context/campaign/store";
-import { useQuery } from "@apollo/react-hooks";
-import { NPCS, ORGANIZATIONS, LOCATIONS } from "../../../../api/apollo";
-import { useJournalMachine } from "../../../../context/journal";
-import { JournalStates } from "../../../../context/journal/types";
-import ListItem from "../ListItem";
-import Load from "../../../../components/Load";
-import combineClasses from "combine-classes/lib";
-import { Theme } from "../../../../common/theme";
 import "./Pages.scss";
+
+import combineClasses from "combine-classes/lib";
+import React from "react";
+
+import { useQuery } from "@apollo/react-hooks";
+
+import { LOCATIONS, NPCS, ORGANIZATIONS } from "../../../../api/apollo";
+import { Theme } from "../../../../common/theme";
 import Loading from "../../../../components/Loading";
-import Fade from "../../../../components/Fade";
+import { useCampaignState } from "../../../../context/campaign/store";
+import { useJournalMachine } from "../../../../context/journal";
+import { INameAndId, JournalStates } from "../../../../context/journal/types";
+import ListItem from "../ListItem";
 
 const NavigatorPages = () => {
   const { activeCampaign } = useCampaignState();
   const { context, state, actions } = useJournalMachine();
+  const locationId = context.selectedLocation && context.selectedLocation.id;
   const { loading: npcsLoading, data: npcsData } = useQuery<
     { npcs: { _id: string; name: string }[] },
     { campaignId: string; locationId?: string }
   >(NPCS, {
     variables: {
       campaignId: activeCampaign!,
-      locationId: context.selectedLocation
+      locationId
     },
     pollInterval: 6000
   });
@@ -31,7 +33,7 @@ const NavigatorPages = () => {
   >(ORGANIZATIONS, {
     variables: {
       campaignId: activeCampaign!,
-      locationId: context.selectedLocation
+      locationId
     },
     pollInterval: 6000
   });
@@ -41,20 +43,20 @@ const NavigatorPages = () => {
   >(LOCATIONS, {
     variables: {
       campaignId: activeCampaign!,
-      locationId: context.selectedLocation
+      locationId
     },
     pollInterval: 6000
   });
-  const selectAction = (id: string) => {
+  const selectAction = (params: INameAndId) => {
     switch (state) {
       case JournalStates.displayLocations:
-        return actions.selectLocation(id);
+        return actions.selectLocation(params);
       case JournalStates.displayNpcs:
       case JournalStates.selectedNpc:
-        return actions.selectNpc(id);
+        return actions.selectNpc(params);
       case JournalStates.displayOrganizations:
       case JournalStates.selectedOrganization:
-        return actions.selectOrganization(id);
+        return actions.selectOrganization(params);
       default:
         throw new Error("selectAction called during invalid state: " + state);
     }
@@ -63,12 +65,12 @@ const NavigatorPages = () => {
   const isActive = (id: string) => {
     switch (state) {
       case JournalStates.selectedNpc:
-        return context.selectedNpc === id;
+        return context.selectedNpc!.id === id;
       case JournalStates.selectedOrganization:
-        return context.selectedOrganization === id;
+        return context.selectedOrganization!.id === id;
       // this shouldn't happen but might trigger for a split second
       case JournalStates.selectedLocation:
-        return context.selectedLocation === id;
+        return context.selectedLocation!.id === id;
       default:
         return false;
     }
@@ -115,7 +117,7 @@ const NavigatorPages = () => {
       <ListItem
         key={page._id}
         active={isActive(page._id)}
-        onClick={() => selectAction(page._id)}
+        onClick={() => selectAction({ id: page._id, name: page.name })}
       >
         {page.name}
       </ListItem>

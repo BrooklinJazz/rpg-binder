@@ -17,6 +17,7 @@ const Navigator = () => {
   const { context } = useJournalMachine();
   const { activeCampaign } = useCampaignState();
   const [open, setOpen] = useState(false);
+  const locationId = context.selectedLocation && context.selectedLocation.id;
 
   const { data: campaignData } = useQuery<
     { campaign: { name: string; npcs: INpc[] } },
@@ -25,9 +26,9 @@ const Navigator = () => {
 
   const { data: locationData, loading: locationLoading } = useQuery<
     { location: { name: string } },
-    { locationId: string }
+    { locationId?: string }
   >(LOCATION_NAME, {
-    variables: { locationId: context.selectedLocation! }
+    variables: { locationId },
     // skip doesn't seem to work when value is defined
     // skip: !context.selectedLocation
   });
