@@ -1,15 +1,18 @@
+@import "../../../../common/variables";
+
 .NpcEntry {
   display: grid;
+  background-color: blue;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 2fr 1fr;
   grid-template-areas:
-    "stats image description"
+    "stats avatar description"
     "stats details details";
   @include tabletStyles() {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
-      "image description"
+      "avatar description"
       "stats stats"
       "details details";
   }
@@ -17,9 +20,22 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-      "image"
+      "avatar"
       "description"
       "details"
       "stats";
   }
+}
+
+.NPC_STATBLOCK {
+  grid-area: stats;
+}
+.NPC_AVATAR {
+  grid-area: avatar;
+}
+.NPC_DESCRIPTION {
+  grid-area: description;
+}
+.NPC_DETAILS {
+  grid-area: details;
 }

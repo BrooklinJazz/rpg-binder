@@ -3,6 +3,8 @@ export interface IAuthInput {
   password: string;
 }
 
+export type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
+
 export interface ISignUpRetval {
   _id: string;
   email: string;
@@ -15,9 +17,16 @@ export interface IDecodedToken {
   iat: number;
 }
 
+export interface IStatBlock {
+  TODO: string;
+}
+
 export interface INpcInput {
   name: string;
   description?: string;
+  details?: string;
+  statblock?: IStatBlock;
+  avatar?: File;
 }
 
 export interface INpc extends INpcInput {

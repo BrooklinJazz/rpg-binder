@@ -1,17 +1,18 @@
 @import "../../../common/variables";
 @import "../../../common/theme";
 
+
 .Entry {
   background-color: lightgrey;
   z-index: $entry-z-index;
   display: grid;
-  grid-template-rows: 100%;
+  grid-template-rows: $navigator-heading-height 1fr;
   grid-template-columns: 3fr 1fr;
   grid-template-areas:
-    "entry-heading ."
+    "entry-heading entry-sidebar"
     "entry-content entry-sidebar";
   @include tabletStyles() {
-    grid-template-rows: minmax(0, 1fr) minmax(0, 3fr);
+    grid-template-rows: $navigator-heading-height minmax(0, 1fr) minmax(0, 3fr);
     grid-template-columns: 1fr;
     grid-template-areas:
       "entry-heading"
@@ -19,7 +20,7 @@
       "entry-content";
   }
   @include mobileStyles() {
-    grid-template-rows: 1fr;
+    grid-template-rows: $navigator-heading-height 1fr;
     grid-template-columns: 1fr;
     grid-template-areas:
       // "entry-sidebar"

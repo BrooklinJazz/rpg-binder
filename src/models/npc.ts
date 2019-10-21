@@ -1,30 +1,36 @@
 import { model, Schema } from "mongoose";
 import { INpc } from "./types";
 
+const statBlockSchema = new Schema({
+  HIT_POINTS: Number
+});
+
 const npcSchema = new Schema({
   name: {
     type: String,
     required: true
   },
   description: String,
+  details: String,
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
     autopopulate: true
   },
+  statblock: statBlockSchema,
   organizations: [
     {
       type: Schema.Types.ObjectId,
       ref: "Organization",
-      autopopulate: true,
+      autopopulate: true
     }
   ],
   locations: [
     {
       type: Schema.Types.ObjectId,
       ref: "Location",
-      autopopulate: true,
+      autopopulate: true
     }
   ],
   campaign: {
@@ -36,6 +42,6 @@ const npcSchema = new Schema({
   }
 });
 
-npcSchema.plugin(require('mongoose-autopopulate'))
+npcSchema.plugin(require("mongoose-autopopulate"));
 
 export default model<INpc>("Npc", npcSchema);

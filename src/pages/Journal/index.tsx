@@ -7,7 +7,7 @@ import Entry from "./Entry";
 import {
   JournalStateProvider,
   JournalModalProvider
-} from "../../context/journal";
+} from "../../context/navigator";
 import JournalCreateModal from "./CreateModal";
 
 const Journal = () => {

@@ -110,6 +110,29 @@ export const NPCS = gql(`
     }
 `);
 
+export const NPC = gql(`
+  query Npcs($id: ID!) {
+      npc(input: {_id: $id}) {
+        _id
+        name
+        description
+        details
+        statblock
+      }
+    }
+`);
+export const SAVE_NPC = gql(`
+  query SaveNpc($id: ID!, $name: String!, $description: String, $details: String) {
+      updateNpc(input: {_id: $id}) {
+        _id
+        name
+        description
+        details
+        statblock
+      }
+    }
+`);
+
 export const ORGANIZATIONS = gql(`
   query Organizations($locationId: String, $campaignId: String) {
       organizations(input: {location: $locationId, campaign: $campaignId}) {

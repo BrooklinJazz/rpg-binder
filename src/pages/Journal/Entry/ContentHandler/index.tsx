@@ -1,5 +1,5 @@
 import React from "react";
-import { useJournalMachine } from "../../../../context/journal";
+import { useJournalMachine } from "../../../../context/navigator";
 import LocationEntry from "../Location";
 import NpcEntry from "../Npc";
 import OrganizationEntry from "../Organization";

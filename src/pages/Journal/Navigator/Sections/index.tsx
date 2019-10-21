@@ -1,7 +1,7 @@
 import React from "react";
 import ListItem from "../ListItem";
-import { useJournalMachine } from "../../../../context/journal";
-import { JournalStates } from "../../../../context/journal/types";
+import { useJournalMachine } from "../../../../context/navigator";
+import { JournalStates } from "../../../../context/navigator/types";
 
 const NavigatorSections = () => {
   const { state, actions } = useJournalMachine();

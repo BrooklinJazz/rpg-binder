@@ -13,7 +13,7 @@ import { CAMPAIGN_NAMES } from "../../../../api/apollo";
 import Loading from "../../../../components/Loading";
 import ListItem from "../ListItem";
 import { selectCampaign } from "../../../../context/campaign/actions";
-import { useJournalMachine } from "../../../../context/journal";
+import { useJournalMachine } from "../../../../context/navigator";
 
 interface IProps {
   open: boolean;

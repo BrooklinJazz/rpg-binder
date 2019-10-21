@@ -1,21 +1,21 @@
+import Campaign from "../../models/campaign";
+import Location from "../../models/location";
 import Npc from "../../models/npc";
 import Organization from "../../models/organization";
-import Location from "../../models/location";
 import {
   IContext,
   IInput,
+  INpc,
   INpcInput,
-  IUpdateNpcInput,
-  INpc
+  IUpdateNpcInput
 } from "../../models/types";
-import Campaign from "../../models/campaign";
 import { checkSignedIn, userIdFromContext } from "./helpers";
 
 export default {
   Query: {
     npcs: async (
       root: any,
-      { input }: IInput<{ campaign?: string, location?: string }>,
+      { input }: IInput<{ campaign?: string; location?: string }>,
       context: IContext
     ) => {
       checkSignedIn(context);
@@ -58,7 +58,9 @@ export default {
       const userId = userIdFromContext(context);
       const npc = new Npc({
         ...input,
-        creator: userId
+        creator: userId,
+        locations: input.locations,
+        organizations: input.organizations,
       });
       try {
         const createdNpc = await npc.save();
@@ -98,23 +100,20 @@ export default {
       context: IContext
     ) => {
       checkSignedIn(context);
-      const userId = userIdFromContext(context);
-      const updateNpc: INpc | null = await Npc.findByIdAndUpdate(
+      const updatedNpc: INpc | null = await Npc.findByIdAndUpdate(
         input._id,
         {
-          ...input
+          ...input,
+          locations: input.locations,
+          organizations: input.organizations,
         },
         // get the new version of the campaign, not the old one.
         { new: true }
       );
-      const campaign = await Campaign.findById(input.campaign);
-      if (!campaign) {
-        throw new Error("Campaign does not exist");
-      }
-      if (!updateNpc) {
+      if (!updatedNpc) {
         throw new Error("Npc Does Not Exist");
       }
-      return updateNpc.toObject();
+      return updatedNpc.toObject();
     },
     deleteNpc: async (
       root: any,

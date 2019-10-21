@@ -5,6 +5,8 @@ export default gql`
     _id: ID
     name: String!
     description: String
+    details: String
+    avatar: File
     creator: User!
     campaign: Campaign!
     organizations: [Organization!]!
@@ -14,7 +16,9 @@ export default gql`
   input NpcInput {
     name: String!
     description: String
+    details: String
     campaign: String!
+    avatar: Upload
     organizations: [ID!]!
     locations: [ID!]!
   }

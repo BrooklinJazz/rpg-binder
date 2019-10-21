@@ -10,7 +10,7 @@ import { CAMPAIGN, LOCATION_NAME } from "../../../api/apollo";
 import { useCampaignState } from "../../../context/campaign/store";
 import { INpc } from "../../../common/types";
 import CampaignList from "./CampaignList";
-import { useJournalMachine } from "../../../context/journal";
+import { useJournalMachine } from "../../../context/navigator";
 import AddSection from "./AddSection";
 import AddPage from "./AddPage";
 const Navigator = () => {
