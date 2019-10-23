@@ -7,10 +7,10 @@ import { Setter } from "../../common/types";
 import useClickoutHandler from "../../hooks/useClickoutHandler";
 
 const input = "# This is a header\n\nAnd this is a paragraph";
-interface IProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IProps {
   value: string;
   setter: Setter<string>;
-  className: string;
+  className?: string;
 }
 
 const MarkdownPreview = (props: IProps) => {
@@ -21,21 +21,15 @@ const MarkdownPreview = (props: IProps) => {
 
   if (editing) {
     return (
-      <div className={props.className}>
-        <textarea
-          className="MarkdownTextArea"
-          ref={clickoutRef}
-          autoFocus={true}
-        />
-        ;
-      </div>
+      <textarea
+        className="MarkdownTextArea"
+        ref={clickoutRef}
+        autoFocus={true}
+      />
     );
   }
   return (
-    <div
-      className={props.className}
-      onClick={() => setEditing(true)}
-    >
+    <div className={props.className} onClick={() => setEditing(true)}>
       <ReactMarkdown source={input} />;
     </div>
   );

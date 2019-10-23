@@ -13,6 +13,7 @@ import Avatar from "./Avatar";
 import Description from "./Description";
 import Details from "./Details";
 import Statblock from "./Statblock";
+import { NpcEntryProvider } from "./context";
 
 interface IProps {
   id: string;
@@ -20,16 +21,18 @@ interface IProps {
 
 const NpcEntry = ({ id }: IProps) => {
   return (
-    <div
-      className={combineClasses(GridTemplateAreas.ENTRY_CONTENT, "NpcEntry")}
-    >
-      {/* <Load valueExists={!loading}> */}
-      <Avatar />
-      <Description />
-      <Details />
-      <Statblock />
-      {/* </Load> */}
-    </div>
+    <NpcEntryProvider id={id}>
+      <div
+        className={combineClasses(GridTemplateAreas.ENTRY_CONTENT, "NpcEntry")}
+      >
+        {/* <Load valueExists={!loading}> */}
+        <Avatar />
+        <Description />
+        <Details />
+        <Statblock />
+        {/* </Load> */}
+      </div>
+    </NpcEntryProvider>
   );
 };
 
