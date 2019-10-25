@@ -4,8 +4,8 @@
 .NpcEntry {
   display: grid;
   min-height: 0;
-  grid-template-columns:  minMax(0, 1fr) minMax(0, 2fr);
-  grid-template-rows: 1fr 3fr;
+  grid-template-columns: minMax(0, 1fr) minMax(0, 2fr);
+  grid-template-rows: minmax(max-content, 1fr) 3fr;
   @include themed() {
     background: t($background);
   }
@@ -63,3 +63,8 @@
 // .NPC_DETAILS {
 //   grid-area: details;
 // }
+
+.AvatarImage {
+  // height: 100%;
+  width: 100%;
+}
