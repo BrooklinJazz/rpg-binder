@@ -1,3 +1,21 @@
+.MarkdownPreview,
 .MarkdownTextArea {
-    resize: none
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.MarkdownTextArea {
+  resize: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
+.MarkdownPreview {
+  p {
+    margin: 0;
+    padding: 0;
+  }
 }

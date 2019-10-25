@@ -1,10 +1,12 @@
 @import "../../../../common/variables";
+@import "../../../../common/theme";
 
 .NpcEntry {
   display: grid;
-  background-color: blue;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 2fr 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
   grid-template-areas:
     "stats avatar description"
     "stats details details";
@@ -24,6 +26,19 @@
       "description"
       "details"
       "stats";
+  }
+}
+
+.NPC_STATBLOCK,
+.NPC_AVATAR,
+.NPC_DESCRIPTION,
+.NPC_DETAILS {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  @include themed() {
+    background-color: t($default);
+    color: t($on-default);
   }
 }
 

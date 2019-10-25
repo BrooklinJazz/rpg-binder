@@ -24,7 +24,6 @@ export default {
         return await Npc.find({
           ...input,
           creator: userId
-          // locations: input.location
         });
       } catch (error) {
         throw error;

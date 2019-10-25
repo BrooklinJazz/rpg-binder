@@ -20,17 +20,21 @@ interface IProps {
 }
 
 const NpcEntry = ({ id }: IProps) => {
+  const { data, loading } = useQuery<{ npc: INpc }, { id: string }>(NPC, {
+    variables: { id }
+  });
+  if (!data || loading) {
+    return <div>loading</div>;
+  }
   return (
-    <NpcEntryProvider id={id}>
+    <NpcEntryProvider npc={data.npc} id={id}>
       <div
         className={combineClasses(GridTemplateAreas.ENTRY_CONTENT, "NpcEntry")}
       >
-        {/* <Load valueExists={!loading}> */}
         <Avatar />
         <Description />
         <Details />
         <Statblock />
-        {/* </Load> */}
       </div>
     </NpcEntryProvider>
   );

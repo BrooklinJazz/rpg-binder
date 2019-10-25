@@ -10,7 +10,7 @@
     background-color: t($background);
   }
   display: grid;
-  background: black;
+  grid-column-gap: $default-grid-gap;
   grid-template-rows: $navbar-height minMax(0, 1fr);
   grid-template-columns: max-content 3fr;
   grid-template-areas:

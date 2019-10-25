@@ -22,30 +22,26 @@ export const NPCEntryContext = createContext<INpcEntryState | undefined>(
 
 export const NpcEntryProvider = ({
   children,
-  id
+  id,
+  npc
 }: {
   children: ReactNode;
   id: string;
+  npc: INpc
 }) => {
-  const { data, loading } = useQuery<{ npc: INpc }, { id: string }>(NPC, {
-    variables: { id }
-  });
-  if (!data) {
-    return null;
-  }
 
-  const [name, setName] = useState(data.npc.name || "");
-  const [description, setDescription] = useState(data.npc.description || "");
-  const [details, setDetails] = useState(data.npc.details || "");
+  const [name, setName] = useState(npc.name || "");
+  const [description, setDescription] = useState(npc.description || "");
+  const [details, setDetails] = useState(npc.details || "");
 
   const [saveMutation] = useMutation<{}, INpcInput>(SAVE_NPC);
   const save = () =>
     saveMutation({ variables: { name, description, details } });
 
   const revert = () => {
-    setName(data.npc.name);
-    setDescription(data.npc.description || "");
-    setName(data.npc.details || "");
+    setName(npc.name);
+    setDescription(npc.description || "");
+    setName(npc.details || "");
   };
 
   return (

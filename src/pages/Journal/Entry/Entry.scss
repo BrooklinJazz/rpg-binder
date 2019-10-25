@@ -1,11 +1,14 @@
 @import "../../../common/variables";
 @import "../../../common/theme";
 
-
 .Entry {
-  background-color: lightgrey;
+  @include themed() {
+    background-color: t($background);
+  }
   z-index: $entry-z-index;
   display: grid;
+  grid-column-gap: $default-grid-gap;
+  grid-row-gap: $default-grid-gap;
   grid-template-rows: $navigator-heading-height 1fr;
   grid-template-columns: 3fr 1fr;
   grid-template-areas:
@@ -62,8 +65,20 @@ $open-entry-margin: calc(((100vh - #{$navbar-height} - 75px) / -2));
   }
 }
 
+.ENTRY_HEADING,
+.ENTRY_CONTENT,
+.ENTRY_SIDEBAR {
+  @include themed() {
+    background: t($default);
+  }
+}
+
 .ENTRY_HEADING {
   grid-area: entry-heading;
+  @include themed() {
+    background-color: t($default);
+    color: t($on-default);
+  }
 }
 
 .ENTRY_CONTENT {
