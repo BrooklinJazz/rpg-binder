@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 
 import { NPC, SAVE_NPC } from "../../../../api/apollo";
 import { INpc, INpcInput, Setter } from "../../../../common/types";
+import { NPC_DESCRIPTION_TEMPLATE, NPC_DETAILS_TEMPLATE } from "./templates";
 
 interface INpcEntryState {
   name: string;
@@ -12,6 +13,8 @@ interface INpcEntryState {
   setDescription: Setter<string>;
   details: string | undefined;
   setDetails: Setter<string>;
+  avatar?: File | undefined;
+  setAvatar: Setter<File | undefined>;
   save: (input: INpcInput) => void;
   revert: (input: INpcInput) => void;
 }
@@ -32,8 +35,8 @@ export const NpcEntryProvider = ({
 
   const [name, setName] = useState(npc.name || "");
   const [description, setDescription] = useState(npc.description || "");
-  const [details, setDetails] = useState(npc.details || "");
-
+  const [details, setDetails] = useState(npc.details || NPC_DETAILS_TEMPLATE);
+  const [avatar, setAvatar] = useState(npc.avatar);
   const [saveMutation] = useMutation<{}, INpcInput>(SAVE_NPC);
   const save = () =>
     saveMutation({ variables: { name, description, details } });
@@ -50,6 +53,8 @@ export const NpcEntryProvider = ({
         name,
         description,
         details,
+        avatar,
+        setAvatar,
         setName,
         setDescription,
         setDetails,

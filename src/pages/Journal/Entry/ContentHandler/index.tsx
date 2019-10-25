@@ -4,6 +4,7 @@ import LocationEntry from "../Location";
 import NpcEntry from "../Npc";
 import OrganizationEntry from "../Organization";
 import { GridTemplateAreas } from "../../../../common/constants";
+import { H1 } from "../../../../components/Typeography";
 
 const ContentHandler = () => {
   const { context } = useJournalMachine();
@@ -31,7 +32,9 @@ const ContentHandler = () => {
   };
   return (
     <>
-      <div className={GridTemplateAreas.ENTRY_HEADING}>{heading()}</div>
+      <H1 elementStyle="H2" className={GridTemplateAreas.ENTRY_HEADING}>
+        {heading()}
+      </H1>
       {content()}
     </>
   );

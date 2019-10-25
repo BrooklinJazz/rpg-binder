@@ -11,6 +11,7 @@
   }
   display: grid;
   grid-column-gap: $default-grid-gap;
+  grid-row-gap: $default-grid-gap;
   grid-template-rows: $navbar-height minMax(0, 1fr);
   grid-template-columns: max-content 3fr;
   grid-template-areas:

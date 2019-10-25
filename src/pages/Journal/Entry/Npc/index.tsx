@@ -11,7 +11,6 @@ import { INpc } from "../../../../common/types";
 import Load from "../../../../components/Load";
 import Avatar from "./Avatar";
 import Description from "./Description";
-import Details from "./Details";
 import Statblock from "./Statblock";
 import { NpcEntryProvider } from "./context";
 
@@ -33,7 +32,6 @@ const NpcEntry = ({ id }: IProps) => {
       >
         <Avatar />
         <Description />
-        <Details />
         <Statblock />
       </div>
     </NpcEntryProvider>
