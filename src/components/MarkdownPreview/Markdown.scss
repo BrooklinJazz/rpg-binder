@@ -1,3 +1,6 @@
+@import "../../common/variables";
+@import "../../common/theme";
+
 .MarkdownPreview,
 .MarkdownTextArea {
   height: 100%;
@@ -7,16 +10,28 @@
 }
 
 .MarkdownTextArea {
+  padding: 8px;
   resize: none;
   padding: 0;
   margin: 0;
-  border: none;
   outline: none;
+  border-radius: $button-radius;
+  @include themed() {
+    background: t($default);
+    color: t($on-default);
+    border: solid 2px t($primary);
+  }
 }
 
 .MarkdownPreview {
+  padding: 0 8px;
   p {
     margin: 0;
     padding: 0;
+  }
+  a {
+      @include themed() {
+          color: t($primary);
+      }
   }
 }
