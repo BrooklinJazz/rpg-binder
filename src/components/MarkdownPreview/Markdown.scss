@@ -7,12 +7,11 @@
   width: 100%;
   box-sizing: border-box;
   overflow: scroll;
+  padding: 8px;
 }
 
 .MarkdownTextArea {
-  padding: 8px;
   resize: none;
-  padding: 0;
   margin: 0;
   outline: none;
   border-radius: $button-radius;
@@ -24,14 +23,18 @@
 }
 
 .MarkdownPreview {
-  padding: 0 8px;
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-top: 0;
+  }
   p {
-    margin: 0;
-    padding: 0;
+      margin: 2px 0;
   }
   a {
-      @include themed() {
-          color: t($primary);
-      }
+    @include themed() {
+      color: t($primary);
+    }
   }
 }
