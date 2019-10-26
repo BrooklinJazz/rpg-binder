@@ -41,7 +41,7 @@ const Avatar = () => {
   return (
     <div className={GridTemplateAreas.NPC_AVATAR}>
       {avatar ? (
-        <img className="AvatarImage" alt="alt" src={avatar} />
+        <img onClick={triggerInput} className="AvatarImage" alt="alt" src={avatar} />
       ) : (
         <div role="button" onClick={triggerInput}>
           <FontAwesomeIcon

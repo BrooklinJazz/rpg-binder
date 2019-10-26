@@ -66,6 +66,9 @@
 // }
 
 .AvatarImage {
-  // height: 100%;
   width: 100%;
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }
