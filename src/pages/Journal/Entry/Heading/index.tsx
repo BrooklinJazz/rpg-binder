@@ -2,7 +2,10 @@ import "./EntryHeading.scss";
 
 import React, { useRef, useState } from "react";
 
-import { GridTemplateAreas } from "../../../../common/constants";
+import {
+  GridTemplateAreas,
+  ENTRY_HEADING_MAX_LENGTH
+} from "../../../../common/constants";
 import { Setter } from "../../../../common/types";
 import { H1 } from "../../../../components/Typeography";
 import useClickoutHandler from "../../../../hooks/useClickoutHandler";
@@ -25,6 +28,7 @@ const EntryHeading = ({ value, setter, save }: IProps) => {
   if (editing) {
     return (
       <input
+        maxLength={ENTRY_HEADING_MAX_LENGTH}
         autoFocus={true}
         ref={clickoutRef}
         onChange={e => setter(e.target.value)}

@@ -42,3 +42,5 @@ export enum Provider {
   MEDIUM = "medium",
   PATREON = "patreon"
 }
+
+export const ENTRY_HEADING_MAX_LENGTH = 20;
