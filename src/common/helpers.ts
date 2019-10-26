@@ -65,3 +65,16 @@ export const titleFromJournalModalState = (state: JournalModalStates) => {
       break;
   }
 };
+
+export const confirmAlert = ({
+  message = "closing now will discard changes",
+  onConfirm
+}: {
+  message?: string;
+  onConfirm: Function;
+}) => {
+  const result = window.confirm(message);
+  if (result) {
+    onConfirm();
+  }
+};

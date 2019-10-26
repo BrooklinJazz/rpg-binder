@@ -14,7 +14,6 @@
   resize: none;
   margin: 0;
   outline: none;
-  border-radius: $button-radius;
   @include themed() {
     background: t($default);
     color: t($on-default);
@@ -23,14 +22,8 @@
 }
 
 .MarkdownPreview {
-  // h1,
-  // h2,
-  // h3,
-  // h4 {
-  //   // margin-top: 0;
-  // }
   p {
-      margin: 2px 0;
+    margin: 2px 0;
   }
   a {
     @include themed() {

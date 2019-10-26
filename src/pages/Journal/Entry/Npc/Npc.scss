@@ -4,6 +4,7 @@
 .NpcEntry {
   display: grid;
   min-height: 0;
+  overflow: hidden;
   grid-template-columns: minMax(0, 2fr) minMax(0, 1fr);
   grid-template-rows: minmax(max-content, 1fr) 3fr;
   @include themed() {

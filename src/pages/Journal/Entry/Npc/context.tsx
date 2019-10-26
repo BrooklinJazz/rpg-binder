@@ -19,7 +19,7 @@ interface INpcEntryState {
   avatar?: string | undefined;
   setAvatar: Setter<string | undefined>;
   save: () => void;
-  revert: (input: INpcInput) => void;
+  revert: () => void;
 }
 
 export const NPCEntryContext = createContext<INpcEntryState | undefined>(
@@ -39,9 +39,10 @@ export const NpcEntryProvider = ({
   const [description, setDescription] = useState(npc.description || "");
   const [avatar, setAvatar] = useState(npc.avatar);
   const [saveMutation] = useMutation<{}, IUpdateNpcInput>(SAVE_NPC);
+
   const save = () =>
     saveMutation({ variables: { id, name, description, avatar } });
-  console.log("NPC", npc.avatar);
+
   const revert = () => {
     setName(npc.name);
     setDescription(npc.description || "");
