@@ -9,7 +9,6 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  justify-content: space-between;
   padding: 0 $modal-spacing;
   @include themed() {
     background-color: t($default);
@@ -19,6 +18,12 @@
 
 .EntryHeading {
   border: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  display: flex;
   text-align: center;
   font-weight: 300 !important;
   font-family: "Roboto", sans-serif !important; // input overrides font
@@ -30,10 +35,6 @@
 
 .EntryOpenButton {
   height: 100%;
-  display: none;
-  @include mobileStyles() {
-    display: block;
-  }
 }
 
 .EntryHeading:focus {

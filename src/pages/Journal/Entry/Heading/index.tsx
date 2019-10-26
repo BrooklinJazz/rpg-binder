@@ -4,7 +4,8 @@ import React, { useRef, useState } from "react";
 
 import {
   GridTemplateAreas,
-  ENTRY_HEADING_MAX_LENGTH
+  ENTRY_HEADING_MAX_LENGTH,
+  phoneBreakpoint
 } from "../../../../common/constants";
 import { Setter } from "../../../../common/types";
 import { H1 } from "../../../../components/Typeography";
@@ -17,6 +18,7 @@ import {
   faCaretSquareUp
 } from "@fortawesome/free-solid-svg-icons";
 import { DefaultButton } from "../../../../components/Button";
+import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 
 interface IProps {
   value: string;
@@ -27,6 +29,7 @@ interface IProps {
 const EntryHeading = ({ value, setter, save }: IProps) => {
   const [editing, setEditing] = useState(false);
   const { open, setOpen } = useEntryState();
+  const { width } = useWindowDimensions();
   const clickoutRef = useRef(null);
   const onClickout = () => {
     setEditing(false);
@@ -70,9 +73,14 @@ const EntryHeading = ({ value, setter, save }: IProps) => {
       >
         {value}
       </H1>
-      <DefaultButton onClick={() => setOpen(!open)} className="EntryOpenButton">
-        <MobileOpenIcon />
-      </DefaultButton>
+      {width < phoneBreakpoint && (
+        <DefaultButton
+          onClick={() => setOpen(!open)}
+          className="EntryOpenButton"
+        >
+          <MobileOpenIcon />
+        </DefaultButton>
+      )}
     </div>
   );
 };
