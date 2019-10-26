@@ -3,7 +3,12 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 import { NPC, SAVE_NPC } from "../../../../api/apollo";
-import { INpc, INpcInput, Setter } from "../../../../common/types";
+import {
+  INpc,
+  INpcInput,
+  Setter,
+  IUpdateNpcInput
+} from "../../../../common/types";
 import { NPC_DESCRIPTION_TEMPLATE, NPC_DETAILS_TEMPLATE } from "./templates";
 
 interface INpcEntryState {
@@ -15,7 +20,7 @@ interface INpcEntryState {
   setDetails: Setter<string>;
   avatar?: File | undefined;
   setAvatar: Setter<File | undefined>;
-  save: (input: INpcInput) => void;
+  save: () => void;
   revert: (input: INpcInput) => void;
 }
 
@@ -30,16 +35,15 @@ export const NpcEntryProvider = ({
 }: {
   children: ReactNode;
   id: string;
-  npc: INpc
+  npc: INpc;
 }) => {
-
   const [name, setName] = useState(npc.name || "");
   const [description, setDescription] = useState(npc.description || "");
   const [details, setDetails] = useState(npc.details || NPC_DETAILS_TEMPLATE);
   const [avatar, setAvatar] = useState(npc.avatar);
-  const [saveMutation] = useMutation<{}, INpcInput>(SAVE_NPC);
+  const [saveMutation] = useMutation<{}, IUpdateNpcInput>(SAVE_NPC);
   const save = () =>
-    saveMutation({ variables: { name, description, details } });
+    saveMutation({ variables: { id, name, description, details, avatar } });
 
   const revert = () => {
     setName(npc.name);

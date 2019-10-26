@@ -32,9 +32,6 @@ const ContentHandler = () => {
   };
   return (
     <>
-      <H1 elementStyle="H2" className={GridTemplateAreas.ENTRY_HEADING}>
-        {heading()}
-      </H1>
       {content()}
     </>
   );

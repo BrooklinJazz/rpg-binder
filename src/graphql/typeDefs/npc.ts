@@ -18,7 +18,7 @@ export default gql`
     description: String
     details: String
     campaign: String!
-    avatar: Upload
+    avatar: Upload!
     organizations: [ID!]!
     locations: [ID!]!
   }
@@ -27,8 +27,7 @@ export default gql`
     _id: ID!
     name: String!
     description: String
-    organizations: [ID!]!
-    locations: [ID!]!
+    avatar: Upload
   }
 
   input SingleNpcInput {

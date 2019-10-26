@@ -7,9 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GridTemplateAreas } from "../../../../common/constants";
 import { Theme } from "../../../../common/theme";
 import { useNpcEntryContext } from "./context";
+import usePrevious from "../../../../hooks/usePrevious";
 
 const Avatar = () => {
-  const { avatar, setAvatar } = useNpcEntryContext();
+  const { avatar, setAvatar, save } = useNpcEntryContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerInput = () => {
     if (inputRef.current) {
@@ -18,6 +19,16 @@ const Avatar = () => {
   };
   const reader = new FileReader();
   const [preview, setPreview] = useState();
+
+  const prevAvatar = usePrevious(avatar);
+
+  const handleAvatarUpload = (files: FileList | null) => {
+    if (files) {
+      setAvatar(files[0]);
+      save();
+    }
+  };
+
   useEffect(() => {
     if (avatar) {
       reader.readAsDataURL(avatar);
@@ -25,7 +36,8 @@ const Avatar = () => {
         setPreview(reader.result);
       });
     }
-  }, [avatar]);
+    return reader.removeEventListener("load", () => "no effect");
+  }, [avatar, reader]);
 
   return (
     <div className={GridTemplateAreas.NPC_AVATAR}>
@@ -41,7 +53,7 @@ const Avatar = () => {
         </div>
       )}
       <input
-        onChange={e => e.target.files && setAvatar(e.target.files[0])}
+        onChange={e => handleAvatarUpload(e.target.files)}
         style={{ display: "none" }}
         ref={inputRef}
         type="file"

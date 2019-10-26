@@ -57,9 +57,7 @@ export default {
       const userId = userIdFromContext(context);
       const npc = new Npc({
         ...input,
-        creator: userId,
-        locations: input.locations,
-        organizations: input.organizations,
+        creator: userId
       });
       try {
         const createdNpc = await npc.save();
@@ -71,22 +69,6 @@ export default {
         campaign.npcs.push(createdNpc);
         campaign.save();
         // update organization npcs
-        if (input.organizations.length > 0) {
-          await Organization.updateMany(
-            {
-              _id: { $in: input.organizations }
-            },
-            { $push: { npcs: createdNpc } }
-          );
-        }
-        if (input.locations.length > 0) {
-          await Location.updateMany(
-            {
-              _id: { $in: input.locations }
-            },
-            { $push: { npcs: createdNpc } }
-          );
-        }
         const populatedNpc = await Npc.findById(createdNpc._id);
         return populatedNpc;
       } catch (error) {
@@ -99,12 +81,14 @@ export default {
       context: IContext
     ) => {
       checkSignedIn(context);
+      console.log("AVATAR", input.avatar);
+      if (input.avatar) {
+        console.log("AVATAR EXISTS", input.avatar);
+      }
       const updatedNpc: INpc | null = await Npc.findByIdAndUpdate(
         input._id,
         {
-          ...input,
-          locations: input.locations,
-          organizations: input.organizations,
+          ...input
         },
         // get the new version of the campaign, not the old one.
         { new: true }

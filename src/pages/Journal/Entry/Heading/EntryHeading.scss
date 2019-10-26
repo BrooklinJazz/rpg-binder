@@ -1,0 +1,21 @@
+@import "../../../../common/variables";
+@import "../../../../common/theme";
+
+.EntryHeading {
+  border: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 300 !important;
+  font-family: "Roboto", sans-serif !important; // input overrides font
+  @include themed() {
+    background: t($default);
+    color: t($on-default);
+  }
+}
+
+.EntryHeading:focus {
+  @include themed() {
+    border: solid 2px t($primary);
+  }
+}

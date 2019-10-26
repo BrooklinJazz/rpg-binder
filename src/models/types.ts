@@ -39,8 +39,7 @@ export interface INpcInput {
   name: string;
   description?: string;
   campaign: ICampaign["_id"];
-  locations: ILocation["_id"][];
-  organizations: IOrganization["_id"][];
+  avatar?: File;
 }
 
 export interface IUpdateNpcInput extends INpcInput {

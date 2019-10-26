@@ -28,6 +28,9 @@ export interface INpcInput {
   statblock?: IStatBlock;
   avatar?: File;
 }
+export interface IUpdateNpcInput extends INpcInput {
+  id: string;
+}
 
 export interface INpc extends INpcInput {
   _id: string;

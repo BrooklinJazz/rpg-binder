@@ -4,7 +4,7 @@
 .NpcEntry {
   display: grid;
   min-height: 0;
-  grid-template-columns: minMax(0, 1fr) minMax(0, 2fr);
+  grid-template-columns: minMax(0, 2fr) minMax(0, 1fr);
   grid-template-rows: minmax(max-content, 1fr) 3fr;
   @include themed() {
     background: t($background);
@@ -12,8 +12,8 @@
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-template-areas:
-    "avatar description"
-    "stats description";
+    "description avatar"
+    "description stats";
   // @include tabletStyles() {
   //   grid-template-columns: repeat(2, minMax(0, 1fr));
   //   grid-template-rows: repeat(3, minMax(0, 1fr));

@@ -122,13 +122,11 @@ export const NPC = gql(`
 `);
 
 export const SAVE_NPC = gql(`
-  mutation SaveNpc($id: ID!, $name: String!, $description: String, $details: String) {
-      updateNpc(input: {_id: $id}) {
+  mutation SaveNpc($id: ID!, $name: String!, $description: String, $avatar: Upload) {
+      updateNpc(input: {_id: $id, name: $name, description: $description, avatar: $avatar}) {
         _id
         name
         description
-        details
-        statblock
       }
     }
 `);

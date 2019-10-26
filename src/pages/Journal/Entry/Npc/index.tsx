@@ -10,9 +10,10 @@ import { GridTemplateAreas } from "../../../../common/constants";
 import { INpc } from "../../../../common/types";
 import Load from "../../../../components/Load";
 import Avatar from "./Avatar";
-import Description from "./Description";
-import Statblock from "./Statblock";
 import { NpcEntryProvider } from "./context";
+import Description from "./Description";
+import NpcEntryHeading from "./Heading";
+import Statblock from "./Statblock";
 
 interface IProps {
   id: string;
@@ -27,6 +28,7 @@ const NpcEntry = ({ id }: IProps) => {
   }
   return (
     <NpcEntryProvider npc={data.npc} id={id}>
+      <NpcEntryHeading />
       <div
         className={combineClasses(GridTemplateAreas.ENTRY_CONTENT, "NpcEntry")}
       >

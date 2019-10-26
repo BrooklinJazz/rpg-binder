@@ -11,12 +11,16 @@ interface IProps {
   value: string;
   setter: Setter<string>;
   className?: string;
+  save: () => void;
 }
 
-const MarkdownPreview = ({ value, setter, className }: IProps) => {
+const MarkdownPreview = ({ value, setter, className, save }: IProps) => {
   const [editing, setEditing] = useState(false);
   const clickoutRef = useRef(null);
-  const onClickout = () => setEditing(false);
+  const onClickout = () => {
+    save();
+    setEditing(false);
+  };
   useClickoutHandler(clickoutRef, onClickout);
 
   if (editing) {
