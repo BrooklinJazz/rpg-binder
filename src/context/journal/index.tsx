@@ -11,6 +11,7 @@ import {
   JournalEvents,
   JournalStates
 } from "./types";
+import { Setter } from "../../common/types";
 
 interface IJournalState {
   context: IJournalContext;

@@ -1,18 +1,22 @@
-import React, { useState } from "react";
-import { GridTemplateAreas } from "../../../common/constants";
-import combineClasses from "combine-classes";
 import "./Navigator.scss";
-import Heading from "./Heading";
-import Sections from "./Sections";
-import Pages from "./Pages";
+
+import combineClasses from "combine-classes";
+import React, { useState } from "react";
+
 import { useQuery } from "@apollo/react-hooks";
+
 import { CAMPAIGN, LOCATION_NAME } from "../../../api/apollo";
-import { useCampaignState } from "../../../context/campaign/store";
+import { GridTemplateAreas } from "../../../common/constants";
 import { INpc } from "../../../common/types";
-import CampaignList from "./CampaignList";
-import { useJournalMachine } from "../../../context/navigator";
-import AddSection from "./AddSection";
+import { useCampaignState } from "../../../context/campaign/store";
+import { useJournalMachine } from "../../../context/journal";
 import AddPage from "./AddPage";
+import AddSection from "./AddSection";
+import CampaignList from "./CampaignList";
+import Heading from "./Heading";
+import Pages from "./Pages";
+import Sections from "./Sections";
+
 const Navigator = () => {
   const { context } = useJournalMachine();
   const { activeCampaign } = useCampaignState();
@@ -28,7 +32,7 @@ const Navigator = () => {
     { location: { name: string } },
     { locationId?: string }
   >(LOCATION_NAME, {
-    variables: { locationId },
+    variables: { locationId }
     // skip doesn't seem to work when value is defined
     // skip: !context.selectedLocation
   });

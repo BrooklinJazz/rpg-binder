@@ -1,19 +1,22 @@
-import React from "react";
 import "./CampaignList.scss";
-import { Text } from "../../../../components/Typeography";
+
 import combineClasses from "combine-classes/lib";
-import { Theme } from "../../../../common/theme";
+import React from "react";
 import { CSSTransition } from "react-transition-group";
+
+import { useQuery } from "@apollo/react-hooks";
+
+import { CAMPAIGN_NAMES } from "../../../../api/apollo";
+import { Theme } from "../../../../common/theme";
+import Loading from "../../../../components/Loading";
+import { Text } from "../../../../components/Typeography";
+import { selectCampaign } from "../../../../context/campaign/actions";
 import {
   useCampaignDispatch,
   useCampaignState
 } from "../../../../context/campaign/store";
-import { useQuery } from "@apollo/react-hooks";
-import { CAMPAIGN_NAMES } from "../../../../api/apollo";
-import Loading from "../../../../components/Loading";
+import { useJournalMachine } from "../../../../context/journal";
 import ListItem from "../ListItem";
-import { selectCampaign } from "../../../../context/campaign/actions";
-import { useJournalMachine } from "../../../../context/navigator";
 
 interface IProps {
   open: boolean;

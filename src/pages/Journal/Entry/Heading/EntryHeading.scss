@@ -1,16 +1,38 @@
 @import "../../../../common/variables";
 @import "../../../../common/theme";
 
-.EntryHeading {
-  border: none;
+.ENTRY_HEADING {
+  grid-area: entry-heading;
+}
+
+.EntryHeadingContainer {
   justify-content: center;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $modal-spacing;
+  @include themed() {
+    background-color: t($default);
+    color: t($on-default);
+  }
+}
+
+.EntryHeading {
+  border: none;
   text-align: center;
   font-weight: 300 !important;
   font-family: "Roboto", sans-serif !important; // input overrides font
   @include themed() {
     background: t($default);
     color: t($on-default);
+  }
+}
+
+.EntryOpenButton {
+  height: 100%;
+  display: none;
+  @include mobileStyles() {
+    display: block;
   }
 }
 

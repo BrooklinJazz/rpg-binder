@@ -9,8 +9,8 @@ import { LOCATIONS, NPCS, ORGANIZATIONS } from "../../../../api/apollo";
 import { Theme } from "../../../../common/theme";
 import Loading from "../../../../components/Loading";
 import { useCampaignState } from "../../../../context/campaign/store";
-import { useJournalMachine } from "../../../../context/navigator";
-import { INameAndId, JournalStates } from "../../../../context/navigator/types";
+import { useJournalMachine } from "../../../../context/journal"
+import { INameAndId, JournalStates } from "../../../../context/journal/types";
 import ListItem from "../ListItem";
 
 const NavigatorPages = () => {

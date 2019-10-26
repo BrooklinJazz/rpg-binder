@@ -1,7 +1,7 @@
 import "./Entry.scss";
 
 import combineClasses from "combine-classes/lib";
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 import {
   faCaretSquareDown,
@@ -11,23 +11,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { GridTemplateAreas, phoneBreakpoint } from "../../../common/constants";
 import { DefaultButton } from "../../../components/Button";
+import { useJournalMachine } from "../../../context/journal";
+import { useEntryState } from "../../../context/journal/entry";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
-import ReferenceSidebar from "./ReferenceSidebar";
 import ContentHandler from "./ContentHandler";
+import ReferenceSidebar from "./ReferenceSidebar";
 
 const Entry = () => {
   const { width } = useWindowDimensions();
-  const [open, setOpen] = useState();
-  const MobileOpenButton = () =>
-    open ? (
-      <DefaultButton onClick={() => setOpen(!open)}>
-        <FontAwesomeIcon icon={faCaretSquareDown} />
-      </DefaultButton>
-    ) : (
-      <DefaultButton onClick={() => setOpen(!open)}>
-        <FontAwesomeIcon icon={faCaretSquareUp} />
-      </DefaultButton>
-    );
+  const { open, setOpen } = useEntryState();
 
   // quick hack to debug css open styles when outside of phoneBreakpoint size
   useLayoutEffect(() => {
@@ -43,11 +35,10 @@ const Entry = () => {
         "Entry",
         [open, "open"],
         // using === false to avoid initial animation
-        [open === false, "closed"]
+        [!open, "closed"]
       )}
     >
-      {width <= phoneBreakpoint && MobileOpenButton()}
-      <ContentHandler/>
+      <ContentHandler />
       <ReferenceSidebar />
     </div>
   );

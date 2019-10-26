@@ -4,7 +4,7 @@ import { titleFromJournalModalState } from "../../../common/helpers";
 import { Theme } from "../../../common/theme";
 import Fade from "../../../components/Fade";
 import Modal from "../../../components/Modal";
-import { useJournalModalState } from "../../../context/navigator";
+import { useJournalModalState } from "../../../context/journal"
 import ModalHandler from "./ModalHandler";
 
 const JournalCreateModal = () => {

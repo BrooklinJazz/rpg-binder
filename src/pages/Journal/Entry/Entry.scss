@@ -73,17 +73,6 @@ $open-entry-margin: calc(((100vh - #{$navbar-height} - 75px) / -2));
   }
 }
 
-.ENTRY_HEADING {
-  grid-area: entry-heading;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @include themed() {
-    background-color: t($default);
-    color: t($on-default);
-  }
-}
-
 .ENTRY_CONTENT {
   grid-area: entry-content;
 }

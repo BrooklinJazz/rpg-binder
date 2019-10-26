@@ -3,7 +3,7 @@ import React from "react";
 import {
   JournalModalStates,
   useJournalModalState
-} from "../../../context/navigator";
+} from "../../../context/journal"
 import CreateLocation from "./Location";
 import CreateNpc from "./Npc";
 import CreateOrganization from "./Organization";

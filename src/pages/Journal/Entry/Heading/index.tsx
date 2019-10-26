@@ -10,6 +10,13 @@ import { Setter } from "../../../../common/types";
 import { H1 } from "../../../../components/Typeography";
 import useClickoutHandler from "../../../../hooks/useClickoutHandler";
 import combineClasses from "combine-classes/lib";
+import { useEntryState } from "../../../../context/journal/entry";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCaretSquareDown,
+  faCaretSquareUp
+} from "@fortawesome/free-solid-svg-icons";
+import { DefaultButton } from "../../../../components/Button";
 
 interface IProps {
   value: string;
@@ -19,12 +26,19 @@ interface IProps {
 
 const EntryHeading = ({ value, setter, save }: IProps) => {
   const [editing, setEditing] = useState(false);
+  const { open, setOpen } = useEntryState();
   const clickoutRef = useRef(null);
   const onClickout = () => {
     setEditing(false);
     save();
   };
   useClickoutHandler(clickoutRef, onClickout);
+  const MobileOpenIcon = () =>
+    open ? (
+      <FontAwesomeIcon icon={faCaretSquareDown} />
+    ) : (
+      <FontAwesomeIcon icon={faCaretSquareUp} />
+    );
   if (editing) {
     return (
       <input
@@ -43,18 +57,23 @@ const EntryHeading = ({ value, setter, save }: IProps) => {
     );
   }
   return (
-    <H1
-      onClick={() => setEditing(true)}
-      elementStyle="H2"
+    <div
       className={combineClasses(
-        "EntryHeading",
         GridTemplateAreas.ENTRY_HEADING,
-        "H1",
-        "light"
+        "EntryHeadingContainer"
       )}
     >
-      {value}
-    </H1>
+      <H1
+        onClick={() => setEditing(true)}
+        elementStyle="H2"
+        className={combineClasses("EntryHeading", "H1", "light")}
+      >
+        {value}
+      </H1>
+      <DefaultButton onClick={() => setOpen(!open)} className="EntryOpenButton">
+        <MobileOpenIcon />
+      </DefaultButton>
+    </div>
   );
 };
 

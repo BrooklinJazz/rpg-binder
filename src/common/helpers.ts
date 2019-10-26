@@ -1,6 +1,6 @@
+import { JournalModalStates } from "../context/journal";
+import { JournalStates } from "../context/journal/types";
 import { LocalStorage, Provider } from "./constants";
-import { JournalStates } from "../context/navigator/types";
-import { JournalModalStates } from "../context/navigator";
 
 export const valueFromStorage = (key: LocalStorage) =>
   localStorage.getItem(key) || undefined;

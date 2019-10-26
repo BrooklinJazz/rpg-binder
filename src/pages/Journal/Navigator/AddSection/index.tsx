@@ -8,7 +8,7 @@ import { Theme } from "../../../../common/theme";
 import {
   JournalModalStates,
   useJournalModalState
-} from "../../../../context/navigator";
+} from "../../../../context/journal";
 
 const AddSection = () => {
   const { open } = useJournalModalState();

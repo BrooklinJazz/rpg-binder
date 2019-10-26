@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Theme } from "../../../common/theme";
 import combineClasses from "combine-classes/lib";
-import { useJournalMachine } from "../../../context/navigator";
+import { useJournalMachine } from "../../../context/journal"
 import Fade from "../../../components/Fade";
 
 interface IProps {

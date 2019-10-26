@@ -25,9 +25,8 @@
   // }
   @include mobileStyles() {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
     grid-template-areas:
-      "avatar"
       "description"
       "stats";
   }
@@ -57,6 +56,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include mobileStyles() {
+    display: none;
+  }
 }
 .NPC_DESCRIPTION {
   grid-area: description;
@@ -70,5 +72,9 @@
   &:hover {
     opacity: 0.8;
     cursor: pointer;
+  }
+  @include mobileStyles() {
+    width: auto;
+    height: 100%;
   }
 }

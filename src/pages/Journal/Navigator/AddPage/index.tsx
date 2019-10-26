@@ -13,7 +13,7 @@ import Fade from "../../../../components/Fade";
 import {
   useJournalMachine,
   useJournalModalState
-} from "../../../../context/navigator";
+} from "../../../../context/journal"
 
 const AddPage = () => {
   const { state } = useJournalMachine();
