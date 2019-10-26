@@ -2,7 +2,6 @@ import "./Modal.scss";
 
 import combineClasses from "combine-classes/lib";
 import React, { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Close from "../Close";
 import { H1 } from "../Typeography";
 

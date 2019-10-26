@@ -1,12 +1,14 @@
 import combineClasses from "combine-classes/lib";
 import React from "react";
+
 import { GridTemplateAreas, PROJECT_NAME } from "../../../common/constants";
+import { ProviderList } from "../../../common/helpers";
 import { Theme } from "../../../common/theme";
 import Loading from "../../../components/Loading";
-import { H1, Text } from "../../../components/Typeography";
-import { IJournalNavbarProps } from ".";
-import { ProviderList } from "../../../common/helpers";
 import ProviderIcon from "../../../components/ProviderIcon";
+import { H1, Text } from "../../../components/Typeography";
+import { IJournalNavbarProps } from "./";
+import ThemeIcon from "./ThemeIcon";
 
 const DesktopNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
   return (
@@ -24,6 +26,7 @@ const DesktopNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
         {campaignName ? campaignName : <Loading />}
       </Text>
       <div className="JournalNavbarRight">
+        <ThemeIcon/>
         {ProviderList.map(provider => (
           <ProviderIcon
             key={provider}

@@ -1,26 +1,19 @@
 import combineClasses from "combine-classes/lib";
 import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
 
-import {
-  faFacebook,
-  faLinkedin,
-  faMedium,
-  faPatreon,
-  faTwitter
-} from "@fortawesome/free-brands-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { GridTemplateAreas, PROJECT_NAME } from "../../../common/constants";
-import { Theme } from "../../../common/theme";
-import Loading from "../../../components/Loading";
-import { H1, H2, Text } from "../../../components/Typeography";
-import { IJournalNavbarProps } from ".";
 import { capitalize, ProviderList } from "../../../common/helpers";
+import { Theme } from "../../../common/theme";
 import ProviderIcon from "../../../components/ProviderIcon";
-import { CSSTransition } from "react-transition-group";
+import { H1, Text } from "../../../components/Typeography";
+import { IJournalNavbarProps } from "./";
+import ThemeIcon from "./ThemeIcon";
 
-const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
+const MobileNavbar = ({ logout }: IJournalNavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
@@ -38,15 +31,7 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
         >
           {PROJECT_NAME}
         </H1>
-        <H1
-          className="JournalNavbarSpacing"
-          fontWeight="light"
-          elementStyle="H3"
-        >
-        </H1>
-        {/* <Text fontWeight="medium" size="large">
-          {campaignName ? campaignName : <Loading />}
-        </Text> */}
+        <ThemeIcon className="JournalMobileNavbarMarginerIcon" />
         <Text
           className="JournalNavbarIcon JournalMobileNavbarIcon"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -54,44 +39,44 @@ const MobileNavbar = ({ campaignName, logout }: IJournalNavbarProps) => {
           <FontAwesomeIcon icon={faBars} />
         </Text>
       </div>
-        <CSSTransition
-          classNames="JournalMobileNav"
-          unmountOnExit
-          in={menuOpen}
-          timeout={500}
-        >
-          <div className="JournalMobileNavbarDropdown">
-            {ProviderList.map(provider => (
-              <Text
-                key={provider}
-                onClick={() => console.log(ProviderList)}
-                className={combineClasses(
-                  "JournalMobileNavbarListItem",
-                  Theme.default,
-                  Theme.hoverable
-                )}
-              >
-                <ProviderIcon
-                  colored={true}
-                  hoverable={true}
-                  className="JournalMobileNavbarProviderIcon"
-                  provider={provider}
-                />
-                {capitalize(provider)}
-              </Text>
-            ))}
+      <CSSTransition
+        classNames="JournalMobileNav"
+        unmountOnExit
+        in={menuOpen}
+        timeout={500}
+      >
+        <div className="JournalMobileNavbarDropdown">
+          {ProviderList.map(provider => (
             <Text
-              onClick={logout}
+              key={provider}
+              onClick={() => console.log(ProviderList)}
               className={combineClasses(
-                "JournalMobileNavbarListItem extra-padding",
+                "JournalMobileNavbarListItem",
                 Theme.default,
                 Theme.hoverable
               )}
             >
-              Sign Out
+              <ProviderIcon
+                colored={true}
+                hoverable={true}
+                className="JournalMobileNavbarProviderIcon"
+                provider={provider}
+              />
+              {capitalize(provider)}
             </Text>
-          </div>
-        </CSSTransition>
+          ))}
+          <Text
+            onClick={logout}
+            className={combineClasses(
+              "JournalMobileNavbarListItem extra-padding",
+              Theme.default,
+              Theme.hoverable
+            )}
+          >
+            Sign Out
+          </Text>
+        </div>
+      </CSSTransition>
     </>
   );
 };

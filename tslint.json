@@ -2,6 +2,9 @@
   "defaultSeverity": "warning",
   "extends": ["tslint:recommended", "tslint-react", "tslint-react-a11y"],
   "jsRules": {},
+  "linterOptions": {
+    "exclude": ["node_modules/**"]
+  },
   "rules": {
     "jsx-no-lamda": false,
     "no-var-requires": false,
