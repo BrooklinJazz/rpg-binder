@@ -1,16 +1,17 @@
 import combineClasses from "combine-classes/lib";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { GridTemplateAreas } from "../../../../common/constants";
 import { Theme } from "../../../../common/theme";
-import { useNpcEntryContext } from "./context";
 import usePrevious from "../../../../hooks/usePrevious";
+import { useNpcEntryContext } from "./context";
 
 const Avatar = () => {
   const { avatar, setAvatar, save } = useNpcEntryContext();
+  const [avatarFile, setAvatarFile] = useState<File | undefined>();
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerInput = () => {
     if (inputRef.current) {
@@ -18,31 +19,29 @@ const Avatar = () => {
     }
   };
   const reader = new FileReader();
-  const [preview, setPreview] = useState();
 
   const prevAvatar = usePrevious(avatar);
 
-  const handleAvatarUpload = (files: FileList | null) => {
-    if (files) {
-      setAvatar(files[0]);
+  useEffect(() => {
+    if (avatar && avatar !== prevAvatar) {
       save();
     }
-  };
+  }, [avatar]);
 
   useEffect(() => {
-    if (avatar) {
-      reader.readAsDataURL(avatar);
+    if (avatarFile) {
+      reader.readAsDataURL(avatarFile);
       reader.addEventListener("load", () => {
-        setPreview(reader.result);
+        setAvatar(reader.result as string);
       });
     }
     return reader.removeEventListener("load", () => "no effect");
-  }, [avatar, reader]);
+  }, [avatarFile, reader]);
 
   return (
     <div className={GridTemplateAreas.NPC_AVATAR}>
       {avatar ? (
-        <img className="AvatarImage" alt="alt" src={preview} />
+        <img className="AvatarImage" alt="alt" src={avatar} />
       ) : (
         <div role="button" onClick={triggerInput}>
           <FontAwesomeIcon
@@ -53,7 +52,7 @@ const Avatar = () => {
         </div>
       )}
       <input
-        onChange={e => handleAvatarUpload(e.target.files)}
+        onChange={e => e.target.files && setAvatarFile(e.target.files[0])}
         style={{ display: "none" }}
         ref={inputRef}
         type="file"

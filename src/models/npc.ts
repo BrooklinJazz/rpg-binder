@@ -12,6 +12,7 @@ const npcSchema = new Schema({
   },
   description: String,
   details: String,
+  avatar: String,
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",

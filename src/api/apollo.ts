@@ -117,6 +117,7 @@ export const NPC = gql(`
         name
         description
         details
+        avatar
       }
     }
 `);

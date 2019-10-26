@@ -6,7 +6,7 @@ export default gql`
     name: String!
     description: String
     details: String
-    avatar: File
+    avatar: String
     creator: User!
     campaign: Campaign!
     organizations: [Organization!]!
@@ -18,7 +18,7 @@ export default gql`
     description: String
     details: String
     campaign: String!
-    avatar: Upload!
+    avatar: String
     organizations: [ID!]!
     locations: [ID!]!
   }

@@ -6,8 +6,8 @@ import { NPC, SAVE_NPC } from "../../../../api/apollo";
 import {
   INpc,
   INpcInput,
-  Setter,
-  IUpdateNpcInput
+  IUpdateNpcInput,
+  Setter
 } from "../../../../common/types";
 import { NPC_DESCRIPTION_TEMPLATE, NPC_DETAILS_TEMPLATE } from "./templates";
 
@@ -16,10 +16,8 @@ interface INpcEntryState {
   setName: Setter<string>;
   description: string | undefined;
   setDescription: Setter<string>;
-  details: string | undefined;
-  setDetails: Setter<string>;
-  avatar?: File | undefined;
-  setAvatar: Setter<File | undefined>;
+  avatar?: string | undefined;
+  setAvatar: Setter<string | undefined>;
   save: () => void;
   revert: (input: INpcInput) => void;
 }
@@ -39,12 +37,11 @@ export const NpcEntryProvider = ({
 }) => {
   const [name, setName] = useState(npc.name || "");
   const [description, setDescription] = useState(npc.description || "");
-  const [details, setDetails] = useState(npc.details || NPC_DETAILS_TEMPLATE);
   const [avatar, setAvatar] = useState(npc.avatar);
   const [saveMutation] = useMutation<{}, IUpdateNpcInput>(SAVE_NPC);
   const save = () =>
-    saveMutation({ variables: { id, name, description, details, avatar } });
-
+    saveMutation({ variables: { id, name, description, avatar } });
+  console.log("NPC", npc.avatar);
   const revert = () => {
     setName(npc.name);
     setDescription(npc.description || "");
@@ -56,12 +53,10 @@ export const NpcEntryProvider = ({
       value={{
         name,
         description,
-        details,
         avatar,
         setAvatar,
         setName,
         setDescription,
-        setDetails,
         save,
         revert
       }}

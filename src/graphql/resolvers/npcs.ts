@@ -81,10 +81,6 @@ export default {
       context: IContext
     ) => {
       checkSignedIn(context);
-      console.log("AVATAR", input.avatar);
-      if (input.avatar) {
-        console.log("AVATAR EXISTS", input.avatar);
-      }
       const updatedNpc: INpc | null = await Npc.findByIdAndUpdate(
         input._id,
         {
