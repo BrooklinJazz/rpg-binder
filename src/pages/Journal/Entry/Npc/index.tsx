@@ -26,7 +26,6 @@ const NpcEntry = ({ id }: IProps) => {
   if (!data || loading) {
     return <div>loading</div>;
   }
-  console.log("NPC ENTRY DATA", data);
   return (
     <NpcEntryProvider npc={data.npc}>
       <NpcEntryHeading />

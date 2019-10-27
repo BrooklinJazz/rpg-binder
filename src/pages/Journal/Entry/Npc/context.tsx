@@ -83,7 +83,6 @@ export const NpcEntryProvider = ({
 
 export const useNpcEntryContext = () => {
   const context = useContext(NpcEntryContext);
-  console.log("CONTEXT", context)
   if (context === undefined) {
     throw new Error(
       "useNpcEntryContext must be used within an NpcEntryProvider"

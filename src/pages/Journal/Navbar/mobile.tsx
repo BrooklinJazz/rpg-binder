@@ -49,7 +49,6 @@ const MobileNavbar = ({ logout }: IJournalNavbarProps) => {
           {ProviderList.map(provider => (
             <Text
               key={provider}
-              onClick={() => console.log(ProviderList)}
               className={combineClasses(
                 "JournalMobileNavbarListItem",
                 Theme.default,
