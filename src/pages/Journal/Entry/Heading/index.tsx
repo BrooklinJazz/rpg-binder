@@ -35,6 +35,7 @@ const EntryHeading = ({ value, setter, save }: IProps) => {
     setEditing(false);
     save();
   };
+  console.log("ENTRY HEADING", value)
   useClickoutHandler(clickoutRef, onClickout);
   const MobileOpenIcon = () =>
     open ? (

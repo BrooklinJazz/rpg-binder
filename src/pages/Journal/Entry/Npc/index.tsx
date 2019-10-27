@@ -26,8 +26,9 @@ const NpcEntry = ({ id }: IProps) => {
   if (!data || loading) {
     return <div>loading</div>;
   }
+  console.log("NPC ENTRY DATA", data);
   return (
-    <NpcEntryProvider npc={data.npc} id={id}>
+    <NpcEntryProvider npc={data.npc}>
       <NpcEntryHeading />
       <div
         className={combineClasses(GridTemplateAreas.ENTRY_CONTENT, "NpcEntry")}

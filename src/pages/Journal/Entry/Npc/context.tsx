@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect
+} from "react";
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -10,6 +16,8 @@ import {
   Setter
 } from "../../../../common/types";
 import { NPC_DESCRIPTION_TEMPLATE, NPC_DETAILS_TEMPLATE } from "./templates";
+import usePrevious from "../../../../hooks/usePrevious";
+import { setInterval } from "timers";
 
 interface INpcEntryState {
   name: string;
@@ -22,17 +30,15 @@ interface INpcEntryState {
   revert: () => void;
 }
 
-export const NPCEntryContext = createContext<INpcEntryState | undefined>(
+export const NpcEntryContext = createContext<INpcEntryState | undefined>(
   undefined
 );
 
 export const NpcEntryProvider = ({
   children,
-  id,
   npc
 }: {
   children: ReactNode;
-  id: string;
   npc: INpc;
 }) => {
   const [name, setName] = useState(npc.name || "");
@@ -40,17 +46,25 @@ export const NpcEntryProvider = ({
   const [avatar, setAvatar] = useState(npc.avatar);
   const [saveMutation] = useMutation<{}, IUpdateNpcInput>(SAVE_NPC);
 
+  const previousId = usePrevious(npc._id);
+
+  useEffect(function debugChangingNpc() {
+    if (previousId && npc._id  !== previousId) {
+      revert();
+    }
+  }, [npc._id]);
+
   const save = () =>
-    saveMutation({ variables: { id, name, description, avatar } });
+    saveMutation({ variables: { id: npc._id, name, description, avatar } });
 
   const revert = () => {
     setName(npc.name);
     setDescription(npc.description || "");
-    setName(npc.details || "");
+    setAvatar(npc.avatar);
   };
 
   return (
-    <NPCEntryContext.Provider
+    <NpcEntryContext.Provider
       value={{
         name,
         description,
@@ -63,12 +77,13 @@ export const NpcEntryProvider = ({
       }}
     >
       {children}
-    </NPCEntryContext.Provider>
+    </NpcEntryContext.Provider>
   );
 };
 
 export const useNpcEntryContext = () => {
-  const context = useContext(NPCEntryContext);
+  const context = useContext(NpcEntryContext);
+  console.log("CONTEXT", context)
   if (context === undefined) {
     throw new Error(
       "useNpcEntryContext must be used within an NpcEntryProvider"

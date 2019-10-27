@@ -24,6 +24,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
+  outline: none; // for mac
   text-align: center;
   font-weight: 300 !important;
   font-family: "Roboto", sans-serif !important; // input overrides font
