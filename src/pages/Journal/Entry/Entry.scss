@@ -32,8 +32,8 @@
   }
 }
 
-// 75 is a magic number that through T&E makes the entry almost overlap the navigator header
-$open-entry-margin: calc(((100vh - #{$navbar-height} - 75px) / -2));
+// covers everything but the navbar
+$open-entry-margin: calc(((100vh - #{$navbar-height}) / -2));
 
 .Entry.open {
   margin-top: $open-entry-margin;
