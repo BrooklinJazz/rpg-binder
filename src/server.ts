@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
-import resolvers from "./graphql/resolvers";
-import typeDefs from "./graphql/typeDefs";
-import { IAuthData, IContext } from "./models/types";
-import User from "./models/user";
+import resolvers from "./server/graphql/resolvers";
+import typeDefs from "./server/graphql/typeDefs";
+import { IAuthData, IContext } from "./server/models/types";
+import User from "./server/models/user";
 
 const server = new ApolloServer({
   typeDefs,
