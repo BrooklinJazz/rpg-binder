@@ -1,16 +1,5 @@
-import {
-  IPage,
-  ICreateSectionInput,
-  ISectionDocument,
-  ISection
-} from "../types";
-import { SectionRepo } from "./section_repo";
+import { IPage, ISection } from "../types";
 import { PageRepo } from "./page_repo";
-
-interface IFromSectionProps extends ICreateSectionInput {
-  pages: IPage[];
-  _id: string;
-}
 
 export default class SectionObject {
   _id: string;
