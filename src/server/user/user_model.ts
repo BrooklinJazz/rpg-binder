@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IUser } from "./types";
+import { IUserDocument } from "../types";
 const userSchema = new Schema({
   email: {
     type: String,
@@ -9,13 +9,21 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  description: String,
+  sections: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Section"
+    }
+  ],
   campaigns: [
     {
-      // not autopopulating for now
       type: Schema.Types.ObjectId,
       ref: "Campaign"
     }
   ]
 });
 
-export default model<IUser>("User", userSchema);
+const UserModel = model<IUserDocument>("User", userSchema);
+
+export default UserModel;
