@@ -65,6 +65,7 @@ export interface ISectionDocument extends Document, Omit<ISection, "_id"> {
 export interface ISection {
   _id: string;
   name: string;
+  campaign: string;
   pages: IPage[];
 }
 export interface IPageDocument extends Document, Omit<IPage, "_id"> {
@@ -86,3 +87,15 @@ export interface IPagesBySection {
 }
 
 export type TPagesBySections = IPagesBySection[];
+
+export interface ICreateSectionInput {
+  name: string;
+  campaign: string;
+}
+
+export interface ICreatePageInput {
+  name: string;
+  section: string;
+  campaign: string;
+  relatedPages: string[];
+}

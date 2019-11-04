@@ -22,16 +22,7 @@ export default {
       root: any,
       { input }: IInput<ICampaignInput>,
       context: IContext
-    ): Promise<ICampaign> => new CampaignFacade(context.user).create(input),
-    // updateCampaign: async (
-    //   root: any,
-    //   { input }: IInput<{ _id: string; name: string }>,
-    //   context: IContext
-    // ): Promise<IAuthData> => new CampaignFacade(context.user).update(input),
-    // deleteCampaign: async (
-    //   root: any,
-    //   { input }: IInput<{ _id: string }>,
-    //   context: IContext
-    // ): Promise<IAuthData> => new CampaignFacade(context.user).delete(input)
+    ): Promise<ICampaign> => new CampaignFacade(context.user).create(input)
+    // TODO add update and delete
   }
 };

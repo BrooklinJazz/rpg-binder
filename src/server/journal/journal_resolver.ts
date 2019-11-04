@@ -1,27 +1,48 @@
-import { checkSignedIn, userIdFromContext } from "../../graphql/resolvers/helpers";
+import {
+  IInput,
+  IUserInput,
+  IAuthData,
+  IContext,
+  ICampaign,
+  ICampaignInput,
+  ICreateSectionInput,
+  IPage,
+  ICreatePageInput
+} from "../types";
 import JournalFacade from "./journal_facade";
+import { checkSignedIn } from "../helpers";
+import SectionObject from "./section_object";
 
 export default {
   Query: {
     sections: async (
       root: any,
-      { input }: IInput<{ campaign?: string; location?: string }>,
+      { input }: IInput<{ campaign: string }>,
       context: IContext
-    ) => {
-      checkSignedIn(context);
-      const userId = userIdFromContext(context);
-      return JournalFacade.findSections(input, context);
-    }
+    ): Promise<SectionObject[]> =>
+      new JournalFacade({
+        user: context.user,
+        campaign: input.campaign
+      }).getSections()
   },
   Mutation: {
-    // TODO determine req type
     createSection: async (
       root: any,
-      { input }: IInput<ILocationInput>,
+      { input }: IInput<ICreateSectionInput>,
       context: IContext
-    ) => {
-      checkSignedIn(context);
-      const userId = userIdFromContext(context);
-    }
+    ): Promise<SectionObject> =>
+      new JournalFacade({
+        user: context.user,
+        campaign: input.campaign
+      }).createSection(input),
+    createPage: async (
+      root: any,
+      { input }: IInput<ICreatePageInput>,
+      context: IContext
+    ): Promise<IPage> =>
+      new JournalFacade({
+        user: context.user,
+        campaign: input.campaign
+      }).createPage(input)
   }
 };

@@ -1,7 +1,7 @@
 import { gql } from "apollo-server";
 
 import campaign from "./campaign/campaign_typedef";
-// import journal from "./journal/journal_typedef";
+import journal from "./journal/journal_typedef";
 import user from "./user/user_typedef";
 
 const root = gql`
@@ -14,4 +14,4 @@ const root = gql`
   }
 `;
 
-export default [root, user, campaign];
+export default [root, user, campaign, journal];

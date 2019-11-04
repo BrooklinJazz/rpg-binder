@@ -23,7 +23,7 @@ export default gql`
   }
 
   extend type Query {
-    campaigns(input: SingleCampaignInput): [Campaign!]!
+    campaigns: [Campaign!]!
   }
 
   extend type Mutation {
