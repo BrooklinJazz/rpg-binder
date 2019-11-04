@@ -2,8 +2,7 @@ import { IUserInput } from "../types";
 import { UserRepo } from "./user_repo";
 import { UserInputError } from "apollo-server";
 import bcrypt from "bcryptjs";
-import { authTokenFromUser } from "../../graphql/resolvers/helpers";
-import UserModel from "./user_model";
+import { authTokenFromUser } from "../helpers";
 
 export default class IUserObject {
   email: string;

@@ -7,14 +7,18 @@ export interface IUserInput {
   password: string;
 }
 
+export interface ICampaignInput {
+  name: string;
+}
+
+export interface IUpdateCampaignInput extends ICampaignInput {
+  _id: string;
+}
+
 export interface IAuthData {
   userId: string;
   token: string;
   tokenExpiration: number;
-}
-
-export interface IInput<T> {
-  input: T;
 }
 
 export interface IInput<T> {

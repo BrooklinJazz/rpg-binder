@@ -6,11 +6,13 @@ import mongoose from "mongoose";
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
 import { IAuthData, IContext } from "./types";
+import UserModel from "./user/user_model";
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req }): Promise<IContext> => {
+  // NOTE replace {} with IContext
+  context: async ({ req }): Promise<{}> => {
     const token =
       req.headers.authorization && req.headers.authorization.split(" ")[1];
     let decodedToken;
@@ -23,7 +25,7 @@ const server = new ApolloServer({
           token,
           process.env.JWT_SECRET_KEY || ""
         ) as IAuthData;
-        user = decodedToken && (await User.findById(decodedToken.userId));
+        user = decodedToken && (await UserModel.findById(decodedToken.userId));
       } catch (error) {
         throw new AuthenticationError(error);
       }

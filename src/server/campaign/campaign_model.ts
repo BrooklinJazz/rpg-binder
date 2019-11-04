@@ -5,7 +5,6 @@ const campaignSchema = new Schema({
     type: String,
     required: true
   },
-  description: String,
   sections: [
     {
       type: Schema.Types.ObjectId,
@@ -21,4 +20,4 @@ const campaignSchema = new Schema({
 
 const CampaignModel = model<ICampaignDocument>("Campaign", campaignSchema);
 
-export default CampaignModel
+export default CampaignModel;

@@ -38,7 +38,6 @@ export interface INpc extends INpcInput {
 
 export interface ICampaignInput {
   name: string;
-  description?: string;
 }
 
 export interface ICampaign extends ICampaignInput {
