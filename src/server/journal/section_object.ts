@@ -14,7 +14,7 @@ export default class SectionObject {
   }
 
   static fromSection = async (section: ISection) => {
-    const pages = await new PageRepo().findBySection(section._id);
+    const pages = await PageRepo.findBySection(section._id);
     return new SectionObject(section, pages);
   };
 }

@@ -12,6 +12,7 @@ export default gql`
   type Page {
     _id: ID!
     name: String!
+    description: String
     relatedPages: [Page!]!
     section: Section
     creator: User!
@@ -35,6 +36,7 @@ export default gql`
 
   input CreatePageInput {
     name: String!
+    description: String
     relatedPages: [ID!]!
     section: ID!
     campaign: ID!

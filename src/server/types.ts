@@ -77,8 +77,10 @@ export interface IPageDocument extends Document, Omit<IPage, "_id"> {
 export interface IPage {
   _id: string;
   name: string;
+  description?: string;
   relatedPages: string[];
-  parentSection: string[];
+  campaign: string;
+  section: string;
 }
 
 export interface IPagesBySection {
@@ -95,6 +97,7 @@ export interface ICreateSectionInput {
 
 export interface ICreatePageInput {
   name: string;
+  description?: string;
   section: string;
   campaign: string;
   relatedPages: string[];

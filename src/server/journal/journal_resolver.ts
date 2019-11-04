@@ -12,6 +12,7 @@ import {
 import JournalFacade from "./journal_facade";
 import { checkSignedIn } from "../helpers";
 import SectionObject from "./section_object";
+import PageObject from "./page_object";
 
 export default {
   Query: {
@@ -39,7 +40,7 @@ export default {
       root: any,
       { input }: IInput<ICreatePageInput>,
       context: IContext
-    ): Promise<IPage> =>
+    ): Promise<PageObject> =>
       new JournalFacade({
         user: context.user,
         campaign: input.campaign

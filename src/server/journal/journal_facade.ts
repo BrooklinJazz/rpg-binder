@@ -2,6 +2,7 @@ import { ICreateSectionInput, ICreatePageInput } from "../types";
 import { SectionRepo } from "./section_repo";
 import SectionObject from "./section_object";
 import { PageRepo } from "./page_repo";
+import PageObject from "./page_object";
 
 export default class JournalFacade {
   user: string;
@@ -23,7 +24,6 @@ export default class JournalFacade {
       SectionObject.fromSection(section)
     );
 
-  createPage = (input: ICreatePageInput) => {
-    throw "not yet implemented";
-  };
+  createPage = (input: ICreatePageInput) =>
+    PageRepo.create(input).then(page => PageObject.fromPage(page));
 }

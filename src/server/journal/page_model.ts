@@ -6,6 +6,10 @@ const pageSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   relatedPages: [
     {
       type: Schema.Types.ObjectId,
