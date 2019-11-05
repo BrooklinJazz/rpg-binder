@@ -36,36 +36,6 @@ export const typeToCreateFromState = (state: JournalStates) => {
   }
 };
 
-export const modalStateFromTypeToCreate = (
-  typeToCreate: ReturnType<typeof typeToCreateFromState>
-) => {
-  switch (typeToCreate) {
-    case "Location":
-      return JournalModalStates.CREATE_LOCATION;
-    case "Organization":
-      return JournalModalStates.CREATE_ORGANIZATION;
-    case "Npc":
-      return JournalModalStates.CREATE_NPC;
-    default:
-      break;
-  }
-};
-
-export const titleFromJournalModalState = (state: JournalModalStates) => {
-  switch (state) {
-    case JournalModalStates.CREATE_LOCATION:
-      return "Create Location";
-    case JournalModalStates.CREATE_ORGANIZATION:
-      return "Create Organization";
-    case JournalModalStates.CREATE_NPC:
-      return "Create Npc";
-    case JournalModalStates.CREATE_SECTION:
-      return "Create Section";
-    default:
-      break;
-  }
-};
-
 export const confirmAlert = ({
   message = "closing now will discard changes",
   onConfirm
