@@ -10,8 +10,6 @@ import CampaignSelect from "./pages/CampaignSelect";
 import Journal from "./pages/Journal";
 
 const App: React.FC = () => {
-  const { activeCampaign } = useCampaignState();
-
   return (
     <div className="App">
       ts

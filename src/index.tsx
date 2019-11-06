@@ -10,28 +10,22 @@ import { client } from "./api/client";
 import App from "./App";
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
-import { selectIsLoggedIn } from "./context/auth/selectors";
-import { AuthProvider, useAuthState } from "./context/auth/store";
-import { CampaignProvider } from "./context/campaign/store";
-import { ThemeProvider } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
-
+import { ThemeProvider } from "styled-components";
 const PageRouting = () => {
-  const state = useAuthState();
-  const isLoggedIn = selectIsLoggedIn(state);
   return (
     <>
-      {process.env.NODE_ENV === "development" && <DevComponents />}
+      {/* {process.env.NODE_ENV === "development" && <DevComponents />} */}
       <Switch>
         <AuthRoute
-          isAuth={!isLoggedIn}
+          isAuth={true}
           redirectUrl={Routes.APP}
           path={Routes.LOGIN}
           component={Login}
         />
-        <AuthRoute isAuth={isLoggedIn} path={Routes.APP} component={App} />
+        <AuthRoute isAuth={false} path={Routes.APP} component={App} />
       </Switch>
     </>
   );
@@ -40,12 +34,8 @@ const PageRouting = () => {
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <ThemeProvider>
-        <AuthProvider>
-          <CampaignProvider>
-            <PageRouting />
-          </CampaignProvider>
-        </AuthProvider>
+      <ThemeProvider theme={{ mode: "dark" }}>
+        <PageRouting />
       </ThemeProvider>
     </ApolloProvider>
   </BrowserRouter>,
