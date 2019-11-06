@@ -8,7 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { faBookDead } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { CAMPAIGN_NAMES } from "../../api/apollo";
+import { CAMPAIGNS } from "../../api/gqls";
 import { GridTemplateAreas, pollInterval } from "../../common/constants";
 import { Routes } from "../../common/routes";
 import { Theme } from "../../common/theme";
@@ -20,7 +20,7 @@ import CreateCampaignModal from "./CampaignModal";
 const CampaignSelect = ({ history }: RouteComponentProps) => {
   const { data, loading } = useQuery<{
     campaigns: { _id: string; name: string }[];
-  }>(CAMPAIGN_NAMES, {pollInterval});
+  }>(CAMPAIGNS, {pollInterval});
   const dispatch = useCampaignDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (

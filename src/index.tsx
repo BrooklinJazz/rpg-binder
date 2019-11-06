@@ -6,7 +6,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 
-import { client } from "./api/apollo";
+import { client } from "./api/client";
 import App from "./App";
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
@@ -15,7 +15,7 @@ import { AuthProvider, useAuthState } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
 import { ThemeProvider } from "./context/theme/store";
 import DevComponents from "./DevComponents";
-import Login from "./pages/Login";
+import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
 
 const PageRouting = () => {

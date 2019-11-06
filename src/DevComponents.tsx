@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 
-import { LOGIN } from "./api/apollo";
+import { LOGIN } from "./api/gqls";
 import { logoutAction, authRequestSuccess } from "./context/auth/actions";
 import { useAuthDispatch } from "./context/auth/store";
 import { setTheme } from "./context/theme/actions";

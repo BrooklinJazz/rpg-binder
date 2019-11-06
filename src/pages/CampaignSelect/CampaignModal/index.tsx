@@ -8,7 +8,7 @@ import TextInput from "../../../components/Inputs/TextInput";
 import Modal from "../../../components/Modal";
 import { H1 } from "../../../components/Typeography";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_CAMPAIGN } from "../../../api/apollo";
+import { CREATE_CAMPAIGN } from "../../../api/gqls";
 import Form from "../../../components/Inputs/Form";
 
 interface IProps {
