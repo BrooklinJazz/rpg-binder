@@ -19,6 +19,9 @@ export const removeFromStorage = (key: LocalStorage) =>
 export const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
+export const capitalizeAll = (str: string) =>
+  str.split(" ").map(splitStr => splitStr.charAt(0).toUpperCase() + splitStr.slice(1)).join(" ");
+
 export const ProviderList = Object.values(Provider);
 
 export const typeToCreateFromState = (state: JournalStates) => {

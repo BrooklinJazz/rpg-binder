@@ -14,18 +14,20 @@ import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider } from "styled-components";
+import { AuthProvider, useAuthState } from "./context/auth/store";
 const PageRouting = () => {
+  const { token } = useAuthState();
   return (
     <>
       {/* {process.env.NODE_ENV === "development" && <DevComponents />} */}
       <Switch>
         <AuthRoute
-          isAuth={true}
+          isAuth={!token}
           redirectUrl={Routes.APP}
           path={Routes.LOGIN}
           component={Login}
         />
-        <AuthRoute isAuth={false} path={Routes.APP} component={App} />
+        <AuthRoute isAuth={!!token} path={Routes.APP} component={App} />
       </Switch>
     </>
   );
@@ -34,9 +36,11 @@ const PageRouting = () => {
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <ThemeProvider theme={{ mode: "dark" }}>
-        <PageRouting />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={{ mode: "dark" }}>
+          <PageRouting />
+        </ThemeProvider>
+      </AuthProvider>
     </ApolloProvider>
   </BrowserRouter>,
   document.getElementById("root")

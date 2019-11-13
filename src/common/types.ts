@@ -5,6 +5,10 @@ export interface IAuthInput {
 
 export type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
 
+export type Enhancer<T> = {
+  data: T;
+};
+
 export interface ISignUpRetval {
   _id: string;
   email: string;
