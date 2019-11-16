@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/react-hooks";
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import { LOGIN, SIGNUP } from "./gqls";
 import { useAuthDispatch } from "../context/auth/store";
 import { authRequestSuccess } from "../context/auth/actions";
@@ -28,7 +28,7 @@ interface ISignupResponse {
 
 export const useSignup = () => {
   const dispatch = useAuthDispatch();
-  const [signup] = useLazyQuery<ISignupResponse, ILoginInput>(SIGNUP, {
+  const [signup] = useMutation<ISignupResponse, ILoginInput>(SIGNUP, {
     onCompleted: data =>
       dispatch(authRequestSuccess({ token: data.createUser.token }))
   });
