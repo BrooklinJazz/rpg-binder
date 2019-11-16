@@ -10,10 +10,10 @@ import CampaignSelect from "./pages/CampaignSelect";
 import Journal from "./pages/Journal";
 
 const App: React.FC = () => {
+  const { activeCampaign } = useCampaignState();
   return (
     <div className="App">
-      ts
-      {/* <Switch>
+      <Switch>
         <AuthRoute
           path={Routes.JOURNAL}
           isAuth={Boolean(activeCampaign)}
@@ -24,7 +24,7 @@ const App: React.FC = () => {
         <Redirect
           to={activeCampaign ? Routes.JOURNAL : Routes.CAMPAIGN_SELECT}
         />
-      </Switch> */}
+      </Switch>
     </div>
   );
 };

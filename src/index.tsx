@@ -3,6 +3,7 @@ import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 
@@ -10,11 +11,12 @@ import { client } from "./api/client";
 import App from "./App";
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
+import { AuthProvider, useAuthState } from "./context/auth/store";
+import { CampaignProvider } from "./context/campaign/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
-import { ThemeProvider } from "styled-components";
-import { AuthProvider, useAuthState } from "./context/auth/store";
+
 const PageRouting = () => {
   const { token } = useAuthState();
   return (
@@ -37,9 +39,11 @@ ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
       <AuthProvider>
-        <ThemeProvider theme={{ mode: "dark" }}>
-          <PageRouting />
-        </ThemeProvider>
+        <CampaignProvider>
+          <ThemeProvider theme={{ mode: "dark" }}>
+            <PageRouting />
+          </ThemeProvider>
+        </CampaignProvider>
       </AuthProvider>
     </ApolloProvider>
   </BrowserRouter>,
