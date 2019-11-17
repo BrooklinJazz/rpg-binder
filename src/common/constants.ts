@@ -29,8 +29,6 @@ export const PROJECT_NAME = "DM Binder";
 
 export const pollInterval = 1000;
 
-export const navbarHeight = 90;
-
 export enum Provider {
   FACEBOOK = "facebook",
   TWITTER = "twitter",
