@@ -27,6 +27,8 @@ import { Page } from "../../components/StyledPage";
 import { H1 } from "../../components/StyledTypography";
 import { selectCampaign } from "../../context/campaign/actions";
 import { useCampaignDispatch } from "../../context/campaign/store";
+import { CampaignModal } from "./CampaignModal";
+import { CampaignList } from "./CampaignList";
 
 const Grid = styled(Page)`
   display: grid;
@@ -60,6 +62,7 @@ const ManageCampaigns = styled.section`
   width: 100%;
   height: 30px;
   background-color: ${surface1};
+  margin: 10px 0;
 `;
 
 const Add = styled(Button)`
@@ -71,88 +74,6 @@ const Add = styled(Button)`
     color: ${onSurfaceHover};
   }
 `;
-
-const ListItem = styled(Button)`
-  background-color: ${background};
-  color: ${onSurface};
-  width: 100%;
-  display: flex;
-  font-size: 1.5em;
-  padding: 10px 0;
-  margin: 2px 0;
-  height: max-content;
-  &:hover {
-    background-color: ${surface1};
-  }
-  * {
-    margin-right: 10px;
-    margin-left: 10px;
-  }
-`;
-
-const CampaignList = () => {
-  const { campaigns = [], loading } = useCampaigns();
-  const history = useHistory();
-  const dispatch = useCampaignDispatch();
-  if (loading) {
-    return <Loading />;
-  }
-  const renderCampaign = (campaign: ICampaign) => {
-    const setCampaign = () => {
-      history.push(Routes.JOURNAL);
-      dispatch(selectCampaign({ campaign: campaign._id }));
-    };
-    return (
-      <ListItem onClick={setCampaign}>
-        <FontAwesomeIcon
-          className="CampaignSelectListItemIcon"
-          icon={faBookDead}
-        />
-        {campaign.name}
-      </ListItem>
-    );
-  };
-  const renderCampaigns = () => campaigns.map(renderCampaign);
-
-  return <>{renderCampaigns()}</>;
-};
-
-const CreateButton = styled(PrimaryButton).attrs(props => ({
-  children: "Create"
-}))`
-  margin-top: ${modalSpacing};
-  align-self: flex-end;
-`;
-
-const CreateForm = styled(Form)`
-  display: flex;
-  flex-direction: column;
-`;
-
-const CampaignModal = ({
-  isOpen,
-  close
-}: {
-  isOpen: boolean;
-  close: () => void;
-}) => {
-  const [name, setName] = useState("");
-  const { create } = useCreateCampaign(close);
-  if (!isOpen) {
-    return null;
-  }
-  return (
-    <Modal title="Create New Campaign" close={close}>
-      <CreateForm onSubmit={() => create(name)}>
-        <Label>
-          Campaign Name
-          <Input value={name} onChange={e => setName(e.target.value)} />
-        </Label>
-        <CreateButton />
-      </CreateForm>
-    </Modal>
-  );
-};
 
 const CampaignSelect = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
