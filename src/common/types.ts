@@ -45,7 +45,6 @@ export interface ICampaignInput {
 
 export interface ICampaign extends ICampaignInput {
   _id: string;
-  npcs: INpc[];
 }
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import { useCampaign } from "../../../api/hooks";
-import {
-  navbarPadding,
-  surface2
-} from "../../../common/styles";
+import { navbarPadding, surface2 } from "../../../common/styles";
 import { HoverableIcon } from "../../../components/StyledIcon";
 import { Text } from "../../../components/StyledTypography";
+import { Drawer } from "./Drawer";
 
 const MenuBars = styled(HoverableIcon).attrs(_ => ({
   icon: faBars
@@ -17,12 +15,13 @@ const MenuBars = styled(HoverableIcon).attrs(_ => ({
   grid-area: menu-left;
 `;
 
-const SearchIcon = styled(HoverableIcon).attrs(_ => ({
-  icon: faSearch
-}))`
-  grid-area: menu-right;
+const Search = styled.div`
   margin-left: auto;
 `;
+
+const SearchIcon = styled(HoverableIcon).attrs(_ => ({
+  icon: faSearch
+}))``;
 
 export const Grid = styled.div`
   grid-area: menu;
@@ -46,11 +45,20 @@ const CampaignName = () => {
 };
 
 export const Menu = () => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const toggleOpenDrawer = () => setOpenDrawer(!openDrawer);
   return (
-    <Grid>
-      <MenuBars />
-      <CampaignName />
-      <SearchIcon />
-    </Grid>
+    <>
+      <Drawer open={openDrawer} />
+      <Grid>
+        <div onClick={toggleOpenDrawer}>
+          <MenuBars />
+        </div>
+        <CampaignName />
+        <Search>
+          <SearchIcon />
+        </Search>
+      </Grid>
+    </>
   );
 };
