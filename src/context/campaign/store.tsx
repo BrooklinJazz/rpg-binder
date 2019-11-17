@@ -12,6 +12,12 @@ const campaignReducer = (state: ICampaignState, action: CampaignAction) => {
       setInStorage(LocalStorage.ACTIVE_CAMPAIGN, action.payload.campaign);
       nextState = { ...state, activeCampaign: action.payload.campaign };
       break;
+    case "open_modal":
+      nextState = { ...state, modalIsOpen: true };
+      break;
+    case "close_modal":
+      nextState = { ...state, modalIsOpen: false };
+      break;
     default:
       throw new Error(`unhandled action type ${action!.type}`);
   }
@@ -29,7 +35,8 @@ const CampaignDispatchContext = createContext<CampaignDispatch | undefined>(
 
 export const CampaignProvider = ({ children }: { children: ReactNode }) => {
   const initialState: ICampaignState = {
-    activeCampaign: valueFromStorage(LocalStorage.ACTIVE_CAMPAIGN)
+    activeCampaign: valueFromStorage(LocalStorage.ACTIVE_CAMPAIGN),
+    modalIsOpen: false
   };
   const [state, dispatch] = useReducer(campaignReducer, initialState);
   return (

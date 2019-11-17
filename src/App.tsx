@@ -6,7 +6,7 @@ import { Redirect, Route, Switch } from "react-router";
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
 import { useCampaignState } from "./context/campaign/store";
-import CampaignSelect from "./pages/CampaignSelect";
+import CampaignSelect from "./pages/Campaigns";
 import Journal from "./pages/Journal";
 
 const App: React.FC = () => {

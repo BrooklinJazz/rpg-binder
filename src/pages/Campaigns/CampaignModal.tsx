@@ -8,6 +8,11 @@ import { Form } from "../../components/StyledForm";
 import { Input } from "../../components/StyledInput";
 import { Label } from "../../components/StyledLabel";
 import { Modal } from "../../components/StyledModal";
+import { closeModal } from "../../context/campaign/actions";
+import {
+  useCampaignDispatch,
+  useCampaignState
+} from "../../context/campaign/store";
 
 const CreateButton = styled(PrimaryButton).attrs(props => ({
   children: "Create"
@@ -21,16 +26,13 @@ const CreateForm = styled(Form)`
   flex-direction: column;
 `;
 
-export const CampaignModal = ({
-  isOpen,
-  close
-}: {
-  isOpen: boolean;
-  close: () => void;
-}) => {
+export const CampaignModal = () => {
   const [name, setName] = useState("");
+  const { modalIsOpen } = useCampaignState();
+  const dispatch = useCampaignDispatch();
+  const close = () => dispatch(closeModal());
   const { create } = useCreateCampaign(close);
-  if (!isOpen) {
+  if (!modalIsOpen) {
     return null;
   }
   return (
