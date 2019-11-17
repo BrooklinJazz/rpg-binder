@@ -15,7 +15,9 @@ import {
   navbarZIndex,
   onPrimary,
   onPrimaryHover,
-  surface2
+  surface2,
+  phoneBreakpoint,
+  tabletBreakpoint
 } from "../../../common/styles";
 import BaseProviderIcon from "../../../components/ProviderIcon";
 import { Button, DefaultButton } from "../../../components/StyledButtons";
@@ -25,14 +27,20 @@ import { toggleTheme } from "../../../context/theme/actions";
 import { useThemeDispatch, useThemeState } from "../../../context/theme/store";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { Theme } from "../../../context/theme/types";
+import { useAuthDispatch } from "../../../context/auth/store";
+import { logoutAction } from "../../../context/auth/actions";
 
 const Grid = styled(BaseNavbar)`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(minMax(min-content, 1fr), 3);
   grid-template-rows: 1fr;
   grid-template-areas: "left center right";
   align-items: center;
   padding: 0 20px;
+  @media (max-width: ${phoneBreakpoint}) {
+    grid-template-columns: repeat(minMax(min-content, 1fr), 2);
+    grid-template-areas: "left right";
+  }
 `;
 
 const Brand = styled(H1)`
@@ -43,6 +51,9 @@ const Header = styled(H2)`
   grid-area: center;
   text-align: center;
   color: ${onPrimary};
+  @media (max-width: ${tabletBreakpoint}) {
+    display: none;
+  }
 `;
 
 const RightContent = styled.div`
@@ -62,13 +73,18 @@ const ProviderIcon = styled(BaseProviderIcon)`
   }
 `;
 
+const ProviderIconWrapper = styled.div`
+  display: flex;
+  flex-wrap: no-wrap;
+`;
+
 const ProviderIcons = () => {
   return (
-    <div>
+    <ProviderIconWrapper>
       {ProviderList.map(provider => (
         <ProviderIcon key={provider} provider={provider} hoverable />
       ))}
-    </div>
+    </ProviderIconWrapper>
   );
 };
 
@@ -105,13 +121,16 @@ const ThemeIcon = () => {
   );
 };
 
-const ExpandedContent = () => (
-  <>
-    <ThemeIcon />
-    <ProviderIcons />
-    <SignOut />
-  </>
-);
+const ExpandedContent = () => {
+  const dispatch = useAuthDispatch()
+  return (
+    <>
+      <ThemeIcon />
+      <ProviderIcons />
+      <SignOut onClick={() => dispatch(logoutAction())} />
+    </>
+  );
+};
 
 const MobileContent = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,11 +149,7 @@ const RightContentHandler = () => {
   const { width } = useWindowDimensions();
   // removes the "px in 1200px"
   const content =
-    width > parseInt(landscapeBreakpoint) ? (
-      <ExpandedContent />
-    ) : (
-      <MobileContent />
-    );
+    width > parseInt(phoneBreakpoint) ? <ExpandedContent /> : <MobileContent />;
   return <RightContent>{content}</RightContent>;
 };
 
@@ -165,6 +180,7 @@ const ItemWithoutIcon = styled(Item)`
 `;
 
 const MobileDropdown = ({ open }: { open: boolean }) => {
+  const dispatch = useAuthDispatch();
   if (!open) {
     return null;
   }
@@ -176,7 +192,9 @@ const MobileDropdown = ({ open }: { open: boolean }) => {
           {capitalize(provider)}
         </Item>
       ))}
-      <ItemWithoutIcon>Sign Out</ItemWithoutIcon>
+      <div onClick={() => dispatch(logoutAction())}>
+        <ItemWithoutIcon>Sign Out</ItemWithoutIcon>
+      </div>
     </DropdownWrapper>
   );
 };
