@@ -19,7 +19,7 @@ const sizeFromWeight = (weight?: Weight) => {
     case "light":
       return 300;
     default:
-      return 400;
+      return 300;
   }
 };
 
