@@ -29,6 +29,7 @@ import CreateCampaignModal from "./CampaignModal";
 import { Button, DefaultButton } from "../../components/StyledButtons";
 import { useCampaigns } from "../../api/hooks";
 import { ICampaign } from "../../common/types";
+import { Modal } from "../../components/StyledModal";
 
 const Grid = styled(Page)`
   display: grid;
@@ -76,6 +77,7 @@ const Add = styled(Button)`
 
 const ListItem = styled(Button)`
   background-color: ${background};
+  color: ${onSurface};
   width: 100%;
   display: flex;
   font-size: 1.5em;
@@ -123,7 +125,7 @@ const CampaignSelect = () => {
   return (
     <Grid>
       {modalIsOpen && (
-        <CreateCampaignModal close={() => setModalIsOpen(false)} />
+        <Modal title="Create Campaign" close={() => setModalIsOpen(false)} />
       )}
       <Content>
         <Header weight="light">Campaigns</Header>

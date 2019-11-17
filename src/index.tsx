@@ -40,7 +40,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <AuthProvider>
         <CampaignProvider>
-          <ThemeProvider theme={{ mode: "light" }}>
+          <ThemeProvider theme={{ mode: "dark" }}>
             <PageRouting />
           </ThemeProvider>
         </CampaignProvider>

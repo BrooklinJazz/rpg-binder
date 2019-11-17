@@ -138,3 +138,8 @@ export const buttonHeight = "40px";
 export const buttonWidth = "100px";
 
 export const modalSpacing = "30px";
+
+export const entryZIndex = 100;
+export const navbarZIndex = 200;
+export const modalZIndex = 400;
+export const modalWrapperZIndex = 300;
