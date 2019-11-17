@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { surface1, navbarHeight, buttonHeight } from "../../../common/styles";
-import { Header } from "./Header";
+import { buttonHeight, navbarHeight, surface1 } from "../../../common/styles";
+import { Menu } from "./Menu";
 import { PageFooter } from "./PageFooter";
 import { Pages } from "./Pages";
 import { SectionFooter } from "./SectionFooter";
@@ -14,7 +14,7 @@ export const Grid = styled.section`
   display: grid;
   grid-gap: 2px;
   grid-template-areas:
-    "header header"
+    "menu menu"
     "sections pages"
     "section-footer page-footer";
   grid-template-columns: 1fr 1fr;
@@ -24,7 +24,7 @@ export const Grid = styled.section`
 export const Navigator = () => {
   return (
     <Grid>
-      <Header />
+      <Menu />
       <Sections />
       <Pages />
       <SectionFooter />
