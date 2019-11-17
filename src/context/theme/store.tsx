@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useContext, useReducer } from "react";
 
 import { LocalStorage } from "../../common/constants";
 import { valueFromStorage, setInStorage } from "../../common/helpers";
-import { IThemeState, ThemeAction, ThemeDispatch, ThemeOption } from "./types";
+import { IThemeState, ThemeAction, ThemeDispatch, Theme } from "./types";
 
 const campaignReducer = (state: IThemeState, action: ThemeAction) => {
   console.log(action.type, "payload" in action && action.payload, state);
@@ -26,10 +26,7 @@ const ThemeDispatchContext = createContext<ThemeDispatch | undefined>(
 );
 
 const initialState: IThemeState = {
-  theme:
-    (valueFromStorage(LocalStorage.THEME) as
-      | ThemeOption
-      | undefined) || "theme-light"
+  theme: (valueFromStorage(LocalStorage.THEME) as Theme) || Theme.LIGHT
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

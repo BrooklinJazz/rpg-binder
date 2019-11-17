@@ -11,7 +11,6 @@ import UserModel from "./user/user_model";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // NOTE replace {} with IContext
   context: async ({ req }): Promise<{}> => {
     const token =
       req.headers.authorization && req.headers.authorization.split(" ")[1];

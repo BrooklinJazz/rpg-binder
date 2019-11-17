@@ -3,7 +3,7 @@ import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider as StyledComponentThemeProvider } from "styled-components";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 
@@ -13,25 +13,29 @@ import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
 import { AuthProvider, useAuthState } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
+import { ThemeProvider, useThemeState } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
 
 const PageRouting = () => {
   const { token } = useAuthState();
+  const { theme } = useThemeState();
   return (
-    <>
-      {/* {process.env.NODE_ENV === "development" && <DevComponents />} */}
-      <Switch>
-        <AuthRoute
-          isAuth={!token}
-          redirectUrl={Routes.APP}
-          path={Routes.LOGIN}
-          component={Login}
-        />
-        <AuthRoute isAuth={!!token} path={Routes.APP} component={App} />
-      </Switch>
-    </>
+    <StyledComponentThemeProvider theme={{ mode: theme }}>
+      <>
+        {process.env.NODE_ENV === "development" && <DevComponents />}
+        <Switch>
+          <AuthRoute
+            isAuth={!token}
+            redirectUrl={Routes.APP}
+            path={Routes.LOGIN}
+            component={Login}
+          />
+          <AuthRoute isAuth={!!token} path={Routes.APP} component={App} />
+        </Switch>
+      </>
+    </StyledComponentThemeProvider>
   );
 };
 
@@ -40,7 +44,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <AuthProvider>
         <CampaignProvider>
-          <ThemeProvider theme={{ mode: "dark" }}>
+          <ThemeProvider>
             <PageRouting />
           </ThemeProvider>
         </CampaignProvider>
