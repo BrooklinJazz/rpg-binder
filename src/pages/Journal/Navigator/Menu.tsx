@@ -6,20 +6,18 @@ import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useCampaign } from "../../../api/hooks";
 import {
   navbarPadding,
-  onSurface,
-  onSurfaceHover,
   surface2
 } from "../../../common/styles";
 import { HoverableIcon } from "../../../components/StyledIcon";
 import { Text } from "../../../components/StyledTypography";
 
-const MenuBars = styled(HoverableIcon).attrs(props => ({
+const MenuBars = styled(HoverableIcon).attrs(_ => ({
   icon: faBars
 }))`
   grid-area: menu-left;
 `;
 
-const SearchIcon = styled(HoverableIcon).attrs(props => ({
+const SearchIcon = styled(HoverableIcon).attrs(_ => ({
   icon: faSearch
 }))`
   grid-area: menu-right;
