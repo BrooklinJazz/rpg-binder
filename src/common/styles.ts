@@ -120,6 +120,10 @@ export const onPrimary = theme("mode", {
   light: "white",
   dark: "black"
 });
+export const onPrimaryHover = theme("mode", {
+  light: darken(0.2, "white"),
+  dark: lighten(0.2, "black")
+});
 
 export const onSecondary = theme("mode", {
   light: "black",
@@ -145,3 +149,10 @@ export const entryZIndex = 100;
 export const navbarZIndex = 200;
 export const modalZIndex = 400;
 export const modalWrapperZIndex = 300;
+
+// social media colors
+export const facebookBlue = "#3b5998";
+export const twitterBlue = "#1da1f2";
+export const linkedinBlue = "#0077b5";
+export const mediumGreen = "#02b875";
+export const patreonOrange = "#f96854";

@@ -61,3 +61,8 @@ export const H3 = styled.h3`
     font-size: 1.375em;
   }
 `;
+
+export const Text = styled.p`
+  ${baseMixin}
+  font-size: 1em;
+`;

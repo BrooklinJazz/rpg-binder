@@ -26,6 +26,7 @@ export const Button = styled.button`
   width: max-content;
   min-width: ${buttonWidth};
   border-radius: 0;
+  font-size: 1em;
   &:hover {
     cursor: pointer;
   }

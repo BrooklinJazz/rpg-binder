@@ -1,10 +1,18 @@
+import { ApolloError } from "apollo-boost";
+
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pollInterval } from "../common/constants";
 import { ICampaign } from "../common/types";
 import { authRequestSuccess } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
-import { CAMPAIGNS, CREATE_CAMPAIGN, LOGIN, SIGNUP } from "./gqls";
+import { useCampaignState } from "../context/campaign/store";
+import { CAMPAIGN, CAMPAIGNS, CREATE_CAMPAIGN, LOGIN, SIGNUP } from "./gqls";
+
+interface IQueryRes {
+  loading: boolean;
+  error?: ApolloError;
+}
 
 interface ILoginResponse {
   login: { token: string };
@@ -39,15 +47,32 @@ export const useSignup = () => {
     signup({ variables });
 };
 
-interface ICampaignResponse {
-  campaigns: ICampaign[];
+interface ICampaignsResponse {
+  campaigns?: ICampaign[];
 }
 
-export const useCampaigns = () => {
-  const { data, loading } = useQuery<ICampaignResponse>(CAMPAIGNS, {
+interface IUseCampaigns extends ICampaignsResponse, IQueryRes {}
+
+export const useCampaigns = (): IUseCampaigns => {
+  const { data, loading, error } = useQuery<ICampaignsResponse>(CAMPAIGNS, {
     pollInterval
   });
-  return { loading, campaigns: data && data.campaigns };
+  return { loading, campaigns: data && data.campaigns, error };
+};
+
+interface ICampaignResponse {
+  campaign?: ICampaign;
+}
+
+interface IUseCampaign extends IQueryRes, ICampaignResponse {}
+
+export const useCampaign = (): IUseCampaign => {
+  const { activeCampaign } = useCampaignState();
+  const { data, loading, error } = useQuery<
+    ICampaignResponse,
+    { campaignId: string }
+  >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
+  return { loading, campaign: data && data.campaign, error };
 };
 
 export const useCreateCampaign = (closeModal: () => void) => {

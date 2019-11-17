@@ -4,6 +4,9 @@ import { LocalStorage } from "../../common/constants";
 import { valueFromStorage, setInStorage } from "../../common/helpers";
 import { IThemeState, ThemeAction, ThemeDispatch, Theme } from "./types";
 
+const toggleTheme = (theme: Theme) =>
+  theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
+
 const campaignReducer = (state: IThemeState, action: ThemeAction) => {
   console.log(action.type, "payload" in action && action.payload, state);
   let nextState = state;
@@ -11,6 +14,10 @@ const campaignReducer = (state: IThemeState, action: ThemeAction) => {
     case "set_theme":
       setInStorage(LocalStorage.THEME, action.payload.theme);
       nextState = { ...state, theme: action.payload.theme };
+      break;
+    case "toggle_theme":
+      setInStorage(LocalStorage.THEME, toggleTheme(state.theme));
+      nextState = { ...state, theme: toggleTheme(state.theme) };
       break;
     default:
       throw new Error(`unhandled action type ${action!.type}`);

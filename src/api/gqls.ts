@@ -20,6 +20,14 @@ query Login($email: String!, $password: String!) {
 }
 `);
 
+export const CAMPAIGN = gql(`
+query Campaign($campaignId: ID!) {
+  campaign(input: {_id: $campaignId}) {
+    name
+  }
+}
+`);
+
 export const CAMPAIGNS = gql(`
 query {
   campaigns {

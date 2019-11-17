@@ -1,7 +1,6 @@
 import { gql } from "apollo-server";
 
 export default gql`
-
   type Campaign {
     _id: ID!
     name: String!
@@ -24,6 +23,7 @@ export default gql`
 
   extend type Query {
     campaigns: [Campaign!]!
+    campaign(input: SingleCampaignInput): Campaign!
   }
 
   extend type Mutation {

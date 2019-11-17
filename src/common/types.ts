@@ -2,7 +2,6 @@ export interface IAuthInput {
   email: string;
   password: string;
 }
-
 export type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type Enhancer<T> = {

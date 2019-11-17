@@ -15,7 +15,12 @@ export default {
       root: any,
       _: null,
       context: IContext
-    ): Promise<ICampaign[]> => new CampaignFacade(context.user).getCampaigns()
+    ): Promise<ICampaign[]> => new CampaignFacade(context.user).getCampaigns(),
+    campaign: async (
+      root: any,
+      { input }: IInput<{_id: string}>,
+      context: IContext
+    ): Promise<ICampaign> => new CampaignFacade(context.user).getCampaign(input._id)
   },
   Mutation: {
     createCampaign: async (
