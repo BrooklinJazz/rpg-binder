@@ -8,7 +8,7 @@ export default class CampaignFacade {
     this.user = user;
   }
   // this is probably an antipattern using the repo rather than the BO.
-  public getCampaigns = () => new CampaignRepo().findByUser(this.user);
+  public getCampaigns = () => CampaignRepo.findByUser(this.user);
   public create = (input: ICampaignInput) =>
-    new CampaignObject(input, new CampaignRepo()).createAndSave();
+    new CampaignObject({ ...input, creator: this.user }).createAndSave();
 }

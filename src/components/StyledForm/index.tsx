@@ -1,10 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-import { surface1, onSurface } from "../../common/styles";
+import { onSurface, surface1 } from "../../common/styles";
 
-export const Form = styled.form`
+const FormComponent = styled.form`
   background-color: ${surface1};
   color: ${onSurface};
-  padding: 20px;
 `;
+
+interface IFormProps extends React.HTMLAttributes<HTMLFormElement> {
+  onSubmit: () => void;
+}
+
+export const Form = ({ onSubmit, ...props }: IFormProps) => {
+  const submit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit();
+  };
+  return <FormComponent onSubmit={submit} {...props} />;
+};

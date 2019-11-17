@@ -1,9 +1,10 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
-import { LOGIN, SIGNUP, CAMPAIGNS } from "./gqls";
-import { useAuthDispatch } from "../context/auth/store";
-import { authRequestSuccess } from "../context/auth/actions";
-import { ICampaign } from "../common/types";
+
 import { pollInterval } from "../common/constants";
+import { ICampaign } from "../common/types";
+import { authRequestSuccess } from "../context/auth/actions";
+import { useAuthDispatch } from "../context/auth/store";
+import { CAMPAIGNS, CREATE_CAMPAIGN, LOGIN, SIGNUP } from "./gqls";
 
 interface ILoginResponse {
   login: { token: string };
@@ -47,4 +48,16 @@ export const useCampaigns = () => {
     pollInterval
   });
   return { loading, campaigns: data && data.campaigns };
+};
+
+export const useCreateCampaign = (closeModal: () => void) => {
+  const [create, { loading, error }] = useMutation<any, { name: string }>(
+    CREATE_CAMPAIGN,
+    { onCompleted: closeModal }
+  );
+  return {
+    create: (name: string) => create({ variables: { name } }),
+    loading,
+    error
+  };
 };

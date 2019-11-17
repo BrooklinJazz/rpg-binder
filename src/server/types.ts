@@ -9,6 +9,7 @@ export interface IUserInput {
 
 export interface ICampaignInput {
   name: string;
+  creator: string;
 }
 
 export interface IUpdateCampaignInput extends ICampaignInput {

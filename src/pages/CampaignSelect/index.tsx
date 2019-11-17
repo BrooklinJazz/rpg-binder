@@ -1,35 +1,32 @@
-import combineClasses from "combine-classes/lib";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
-import { useQuery } from "@apollo/react-hooks";
 import { faBookDead } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { CAMPAIGNS } from "../../api/gqls";
-import { GridTemplateAreas, pollInterval } from "../../common/constants";
+import { useCampaigns, useCreateCampaign } from "../../api/hooks";
 import { Routes } from "../../common/routes";
 import {
-  landscapeBreakpoint,
-  onSurface,
-  surface1,
-  tabletBreakpoint,
   background,
-  hover,
-  onSurfaceHover
+  landscapeBreakpoint,
+  modalSpacing,
+  onSurface,
+  onSurfaceHover,
+  surface1,
+  tabletBreakpoint
 } from "../../common/styles";
-import { Theme } from "../../common/theme";
+import { ICampaign } from "../../common/types";
 import Loading from "../../components/Loading";
+import { Button, PrimaryButton } from "../../components/StyledButtons";
+import { Form } from "../../components/StyledForm";
+import { Input } from "../../components/StyledInput";
+import { Label } from "../../components/StyledLabel";
+import { Modal } from "../../components/StyledModal";
 import { Page } from "../../components/StyledPage";
-import { H1, H3 } from "../../components/StyledTypography";
+import { H1 } from "../../components/StyledTypography";
 import { selectCampaign } from "../../context/campaign/actions";
 import { useCampaignDispatch } from "../../context/campaign/store";
-import CreateCampaignModal from "./CampaignModal";
-import { Button, DefaultButton } from "../../components/StyledButtons";
-import { useCampaigns } from "../../api/hooks";
-import { ICampaign } from "../../common/types";
-import { Modal } from "../../components/StyledModal";
 
 const Grid = styled(Page)`
   display: grid;
@@ -120,13 +117,48 @@ const CampaignList = () => {
   return <>{renderCampaigns()}</>;
 };
 
+const CreateButton = styled(PrimaryButton).attrs(props => ({
+  children: "Create"
+}))`
+  margin-top: ${modalSpacing};
+  align-self: flex-end;
+`;
+
+const CreateForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CampaignModal = ({
+  isOpen,
+  close
+}: {
+  isOpen: boolean;
+  close: () => void;
+}) => {
+  const [name, setName] = useState("");
+  const { create } = useCreateCampaign(close);
+  if (!isOpen) {
+    return null;
+  }
+  return (
+    <Modal title="Create New Campaign" close={close}>
+      <CreateForm onSubmit={() => create(name)}>
+        <Label>
+          Campaign Name
+          <Input value={name} onChange={e => setName(e.target.value)} />
+        </Label>
+        <CreateButton />
+      </CreateForm>
+    </Modal>
+  );
+};
+
 const CampaignSelect = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <Grid>
-      {modalIsOpen && (
-        <Modal title="Create Campaign" close={() => setModalIsOpen(false)} />
-      )}
+      <CampaignModal isOpen={modalIsOpen} close={() => setModalIsOpen(false)} />
       <Content>
         <Header weight="light">Campaigns</Header>
         <ManageCampaigns>

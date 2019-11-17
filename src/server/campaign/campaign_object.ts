@@ -1,17 +1,17 @@
-import { ICampaignInput } from "../../common/types";
 import CampaignRepo from "./campaign_repo";
+import { ICampaignInput } from "../types";
 
 export default class CampaignObject {
-  public name: string;
-  public repo: CampaignRepo;
-  constructor({ name }: ICampaignInput, repo: CampaignRepo) {
+  private name: string;
+  private creator: string;
+  constructor({ name, creator }: ICampaignInput) {
     this.name = name;
-    this.repo = repo;
+    this.creator = creator;
   }
 
-  createAndSave = async () => {
+  public createAndSave = async () => {
     try {
-      return this.repo.create({ name: this.name });
+      return CampaignRepo.create({ name: this.name, creator: this.creator });
     } catch (error) {
       throw error;
     }

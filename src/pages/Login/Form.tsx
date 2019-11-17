@@ -12,6 +12,7 @@ import { modalSpacing } from "../../common/styles";
 
 const LoginFormArea = styled(Form)`
   grid-area: login_form;
+  padding: 20px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -35,8 +36,7 @@ export const LoginForm = () => {
     e.preventDefault();
     setState(oppositeState);
   };
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submit = () => {
     const input = { email, password };
     if (state === "login") {
       login(input);
