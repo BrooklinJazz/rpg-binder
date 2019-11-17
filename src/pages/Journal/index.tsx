@@ -9,6 +9,10 @@ import {
   tabletBreakpoint
 } from "../../common/styles";
 import { Page } from "../../components/StyledPage";
+import { Navbar } from "./Navbar";
+import { Navigator } from "./Navigator";
+import { Entry } from "./Entry";
+import { Sidebar } from "./Sidebar";
 
 const Grid = styled(Page)`
   display: grid;
@@ -16,9 +20,9 @@ const Grid = styled(Page)`
   grid-template-columns: 2fr 4fr 1.5fr;
   grid-gap: 8px;
   grid-template-areas:
-  "navbar navbar navbar"
-  "navigator entry sidebar"
-  "navigator entry sidebar";
+    "navbar navbar navbar"
+    "navigator entry sidebar"
+    "navigator entry sidebar";
   @media (max-width: ${landscapeBreakpoint}) {
     grid-template-columns: 2.5fr 3fr 2fr;
   }
@@ -39,26 +43,6 @@ const Grid = styled(Page)`
       "navbar"
       "navigator"
       "entry";
-  }
-`;
-
-const Navigator = styled.section`
-  background-color: ${surface1};
-  grid-area: navigator;
-`;
-const Navbar = styled.section`
-  background-color: ${surface1};
-  grid-area: navbar;
-`;
-const Entry = styled.section`
-  background-color: ${surface1};
-  grid-area: entry;
-`;
-const Sidebar = styled.section`
-  background-color: ${surface1};
-  grid-area: sidebar;
-  @media (max-width: ${phoneBreakpoint}) {
-    display: none;
   }
 `;
 
