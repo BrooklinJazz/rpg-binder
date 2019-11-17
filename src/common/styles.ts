@@ -111,6 +111,10 @@ export const onSurface = theme("mode", {
   light: "black",
   dark: "white"
 });
+export const onSurfaceHover = theme("mode", {
+  light: lighten(0.2, "black"),
+  dark: darken(0.2, "white")
+});
 
 export const onPrimary = theme("mode", {
   light: "white",
