@@ -14,7 +14,6 @@ const List = styled(FadeAnimation)``;
 
 export const PageList = () => {
   const { pages } = usePages();
-  console.log(pages)
   const { setPage, page } = useJournalState();
   const renderpages = () =>
     pages &&
