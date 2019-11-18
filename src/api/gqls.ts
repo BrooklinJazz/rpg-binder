@@ -60,6 +60,15 @@ export const UPDATE_OR_CREATE_SECTION = gql(`
     }
 `);
 
+export const UPDATE_OR_CREATE_PAGE = gql(`
+  mutation UpdateOrCreatePage($name: String!, $campaign: ID!, $id: ID, $section: ID!, $relatedPages: [ID!]!) {
+    updateOrCreatePage(input: {_id: $id, name: $name, campaign: $campaign, section: $section, relatedPages: $relatedPages}) {
+        _id
+        name
+      }
+    }
+`);
+
 export const CREATE_CAMPAIGN = gql(`
 mutation Campaign($name: String!) {
     createCampaign(input: {name: $name}) {

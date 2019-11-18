@@ -4,7 +4,7 @@ import {
   JournalModalStates,
   useJournalModalState
 } from "../../../context/journal";
-import { PageModal } from "./PageModal/index";
+import { PageModal } from "./PageModal";
 import { SectionModal } from "./SectionModal/index";
 
 export const Handler = () => {

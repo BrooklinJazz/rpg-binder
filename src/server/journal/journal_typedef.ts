@@ -23,7 +23,7 @@ export default gql`
     campaign: ID!
   }
 
-  input PageInput {
+  input SinglePageInput {
     _id: ID!
   }
 
@@ -34,13 +34,14 @@ export default gql`
 
   extend type Query {
     sections(input: SectionsInput): [Section!]!
-    page(input: PageInput): Page!
+    page(input: SinglePageInput): Page!
     pages(input: PagesInput): [Page!]!
   }
 
   # Mutation Inputs
 
-  input CreatePageInput {
+  input PageInput {
+    _id: ID
     name: String!
     description: String
     relatedPages: [ID!]!
@@ -56,6 +57,6 @@ export default gql`
 
   extend type Mutation {
     updateOrCreateSection(input: SectionInput): Section!
-    createPage(input: CreatePageInput): Page!
+    updateOrCreatePage(input: PageInput): Page!
   }
 `;

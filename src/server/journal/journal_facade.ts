@@ -1,4 +1,4 @@
-import { ICreatePageInput, ISectionInput } from "../types";
+import { IPageInput, ISectionInput } from "../types";
 import PageObject from "./page_object";
 import { PageRepo } from "./page_repo";
 import SectionObject from "./section_object";
@@ -29,6 +29,9 @@ export default class JournalFacade {
       SectionObject.fromSection(section)
     );
 
-  public createPage = (input: ICreatePageInput) =>
+  public updateOrCreatePage = (input: IPageInput) =>
+    PageRepo.updateOrCreate(input).then(page => PageObject.fromPage(page));
+
+  public createPage = (input: IPageInput) =>
     PageRepo.create(input).then(page => PageObject.fromPage(page));
 }

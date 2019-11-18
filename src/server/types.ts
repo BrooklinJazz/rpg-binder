@@ -75,15 +75,6 @@ export interface IPageDocument extends Document, Omit<IPage, "_id"> {
   campaign: ICampaign["_id"];
 }
 
-export interface IPage {
-  _id: string;
-  name: string;
-  description?: string;
-  relatedPages: string[];
-  campaign: string;
-  section: string;
-}
-
 export interface IPagesBySection {
   section: ISection;
   pages: IPage[];
@@ -97,10 +88,15 @@ export interface ISectionInput {
   campaign: string;
 }
 
-export interface ICreatePageInput {
+export interface IPageInput {
+  _id?: string;
   name: string;
   description?: string;
   section: string;
-  campaign: string;
   relatedPages: string[];
+  campaign: string;
+}
+
+export interface IPage extends IPageInput {
+  _id: string;
 }

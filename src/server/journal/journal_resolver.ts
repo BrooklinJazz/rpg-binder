@@ -7,7 +7,7 @@ import {
   ICampaignInput,
   ISectionInput,
   IPage,
-  ICreatePageInput
+  IPageInput
 } from "../types";
 import JournalFacade from "./journal_facade";
 import { checkSignedIn } from "../helpers";
@@ -45,14 +45,14 @@ export default {
         user: context.user,
         campaign: input.campaign
       }).updateOrCreateSection(input),
-    createPage: async (
+    updateOrCreatePage: async (
       root: any,
-      { input }: IInput<ICreatePageInput>,
+      { input }: IInput<IPageInput>,
       context: IContext
     ): Promise<PageObject> =>
       new JournalFacade({
         user: context.user,
         campaign: input.campaign
-      }).createPage(input)
+      }).updateOrCreatePage(input)
   }
 };

@@ -19,7 +19,9 @@ export const FadeAnimation = ({
   // This hack solves not showing animation when initial open is true
   const [delayedOpen, setDelayedOpen] = useState(false);
   useLayoutEffect(() => {
-    setDelayedOpen(open);
+    setTimeout(() => {
+      setDelayedOpen(open);
+    }, 100);
   }, [open]);
   return (
     <Transition mountOnEnter in={delayedOpen} timeout={timeout || 0}>

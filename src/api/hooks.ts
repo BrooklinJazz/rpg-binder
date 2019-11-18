@@ -18,7 +18,8 @@ import {
   PAGES,
   SECTIONS,
   SIGNUP,
-  UPDATE_OR_CREATE_SECTION
+  UPDATE_OR_CREATE_SECTION,
+  UPDATE_OR_CREATE_PAGE
 } from "./gqls";
 
 interface IQueryRes {
@@ -170,6 +171,37 @@ export const useUpdateOrCreateSection = () => {
   return {
     create: ({ name, id }: { name: string; id?: string }) =>
       create({ variables: { name, campaign: activeCampaign!, id } }),
+    loading,
+    error: error && error.message
+  };
+};
+
+export const useUpdateOrCreatePage = () => {
+  const { close } = useJournalModalState();
+  const { section } = useJournalState();
+  const { activeCampaign } = useCampaignState();
+  const [create, { loading, error }] = useMutation<
+    any,
+    {
+      name: string;
+      campaign: string;
+      id?: string;
+      section: string;
+      relatedPages: string[];
+    }
+  >(UPDATE_OR_CREATE_PAGE, { onCompleted: close });
+  return {
+    create: ({ name, id }: { name: string; id?: string }) =>
+      create({
+        // TODO implement page relationships
+        variables: {
+          name,
+          campaign: activeCampaign!,
+          id,
+          section: section!,
+          relatedPages: []
+        }
+      }),
     loading,
     error: error && error.message
   };
