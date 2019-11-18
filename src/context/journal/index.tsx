@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
+
 import { Setter } from "../../common/types";
 
 interface IJournalState {
@@ -12,7 +13,8 @@ const JournalStateContext = createContext<IJournalState | undefined>(undefined);
 const JournalModalContext = createContext<
   | {
       isOpen: boolean;
-      open: () => void;
+      open: (state: JournalModalStates) => void;
+      state: JournalModalStates;
       close: () => void;
     }
   | undefined
@@ -25,13 +27,14 @@ export enum JournalModalStates {
 
 export const JournalModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // NOTE i'm just providing this a default rather than dealing with an optional type
-  const open = () => {
+  const [state, setState] = useState(JournalModalStates.CREATE_SECTION);
+  const open = (modalState: JournalModalStates) => {
     setIsOpen(true);
+    setState(modalState);
   };
   const close = () => setIsOpen(false);
   return (
-    <JournalModalContext.Provider value={{ close, open, isOpen }}>
+    <JournalModalContext.Provider value={{ close, open, isOpen, state }}>
       {children}
     </JournalModalContext.Provider>
   );

@@ -13,7 +13,7 @@ import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
 import { AuthProvider, useAuthState } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
-import { JournalStateProvider } from "./context/journal";
+import { JournalStateProvider, JournalModalProvider } from "./context/journal";
 import { ThemeProvider, useThemeState } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
@@ -47,9 +47,11 @@ ReactDOM.render(
       <AuthProvider>
         <CampaignProvider>
           <JournalStateProvider>
-            <ThemeProvider>
-              <PageRouting />
-            </ThemeProvider>
+            <JournalModalProvider>
+              <ThemeProvider>
+                <PageRouting />
+              </ThemeProvider>
+            </JournalModalProvider>
           </JournalStateProvider>
         </CampaignProvider>
       </AuthProvider>

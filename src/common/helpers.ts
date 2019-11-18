@@ -1,4 +1,3 @@
-import { JournalModalStates } from "../context/journal";
 import { JournalStates } from "../context/journal/types";
 import { LocalStorage, Provider } from "./constants";
 
