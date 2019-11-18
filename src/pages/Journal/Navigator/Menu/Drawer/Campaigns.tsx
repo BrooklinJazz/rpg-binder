@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { buttonHeight } from "../../../../../common/styles";
 import { CampaignList } from "./CampaignList";
-import { FadeAnimation } from "./FadeAnimation";
+import { FadeAnimation } from "../../../../../components/FadeAnimation/index";
 import { CampaignHeader } from "./Header";
 
 const Grid = styled.section`

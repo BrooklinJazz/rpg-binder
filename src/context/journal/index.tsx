@@ -6,7 +6,6 @@ interface IJournalState {
   page?: string;
   setSection: Setter<string | undefined>;
   setPage: Setter<string | undefined>;
-  sections: any[];
 }
 
 const JournalStateContext = createContext<IJournalState | undefined>(undefined);
@@ -48,8 +47,7 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
         section,
         setSection,
         page,
-        setPage,
-        sections: []
+        setPage
       }}
     >
       {children}

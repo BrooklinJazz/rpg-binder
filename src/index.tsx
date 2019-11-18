@@ -13,6 +13,7 @@ import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
 import { AuthProvider, useAuthState } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
+import { JournalStateProvider } from "./context/journal";
 import { ThemeProvider, useThemeState } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
@@ -40,13 +41,16 @@ const PageRouting = () => {
 };
 
 ReactDOM.render(
+  // tslint:disable-next-line: jsx-wrap-multiline
   <BrowserRouter>
     <ApolloProvider client={client}>
       <AuthProvider>
         <CampaignProvider>
-          <ThemeProvider>
-            <PageRouting />
-          </ThemeProvider>
+          <JournalStateProvider>
+            <ThemeProvider>
+              <PageRouting />
+            </ThemeProvider>
+          </JournalStateProvider>
         </CampaignProvider>
       </AuthProvider>
     </ApolloProvider>

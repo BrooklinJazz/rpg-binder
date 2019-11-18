@@ -3,11 +3,18 @@ import { ApolloError } from "apollo-boost";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pollInterval } from "../common/constants";
-import { ICampaign } from "../common/types";
+import { ICampaign, ISection } from "../common/types";
 import { authRequestSuccess } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
 import { useCampaignState } from "../context/campaign/store";
-import { CAMPAIGN, CAMPAIGNS, CREATE_CAMPAIGN, LOGIN, SIGNUP } from "./gqls";
+import {
+  CAMPAIGN,
+  CAMPAIGNS,
+  CREATE_CAMPAIGN,
+  LOGIN,
+  SIGNUP,
+  SECTIONS
+} from "./gqls";
 
 interface IQueryRes {
   loading: boolean;
@@ -85,4 +92,19 @@ export const useCreateCampaign = (closeModal: () => void) => {
     loading,
     error
   };
+};
+
+interface ISectionsResponse {
+  sections?: ISection[];
+}
+
+interface IUseSections extends IQueryRes, ISectionsResponse {}
+
+export const useSections = (): IUseSections => {
+  const { activeCampaign } = useCampaignState();
+  const { data, loading, error } = useQuery<ISectionsResponse>(SECTIONS, {
+    pollInterval,
+    variables: { campaign: activeCampaign }
+  });
+  return { loading, sections: data && data.sections, error };
 };

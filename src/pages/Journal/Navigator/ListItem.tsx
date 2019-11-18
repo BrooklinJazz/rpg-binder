@@ -8,7 +8,8 @@ export const ListItem = styled(DefaultButton)`
   white-space: nowrap;
   text-align: left;
   padding-left: 10px;
-  background-color: ${surface2};
+  background-color: ${(props: { active?: boolean }) =>
+    props.active ? hover(surface2(props)) : surface2(props)};
   margin-bottom: 2px;
   &:hover {
     background-color: ${props => hover(surface2(props))};

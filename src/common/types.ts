@@ -47,4 +47,22 @@ export interface ICampaign extends ICampaignInput {
   _id: string;
 }
 
+export interface ISectionInput {
+  name: string;
+}
+
+export interface ISection extends ISectionInput {
+  _id: string;
+  pages: IPage[];
+}
+
+export interface IPageInput {
+  name: string;
+  description?: string;
+}
+
+export interface IPage extends IPageInput {
+  _id: string;
+}
+
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

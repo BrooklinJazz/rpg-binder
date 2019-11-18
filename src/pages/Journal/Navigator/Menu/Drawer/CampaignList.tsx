@@ -6,7 +6,7 @@ import { ICampaign } from "../../../../../common/types";
 import { selectCampaign } from "../../../../../context/campaign/actions";
 import { useCampaignDispatch } from "../../../../../context/campaign/store";
 import { ListItem } from "../../ListItem";
-import { FadeAnimation } from "./FadeAnimation";
+import { FadeAnimation } from "../../../../../components/FadeAnimation/index";
 
 const Item = ({ campaign }: { campaign: ICampaign }) => {
   const dispatch = useCampaignDispatch();

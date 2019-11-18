@@ -11,7 +11,7 @@ import { Menu } from "./Menu/index";
 import { PageFooter } from "./Footer/PageFooter";
 import { Pages } from "./Pages";
 import { SectionFooter } from "./Footer/SectionFooter";
-import { Sections } from "./Sections";
+import { Sections } from "./Sections/index";
 
 const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 
