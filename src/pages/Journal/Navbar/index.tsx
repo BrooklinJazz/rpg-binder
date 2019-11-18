@@ -16,6 +16,7 @@ const Grid = styled(BaseNavbar)`
   grid-template-columns: repeat(3, minMax(min-content, 1fr));
   grid-template-rows: 1fr;
   grid-template-areas: "left center right";
+  padding: ${navbarPadding};
   align-items: center;
   /* padding: 0 ${navbarPadding}; */
   @media (max-width: ${phoneBreakpoint}) {

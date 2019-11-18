@@ -18,7 +18,7 @@ const Grid = styled(Page)`
   display: grid;
   grid-template-rows: ${navbarHeight} 1fr 1fr;
   grid-template-columns: 2fr 4fr 1.5fr;
-  grid-gap: 8px;
+  grid-gap: 4px;
   grid-template-areas:
     "navbar navbar navbar"
     "navigator entry sidebar"
