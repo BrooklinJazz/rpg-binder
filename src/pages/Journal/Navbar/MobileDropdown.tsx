@@ -25,7 +25,7 @@ const DropdownWrapper = styled.div`
 
 const Scroll = styled.div`
   transition: 0.3s;
-  max-height: ${({ state }) => {
+  max-height: ${({ state }: { state: string }) => {
     switch (state) {
       case "entering":
         return 0;
@@ -37,10 +37,6 @@ const Scroll = styled.div`
         return 0;
     }
   }};
-  /* max-height: ${({ state }: { state: string }) =>
-    state === "entered" ? "500px" : 0}; */
-  /* height: ${({ state }: { state: string }) =>
-    state === "entered" ? "500px" : 0}; */
   overflow: hidden;
 `;
 

@@ -138,6 +138,8 @@ export const onSuccess = "white";
 export const navbarHeight = "90px";
 export const navbarPadding = "20px";
 
+export const navigatorWidth = "200px";
+
 export const inputHeight = "35px";
 export const inputPadding = "5px";
 
