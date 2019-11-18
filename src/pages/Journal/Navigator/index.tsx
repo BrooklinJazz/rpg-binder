@@ -7,10 +7,10 @@ import {
   navigatorWidth,
   surface1
 } from "../../../common/styles";
-import { Menu } from "./Menu";
-import { PageFooter } from "./PageFooter";
+import { Menu } from "./Menu/index";
+import { PageFooter } from "./Footer/PageFooter";
 import { Pages } from "./Pages";
-import { SectionFooter } from "./SectionFooter";
+import { SectionFooter } from "./Footer/SectionFooter";
 import { Sections } from "./Sections";
 
 const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
