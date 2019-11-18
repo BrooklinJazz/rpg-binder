@@ -1,5 +1,3 @@
-import { ApolloError } from "apollo-boost";
-
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pollInterval } from "../common/constants";
@@ -11,7 +9,7 @@ import {
   useCampaignDispatch,
   useCampaignState
 } from "../context/campaign/store";
-import { useJournalState, useJournalModalState } from "../context/journal";
+import { useJournalModalState, useJournalState } from "../context/journal";
 import {
   CAMPAIGN,
   CAMPAIGNS,
@@ -25,7 +23,7 @@ import {
 
 interface IQueryRes {
   loading: boolean;
-  error?: ApolloError;
+  error?: string;
 }
 
 interface ILoginResponse {
@@ -50,7 +48,7 @@ export const useLogin = () => {
     login: (variables: { email: string; password: string }) =>
       login({ variables }),
     loading,
-    error
+    error: error && error.message
   };
 };
 
@@ -71,7 +69,7 @@ export const useSignup = () => {
     signUp: (variables: { email: string; password: string }) =>
       signUp({ variables }),
     loading,
-    error
+    error: error && error.message
   };
 };
 
@@ -85,7 +83,11 @@ export const useCampaigns = (): IUseCampaigns => {
   const { data, loading, error } = useQuery<ICampaignsResponse>(CAMPAIGNS, {
     pollInterval
   });
-  return { loading, campaigns: data && data.campaigns, error };
+  return {
+    loading,
+    campaigns: data && data.campaigns,
+    error: error && error.message
+  };
 };
 
 interface ICampaignResponse {
@@ -100,7 +102,11 @@ export const useCampaign = (): IUseCampaign => {
     ICampaignResponse,
     { campaignId: string }
   >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
-  return { loading, campaign: data && data.campaign, error };
+  return {
+    loading,
+    campaign: data && data.campaign,
+    error: error && error.message
+  };
 };
 
 export const useCreateCampaign = () => {
@@ -113,7 +119,7 @@ export const useCreateCampaign = () => {
   return {
     create: (name: string) => create({ variables: { name } }),
     loading,
-    error
+    error: error && error.message
   };
 };
 
@@ -129,7 +135,11 @@ export const useSections = (): IUseSections => {
     pollInterval,
     variables: { campaign: activeCampaign }
   });
-  return { loading, sections: data && data.sections, error };
+  return {
+    loading,
+    sections: data && data.sections,
+    error: error && error.message
+  };
 };
 
 interface IPagesResponse {
@@ -147,7 +157,7 @@ export const usePages = (): IUsePages => {
     skip: !section,
     variables: { campaign: activeCampaign, section }
   });
-  return { loading, pages: data && data.pages, error };
+  return { loading, pages: data && data.pages, error: error && error.message };
 };
 
 export const useUpdateOrCreateSection = () => {
@@ -161,6 +171,6 @@ export const useUpdateOrCreateSection = () => {
     create: ({ name, id }: { name: string; id?: string }) =>
       create({ variables: { name, campaign: activeCampaign!, id } }),
     loading,
-    error
+    error: error && error.message
   };
 };

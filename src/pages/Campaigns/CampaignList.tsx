@@ -6,7 +6,7 @@ import { useCampaigns } from "../../api/hooks";
 import { Routes } from "../../common/routes";
 import { background, onSurface, surface1 } from "../../common/styles";
 import { ICampaign } from "../../common/types";
-import Loading from "../../components/Loading";
+import { Spinner } from "../../components/Loading";
 import { Button } from "../../components/StyledButtons";
 import { selectCampaign } from "../../context/campaign/actions";
 import { useCampaignDispatch } from "../../context/campaign/store";
@@ -35,7 +35,7 @@ export const CampaignList = () => {
   const history = useHistory();
   const dispatch = useCampaignDispatch();
   if (loading) {
-    return <Loading />;
+    return <Spinner />;
   }
   const renderCampaign = (campaign: ICampaign) => {
     const setCampaign = () => {

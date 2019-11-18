@@ -26,12 +26,18 @@ const ButtonWrapper = styled.div`
 `;
 
 export const LoginForm = () => {
-  const { login, loading: loginLoading } = useLogin();
-  const { signUp, loading: signUpLoading } = useSignup();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login, loading: loginLoading, error: loginError } = useLogin();
+  const { signUp, loading: signUpLoading, error: signUpError } = useSignup();
+
   const [state, setState] = useState<"login" | "sign up">("login");
   const oppositeState = state === "login" ? "sign up" : "login";
+
+  const loading = state === "login" ? loginLoading : signUpLoading;
+  const error = state === "login" ? loginError : signUpError;
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const toggleState = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setState(oppositeState);
@@ -45,7 +51,7 @@ export const LoginForm = () => {
     }
   };
   return (
-    <Form loading={loginLoading || signUpLoading} onSubmit={submit}>
+    <Form error={error} loading={loading} onSubmit={submit}>
       <H1>{capitalizeAll(state)}</H1>
       <Label>
         Email

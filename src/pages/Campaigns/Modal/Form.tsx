@@ -8,9 +8,9 @@ import { Label } from "../../../components/StyledLabel";
 
 export const CampaignForm = () => {
   const [name, setName] = useState("");
-  const { create, loading } = useCreateCampaign();
+  const { create, loading, error } = useCreateCampaign();
   return (
-    <ModalForm loading={loading} onSubmit={() => create(name)}>
+    <ModalForm loading={loading} error={error} onSubmit={() => create(name)}>
       <Label>
         Campaign Name
         <Input value={name} onChange={e => setName(e.target.value)} />
