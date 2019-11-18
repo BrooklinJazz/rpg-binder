@@ -1,38 +1,23 @@
-import combineClasses from "combine-classes/lib";
 import React from "react";
 
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudSun, faSun } from "@fortawesome/free-solid-svg-icons";
 
-import { Theme } from "../../../common/theme";
-import { setTheme } from "../../../context/theme/actions";
+import { toggleTheme } from "../../../context/theme/actions";
 import { useThemeDispatch, useThemeState } from "../../../context/theme/store";
+import { Theme } from "../../../context/theme/types";
+import { HoverIcon } from "./HoverIcon";
 
-const ThemeIcon = ({ className }: { className?: string }) => {
-  const themeDispatch = useThemeDispatch();
+export const ThemeIcon = () => {
+  const dispatch = useThemeDispatch();
   const { theme } = useThemeState();
-
-  const toggleTheme = () => {
-    themeDispatch(
-      setTheme({
-        theme: theme === "theme-light" ? "theme-dark" : "theme-light"
-      })
-    );
-  };
-
-  const themeIcon = theme === "theme-dark" ? faSun : faMoon;
   return (
-    <div className={className} role="button" onClick={toggleTheme}>
-      <FontAwesomeIcon
-        className={combineClasses(
-          Theme.onPrimary,
-          Theme.hoverable,
-          "JournalNavbarSpacing"
-        )}
-        icon={themeIcon}
-      />
+    <div
+      // TODO Extract this style
+      style={{ marginRight: "auto", marginLeft: "auto" }}
+      role="button"
+      onClick={() => dispatch(toggleTheme())}
+    >
+      <HoverIcon icon={theme === Theme.LIGHT ? faCloudSun : faSun} />
     </div>
   );
 };
-
-export default ThemeIcon;

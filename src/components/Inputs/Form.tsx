@@ -1,7 +1,7 @@
 import combineClasses from "combine-classes";
 import React, { ReactNode } from "react";
 
-import Loading from "../Loading";
+import { Spinner } from "../Loading";
 import { DangerSnackbar } from "../Snackbar";
 
 interface IFormProps extends React.HTMLAttributes<HTMLFormElement> {
@@ -34,7 +34,7 @@ const Form = ({
         className={combineClasses(props.className)}
       >
         {children}
-        {isLoading && <Loading />}
+        {isLoading && <Spinner />}
       </form>
       <DangerSnackbar
         close={() => setSubmitted(false)}

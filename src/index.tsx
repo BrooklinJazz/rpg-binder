@@ -3,50 +3,58 @@ import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch } from "react-router-dom";
+import { ThemeProvider as StyledComponentThemeProvider } from "styled-components";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 
-import { client } from "./api/apollo";
+import { client } from "./api/client";
 import App from "./App";
 import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
-import { selectIsLoggedIn } from "./context/auth/selectors";
 import { AuthProvider, useAuthState } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
-import { ThemeProvider } from "./context/theme/store";
+import { JournalStateProvider, JournalModalProvider } from "./context/journal";
+import { ThemeProvider, useThemeState } from "./context/theme/store";
 import DevComponents from "./DevComponents";
-import Login from "./pages/Login";
+import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
 
 const PageRouting = () => {
-  const state = useAuthState();
-  const isLoggedIn = selectIsLoggedIn(state);
+  const { token } = useAuthState();
+  const { theme } = useThemeState();
   return (
-    <>
-      {process.env.NODE_ENV === "development" && <DevComponents />}
-      <Switch>
-        <AuthRoute
-          isAuth={!isLoggedIn}
-          redirectUrl={Routes.APP}
-          path={Routes.LOGIN}
-          component={Login}
-        />
-        <AuthRoute isAuth={isLoggedIn} path={Routes.APP} component={App} />
-      </Switch>
-    </>
+    <StyledComponentThemeProvider theme={{ mode: theme }}>
+      <>
+        {process.env.NODE_ENV === "development" && <DevComponents />}
+        <Switch>
+          <AuthRoute
+            isAuth={!token}
+            redirectUrl={Routes.APP}
+            path={Routes.LOGIN}
+            component={Login}
+          />
+          <AuthRoute isAuth={!!token} path={Routes.APP} component={App} />
+        </Switch>
+      </>
+    </StyledComponentThemeProvider>
   );
 };
 
 ReactDOM.render(
+  // tslint:disable-next-line: jsx-wrap-multiline
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <ThemeProvider>
-        <AuthProvider>
-          <CampaignProvider>
-            <PageRouting />
-          </CampaignProvider>
-        </AuthProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <CampaignProvider>
+          <JournalStateProvider>
+            <JournalModalProvider>
+              <ThemeProvider>
+                <PageRouting />
+              </ThemeProvider>
+            </JournalModalProvider>
+          </JournalStateProvider>
+        </CampaignProvider>
+      </AuthProvider>
     </ApolloProvider>
   </BrowserRouter>,
   document.getElementById("root")

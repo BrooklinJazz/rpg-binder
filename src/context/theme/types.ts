@@ -1,14 +1,21 @@
 export interface IThemeState {
-  theme: ThemeOption;
+  theme: Theme;
 }
 
-export type ThemeOption = "theme-light" | "theme-dark";
+export enum Theme {
+  LIGHT = "light",
+  DARK = "dark"
+}
 
-export type ThemeAction = ISetTheme;
+export type ThemeAction = ISetTheme | IToggleTheme;
 
 export type ThemeDispatch = (action: ThemeAction) => void;
 
 export interface ISetTheme {
   type: "set_theme";
-  payload: { theme: ThemeOption };
+  payload: { theme: Theme };
+}
+
+export interface IToggleTheme {
+  type: "toggle_theme";
 }

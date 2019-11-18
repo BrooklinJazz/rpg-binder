@@ -2,11 +2,12 @@ import React, { useState } from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 
-import { LOGIN } from "./api/apollo";
+import { LOGIN } from "./api/gqls";
 import { logoutAction, authRequestSuccess } from "./context/auth/actions";
 import { useAuthDispatch } from "./context/auth/store";
 import { setTheme } from "./context/theme/actions";
 import { useThemeDispatch, useThemeState } from "./context/theme/store";
+import { Theme } from "./context/theme/types";
 
 const DevComponents = () => {
   const authDispatch = useAuthDispatch();
@@ -19,17 +20,14 @@ const DevComponents = () => {
   const toggleTheme = () => {
     themeDispatch(
       setTheme({
-        theme: theme === "theme-light" ? "theme-dark" : "theme-light"
+        theme: theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
       })
     );
   };
   const [hide, setHide] = useState(true);
   if (hide) {
     return (
-      <button
-        onClick={() => setHide(false)}
-        className="DevComponents hidden"
-      >
+      <button onClick={() => setHide(false)} className="DevComponents hidden">
         Show
       </button>
     );
@@ -47,9 +45,7 @@ const DevComponents = () => {
       <button onClick={toggleTheme} className="ThemeToggle">
         Toggle Theme
       </button>
-      <button onClick={() => setHide(true)}>
-        Hide
-      </button>
+      <button onClick={() => setHide(true)}>Hide</button>
     </div>
   );
 };

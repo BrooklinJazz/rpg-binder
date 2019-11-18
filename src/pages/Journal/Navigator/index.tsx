@@ -1,65 +1,55 @@
-import "./Navigator.scss";
+import React from "react";
+import styled from "styled-components";
 
-import combineClasses from "combine-classes";
-import React, { useState } from "react";
+import {
+  buttonHeight,
+  navbarHeight,
+  navigatorWidth,
+  surface1
+} from "../../../common/styles";
+import { Menu } from "./Menu/index";
+import { PageFooter } from "./Footer/PageFooter";
+import { Pages } from "./Pages/index";
+import { SectionFooter } from "./Footer/SectionFooter";
+import { Sections } from "./Sections/index";
+import { JournalModal } from "../Modal";
+import { SectionHeader } from "./Sections/Header";
+import { PageHeader } from "./Pages/Header";
 
-import { useQuery } from "@apollo/react-hooks";
+const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 
-import { CAMPAIGN, LOCATION_NAME } from "../../../api/apollo";
-import { GridTemplateAreas } from "../../../common/constants";
-import { INpc } from "../../../common/types";
-import { useCampaignState } from "../../../context/campaign/store";
-import { useJournalMachine } from "../../../context/journal";
-import AddPage from "./AddPage";
-import AddSection from "./AddSection";
-import CampaignList from "./CampaignList";
-import Heading from "./Heading";
-import Pages from "./Pages";
-import Sections from "./Sections";
+export const Grid = styled.section`
+  background-color: ${surface1};
+  grid-area: navigator;
+  overflow: hidden;
+  display: grid;
+  grid-gap: 2px;
+  /* NOTE drawer is inside menu component */
+  grid-template-areas:
+    "drawer menu menu"
+    "drawer section-header page-header"
+    "drawer sections pages"
+    "drawer section-footer page-footer";
+  grid-template-columns: max-content minMax(${halfNavigatorWidth}, 1fr) minMax(
+      ${halfNavigatorWidth},
+      1fr
+    );
+  grid-template-rows: ${buttonHeight} ${buttonHeight} 1fr ${buttonHeight};
+`;
 
-const Navigator = () => {
-  const { context } = useJournalMachine();
-  const { activeCampaign } = useCampaignState();
-  const [open, setOpen] = useState(false);
-  const locationId = context.selectedLocation && context.selectedLocation.id;
-
-  const { data: campaignData } = useQuery<
-    { campaign: { name: string; npcs: INpc[] } },
-    { campaignId: string }
-  >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
-
-  const { data: locationData, loading: locationLoading } = useQuery<
-    { location: { name: string } },
-    { locationId?: string }
-  >(LOCATION_NAME, {
-    variables: { locationId }
-    // skip doesn't seem to work when value is defined
-    // skip: !context.selectedLocation
-  });
-
-  // heading can be for campaign or selected location
-  const campaignHeading = campaignData && campaignData.campaign.name;
-  const locationHeading =
-    locationData && !locationLoading && locationData.location.name;
-  const heading = context.selectedLocation ? locationHeading : campaignHeading;
-
+export const Navigator = () => {
   return (
-    <div
-      className={combineClasses(
-        "NavigatorContainer",
-        GridTemplateAreas.SIDEBAR
-      )}
-    >
-      <CampaignList open={open} />
-      <div className="Navigator">
-        <Heading toggleCampaignList={() => setOpen(!open)}>{heading}</Heading>
+    <>
+      <JournalModal />
+      <Grid>
+        <Menu />
+        <SectionHeader />
         <Sections />
+        <PageHeader />
         <Pages />
-        <AddSection />
-        <AddPage />
-      </div>
-    </div>
+        <SectionFooter />
+        <PageFooter />
+      </Grid>
+    </>
   );
 };
-
-export default Navigator;

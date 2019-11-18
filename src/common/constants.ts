@@ -22,18 +22,13 @@ export enum GridTemplateAreas {
   NPC_STATBLOCK = "NPC_STATBLOCK",
   NPC_AVATAR = "NPC_AVATAR",
   NPC_DESCRIPTION = "NPC_DESCRIPTION",
-  NPC_DETAILS = "NPC_DETAILS",
+  NPC_DETAILS = "NPC_DETAILS"
 }
 
 export const PROJECT_NAME = "DM Binder";
 
-export const pollInterval = 1000;
-
-export const phoneBreakpoint = 600;
-export const tabletBreakpoint = 900;
-export const landscapeBreakpoint = 1200;
-
-export const navbarHeight = 90;
+export const pollInterval =
+  process.env.NODE_ENV === "development" ? 4000 : 1000;
 
 export enum Provider {
   FACEBOOK = "facebook",

@@ -1,44 +1,53 @@
-import "./JournalNavbar.scss";
-
 import React from "react";
+import styled from "styled-components";
 
-import { useQuery } from "@apollo/react-hooks";
-
-import { CAMPAIGN } from "../../../api/apollo";
-import { phoneBreakpoint } from "../../../common/constants";
-import { logoutAction } from "../../../context/auth/actions";
-import { useAuthDispatch } from "../../../context/auth/store";
-import { useCampaignState } from "../../../context/campaign/store";
+import { useCampaign } from "../../../api/hooks";
+import { PROJECT_NAME } from "../../../common/constants";
+import { phoneBreakpoint, navbarPadding } from "../../../common/styles";
+import { Navbar as BaseNavbar } from "../../../components/StyledNavbar";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
-import DesktopNavbar from "./desktop";
-import MobileNavbar from "./mobile";
+import { Brand } from "./Brand";
+import { ExpandedContent } from "./ExpandedContent";
+import { Header } from "./Header";
+import { MobileContent } from "./MobileContent";
 
-export interface IJournalNavbarProps {
-  campaignName: string | undefined;
-  logout: () => void;
-}
-
-const JournalNavbar = () => {
-  const { activeCampaign } = useCampaignState();
-  const { data } = useQuery<
-    { campaign: { name: string } },
-    { campaignId: string }
-  >(CAMPAIGN, { variables: { campaignId: activeCampaign! } });
-  const dispatch = useAuthDispatch();
-  const { width } = useWindowDimensions();
-  const logout = () => dispatch(logoutAction());
-  if (width < phoneBreakpoint) {
-    return (
-      <MobileNavbar campaignName={data && data.campaign.name} logout={logout} />
-    );
-  } else {
-    return (
-      <DesktopNavbar
-        campaignName={data && data.campaign.name}
-        logout={logout}
-      />
-    );
+const Grid = styled(BaseNavbar)`
+  display: grid;
+  grid-template-columns: repeat(3, minMax(min-content, 1fr));
+  grid-template-rows: 1fr;
+  grid-template-areas: "left center right";
+  padding: ${navbarPadding};
+  align-items: center;
+  @media (max-width: ${phoneBreakpoint}) {
+    grid-template-columns: repeat(2, minMax(min-content, 1fr));
+    grid-template-areas: "left right";
   }
-};
+`;
 
-export default JournalNavbar;
+const RightContent = styled.div`
+  grid-area: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  * {
+    font-size: 1em;
+  }
+`;
+
+export const Navbar = () => {
+  const { width } = useWindowDimensions();
+  const { campaign } = useCampaign();
+  return (
+    <Grid>
+      <Brand>{PROJECT_NAME}</Brand>
+      <Header>{campaign && campaign.name}</Header>
+      <RightContent>
+        {width > parseInt(phoneBreakpoint, 10) ? (
+          <ExpandedContent />
+        ) : (
+          <MobileContent />
+        )}
+      </RightContent>
+    </Grid>
+  );
+};

@@ -2,8 +2,11 @@ export interface IAuthInput {
   email: string;
   password: string;
 }
-
 export type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export type Enhancer<T> = {
+  data: T;
+};
 
 export interface ISignUpRetval {
   _id: string;
@@ -38,12 +41,28 @@ export interface INpc extends INpcInput {
 
 export interface ICampaignInput {
   name: string;
-  description?: string;
 }
 
 export interface ICampaign extends ICampaignInput {
   _id: string;
-  npcs: INpc[];
+}
+
+export interface ISectionInput {
+  name: string;
+}
+
+export interface ISection extends ISectionInput {
+  _id: string;
+  pages: IPage[];
+}
+
+export interface IPageInput {
+  name: string;
+  description?: string;
+}
+
+export interface IPage extends IPageInput {
+  _id: string;
 }
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

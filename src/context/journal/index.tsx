@@ -1,58 +1,36 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
-import { useMachine } from "@xstate/react";
-
-import { selectCampaign } from "../campaign/actions";
-import { useCampaignDispatch } from "../campaign/store";
-import { journalMachine } from "./statemachine";
-import {
-  IJournalContext,
-  INameAndId,
-  JournalEvents,
-  JournalStates
-} from "./types";
 import { Setter } from "../../common/types";
 
 interface IJournalState {
-  context: IJournalContext;
-  actions: {
-    back: () => any;
-    displayLocations: () => any;
-    displayOrganizations: () => any;
-    displayNpcs: () => any;
-    selectLocation: (params: INameAndId) => any;
-    selectOrganization: (params: INameAndId) => any;
-    selectNpc: (params: INameAndId) => any;
-    changeCampaign: (id: string) => any;
-  };
-  state: JournalStates;
+  section?: string;
+  page?: string;
+  setSection: Setter<string | undefined>;
+  setPage: Setter<string | undefined>;
 }
 
 const JournalStateContext = createContext<IJournalState | undefined>(undefined);
 const JournalModalContext = createContext<
   | {
       isOpen: boolean;
-      open: (selectedState: JournalModalStates) => void;
-      close: () => void;
+      open: (state: JournalModalStates) => void;
       state: JournalModalStates;
+      close: () => void;
     }
   | undefined
 >(undefined);
 
 export enum JournalModalStates {
-  CREATE_LOCATION = "CREATE_LOCATION",
-  CREATE_ORGANIZATION = "CREATE_ORGANIZATION",
-  CREATE_NPC = "CREATE_NPC",
-  CREATE_SECTION = "CREATE_SECTION"
+  CREATE_SECTION = "CREATE_SECTION",
+  CREATE_PAGE = "CREATE_PAGE"
 }
 
 export const JournalModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // NOTE i'm just providing this a default rather than dealing with an optional type
-  const [state, setState] = React.useState(JournalModalStates.CREATE_LOCATION);
-  const open = (selectedState: JournalModalStates) => {
-    setState(selectedState);
+  const [state, setState] = useState(JournalModalStates.CREATE_SECTION);
+  const open = (modalState: JournalModalStates) => {
     setIsOpen(true);
+    setState(modalState);
   };
   const close = () => setIsOpen(false);
   return (
@@ -63,44 +41,16 @@ export const JournalModalProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
-  const [current, send] = useMachine(journalMachine);
-  const back = () => send(JournalEvents.BACK);
-
-  const displayLocations = () => send(JournalEvents.DISPLAY_LOCATIONS);
-  const displayOrganizations = () => send(JournalEvents.DISPLAY_ORGANIZATIONS);
-  const displayNpcs = () => send(JournalEvents.DISPLAY_NPCS);
-
-  const selectOrganization = (params: INameAndId) =>
-    send(JournalEvents.SELECT_ORGANIZATION, {
-      selectedOrganization: { ...params }
-    });
-  const selectNpc = (params: INameAndId) =>
-    send(JournalEvents.SELECT_NPC, { selectedNpc: { ...params } });
-  const selectLocation = (params: INameAndId) =>
-    send(JournalEvents.SELECT_LOCATION, { selectedLocation: { ...params } });
-
-  const dispatch = useCampaignDispatch();
-
-  const changeCampaign = (id: string) => {
-    dispatch(selectCampaign({ campaign: id }));
-    send(JournalEvents.CHANGE_CAMPAIGN);
-  };
+  const [section, setSection] = useState();
+  const [page, setPage] = useState();
 
   return (
     <JournalStateContext.Provider
       value={{
-        actions: {
-          displayLocations,
-          displayOrganizations,
-          displayNpcs,
-          selectOrganization,
-          selectNpc,
-          selectLocation,
-          back,
-          changeCampaign
-        },
-        context: current.context as IJournalContext,
-        state: current.value as JournalStates // NOTE this may not be accurate
+        section,
+        setSection,
+        page,
+        setPage
       }}
     >
       {children}
@@ -108,7 +58,7 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useJournalMachine = () => {
+export const useJournalState = () => {
   const context = useContext(JournalStateContext);
   if (context === undefined) {
     throw new Error("useJournalState must be used within an JournalProvider");

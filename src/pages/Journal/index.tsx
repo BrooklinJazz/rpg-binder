@@ -1,32 +1,59 @@
 import React from "react";
+import styled from "styled-components";
 
-import { useCampaignState } from "../../context/campaign/store";
 import {
-  JournalModalProvider,
-  JournalStateProvider
-} from "../../context/journal";
-import { EntryStateProvider } from "../../context/journal/entry";
-import JournalCreateModal from "./CreateModal";
-import Entry from "./Entry";
-import Navbar from "./Navbar";
-import Navigator from "./Navigator";
+  landscapeBreakpoint,
+  navbarHeight,
+  phoneBreakpoint,
+  surface1,
+  tabletBreakpoint
+} from "../../common/styles";
+import { Page } from "../../components/StyledPage";
+import { Navbar } from "./Navbar";
+import { Navigator } from "./Navigator";
+import { Entry } from "./Entry";
+import { Sidebar } from "./Sidebar";
+
+const Grid = styled(Page)`
+  display: grid;
+  grid-template-rows: ${navbarHeight} 1fr 1fr;
+  grid-template-columns: 2fr 4fr 1.5fr;
+  grid-gap: 4px;
+  grid-template-areas:
+    "navbar navbar navbar"
+    "navigator entry sidebar"
+    "navigator entry sidebar";
+  @media (max-width: ${landscapeBreakpoint}) {
+    grid-template-columns: 2.5fr 3fr 2fr;
+  }
+  @media (max-width: ${tabletBreakpoint}) {
+    grid-template-rows: ${navbarHeight} 3fr 2fr;
+    grid-template-columns: 3fr 4fr;
+    grid-template-areas:
+      "navbar navbar"
+      "navigator entry "
+      "sidebar entry";
+  }
+  @media (max-width: ${phoneBreakpoint}) {
+    grid-template-rows: ${navbarHeight} 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    grid-row-gap: 5px;
+    grid-template-areas:
+      "navbar"
+      "navigator"
+      "entry";
+  }
+`;
 
 const Journal = () => {
-  const { activeCampaign } = useCampaignState();
-  if (!activeCampaign) {
-    throw new Error("Rendered Journal with no Active Campaign");
-  }
   return (
-    <JournalStateProvider>
-      <JournalModalProvider>
-        <EntryStateProvider>
-          <Navbar />
-          <Navigator />
-          <Entry />
-          <JournalCreateModal />
-        </EntryStateProvider>
-      </JournalModalProvider>
-    </JournalStateProvider>
+    <Grid>
+      <Navbar />
+      <Navigator />
+      <Entry />
+      <Sidebar />
+    </Grid>
   );
 };
 

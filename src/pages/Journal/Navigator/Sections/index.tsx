@@ -1,39 +1,44 @@
 import React from "react";
+import styled from "styled-components";
 
-import { useJournalMachine } from "../../../../context/journal";
-import { JournalStates } from "../../../../context/journal/types";
-import ListItem from "../ListItem";
+import { useSections } from "../../../../api/hooks";
+import { FadeAnimation } from "../../../../components/FadeAnimation/index";
+import { useJournalState } from "../../../../context/journal";
+import { ListHeader as BaseListHeader } from "../ListHeader";
+import { ListItem } from "../ListItem";
 
-const NavigatorSections = () => {
-  const { state, actions } = useJournalMachine();
+const Grid = styled.div`
+  grid-area: sections;
+  overflow-y: scroll;
+`;
+
+const List = styled(FadeAnimation)``;
+
+export const SectionList = () => {
+  const { sections } = useSections();
+  const { setSection, section } = useJournalState();
+  const renderSections = () =>
+    sections &&
+    sections.map(itemSection => (
+      <ListItem
+        active={section === itemSection._id}
+        onClick={() => setSection(itemSection._id)}
+        key={itemSection._id}
+      >
+        {itemSection.name}
+      </ListItem>
+    ));
   return (
-    <div className="NavigatorSections">
-      <ListItem
-        onClick={() => actions.displayNpcs()}
-        active={
-          state === JournalStates.displayNpcs ||
-          state === JournalStates.selectedNpc
-        }
-      >
-        Npcs
-      </ListItem>
-      <ListItem
-        onClick={() => actions.displayOrganizations()}
-        active={
-          state === JournalStates.displayOrganizations ||
-          state === JournalStates.selectedOrganization
-        }
-      >
-        Organizations
-      </ListItem>
-      <ListItem
-        onClick={() => actions.displayLocations()}
-        active={state === JournalStates.displayLocations}
-      >
-        Locations
-      </ListItem>
-    </div>
+    <List timeout={100} open={true}>
+      {renderSections()}
+    </List>
   );
 };
 
-export default NavigatorSections;
+export const Sections = () => {
+  return (
+    <Grid>
+      <SectionList />
+    </Grid>
+  );
+};

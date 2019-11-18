@@ -1,4 +1,3 @@
-import { JournalModalStates } from "../context/journal";
 import { JournalStates } from "../context/journal/types";
 import { LocalStorage, Provider } from "./constants";
 
@@ -19,6 +18,9 @@ export const removeFromStorage = (key: LocalStorage) =>
 export const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
+export const capitalizeAll = (str: string) =>
+  str.split(" ").map(splitStr => splitStr.charAt(0).toUpperCase() + splitStr.slice(1)).join(" ");
+
 export const ProviderList = Object.values(Provider);
 
 export const typeToCreateFromState = (state: JournalStates) => {
@@ -33,36 +35,6 @@ export const typeToCreateFromState = (state: JournalStates) => {
       return "Organization";
     default:
       return undefined;
-  }
-};
-
-export const modalStateFromTypeToCreate = (
-  typeToCreate: ReturnType<typeof typeToCreateFromState>
-) => {
-  switch (typeToCreate) {
-    case "Location":
-      return JournalModalStates.CREATE_LOCATION;
-    case "Organization":
-      return JournalModalStates.CREATE_ORGANIZATION;
-    case "Npc":
-      return JournalModalStates.CREATE_NPC;
-    default:
-      break;
-  }
-};
-
-export const titleFromJournalModalState = (state: JournalModalStates) => {
-  switch (state) {
-    case JournalModalStates.CREATE_LOCATION:
-      return "Create Location";
-    case JournalModalStates.CREATE_ORGANIZATION:
-      return "Create Organization";
-    case JournalModalStates.CREATE_NPC:
-      return "Create Npc";
-    case JournalModalStates.CREATE_SECTION:
-      return "Create Section";
-    default:
-      break;
   }
 };
 
