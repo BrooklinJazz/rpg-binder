@@ -12,6 +12,7 @@ import { PageFooter } from "./Footer/PageFooter";
 import { Pages } from "./Pages/index";
 import { SectionFooter } from "./Footer/SectionFooter";
 import { Sections } from "./Sections/index";
+import { JournalModal } from "../Modal";
 
 const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 
@@ -34,12 +35,15 @@ export const Grid = styled.section`
 
 export const Navigator = () => {
   return (
-    <Grid>
-      <Menu />
-      <Sections />
-      <Pages />
-      <SectionFooter />
-      <PageFooter />
-    </Grid>
+    <>
+      <JournalModal />
+      <Grid>
+        <Menu />
+        <Sections />
+        <Pages />
+        <SectionFooter />
+        <PageFooter />
+      </Grid>
+    </>
   );
 };
