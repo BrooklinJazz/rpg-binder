@@ -3,7 +3,7 @@ import { ApolloError } from "apollo-boost";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pollInterval } from "../common/constants";
-import { ICampaign, ISection } from "../common/types";
+import { ICampaign, ISection, IPage } from "../common/types";
 import { authRequestSuccess } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
 import { useCampaignState } from "../context/campaign/store";
@@ -13,8 +13,10 @@ import {
   CREATE_CAMPAIGN,
   LOGIN,
   SIGNUP,
-  SECTIONS
+  SECTIONS,
+  PAGES
 } from "./gqls";
+import { useJournalState } from "../context/journal";
 
 interface IQueryRes {
   loading: boolean;
@@ -107,4 +109,22 @@ export const useSections = (): IUseSections => {
     variables: { campaign: activeCampaign }
   });
   return { loading, sections: data && data.sections, error };
+};
+
+interface IPagesResponse {
+  pages?: IPage[];
+}
+
+interface IUsePages extends IQueryRes, IPagesResponse {}
+
+export const usePages = (): IUsePages => {
+  const { activeCampaign } = useCampaignState();
+  const { section } = useJournalState();
+  const { data, loading, error } = useQuery<IPagesResponse>(PAGES, {
+    pollInterval,
+    // NOTE this may cause issues with pollInterval
+    skip: !section,
+    variables: { campaign: activeCampaign, section }
+  });
+  return { loading, pages: data && data.pages, error };
 };

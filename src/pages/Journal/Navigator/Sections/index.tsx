@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { useSections } from "../../../../api/hooks";
-import { hover, surface2 } from "../../../../common/styles";
 import { FadeAnimation } from "../../../../components/FadeAnimation/index";
 import { useJournalState } from "../../../../context/journal";
 import { ListItem } from "../ListItem";

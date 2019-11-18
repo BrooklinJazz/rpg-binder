@@ -9,7 +9,7 @@ import {
 } from "../../../common/styles";
 import { Menu } from "./Menu/index";
 import { PageFooter } from "./Footer/PageFooter";
-import { Pages } from "./Pages";
+import { Pages } from "./Pages/index";
 import { SectionFooter } from "./Footer/SectionFooter";
 import { Sections } from "./Sections/index";
 

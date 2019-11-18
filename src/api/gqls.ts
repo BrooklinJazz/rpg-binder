@@ -77,3 +77,12 @@ mutation CreatePage($name: String!, $campaign: ID!) {
     }
   }
 `);
+
+export const PAGES = gql(`
+query Pages($campaign: ID!, $section: ID!) {
+    pages(input: {campaign: $campaign, section: $section}) {
+      _id
+      name
+    }
+  }
+`);
