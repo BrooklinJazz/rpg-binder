@@ -6,9 +6,14 @@ export default class PageObject {
   relatedPages: IPage[];
   name: string;
   campaign: string;
-  constructor({ name, campaign, _id }: IPage, relatedPages: IPage[] = []) {
+  description?: string;
+  constructor(
+    { name, campaign, _id, description }: IPage,
+    relatedPages: IPage[] = []
+  ) {
     this.name = name;
     this._id = _id;
+    this.description = description;
     this.campaign = campaign;
     this.relatedPages = relatedPages;
   }
