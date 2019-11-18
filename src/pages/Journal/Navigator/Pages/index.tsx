@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { usePages } from "../../../../api/hooks";
 import { FadeAnimation } from "../../../../components/FadeAnimation/index";
 import { useJournalState } from "../../../../context/journal";
+import { ListHeader as BaseListHeader } from "../ListHeader";
 import { ListItem } from "../ListItem";
+
+const ListHeader = styled(BaseListHeader)`
+  grid-area: page-header;
+`;
 
 const Grid = styled.div`
   grid-area: pages;

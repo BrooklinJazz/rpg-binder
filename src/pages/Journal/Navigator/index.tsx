@@ -13,6 +13,8 @@ import { Pages } from "./Pages/index";
 import { SectionFooter } from "./Footer/SectionFooter";
 import { Sections } from "./Sections/index";
 import { JournalModal } from "../Modal";
+import { SectionHeader } from "./Sections/Header";
+import { PageHeader } from "./Pages/Header";
 
 const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 
@@ -25,13 +27,14 @@ export const Grid = styled.section`
   /* NOTE drawer is inside menu component */
   grid-template-areas:
     "drawer menu menu"
+    "drawer section-header page-header"
     "drawer sections pages"
     "drawer section-footer page-footer";
   grid-template-columns: max-content minMax(${halfNavigatorWidth}, 1fr) minMax(
       ${halfNavigatorWidth},
       1fr
     );
-  grid-template-rows: ${buttonHeight} 1fr ${buttonHeight};
+  grid-template-rows: ${buttonHeight} ${buttonHeight} 1fr ${buttonHeight};
 `;
 
 export const Navigator = () => {
@@ -40,7 +43,9 @@ export const Navigator = () => {
       <JournalModal />
       <Grid>
         <Menu />
+        <SectionHeader />
         <Sections />
+        <PageHeader />
         <Pages />
         <SectionFooter />
         <PageFooter />

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSections } from "../../../../api/hooks";
 import { FadeAnimation } from "../../../../components/FadeAnimation/index";
 import { useJournalState } from "../../../../context/journal";
+import { ListHeader as BaseListHeader } from "../ListHeader";
 import { ListItem } from "../ListItem";
 
 const Grid = styled.div`
