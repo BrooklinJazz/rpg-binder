@@ -51,13 +51,13 @@ query Sections($campaign: ID!) {
   }
 `);
 
-export const CREATE_SECTION = gql(`
-mutation CreateSection($name: String!, $campaign: ID!) {
-    createSection(input: {name: $name, campaign: $campaign}) {
-      _id
-      name
+export const UPDATE_OR_CREATE_SECTION = gql(`
+  mutation UpdateOrCreateSection($name: String!, $campaign: ID!, $id: ID) {
+    updateOrCreateSection(input: {_id: $id, name: $name, campaign: $campaign}) {
+        _id
+        name
+      }
     }
-  }
 `);
 
 export const CREATE_CAMPAIGN = gql(`

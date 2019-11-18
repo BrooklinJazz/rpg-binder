@@ -5,7 +5,7 @@ import {
   IContext,
   ICampaign,
   ICampaignInput,
-  ICreateSectionInput,
+  ISectionInput,
   IPage,
   ICreatePageInput
 } from "../types";
@@ -36,15 +36,15 @@ export default {
       }).getPages(input.section)
   },
   Mutation: {
-    createSection: async (
+    updateOrCreateSection: async (
       root: any,
-      { input }: IInput<ICreateSectionInput>,
+      { input }: IInput<ISectionInput>,
       context: IContext
     ): Promise<SectionObject> =>
       new JournalFacade({
         user: context.user,
         campaign: input.campaign
-      }).createSection(input),
+      }).updateOrCreateSection(input),
     createPage: async (
       root: any,
       { input }: IInput<ICreatePageInput>,

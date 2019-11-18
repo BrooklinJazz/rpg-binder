@@ -5,6 +5,7 @@ import { surface2, hover } from "../../../common/styles";
 
 export const ListItem = styled(DefaultButton)`
   width: 100%;
+  overflow: hidden;
   white-space: nowrap;
   text-align: left;
   padding-left: 10px;

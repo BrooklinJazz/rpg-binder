@@ -3,20 +3,25 @@ import { ApolloError } from "apollo-boost";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pollInterval } from "../common/constants";
-import { ICampaign, ISection, IPage } from "../common/types";
+import { ICampaign, IPage, ISection } from "../common/types";
 import { authRequestSuccess } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
-import { useCampaignState } from "../context/campaign/store";
+import { closeModal } from "../context/campaign/actions";
+import {
+  useCampaignDispatch,
+  useCampaignState
+} from "../context/campaign/store";
+import { useJournalState, useJournalModalState } from "../context/journal";
 import {
   CAMPAIGN,
   CAMPAIGNS,
   CREATE_CAMPAIGN,
   LOGIN,
-  SIGNUP,
+  PAGES,
   SECTIONS,
-  PAGES
+  SIGNUP,
+  UPDATE_OR_CREATE_SECTION
 } from "./gqls";
-import { useJournalState } from "../context/journal";
 
 interface IQueryRes {
   loading: boolean;
@@ -34,12 +39,19 @@ interface ILoginInput {
 
 export const useLogin = () => {
   const dispatch = useAuthDispatch();
-  const [login] = useLazyQuery<ILoginResponse, ILoginInput>(LOGIN, {
-    onCompleted: data =>
-      dispatch(authRequestSuccess({ token: data.login.token }))
-  });
-  return (variables: { email: string; password: string }) =>
-    login({ variables });
+  const [login, { loading, error }] = useLazyQuery<ILoginResponse, ILoginInput>(
+    LOGIN,
+    {
+      onCompleted: data =>
+        dispatch(authRequestSuccess({ token: data.login.token }))
+    }
+  );
+  return {
+    login: (variables: { email: string; password: string }) =>
+      login({ variables }),
+    loading,
+    error
+  };
 };
 
 interface ISignupResponse {
@@ -48,12 +60,19 @@ interface ISignupResponse {
 
 export const useSignup = () => {
   const dispatch = useAuthDispatch();
-  const [signup] = useMutation<ISignupResponse, ILoginInput>(SIGNUP, {
+  const [signUp, { loading, error }] = useMutation<
+    ISignupResponse,
+    ILoginInput
+  >(SIGNUP, {
     onCompleted: data =>
       dispatch(authRequestSuccess({ token: data.createUser.token }))
   });
-  return (variables: { email: string; password: string }) =>
-    signup({ variables });
+  return {
+    signUp: (variables: { email: string; password: string }) =>
+      signUp({ variables }),
+    loading,
+    error
+  };
 };
 
 interface ICampaignsResponse {
@@ -84,10 +103,12 @@ export const useCampaign = (): IUseCampaign => {
   return { loading, campaign: data && data.campaign, error };
 };
 
-export const useCreateCampaign = (closeModal: () => void) => {
+export const useCreateCampaign = () => {
+  const dispatch = useCampaignDispatch();
+  const close = () => dispatch(closeModal());
   const [create, { loading, error }] = useMutation<any, { name: string }>(
     CREATE_CAMPAIGN,
-    { onCompleted: closeModal }
+    { onCompleted: close }
   );
   return {
     create: (name: string) => create({ variables: { name } }),
@@ -127,4 +148,19 @@ export const usePages = (): IUsePages => {
     variables: { campaign: activeCampaign, section }
   });
   return { loading, pages: data && data.pages, error };
+};
+
+export const useUpdateOrCreateSection = () => {
+  const { close } = useJournalModalState();
+  const { activeCampaign } = useCampaignState();
+  const [create, { loading, error }] = useMutation<
+    any,
+    { name: string; campaign: string; id?: string }
+  >(UPDATE_OR_CREATE_SECTION, { onCompleted: close });
+  return {
+    create: ({ name, id }: { name: string; id?: string }) =>
+      create({ variables: { name, campaign: activeCampaign!, id } }),
+    loading,
+    error
+  };
 };

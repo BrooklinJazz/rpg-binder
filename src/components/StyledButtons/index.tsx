@@ -16,7 +16,8 @@ import {
   secondary1,
   success1,
   danger1,
-  hover
+  hover,
+  modalSpacing
 } from "../../common/styles";
 
 export const Button = styled.button`
@@ -78,4 +79,11 @@ export const DangerButton = styled(Button)`
   &:hover {
     background-color: ${props => hover(danger1(props))};
   }
+`;
+
+export const CreateButton = styled(PrimaryButton).attrs(props => ({
+  children: "Create"
+}))`
+  margin-top: ${modalSpacing};
+  align-self: flex-end;
 `;

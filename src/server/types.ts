@@ -91,7 +91,8 @@ export interface IPagesBySection {
 
 export type TPagesBySections = IPagesBySection[];
 
-export interface ICreateSectionInput {
+export interface ISectionInput {
+  _id?: string;
   name: string;
   campaign: string;
 }

@@ -48,13 +48,14 @@ export default gql`
     campaign: ID!
   }
 
-  input CreateSectionInput {
+  input SectionInput {
+    _id: ID
     campaign: ID!
     name: String!
   }
 
   extend type Mutation {
-    createSection(input: CreateSectionInput): Section!
+    updateOrCreateSection(input: SectionInput): Section!
     createPage(input: CreatePageInput): Page!
   }
 `;

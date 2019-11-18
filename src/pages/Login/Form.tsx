@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useLogin, useSignup } from "../../api/hooks";
-import { capitalize, capitalizeAll } from "../../common/helpers";
+import { capitalizeAll } from "../../common/helpers";
+import { modalSpacing } from "../../common/styles";
 import { DefaultButton, PrimaryButton } from "../../components/StyledButtons";
-import { Form } from "../../components/StyledForm";
+import { Form as BaseForm } from "../../components/StyledForm";
 import { Input } from "../../components/StyledInput";
 import { Label } from "../../components/StyledLabel";
 import { H1 } from "../../components/StyledTypography";
-import { modalSpacing } from "../../common/styles";
 
-const LoginFormArea = styled(Form)`
+const Form = styled(BaseForm)`
   grid-area: login_form;
   padding: 20px;
 `;
@@ -26,8 +26,8 @@ const ButtonWrapper = styled.div`
 `;
 
 export const LoginForm = () => {
-  const login = useLogin();
-  const signUp = useSignup();
+  const { login, loading: loginLoading } = useLogin();
+  const { signUp, loading: signUpLoading } = useSignup();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [state, setState] = useState<"login" | "sign up">("login");
@@ -45,7 +45,7 @@ export const LoginForm = () => {
     }
   };
   return (
-    <LoginFormArea onSubmit={submit}>
+    <Form loading={loginLoading || signUpLoading} onSubmit={submit}>
       <H1>{capitalizeAll(state)}</H1>
       <Label>
         Email
@@ -69,6 +69,6 @@ export const LoginForm = () => {
         </DefaultButton>
         <PrimaryButton>{capitalizeAll(state)}</PrimaryButton>
       </ButtonWrapper>
-    </LoginFormArea>
+    </Form>
   );
 };

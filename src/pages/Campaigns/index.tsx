@@ -1,5 +1,5 @@
 import React from "react";
-import { CampaignModal } from "./CampaignModal";
+import { CampaignModal } from "./Modal/index";
 import { SelectCampaign } from "./SelectCampaign";
 import { Grid } from "./Grid";
 
