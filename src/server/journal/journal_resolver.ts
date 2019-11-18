@@ -24,7 +24,16 @@ export default {
       new JournalFacade({
         user: context.user,
         campaign: input.campaign
-      }).getSections()
+      }).getSections(),
+    pages: async (
+      root: any,
+      { input }: IInput<{ campaign: string, section: string }>,
+      context: IContext
+    ): Promise<PageObject[]> =>
+      new JournalFacade({
+        user: context.user,
+        campaign: input.campaign
+      }).getPages(input.section)
   },
   Mutation: {
     createSection: async (

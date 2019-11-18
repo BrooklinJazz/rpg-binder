@@ -27,9 +27,15 @@ export default gql`
     _id: ID!
   }
 
+  input PagesInput {
+    campaign: ID!
+    section: ID!
+  }
+
   extend type Query {
     sections(input: SectionsInput): [Section!]!
     page(input: PageInput): Page!
+    pages(input: PagesInput): [Page!]!
   }
 
   # Mutation Inputs
