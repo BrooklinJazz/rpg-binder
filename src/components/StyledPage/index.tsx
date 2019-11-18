@@ -5,5 +5,10 @@ import { background } from "../../common/styles";
 export const Page = styled.section`
   height: 100vh;
   width: 100vw;
-  background: ${background}
+  min-height: 0;
+  min-width: 0;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+  background: ${background};
 `;

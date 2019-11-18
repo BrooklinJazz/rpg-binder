@@ -8,7 +8,7 @@ const Grid = styled.section`
   display: grid;
   grid-area: drawer;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(minMax(1fr, 1fr), 2);
+  grid-template-rows: repeat(2, minMax(1fr, 1fr));
   grid-template-areas:
     "campaign-drawer"
     ".";

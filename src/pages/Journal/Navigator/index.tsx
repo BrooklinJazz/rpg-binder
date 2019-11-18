@@ -19,6 +19,7 @@ const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 export const Grid = styled.section`
   background-color: ${surface1};
   grid-area: navigator;
+  overflow: hidden;
   display: grid;
   grid-gap: 2px;
   /* NOTE drawer is inside menu component */

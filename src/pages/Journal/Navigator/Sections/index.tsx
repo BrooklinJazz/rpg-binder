@@ -8,6 +8,7 @@ import { ListItem } from "../ListItem";
 
 const Grid = styled.div`
   grid-area: sections;
+  overflow-y: scroll;
 `;
 
 const List = styled(FadeAnimation)``;

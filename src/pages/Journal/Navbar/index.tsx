@@ -13,13 +13,13 @@ import { MobileContent } from "./MobileContent";
 
 const Grid = styled(BaseNavbar)`
   display: grid;
-  grid-template-columns: repeat(minMax(min-content, 1fr), 3);
+  grid-template-columns: repeat(3, minMax(min-content, 1fr));
   grid-template-rows: 1fr;
   grid-template-areas: "left center right";
   align-items: center;
-  padding: 0 ${navbarPadding};
+  /* padding: 0 ${navbarPadding}; */
   @media (max-width: ${phoneBreakpoint}) {
-    grid-template-columns: repeat(minMax(min-content, 1fr), 2);
+    grid-template-columns: repeat(2, minMax(min-content, 1fr));
     grid-template-areas: "left right";
   }
 `;
