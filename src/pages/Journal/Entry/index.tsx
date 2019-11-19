@@ -14,11 +14,11 @@ const Grid = styled.section`
   grid-area: entry;
   display: grid;
   grid-gap: 2px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: ${buttonHeight} 1fr;
   grid-template-areas:
-    "name name"
-    "description images";
+    "name"
+    "description";
   color: ${onSurface};
 `;
 
@@ -35,13 +35,16 @@ export const Entry = () => {
   const { page } = useJournalState();
   const { loading } = usePage();
   if (!page || loading) {
-    return <LoadingGrid>{loading ? <Spinner /> : "Select a page to start editing"}</LoadingGrid>;
+    return (
+      <LoadingGrid>
+        {loading ? <Spinner /> : "Select a page to start editing"}
+      </LoadingGrid>
+    );
   }
   return (
     <Grid>
       <Name />
       <Description />
-      <Images />
     </Grid>
   );
 };

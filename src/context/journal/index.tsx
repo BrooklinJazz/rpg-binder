@@ -12,7 +12,7 @@ import { useCampaignState } from "../campaign/store";
 interface IJournalState {
   section?: string;
   page?: string;
-  setSection: Setter<string | undefined>;
+  setSection: (sectionId: string) => void;
   setPage: Setter<string | undefined>;
 }
 
@@ -51,6 +51,10 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
   const [section, setSection] = useState();
   const [page, setPage] = useState();
   const { activeCampaign } = useCampaignState();
+  const clearPageAndSetSection = (sectionId: string) => {
+    setSection(sectionId);
+    setPage(undefined);
+  };
   useEffect(
     function clearOnCampaignChange() {
       setPage(undefined);
@@ -63,7 +67,7 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
     <JournalStateContext.Provider
       value={{
         section,
-        setSection,
+        setSection: clearPageAndSetSection,
         page,
         setPage
       }}
@@ -84,7 +88,9 @@ export const useJournalState = () => {
 export const useJournalModalState = () => {
   const context = useContext(JournalModalContext);
   if (context === undefined) {
-    throw new Error("useJournalModalState must be used within an JournalProvider");
+    throw new Error(
+      "useJournalModalState must be used within an JournalProvider"
+    );
   }
   return context;
 };

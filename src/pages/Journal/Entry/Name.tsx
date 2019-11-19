@@ -1,13 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-import { surface2, primary1, onSurface } from "../../../common/styles";
-import { MarkdownEditor } from "../../../components/MarkdownEditor";
+import { ENTRY_HEADING_MAX_LENGTH } from "../../../common/constants";
+import { confirmAlert } from "../../../common/helpers";
+import {
+  onSurface,
+  primary1,
+  surface2,
+  surface4
+} from "../../../common/styles";
 import { H3 } from "../../../components/StyledTypography";
 import { useEntryState } from "../../../context/journal/entry";
 import useClickoutHandler from "../../../hooks/useClickoutHandler";
-import { ENTRY_HEADING_MAX_LENGTH } from "../../../common/constants";
-import { confirmAlert } from "../../../common/helpers";
 
 const Grid = styled.section`
   grid-area: name;
@@ -19,7 +23,7 @@ const NameInput = styled.input`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  background-color: ${surface2};
+  background-color: ${surface4};
   color: ${onSurface};
   text-align: center;
   font-family: "Roboto", sans-serif;
@@ -28,6 +32,7 @@ const NameInput = styled.input`
 `;
 
 const NameHeader = styled(H3)`
+  background-color: ${surface4};
   width: 100%;
   height: 100%;
   text-align: center;

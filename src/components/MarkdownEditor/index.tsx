@@ -31,8 +31,8 @@ const TextArea = styled.textarea`
 `;
 
 const Preview = styled.div`
-  height: 100%;
-  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   overflow: scroll;
   padding: 8px;
@@ -101,7 +101,6 @@ export const MarkdownEditor = ({
   return (
     <Preview
       role="button"
-      className={combineClasses("MarkdownPreview", className)}
       onClick={() => setEditing(true)}
     >
       <ReactMarkdown source={value} />
