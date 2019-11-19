@@ -154,8 +154,6 @@ export const usePages = (): IUsePages => {
   const { section } = useJournalState();
   const { data, loading, error } = useQuery<IPagesResponse>(PAGES, {
     pollInterval,
-    // NOTE this may cause issues with pollInterval
-    skip: !section,
     variables: { campaign: activeCampaign, section }
   });
   return { loading, pages: data && data.pages, error: error && error.message };

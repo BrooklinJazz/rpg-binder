@@ -17,18 +17,18 @@ import { Sidebar } from "./Sidebar";
 const Grid = styled(Page)`
   display: grid;
   grid-template-rows: ${navbarHeight} 1fr 1fr;
-  grid-template-columns: 2fr 4fr 1.5fr;
+  grid-template-columns: minMax(min-content, 2fr) 4fr 1.5fr;
   grid-gap: 4px;
   grid-template-areas:
     "navbar navbar navbar"
     "navigator entry sidebar"
     "navigator entry sidebar";
   @media (max-width: ${landscapeBreakpoint}) {
-    grid-template-columns: 2.5fr 3fr 2fr;
+    grid-template-columns: minMax(min-content, 2.5fr) 3fr 2fr;
   }
   @media (max-width: ${tabletBreakpoint}) {
     grid-template-rows: ${navbarHeight} 3fr 2fr;
-    grid-template-columns: 3fr 4fr;
+    grid-template-columns: minMax(min-content, 3fr) 4fr;
     grid-template-areas:
       "navbar navbar"
       "navigator entry "
