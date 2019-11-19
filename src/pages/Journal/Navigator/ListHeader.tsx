@@ -7,4 +7,7 @@ import { ListItem } from "./ListItem";
 export const ListHeader = styled(ListItem)`
   background-color: ${surface3};
   text-align: center;
+  &:hover {
+    cursor: default
+  }
 `;

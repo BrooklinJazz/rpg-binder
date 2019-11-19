@@ -4,37 +4,20 @@ import styled from "styled-components";
 import { usePages } from "../../../../api/hooks";
 import { FadeAnimation } from "../../../../components/FadeAnimation/index";
 import { useJournalState } from "../../../../context/journal";
-import { ListHeader as BaseListHeader } from "../ListHeader";
-import { ListItem } from "../ListItem";
-
-const ListHeader = styled(BaseListHeader)`
-  grid-area: page-header;
-`;
+import { List } from "../List";
+import { ListItems } from "../ListItems";
 
 const Grid = styled.div`
   grid-area: pages;
   overflow-y: scroll;
 `;
 
-const List = styled(FadeAnimation)``;
-
 export const PageList = () => {
-  const { pages } = usePages();
+  const { pages = [], loading } = usePages();
   const { setPage, page } = useJournalState();
-  const renderpages = () =>
-    pages &&
-    pages.map(itemPage => (
-      <ListItem
-        active={page === itemPage._id}
-        onClick={() => setPage(itemPage._id)}
-        key={itemPage._id}
-      >
-        {itemPage.name}
-      </ListItem>
-    ));
   return (
-    <List timeout={100} open={true}>
-      {renderpages()}
+    <List loading={loading}>
+      <ListItems data={pages} setter={setPage} activeItem={page} />
     </List>
   );
 };

@@ -1,5 +1,6 @@
-import React, { ReactNode, useState, useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Transition } from "react-transition-group";
+import { TransitionProps } from "react-transition-group/Transition";
 import styled from "styled-components";
 
 const Fade = styled.div`
@@ -7,15 +8,16 @@ const Fade = styled.div`
   opacity: ${({ state }: { state: string }) => (state === "entered" ? 1 : 0)};
 `;
 
+interface IProps extends Omit<TransitionProps, "timeout"> {
+  timeout?: number;
+}
+
 export const FadeAnimation = ({
   children,
   open,
-  timeout
-}: {
-  children: ReactNode;
-  open: boolean;
-  timeout?: number;
-}) => {
+  timeout = 0,
+  ...props
+}: IProps) => {
   // This hack solves not showing animation when initial open is true
   const [delayedOpen, setDelayedOpen] = useState(false);
   useLayoutEffect(() => {
@@ -24,7 +26,7 @@ export const FadeAnimation = ({
     }, 100);
   }, [open]);
   return (
-    <Transition mountOnEnter in={delayedOpen} timeout={timeout || 0}>
+    <Transition {...props} mountOnEnter in={delayedOpen} timeout={timeout}>
       {state => <Fade state={state}>{children}</Fade>}
     </Transition>
   );
