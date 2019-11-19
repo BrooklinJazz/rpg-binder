@@ -28,7 +28,12 @@ export const List = ({
     );
   }
   return (
-    <FadeAnimation open={!loading} mountOnEnter dismountOnExit timeout={200}>
+    <FadeAnimation
+      open={!loading}
+      mountOnEnter
+      dismountOnExit
+      timeout={200}
+    >
       {children}
     </FadeAnimation>
   );
