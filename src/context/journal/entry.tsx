@@ -1,18 +1,62 @@
-import React, { createContext, ReactNode, useState, useContext } from "react";
-import { Setter } from "../../common/types";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from "react";
 
-interface IEntryState {
-  open: boolean;
-  setOpen: Setter<boolean>;
+import { usePage, useUpdateOrCreatePage } from "../../api/hooks";
+import { IPage, Setter } from "../../common/types";
+import { useJournalState } from "./";
+
+interface IPageState {
+  name: string;
+  setName: Setter<string>;
+  description?: string;
+  setDescription: Setter<string>;
+  id?: string; // this should always be defined.
+  relatedPages: string[];
+  save: () => any;
+  revert: () => any;
 }
 
-const EntryStateContext = createContext<IEntryState | undefined>(undefined);
+const EntryStateContext = createContext<IPageState | undefined>(undefined);
 
 export const EntryStateProvider = ({ children }: { children: ReactNode }) => {
-  const [open, setOpen] = useState(false);
+  const { page: id } = useJournalState();
+  const { page } = usePage();
+  const [name, setName] = useState(page ? page.name : "");
+  const [description, setDescription] = useState(
+    page ? page.description || "" : ""
+  );
+  const [relatedPages, setRelatedPages] = useState([] as string[]);
+  useEffect(() => {
+    if (page) {
+      revert();
+    }
+  }, [page]);
+  const { create } = useUpdateOrCreatePage();
+  const save = () => create({ name, id, description, relatedPages });
+  const revert = () => {
+    setName(page ? page.name : "");
+    setDescription(page ? page.description || "" : "");
+    setRelatedPages(page ? page.relatedPages : []);
+  };
 
   return (
-    <EntryStateContext.Provider value={{ open, setOpen }}>
+    <EntryStateContext.Provider
+      value={{
+        save,
+        revert,
+        id,
+        name,
+        description,
+        relatedPages,
+        setName,
+        setDescription
+      }}
+    >
       {children}
     </EntryStateContext.Provider>
   );

@@ -21,6 +21,7 @@ export default class PageObject {
   }
 
   static fromPage = async (page: IPage) => {
+    // NOTE may need to build actual pageObjects for related pages.
     const relatedPages = await PageRepo.findByIds(page.relatedPages);
     return new PageObject(page, relatedPages);
   };

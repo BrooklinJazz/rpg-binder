@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { ReactNode, useLayoutEffect, useState } from "react";
 import { Transition } from "react-transition-group";
 import { TransitionProps } from "react-transition-group/Transition";
 import styled from "styled-components";
@@ -10,6 +10,8 @@ const Fade = styled.div`
 
 interface IProps extends Omit<TransitionProps, "timeout"> {
   timeout?: number;
+  open: boolean;
+  children: ReactNode;
 }
 
 export const FadeAnimation = ({

@@ -1,10 +1,10 @@
-import "./Markdown.scss";
-
 import combineClasses from "combine-classes/lib";
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import styled from "styled-components";
 
 import { confirmAlert } from "../../common/helpers";
+import { onSurface, primary1, surface2 } from "../../common/styles";
 import { Setter } from "../../common/types";
 import useClickoutHandler from "../../hooks/useClickoutHandler";
 
@@ -16,7 +16,31 @@ interface IProps {
   revert: () => void;
 }
 
-const MarkdownPreview = ({
+const TextArea = styled.textarea`
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: scroll;
+  padding: 8px;
+  resize: none;
+  margin: 0;
+  outline: none;
+  background-color: ${surface2};
+  border: solid 2px ${primary1};
+  color: ${onSurface};
+`;
+
+const Preview = styled.div`
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: scroll;
+  padding: 8px;
+  background-color: ${surface2};
+  color: ${onSurface};
+`;
+
+export const MarkdownEditor = ({
   value,
   setter,
   className,
@@ -65,25 +89,24 @@ const MarkdownPreview = ({
 
   if (editing) {
     return (
-      <textarea
+      <TextArea
         onKeyUp={handleKeyboardShortCuts}
         onChange={e => setter(e.target.value)}
         value={value}
-        className="MarkdownTextArea"
         ref={clickoutRef}
         autoFocus={true}
       />
     );
   }
   return (
-    <div
+    <Preview
       role="button"
       className={combineClasses("MarkdownPreview", className)}
       onClick={() => setEditing(true)}
     >
       <ReactMarkdown source={value} />
-    </div>
+    </Preview>
   );
 };
 
-export default MarkdownPreview;
+export default MarkdownEditor;

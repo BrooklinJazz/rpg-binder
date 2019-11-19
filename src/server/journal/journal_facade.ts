@@ -24,6 +24,10 @@ export default class JournalFacade {
       Promise.all(sections.map(async page => await PageObject.fromPage(page)))
     );
 
+  public getPage = (id: string) =>
+    PageRepo.findById(id).then(async page => await PageObject.fromPage(page)
+    );
+
   public updateOrCreateSection = (input: ISectionInput) =>
     SectionRepo.updateOrCreate(input).then(section =>
       SectionObject.fromSection(section)

@@ -59,6 +59,7 @@ export interface ISection extends ISectionInput {
 export interface IPageInput {
   name: string;
   description?: string;
+  relatedPages: string[];
 }
 
 export interface IPage extends IPageInput {

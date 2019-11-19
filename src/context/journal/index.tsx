@@ -84,7 +84,7 @@ export const useJournalState = () => {
 export const useJournalModalState = () => {
   const context = useContext(JournalModalContext);
   if (context === undefined) {
-    throw new Error("useJournalState must be used within an JournalProvider");
+    throw new Error("useJournalModalState must be used within an JournalProvider");
   }
   return context;
 };

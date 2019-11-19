@@ -15,11 +15,12 @@ import {
   CAMPAIGNS,
   CREATE_CAMPAIGN,
   LOGIN,
+  PAGE,
   PAGES,
   SECTIONS,
   SIGNUP,
-  UPDATE_OR_CREATE_SECTION,
-  UPDATE_OR_CREATE_PAGE
+  UPDATE_OR_CREATE_PAGE,
+  UPDATE_OR_CREATE_SECTION
 } from "./gqls";
 
 interface IQueryRes {
@@ -143,6 +144,25 @@ export const useSections = (): IUseSections => {
   };
 };
 
+interface IPageResponse {
+  page?: IPage;
+}
+
+interface IUsePage extends IQueryRes, IPageResponse {}
+
+export const usePage = (): IUsePage => {
+  const { page } = useJournalState();
+  const { data, loading, error } = useQuery<IPageResponse>(PAGE, {
+    // pollInterval,
+    variables: { id: page }
+  });
+  return {
+    loading,
+    page: data && data.page,
+    error: error && error.message
+  };
+};
+
 interface IPagesResponse {
   pages?: IPage[];
 }
@@ -190,20 +210,33 @@ export const useUpdateOrCreatePage = () => {
       name: string;
       campaign: string;
       id?: string;
+      description?: string;
       section: string;
       relatedPages: string[];
     }
+    // TODO close will not be necessary in the PageEditor, pass this value.
   >(UPDATE_OR_CREATE_PAGE, { onCompleted: close });
   return {
-    create: ({ name, id }: { name: string; id?: string }) =>
+    create: ({
+      name,
+      id,
+      description,
+      relatedPages
+    }: {
+      name: string;
+      id?: string;
+      description?: string;
+      relatedPages?: string[];
+    }) =>
       create({
         // TODO implement page relationships
         variables: {
           name,
           campaign: activeCampaign!,
           id,
+          description,
           section: section!,
-          relatedPages: []
+          relatedPages: relatedPages || []
         }
       }),
     loading,

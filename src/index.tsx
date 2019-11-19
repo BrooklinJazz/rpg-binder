@@ -18,6 +18,7 @@ import { ThemeProvider, useThemeState } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
+import { EntryStateProvider } from "./context/journal/entry";
 
 const PageRouting = () => {
   const { token } = useAuthState();
@@ -48,9 +49,11 @@ ReactDOM.render(
         <CampaignProvider>
           <JournalStateProvider>
             <JournalModalProvider>
-              <ThemeProvider>
-                <PageRouting />
-              </ThemeProvider>
+              <EntryStateProvider>
+                <ThemeProvider>
+                  <PageRouting />
+                </ThemeProvider>
+              </EntryStateProvider>
             </JournalModalProvider>
           </JournalStateProvider>
         </CampaignProvider>

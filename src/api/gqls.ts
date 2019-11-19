@@ -61,8 +61,8 @@ export const UPDATE_OR_CREATE_SECTION = gql(`
 `);
 
 export const UPDATE_OR_CREATE_PAGE = gql(`
-  mutation UpdateOrCreatePage($name: String!, $campaign: ID!, $id: ID, $section: ID!, $relatedPages: [ID!]!) {
-    updateOrCreatePage(input: {_id: $id, name: $name, campaign: $campaign, section: $section, relatedPages: $relatedPages}) {
+  mutation UpdateOrCreatePage($name: String!, $campaign: ID!, $id: ID, $section: ID!, $relatedPages: [ID!]!, $description: String) {
+    updateOrCreatePage(input: {_id: $id, name: $name, campaign: $campaign, section: $section, relatedPages: $relatedPages, description: $description}) {
         _id
         name
       }
@@ -92,6 +92,19 @@ query Pages($campaign: ID!, $section: ID!) {
     pages(input: {campaign: $campaign, section: $section}) {
       _id
       name
+    }
+  }
+`);
+
+export const PAGE = gql(`
+query Page($id: ID!) {
+    page(input: {_id: $id}) {
+      _id
+      name
+      description
+      relatedPages {
+        _id
+      }
     }
   }
 `);

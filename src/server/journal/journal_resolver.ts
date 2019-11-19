@@ -27,13 +27,22 @@ export default {
       }).getSections(),
     pages: async (
       root: any,
-      { input }: IInput<{ campaign: string, section: string }>,
+      { input }: IInput<{ campaign: string; section: string }>,
       context: IContext
     ): Promise<PageObject[]> =>
       new JournalFacade({
         user: context.user,
         campaign: input.campaign
-      }).getPages(input.section)
+      }).getPages(input.section),
+    page: async (
+      root: any,
+      { input }: IInput<{ _id: string }>,
+      context: IContext
+    ): Promise<PageObject> =>
+      new JournalFacade({
+        user: context.user,
+        campaign: ""
+      }).getPage(input._id)
   },
   Mutation: {
     updateOrCreateSection: async (
