@@ -30,7 +30,7 @@ const colorRange = (
 ) =>
   [...Array(total)].map((_, i) =>
     theme("mode", {
-      light: darken(i * increment, baseLight),
+      light: lighten(i * increment, baseLight),
       dark: lighten(i * increment, baseDark)
     })
   );
@@ -38,13 +38,13 @@ const colorRange = (
 export const hover = (color: string) =>
   theme("mode", {
     // @ts-ignore
-    light: darken(0.1, color),
+    light: lighten(0.1, color),
     // @ts-ignore
     dark: lighten(0.1, color)
   });
 
 const darkBackground = "black";
-const lightBackground = "white";
+const lightBackground = "#9a9a9a";
 
 const lightPrimary = "#6200ee";
 const darkPrimary = "#bb86fc";
