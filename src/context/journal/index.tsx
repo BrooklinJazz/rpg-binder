@@ -1,6 +1,13 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect
+} from "react";
 
 import { Setter } from "../../common/types";
+import { useCampaignState } from "../campaign/store";
 
 interface IJournalState {
   section?: string;
@@ -43,6 +50,14 @@ export const JournalModalProvider = ({ children }: { children: ReactNode }) => {
 export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
   const [section, setSection] = useState();
   const [page, setPage] = useState();
+  const { activeCampaign } = useCampaignState();
+  useEffect(
+    function clearOnCampaignChange() {
+      setPage(undefined);
+      setSection(undefined);
+    },
+    [activeCampaign]
+  );
 
   return (
     <JournalStateContext.Provider
