@@ -8,13 +8,14 @@ import {
   modalSpacing,
   onDanger,
   onSurface,
-  surface1
+  surface1,
+  surface4
 } from "../../common/styles";
 import { Spinner } from "../Loading";
 import { Text } from "../StyledTypography";
 
 const FormComponent = styled.form`
-  background-color: ${surface1};
+  background-color: ${surface4};
   color: ${onSurface};
 `;
 

@@ -9,7 +9,8 @@ import {
   modalWrapperZIndex,
   modalZIndex,
   primary1,
-  surface1
+  surface1,
+  surface4
 } from "../../common/styles";
 import { H3 } from "../StyledTypography";
 import { transparentize } from "polished";
@@ -22,11 +23,11 @@ const ModalWrapper = styled.div`
   justify-content: center;
   align-items: center;
   z-index: ${modalWrapperZIndex};
-  background-color: ${props => transparentize(0.6, surface1(props))};
+  /* background-color: ${props => transparentize(0.6, surface1(props))}; */
 `;
 
 const Content = styled.div`
-  background-color: ${surface1};
+  background-color: ${surface4};
   padding: ${modalSpacing};
   z-index: ${modalZIndex};
   width: 500px;
