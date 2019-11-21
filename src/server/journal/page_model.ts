@@ -27,6 +27,10 @@ const pageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Campaign",
     required: true
+  },
+  inSession: {
+    type: Schema.Types.Boolean,
+    default: false
   }
 });
 

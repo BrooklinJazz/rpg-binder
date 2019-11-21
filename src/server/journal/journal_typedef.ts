@@ -17,6 +17,7 @@ export default gql`
     section: Section
     creator: User!
     campaign: Campaign!
+    inSession: Boolean
   }
 
   input SectionsInput {

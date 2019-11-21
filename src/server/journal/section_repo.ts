@@ -12,6 +12,9 @@ export class SectionRepo {
   public static findByCampaign = (campaign: string) =>
     SectionModel.find({ campaign }).then(buildMany);
 
+  public static findByIds = (sectionIds: string[]) =>
+    SectionModel.find({ _id: { $in: sectionIds } }).then(buildMany);
+
   public static create = (input: ISectionInput): Promise<ISection> =>
     SectionModel.create(input).then(build);
 

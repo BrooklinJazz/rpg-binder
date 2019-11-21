@@ -8,12 +8,14 @@ export default class PageObject {
   campaign: string;
   section: string;
   description?: string;
+  inSession: boolean;
   constructor(
-    { name, campaign, _id, description, section }: IPage,
+    { name, campaign, _id, description, section, inSession}: IPage,
     relatedPages: IPage[] = []
   ) {
     this.name = name;
     this._id = _id;
+    this.inSession = inSession;
     this.description = description;
     this.campaign = campaign;
     this.section = section;

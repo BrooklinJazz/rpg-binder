@@ -16,7 +16,8 @@
     "array-type": false,
     "jsx-no-multiline-js": false,
     "jsx-boolean-value": false,
-    "no-unused-variable": true
+    "no-unused-variable": true,
+    "member-ordering": false
   },
   "rulesDirectory": []
 }

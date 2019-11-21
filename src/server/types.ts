@@ -99,4 +99,14 @@ export interface IPageInput {
 
 export interface IPage extends IPageInput {
   _id: string;
+  inSession: boolean;
+}
+
+export interface ISessionItem {
+  section: ISection;
+  pages: IPage[];
+}
+
+export interface IPage extends IPageInput {
+  _id: string;
 }
