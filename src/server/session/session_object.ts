@@ -1,4 +1,4 @@
-import { IPage } from "../types";
+import { IPage, ISection } from "../types";
 import { SectionRepo } from "../journal/section_repo";
 
 export default class SessionObject {
@@ -7,17 +7,19 @@ export default class SessionObject {
     this.sessionPages = sessionPages;
   }
 
+  private sortPagesBySection(sections: ISection[]) {
+    return sections.map(section => ({
+      section,
+      pages: this.sessionPages.filter(
+        page => page.section.toString() === section._id.toString()
+      )
+    }));
+  }
+
   public getSessionItems() {
     const sectionIds = Array.from(
       new Set(this.sessionPages.map(page => page.section))
     );
-    return SectionRepo.findByIds(sectionIds).then(sections =>
-      sections.map(section => {
-        return {
-          section,
-          pages: this.sessionPages.filter(page => page.section.toString() === section._id.toString());
-        };
-      })
-    );
+    return SectionRepo.findByIds(sectionIds).then(this.sortPagesBySection);
   }
 }
