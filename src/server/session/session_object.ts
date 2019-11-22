@@ -7,7 +7,7 @@ export default class SessionObject {
     this.sessionPages = sessionPages;
   }
 
-  private sortPagesBySection(sections: ISection[]) {
+  private sortPagesBySection = (sections: ISection[]) => {
     return sections.map(section => ({
       section,
       pages: this.sessionPages.filter(
