@@ -12,7 +12,7 @@ import { Page } from "../../components/StyledPage";
 import { Navbar } from "./Navbar";
 import { Navigator } from "./Navigator";
 import { Entry } from "./Entry";
-import { Sidebar } from "./Sidebar";
+import { SessionSidebar } from "./Sidebar";
 
 const Grid = styled(Page)`
   display: grid;
@@ -52,7 +52,7 @@ const Journal = () => {
       <Navbar />
       <Navigator />
       <Entry />
-      <Sidebar />
+      <SessionSidebar />
     </Grid>
   );
 };

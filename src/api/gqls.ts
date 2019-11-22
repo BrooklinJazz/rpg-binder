@@ -108,3 +108,18 @@ query Page($id: ID!) {
     }
   }
 `);
+
+export const SESSION = gql(`
+query Session($campaign: ID!) {
+    session(input: {campaign: $campaign}) {
+      section {
+        _id
+        name
+      }
+      pages {
+        _id
+        name
+      }
+    }
+  }
+`);

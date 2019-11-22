@@ -13,6 +13,7 @@ interface IJournalState {
   section?: string;
   page?: string;
   setSection: (sectionId: string) => void;
+  selectPinned: (sectionId: string, pageId: string) => void;
   setPage: Setter<string | undefined>;
 }
 
@@ -55,6 +56,10 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
     setSection(sectionId);
     setPage(undefined);
   };
+  const selectPinned = (sectionId: string, pageId: string) => {
+    setSection(sectionId)
+    setPage(pageId)
+  }
   useEffect(
     function clearOnCampaignChange() {
       setPage(undefined);
@@ -69,7 +74,8 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
         section,
         setSection: clearPageAndSetSection,
         page,
-        setPage
+        setPage,
+        selectPinned
       }}
     >
       {children}

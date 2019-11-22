@@ -1,5 +1,5 @@
-import { IPage, ISection } from "../types";
 import { SectionRepo } from "../journal/section_repo";
+import { IPage, ISection } from "../types";
 
 export default class SessionObject {
   public sessionPages: IPage[];
@@ -14,7 +14,7 @@ export default class SessionObject {
         page => page.section.toString() === section._id.toString()
       )
     }));
-  }
+  };
 
   public getSessionItems() {
     const sectionIds = Array.from(

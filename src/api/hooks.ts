@@ -20,7 +20,8 @@ import {
   SECTIONS,
   SIGNUP,
   UPDATE_OR_CREATE_PAGE,
-  UPDATE_OR_CREATE_SECTION
+  UPDATE_OR_CREATE_SECTION,
+  SESSION
 } from "./gqls";
 
 interface IQueryRes {
@@ -240,6 +241,33 @@ export const useUpdateOrCreatePage = () => {
         }
       }),
     loading,
+    error: error && error.message
+  };
+};
+
+// TODO rename session to pinnedItems
+
+interface IPinnedItem {
+  section: ISection;
+  pages: IPage[];
+}
+
+interface IPinnedItemsResponse {
+  session: IPinnedItem[];
+}
+interface IUsePinnedItems extends IQueryRes {
+  pinnedItems: IPinnedItem[];
+}
+
+export const usePinnedItems = (): IUsePinnedItems => {
+  const { activeCampaign } = useCampaignState();
+  const { data, loading, error } = useQuery<IPinnedItemsResponse>(SESSION, {
+    pollInterval,
+    variables: { campaign: activeCampaign }
+  });
+  return {
+    loading,
+    pinnedItems: data ? data.session : [],
     error: error && error.message
   };
 };
