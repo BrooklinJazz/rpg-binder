@@ -13,10 +13,9 @@ const Grid = styled.div`
 
 export const SectionList = () => {
   const { sections = [], loading } = useSections();
-  const { setSection, section } = useJournalState();
   return (
     <FetchContainer loading={loading}>
-      <SectionItems data={sections} setter={setSection} activeItem={section} />
+      <SectionItems data={sections} />
     </FetchContainer>
   );
 };
