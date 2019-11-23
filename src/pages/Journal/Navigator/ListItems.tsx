@@ -38,9 +38,9 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
     return inSession ? remove(_id) : add(_id);
   };
   return (
-    <ListItem data-tip data-for={_id} key={_id} active={page === _id} onClick={() => setPage(_id)}>
+    <ListItem key={_id} active={page === _id} onClick={() => setPage(_id)}>
       <ReactTooltip delayShow={1000} id={_id} place="top">{name}</ReactTooltip>
-      <ItemContent>{name}</ItemContent>
+      <ItemContent data-tip data-for={_id}>{name}</ItemContent>
       <div onClick={handlePin}>
         <Star isPinned={inSession} />
       </div>
