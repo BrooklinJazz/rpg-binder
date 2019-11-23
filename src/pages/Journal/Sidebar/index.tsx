@@ -25,6 +25,7 @@ const Sidebar = styled.section`
   background-color: ${surface1};
   grid-area: sidebar;
   display: grid;
+  grid-gap: 2px;
   grid-template-columns: 1fr;
   grid-template-rows: ${buttonHeight} 1fr;
   grid-template-areas:
@@ -90,7 +91,7 @@ const PageName = styled.li`
 const IconContainer = styled.div`
   flex-basis: 20px;
   flex-shrink: 0;
-  color: ${onSurface}
+  color: ${onSurface};
 `;
 
 interface IProps extends IPage {
@@ -149,7 +150,7 @@ const SidebarHeader = styled(Text).attrs(props => ({
   grid-area: sidebar-header;
   display: flex;
   align-items: center;
-  margin-bottom: 2px;
+  /* margin-bottom: 2px; */
   justify-content: center;
   background-color: ${surface4};
 `;

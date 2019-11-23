@@ -8,7 +8,10 @@ import {
   onSurface,
   primary1,
   surface2,
-  tabletBreakpoint
+  tabletBreakpoint,
+  background,
+  surface1,
+  primary2
 } from "../../common/styles";
 import { Setter } from "../../common/types";
 import useClickoutHandler from "../../hooks/useClickoutHandler";
@@ -49,7 +52,14 @@ const Preview = styled.div`
     font-family: "Roboto", sans-serif;
     font-weight: 300;
   }
+  hr {
+    border-color: ${primary1};
+  }
   h1 {
+    padding-bottom: 2px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    width: 100%;
     font-size: 2em;
     @media (max-width: ${landscapeBreakpoint}) {
       font-size: 1.8em;
@@ -60,6 +70,7 @@ const Preview = styled.div`
   }
 
   h2 {
+    font-weight: 400;
     @media (max-width: ${landscapeBreakpoint}) {
       font-size: 1.4em;
     }
@@ -71,7 +82,7 @@ const Preview = styled.div`
   h3 {
     font-size: 1.3em;
     @media (max-width: ${landscapeBreakpoint}) {
-      font-size: 1.2;
+      font-size: 1.2em;
     }
     @media (max-width: ${tabletBreakpoint}) {
       font-size: 1.1em;
@@ -80,6 +91,23 @@ const Preview = styled.div`
 
   p {
     font-size: 1em;
+    code {
+      color: ${primary1};
+    }
+  }
+
+  a {
+    color: ${primary2};
+  }
+  a:visited {
+    color: ${primary1};
+  }
+
+  pre {
+    background-color: ${surface1};
+    padding: 10px;
+    code {
+    }
   }
 `;
 

@@ -55,7 +55,7 @@ export const H3 = styled.h3`
   ${baseMixin}
   font-size: 1.3em;
   @media (max-width: ${landscapeBreakpoint}) {
-    font-size: 1.2;
+    font-size: 1.2em;
   }
   @media (max-width: ${tabletBreakpoint}) {
     font-size: 1.1em;

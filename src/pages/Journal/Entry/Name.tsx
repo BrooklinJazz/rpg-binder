@@ -1,17 +1,19 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
+import { PAGE_NAME_LENGTH } from "../../../common/constants";
 import { confirmAlert } from "../../../common/helpers";
 import {
+  landscapeBreakpoint,
   onSurface,
   primary1,
   surface2,
-  surface4
+  surface4,
+  tabletBreakpoint
 } from "../../../common/styles";
 import { H3 } from "../../../components/StyledTypography";
 import { useEntryState } from "../../../context/journal/entry";
 import useClickoutHandler from "../../../hooks/useClickoutHandler";
-import { PAGE_NAME_LENGTH } from "../../../common/constants";
 
 const Grid = styled.section`
   grid-area: name;
@@ -27,8 +29,14 @@ const NameInput = styled.input`
   color: ${onSurface};
   text-align: center;
   font-family: "Roboto", sans-serif;
-  font-size: 1.75em;
   font-weight: 200;
+  font-size: 1.3em;
+  @media (max-width: ${landscapeBreakpoint}) {
+    font-size: 1.2em;
+  }
+  @media (max-width: ${tabletBreakpoint}) {
+    font-size: 1.1em;
+  }
 `;
 
 const NameHeader = styled(H3)`
