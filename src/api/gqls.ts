@@ -92,6 +92,7 @@ query Pages($campaign: ID!, $section: ID!) {
     pages(input: {campaign: $campaign, section: $section}) {
       _id
       name
+      inSession
     }
   }
 `);
@@ -102,6 +103,7 @@ query Page($id: ID!) {
       _id
       name
       description
+      inSession
       relatedPages {
         _id
       }
@@ -121,5 +123,17 @@ query Session($campaign: ID!) {
         name
       }
     }
+  }
+`);
+
+export const ADD_PIN = gql(`
+mutation AddPin($page: ID!) {
+    addSessionItem(input: {page: $page})
+  }
+`);
+
+export const REMOVE_PIN = gql(`
+mutation RemovePin($page: ID!) {
+    removeSessionItem(input: {page: $page})
   }
 `);

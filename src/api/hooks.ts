@@ -21,7 +21,9 @@ import {
   SIGNUP,
   UPDATE_OR_CREATE_PAGE,
   UPDATE_OR_CREATE_SECTION,
-  SESSION
+  SESSION,
+  ADD_PIN,
+  REMOVE_PIN
 } from "./gqls";
 
 interface IQueryRes {
@@ -269,5 +271,15 @@ export const usePinnedItems = (): IUsePinnedItems => {
     loading,
     pinnedItems: data ? data.session : [],
     error: error && error.message
+  };
+};
+
+export const usePinPage = () => {
+  const [add, {loading: addLoading}] = useMutation<any, { page: string }>(ADD_PIN);
+  const [remove, {loading: removeLoading}] = useMutation<any, { page: string }>(REMOVE_PIN);
+  return {
+    loading: addLoading || removeLoading,
+    add: (page: string) => add({ variables: { page } }),
+    remove: (page: string) => remove({ variables: { page } })
   };
 };

@@ -64,6 +64,7 @@ export interface IPageInput {
 
 export interface IPage extends IPageInput {
   _id: string;
+  inSession: boolean;
 }
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
