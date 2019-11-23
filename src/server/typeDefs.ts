@@ -6,6 +6,10 @@ import user from "./user/user_typedef";
 import session from "./session/session_typedef";
 
 const root = gql`
+input SingleID {
+  _id: ID!
+}
+
   type Query {
     _: String
   }

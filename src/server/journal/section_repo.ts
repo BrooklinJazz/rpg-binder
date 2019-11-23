@@ -12,11 +12,17 @@ export class SectionRepo {
   public static findByCampaign = (campaign: string) =>
     SectionModel.find({ campaign }).then(buildMany);
 
+  public static findById = (id: string) =>
+    SectionModel.findById(id).then(build);
+
   public static findByIds = (sectionIds: string[]) =>
     SectionModel.find({ _id: { $in: sectionIds } }).then(buildMany);
 
   public static create = (input: ISectionInput): Promise<ISection> =>
     SectionModel.create(input).then(build);
+
+  public static deleteById = (id: string) =>
+    SectionModel.findByIdAndDelete(id).then(build);
 
   public static update = ({
     _id,

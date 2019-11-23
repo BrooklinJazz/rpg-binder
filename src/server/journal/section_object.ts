@@ -1,11 +1,12 @@
 import { IPage, ISection } from "../types";
 import { PageRepo } from "./page_repo";
+import { SectionRepo } from "./section_repo";
 
 export default class SectionObject {
-  _id: string;
-  pages: IPage[];
-  name: string;
-  campaign: string;
+  public _id: string;
+  public pages: IPage[];
+  public name: string;
+  public campaign: string;
   constructor({ name, campaign, _id }: ISection, pages: IPage[] = []) {
     this.name = name;
     this._id = _id;
@@ -13,7 +14,12 @@ export default class SectionObject {
     this.pages = pages;
   }
 
-  static fromSection = async (section: ISection) => {
+  public delete = () =>
+    SectionRepo.deleteById(this._id).then(() =>
+      PageRepo.deleteByIds(this.pages.map(page => page._id))
+    );
+
+  public static fromSection = async (section: ISection) => {
     const pages = await PageRepo.findBySection(section._id);
     return new SectionObject(section, pages);
   };

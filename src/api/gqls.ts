@@ -137,3 +137,9 @@ mutation RemovePin($page: ID!) {
     removeSessionItem(input: {page: $page})
   }
 `);
+
+export const DELETE_SECTION = gql(`
+mutation DeleteSection($id: ID!) {
+    deleteSection(input: {_id: $id})
+  }
+`);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import styled from "styled-components";
 
@@ -14,6 +14,10 @@ import { ToolTip } from "../../../../components/StyledTooltip";
 import { useJournalState } from "../../../../context/journal";
 import { ItemContent } from "../ItemContent";
 import { ListItem } from "../ListItem";
+import { useDeleteSection } from "../../../../api/hooks";
+import { confirmAlert } from "../../../../common/helpers";
+import { DELETE_SECTION_MESSAGE } from "../../../../common/constants";
+import { Spinner } from "../../../../components/Loading";
 
 const Menu = styled(ContextMenu)`
   background-color: ${surface3};
@@ -38,19 +42,19 @@ const Item = styled(MenuItem)`
 
 const RightClickSectionMenu = ({
   id,
-  select
+  select,
+  handleDelete
 }: {
   id: string;
   select: () => void;
+  handleDelete: () => void;
 }) => {
+  const confirmDelete = () =>
+    confirmAlert({ onConfirm: handleDelete, message: DELETE_SECTION_MESSAGE });
   return (
     <Menu id={id}>
-      <Item data={{ foo: "bar" }} onClick={select}>
-        Select
-      </Item>
-      <Item data={{ foo: "bar" }} onClick={() => console.log("TEST")}>
-        Delete
-      </Item>
+      <Item onClick={select}>Select</Item>
+      <Item onClick={confirmDelete}>Delete</Item>
     </Menu>
   );
 };
@@ -58,6 +62,15 @@ const RightClickSectionMenu = ({
 const SectionItem = ({ _id, name }: ISection) => {
   const { setSection, section } = useJournalState();
   const selectSection = () => setSection(_id);
+  const { deleteSection, loading } = useDeleteSection();
+  const [isDeleted, setDeleted] = useState(false);
+  const handleDelete = () => {
+    setDeleted(true);
+    deleteSection(_id);
+  };
+  if (isDeleted) {
+    return null;
+  }
   return (
     <>
       <ContextMenuTrigger id={_id}>
@@ -69,10 +82,14 @@ const SectionItem = ({ _id, name }: ISection) => {
           onClick={selectSection}
         >
           <ToolTip>{name}</ToolTip>
-          <ItemContent>{name}</ItemContent>
+          <ItemContent>{loading ? <Spinner /> : name}</ItemContent>
         </ListItem>
       </ContextMenuTrigger>
-      <RightClickSectionMenu select={selectSection} id={_id} />
+      <RightClickSectionMenu
+        handleDelete={handleDelete}
+        select={selectSection}
+        id={_id}
+      />
     </>
   );
 };
@@ -81,7 +98,7 @@ export const SectionItems = ({ data }: { data: ISection[] }) => {
   return (
     <>
       {data.map(section => (
-        <SectionItem {...section} />
+        <SectionItem key={section._id} {...section} />
       ))}
     </>
   );

@@ -45,6 +45,15 @@ export default {
       }).getPage(input._id)
   },
   Mutation: {
+    deleteSection: async (
+      root: any,
+      { input }: IInput<{ _id: string }>,
+      context: IContext
+    ): Promise<any> =>
+      new JournalFacade({
+        user: context.user,
+        campaign: ""
+      }).deleteSection(input),
     updateOrCreateSection: async (
       root: any,
       { input }: IInput<ISectionInput>,

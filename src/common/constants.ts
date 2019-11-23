@@ -40,3 +40,5 @@ export enum Provider {
 
 export const PAGE_NAME_LENGTH = 40;
 export const SECTION_NAME_LENGTH = 40;
+
+export const DELETE_SECTION_MESSAGE = "This will also delete this section's pages";

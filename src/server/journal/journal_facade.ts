@@ -25,8 +25,7 @@ export default class JournalFacade {
     );
 
   public getPage = (id: string) =>
-    PageRepo.findById(id).then(async page => await PageObject.fromPage(page)
-    );
+    PageRepo.findById(id).then(async page => await PageObject.fromPage(page));
 
   public updateOrCreateSection = (input: ISectionInput) =>
     SectionRepo.updateOrCreate(input).then(section =>
@@ -38,4 +37,11 @@ export default class JournalFacade {
 
   public createPage = (input: IPageInput) =>
     PageRepo.create(input).then(page => PageObject.fromPage(page));
+
+  public deleteSection = (input: { _id: string }) =>
+    SectionRepo.findById(input._id)
+      .then(section => {
+        return SectionObject.fromSection(section);
+      })
+      .then(section => section.delete());
 }

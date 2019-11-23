@@ -21,6 +21,12 @@ export class PageRepo {
   public static create = (input: IPageInput) =>
     PageModel.create(input).then(build);
 
+  public static deleteById = (id: string) =>
+    PageModel.findByIdAndDelete(id).then(build);
+
+  public static deleteByIds = (ids: string[]) =>
+    PageModel.deleteMany({ id: { $in: ids } });
+
   public static update = ({ _id, ...input }: IPageInput): Promise<IPage> =>
     PageModel.update({ _id }, { ...input }, { upsert: true }).then(build);
 

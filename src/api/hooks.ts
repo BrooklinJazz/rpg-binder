@@ -23,7 +23,8 @@ import {
   UPDATE_OR_CREATE_SECTION,
   SESSION,
   ADD_PIN,
-  REMOVE_PIN
+  REMOVE_PIN,
+  DELETE_SECTION
 } from "./gqls";
 
 interface IQueryRes {
@@ -281,5 +282,13 @@ export const usePinPage = () => {
     loading: addLoading || removeLoading,
     add: (page: string) => add({ variables: { page } }),
     remove: (page: string) => remove({ variables: { page } })
+  };
+};
+
+export const useDeleteSection = () => {
+  const [deleteSection, {loading}] = useMutation<any, { id: string }>(DELETE_SECTION);
+  return {
+    loading,
+    deleteSection: (id: string) => deleteSection({ variables: { id } }),
   };
 };
