@@ -12,7 +12,8 @@ import {
   surface1,
   surface2,
   surface3,
-  surface4
+  surface4,
+  onSurface
 } from "../../../common/styles";
 import { IPage } from "../../../common/types";
 import { FetchContainer } from "../../../components/FetchContainer/index";
@@ -73,6 +74,7 @@ const PageContainer = styled.div`
 const PageName = styled.li`
   margin-right: 10px;
   margin-left: 10px;
+  color: ${onSurface};
   /* NOTE remove this basis to keep minus button close to text */
   flex-basis: 80%;
   word-break: break-all;
@@ -88,6 +90,7 @@ const PageName = styled.li`
 const IconContainer = styled.div`
   flex-basis: 20px;
   flex-shrink: 0;
+  color: ${onSurface}
 `;
 
 interface IProps extends IPage {
