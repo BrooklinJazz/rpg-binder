@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-import { ENTRY_HEADING_MAX_LENGTH } from "../../../common/constants";
 import { confirmAlert } from "../../../common/helpers";
 import {
   onSurface,
@@ -12,6 +11,7 @@ import {
 import { H3 } from "../../../components/StyledTypography";
 import { useEntryState } from "../../../context/journal/entry";
 import useClickoutHandler from "../../../hooks/useClickoutHandler";
+import { PAGE_NAME_LENGTH } from "../../../common/constants";
 
 const Grid = styled.section`
   grid-area: name;
@@ -84,7 +84,7 @@ const EditName = ({ stopEditing }: { stopEditing: () => void }) => {
   return (
     <NameInput
       onKeyUp={handleKeyboardShortCuts}
-      maxLength={ENTRY_HEADING_MAX_LENGTH}
+      maxLength={PAGE_NAME_LENGTH}
       autoFocus={true}
       ref={clickoutRef}
       onChange={e => setName(e.target.value)}

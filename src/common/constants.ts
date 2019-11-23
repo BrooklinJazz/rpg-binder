@@ -38,4 +38,5 @@ export enum Provider {
   PATREON = "patreon"
 }
 
-export const ENTRY_HEADING_MAX_LENGTH = 20;
+export const PAGE_NAME_LENGTH = 40;
+export const SECTION_NAME_LENGTH = 40;

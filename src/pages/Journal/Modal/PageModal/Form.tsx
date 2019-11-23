@@ -6,6 +6,7 @@ import { CreateButton } from "../../../../components/StyledButtons";
 import { ModalForm } from "../../../../components/StyledForm";
 import { Input } from "../../../../components/StyledInput";
 import { Label } from "../../../../components/StyledLabel";
+import { PAGE_NAME_LENGTH } from "../../../../common/constants";
 
 export const PageForm = () => {
   const [name, setName] = useState("");
@@ -17,7 +18,11 @@ export const PageForm = () => {
     <ModalForm error={error} loading={loading} onSubmit={onSubmit}>
       <Label>
         Page Name
-        <Input value={name} onChange={e => setName(e.target.value)} />
+        <Input
+          maxLength={PAGE_NAME_LENGTH}
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
       </Label>
       <CreateButton />
     </ModalForm>
