@@ -97,7 +97,6 @@ const PageItem = ({ name, _id, sectionId }: IProps) => {
       <Text>-</Text>
       <PageName key={_id} onClick={select}>
         {name}
-        {hide.toString()}
       </PageName>
       <span onClick={handleRemove}>
         <FontAwesomeIcon className="Delete" icon={faMinusCircle} />

@@ -9,6 +9,7 @@ import { hover, primary1, surface1 } from "../../../common/styles";
 import { IPage, ISection } from "../../../common/types";
 import { useJournalState } from "../../../context/journal";
 import { ListItem } from "./ListItem";
+import ReactTooltip from "react-tooltip";
 
 export const ItemContent = styled.div`
   flex-grow: 1;
@@ -37,7 +38,8 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
     return inSession ? remove(_id) : add(_id);
   };
   return (
-    <ListItem key={_id} active={page === _id} onClick={() => setPage(_id)}>
+    <ListItem data-tip data-for={_id} key={_id} active={page === _id} onClick={() => setPage(_id)}>
+      <ReactTooltip delayShow={1000} id={_id} place="top">{name}</ReactTooltip>
       <ItemContent>{name}</ItemContent>
       <div onClick={handlePin}>
         <Star isPinned={inSession} />
@@ -66,7 +68,8 @@ export const SectionItems = ({
   setter: any;
 }) => {
   const renderItem = ({ _id, name }: ISection) => (
-    <ListItem key={_id} active={activeItem === _id} onClick={() => setter(_id)}>
+    <ListItem data-tip data-for={_id} key={_id} active={activeItem === _id} onClick={() => setter(_id)}>
+      <ReactTooltip delayShow={1000} id={_id} place="top">{name}</ReactTooltip>
       <ItemContent>{name}</ItemContent>
     </ListItem>
   );

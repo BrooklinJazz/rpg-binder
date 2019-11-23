@@ -10,6 +10,7 @@ import { Brand } from "./Brand";
 import { ExpandedContent } from "./ExpandedContent";
 import { Header } from "./Header";
 import { MobileContent } from "./MobileContent";
+import ReactTooltip from "react-tooltip";
 
 const Grid = styled(BaseNavbar)`
   display: grid;
