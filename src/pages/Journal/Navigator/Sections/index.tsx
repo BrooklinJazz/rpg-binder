@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 import { useSections } from "../../../../api/hooks";
-import { useJournalState } from "../../../../context/journal";
 import { FetchContainer } from "../../../../components/FetchContainer/index";
-import { SectionItems } from "../ListItems";
+import { useJournalState } from "../../../../context/journal";
+import { SectionItems } from "./SectionItems";
 
 const Grid = styled.div`
   grid-area: sections;

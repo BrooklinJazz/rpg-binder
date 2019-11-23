@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { usePages } from "../../../../api/hooks";
 import { useJournalState } from "../../../../context/journal";
 import { FetchContainer } from "../../../../components/FetchContainer/index";
-import { PageItems } from "../ListItems";
+import { PageItems } from "./PageItems";
 
 const Grid = styled.div`
   grid-area: pages;
