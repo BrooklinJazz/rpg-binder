@@ -11,12 +11,14 @@ import {
   phoneBreakpoint,
   surface1,
   surface2,
-  surface3
+  surface3,
+  surface4
 } from "../../../common/styles";
 import { IPage } from "../../../common/types";
 import { FetchContainer } from "../../../components/FetchContainer/index";
 import { H2, Text } from "../../../components/StyledTypography";
 import { useJournalState } from "../../../context/journal";
+import ReactTooltip from "react-tooltip";
 
 const Sidebar = styled.section`
   background-color: ${surface1};
@@ -35,12 +37,12 @@ const Sidebar = styled.section`
 const Section = styled.section`
   padding: 10px;
   background-color: ${surface2};
-  margin-top: 5px;
+  margin-bottom: 5px;
   height: max-content;
 `;
 
 const SectionName = styled(H2)`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const Content = styled.section`
@@ -49,11 +51,11 @@ const Content = styled.section`
 `;
 
 const PageContainer = styled.div`
-  margin-bottom: 5px;
   display: flex;
-  width: 100%;
-  margin-bottom: 10px;
+  max-width: 100%;
+  margin-bottom: 5px;
   align-items: center;
+  justify-content: center;
   .Delete {
     display: none;
   }
@@ -68,12 +70,24 @@ const PageContainer = styled.div`
   }
 `;
 
-const PageName = styled(Text)`
+const PageName = styled.li`
   margin-right: 10px;
   margin-left: 10px;
+  /* NOTE remove this basis to keep minus button close to text */
+  flex-basis: 80%;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   &:hover {
     text-decoration: underline;
   }
+  flex-shrink: 1;
+`;
+
+const IconContainer = styled.div`
+  flex-basis: 20px;
+  flex-shrink: 0;
 `;
 
 interface IProps extends IPage {
@@ -94,13 +108,15 @@ const PageItem = ({ name, _id, sectionId }: IProps) => {
   }
   return (
     <PageContainer>
-      <Text>-</Text>
-      <PageName key={_id} onClick={select}>
+      <PageName data-tip data-for={_id} key={_id} onClick={select}>
         {name}
       </PageName>
-      <span onClick={handleRemove}>
+      <ReactTooltip delayShow={1000} id={_id} place="top">
+        {name}
+      </ReactTooltip>
+      <IconContainer onClick={handleRemove}>
         <FontAwesomeIcon className="Delete" icon={faMinusCircle} />
-      </span>
+      </IconContainer>
     </PageContainer>
   );
 };
@@ -130,8 +146,9 @@ const SidebarHeader = styled(Text).attrs(props => ({
   grid-area: sidebar-header;
   display: flex;
   align-items: center;
+  margin-bottom: 2px;
   justify-content: center;
-  background-color: ${surface3};
+  background-color: ${surface4};
 `;
 
 export const SessionSidebar = () => {
