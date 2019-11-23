@@ -1,10 +1,15 @@
-import combineClasses from "combine-classes/lib";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 
 import { confirmAlert } from "../../common/helpers";
-import { onSurface, primary1, surface2 } from "../../common/styles";
+import {
+  landscapeBreakpoint,
+  onSurface,
+  primary1,
+  surface2,
+  tabletBreakpoint
+} from "../../common/styles";
 import { Setter } from "../../common/types";
 import useClickoutHandler from "../../hooks/useClickoutHandler";
 
@@ -40,15 +45,45 @@ const Preview = styled.div`
   padding: 8px;
   background-color: ${surface2};
   color: ${onSurface};
+  * {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+  }
+  h1 {
+    font-size: 2em;
+    @media (max-width: ${landscapeBreakpoint}) {
+      font-size: 1.8em;
+    }
+    @media (max-width: ${tabletBreakpoint}) {
+      font-size: 1.5em;
+    }
+  }
+
+  h2 {
+    @media (max-width: ${landscapeBreakpoint}) {
+      font-size: 1.4em;
+    }
+    @media (max-width: ${tabletBreakpoint}) {
+      font-size: 1.3em;
+    }
+  }
+
+  h3 {
+    font-size: 1.3em;
+    @media (max-width: ${landscapeBreakpoint}) {
+      font-size: 1.2;
+    }
+    @media (max-width: ${tabletBreakpoint}) {
+      font-size: 1.1em;
+    }
+  }
+
+  p {
+    font-size: 1em;
+  }
 `;
 
-export const MarkdownEditor = ({
-  value,
-  setter,
-  className,
-  revert,
-  save
-}: IProps) => {
+export const MarkdownEditor = ({ value, setter, revert, save }: IProps) => {
   const [editing, setEditing] = useState(false);
   const clickoutRef = useRef<HTMLTextAreaElement>(null);
   const handleSubmit = () => {
@@ -103,6 +138,7 @@ export const MarkdownEditor = ({
   return (
     <Preview
       role="button"
+      className="MarkdownEditorPreview"
       onClick={() => setEditing(true)}
     >
       <ReactMarkdown source={value} />
