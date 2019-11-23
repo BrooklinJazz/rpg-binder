@@ -31,34 +31,34 @@ const baseMixin = css`
 
 export const H1 = styled.h1`
   ${baseMixin}
-  font-size: 3em;
+  font-size: 2em;
   @media (max-width: ${landscapeBreakpoint}) {
-    font-size: 2.5em;
+    font-size: 1.8em;
   }
   @media (max-width: ${tabletBreakpoint}) {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 `;
 
 export const H2 = styled.h2`
   ${baseMixin}
-  font-size: 2.25em;
+  font-size: 1.5em;
   @media (max-width: ${landscapeBreakpoint}) {
-    font-size: 2em;
+    font-size: 1.4em;
   }
   @media (max-width: ${tabletBreakpoint}) {
-    font-size: 1.625em;
+    font-size: 1.3em;
   }
 `;
 
 export const H3 = styled.h3`
   ${baseMixin}
-  font-size: 1.75em;
+  font-size: 1.3em;
   @media (max-width: ${landscapeBreakpoint}) {
-    font-size: 1.5;
+    font-size: 1.2;
   }
   @media (max-width: ${tabletBreakpoint}) {
-    font-size: 1.375em;
+    font-size: 1.1em;
   }
 `;
 

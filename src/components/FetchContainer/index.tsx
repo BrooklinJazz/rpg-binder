@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-import { FadeAnimation } from "../../../components/FadeAnimation";
-import { Spinner } from "../../../components/Loading";
+import { FadeAnimation } from "../FadeAnimation";
+import { Spinner } from "../Loading";
 
 const LoadingContainer = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 
-export const List = ({
+export const FetchContainer = ({
   children,
   loading
 }: {

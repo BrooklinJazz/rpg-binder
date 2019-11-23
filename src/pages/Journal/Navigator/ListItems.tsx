@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePinPage } from "../../../api/hooks";
 import { hover, primary1, surface1 } from "../../../common/styles";
 import { IPage, ISection } from "../../../common/types";
-import { ListItem } from "./ListItem";
 import { useJournalState } from "../../../context/journal";
+import { ListItem } from "./ListItem";
 
 export const ItemContent = styled.div`
   flex-grow: 1;
@@ -31,19 +31,16 @@ export const Star = styled(FontAwesomeIcon).attrs(props => ({
 
 const PageItem = ({ _id, name, inSession }: IPage) => {
   const { add, remove } = usePinPage();
-  // improves responsiveness rather than relying on query speeds
-  const [tempPinned, setTempPinned] = useState(inSession);
   const { setPage, page } = useJournalState();
   const handlePin = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    setTempPinned(!tempPinned);
-    return tempPinned ? remove(_id) : add(_id);
+    return inSession ? remove(_id) : add(_id);
   };
   return (
     <ListItem key={_id} active={page === _id} onClick={() => setPage(_id)}>
       <ItemContent>{name}</ItemContent>
       <div onClick={handlePin}>
-        <Star isPinned={tempPinned} />
+        <Star isPinned={inSession} />
       </div>
     </ListItem>
   );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useSections } from "../../../../api/hooks";
 import { useJournalState } from "../../../../context/journal";
-import { List } from "../List";
+import { FetchContainer } from "../../../../components/FetchContainer/index";
 import { SectionItems } from "../ListItems";
 
 const Grid = styled.div`
@@ -15,9 +15,9 @@ export const SectionList = () => {
   const { sections = [], loading } = useSections();
   const { setSection, section } = useJournalState();
   return (
-    <List loading={loading}>
+    <FetchContainer loading={loading}>
       <SectionItems data={sections} setter={setSection} activeItem={section} />
-    </List>
+    </FetchContainer>
   );
 };
 

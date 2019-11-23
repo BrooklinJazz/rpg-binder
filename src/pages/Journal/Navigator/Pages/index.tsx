@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { usePages } from "../../../../api/hooks";
 import { useJournalState } from "../../../../context/journal";
-import { List } from "../List";
+import { FetchContainer } from "../../../../components/FetchContainer/index";
 import { PageItems } from "../ListItems";
 
 const Grid = styled.div`
@@ -14,9 +14,9 @@ const Grid = styled.div`
 export const PageList = () => {
   const { pages = [], loading } = usePages();
   return (
-    <List loading={loading}>
+    <FetchContainer loading={loading}>
       <PageItems data={pages}  />
-    </List>
+    </FetchContainer>
   );
 };
 

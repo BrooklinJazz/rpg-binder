@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 import { onPrimary, tabletBreakpoint } from "../../../common/styles";
-import { H2 } from "../../../components/Typeography";
+import { H1 } from "../../../components/StyledTypography";
 
-export const Header = styled(H2)`
+export const Header = styled(H1)`
   grid-area: center;
   text-align: center;
   color: ${onPrimary};
