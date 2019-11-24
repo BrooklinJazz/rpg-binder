@@ -70,10 +70,10 @@ export const LoginForm = () => {
         />
       </Label>
       <ButtonWrapper>
-        <DefaultButton onClick={toggleState}>
+        <DefaultButton type="button" onClick={toggleState}>
           Switch to {oppositeState}
         </DefaultButton>
-        <PrimaryButton>{capitalizeAll(state)}</PrimaryButton>
+        <PrimaryButton type="submit">{capitalizeAll(state)}</PrimaryButton>
       </ButtonWrapper>
     </Form>
   );
