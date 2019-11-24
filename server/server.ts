@@ -36,13 +36,15 @@ const server = new ApolloServer({
 
 dotenv.config();
 
+const PORT = process.env.PORT || 4000;
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-o0hne.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
   )
   .then(() => {
     server
-      .listen()
+      .listen(PORT)
       .then(({ url }: { url: string }) => {
         console.log(`🚀  Server ready at ${url}`);
       })

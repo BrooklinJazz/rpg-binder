@@ -4,7 +4,7 @@ import { LocalStorage } from "../common/constants";
 import { valueFromStorage } from "../common/helpers";
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000",
+  uri: process.env.SERVER_URL,
   cache: new InMemoryCache(),
   resolvers: {
 
