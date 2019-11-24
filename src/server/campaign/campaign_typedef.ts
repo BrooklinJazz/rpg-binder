@@ -17,18 +17,15 @@ export default gql`
     name: String!
   }
 
-  input SingleCampaignInput {
-    _id: ID!
-  }
 
   extend type Query {
     campaigns: [Campaign!]!
-    campaign(input: SingleCampaignInput): Campaign!
+    campaign(input: SingleID): Campaign!
   }
 
   extend type Mutation {
     createCampaign(input: CampaignInput): Campaign!
     updateCampaign(input: UpdateCampaignInput): Campaign!
-    deleteCampaign(input: SingleCampaignInput): Campaign!
+    deleteCampaign(input: SingleID): Boolean
   }
 `;

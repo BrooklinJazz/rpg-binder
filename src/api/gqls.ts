@@ -149,3 +149,9 @@ mutation DeletePage($id: ID!) {
     deletePage(input: {_id: $id})
   }
 `);
+
+export const DELETE_CAMPAIGN = gql(`
+mutation DeleteCampaign($id: ID!) {
+    deleteCampaign(input: {_id: $id})
+  }
+`);

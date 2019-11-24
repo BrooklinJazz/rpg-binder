@@ -11,7 +11,7 @@ export type CampaignDispatch = (action: CampaignAction) => void;
 
 export interface ISelectCampaign {
   type: "select_campaign";
-  payload: { campaign: string };
+  payload: { campaign: string | undefined };
 }
 export interface IOpenModal {
   type: "open_modal";

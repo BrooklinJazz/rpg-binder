@@ -42,3 +42,4 @@ export const PAGE_NAME_LENGTH = 40;
 export const SECTION_NAME_LENGTH = 40;
 
 export const DELETE_SECTION_MESSAGE = "This will also delete this section's pages";
+export const DELETE_CAMPAIGN_MESSAGE = "This will also delete this campaign's sections and pages";

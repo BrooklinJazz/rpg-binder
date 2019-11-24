@@ -12,4 +12,9 @@ export default class CampaignFacade {
   public getCampaign = (id: string) => CampaignRepo.findById(id);
   public create = (input: ICampaignInput) =>
     new CampaignObject({ ...input, creator: this.user }).createAndSave();
+  public delete = (id: string) => {
+    return CampaignRepo.findById(id)
+      .then(campaign => CampaignObject.fromCampaign(campaign))
+      .then(campaignObj => campaignObj.delete(id));
+  };
 }

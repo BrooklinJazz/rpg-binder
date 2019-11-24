@@ -24,6 +24,9 @@ export class SectionRepo {
   public static deleteById = (id: string) =>
     SectionModel.findByIdAndDelete(id).then(build);
 
+  public static deleteInCampaign = (campaign: string) =>
+    SectionModel.deleteMany({campaign});
+
   public static update = ({
     _id,
     ...input

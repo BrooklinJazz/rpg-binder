@@ -4,7 +4,7 @@ import { pollInterval } from "../common/constants";
 import { ICampaign, IPage, ISection } from "../common/types";
 import { authRequestSuccess } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
-import { closeModal } from "../context/campaign/actions";
+import { closeModal, selectCampaign } from "../context/campaign/actions";
 import {
   useCampaignDispatch,
   useCampaignState
@@ -25,7 +25,8 @@ import {
   ADD_PIN,
   REMOVE_PIN,
   DELETE_SECTION,
-  DELETE_PAGE
+  DELETE_PAGE,
+  DELETE_CAMPAIGN
 } from "./gqls";
 
 interface IQueryRes {
@@ -147,6 +148,13 @@ export const useSections = (): IUseSections => {
     sections: Boolean(activeCampaign && data) ? data!.sections : [],
     error: error && error.message
   };
+};
+
+export const useSelectCampaign = () => {
+  const dispatch = useCampaignDispatch();
+  const select = (campaign: string | undefined) =>
+    dispatch(selectCampaign({ campaign }));
+  return select;
 };
 
 interface IPageResponse {
@@ -308,5 +316,31 @@ export const useDeletePage = () => {
   return {
     loading,
     deletePage: (id: string) => deletePage({ variables: { id } })
+  };
+};
+
+export const useDeleteCampaign = () => {
+  const [sendDeleteRequest, { loading }] = useMutation<any, { id: string }>(
+    DELETE_CAMPAIGN
+  );
+
+  const { campaigns } = useCampaigns();
+  const select = useSelectCampaign();
+  const { activeCampaign } = useCampaignState();
+  const defaultCampaign =
+    campaigns && campaigns.find(({ _id }) => _id !== activeCampaign);
+
+  const deleteCampaign = (id: string) => {
+    // console.log(id);
+    // select a campaign to default to when deleting.
+    // if (activeCampaign === id) {
+    //   select((defaultCampaign && defaultCampaign._id) || undefined);
+    // }
+    sendDeleteRequest({ variables: { id } });
+  };
+
+  return {
+    loading,
+    deleteCampaign
   };
 };

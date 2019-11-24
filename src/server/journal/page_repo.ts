@@ -24,6 +24,9 @@ export class PageRepo {
   public static deleteById = (id: string) =>
     PageModel.findByIdAndDelete(id).then(build);
 
+  public static deleteInCampaign = (campaign: string) =>
+    PageModel.deleteMany({ campaign });
+
   public static deleteByIds = (ids: string[]) =>
     PageModel.deleteMany({ id: { $in: ids } });
 

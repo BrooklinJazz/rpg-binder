@@ -13,14 +13,17 @@ const throwIfEmpty = (doc?: ICampaignDocument | null) => {
 };
 
 export default class CampaignRepo {
-  static findByUser = (userId: string) => {
+  public static findByUser = (userId: string) => {
     return CampaignModel.find({ creator: userId }).then(buildMany);
   };
-  static findById = (id: string) => {
+  public static findById = (id: string) => {
     return CampaignModel.findById(id)
       .then(throwIfEmpty)
       .then(build);
   };
-  static create = (input: ICampaignInput) =>
+  public static create = (input: ICampaignInput) =>
     CampaignModel.create(input).then(build);
+
+  public static deleteById = (id: string) =>
+    CampaignModel.findByIdAndDelete(id);
 }

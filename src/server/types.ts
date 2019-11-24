@@ -53,6 +53,7 @@ export interface ICampaignDocument extends Document, Omit<ICampaign, "_id"> {
 export interface ICampaign {
   _id: string;
   name: string;
+  creator: string;
   sections: ISection[];
 }
 

@@ -1,7 +1,11 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react";
 
 import { LocalStorage } from "../../common/constants";
-import { setInStorage, valueFromStorage } from "../../common/helpers";
+import {
+  setInStorage,
+  valueFromStorage,
+  removeFromStorage
+} from "../../common/helpers";
 import { CampaignAction, CampaignDispatch, ICampaignState } from "./types";
 
 const campaignReducer = (state: ICampaignState, action: CampaignAction) => {
@@ -9,7 +13,9 @@ const campaignReducer = (state: ICampaignState, action: CampaignAction) => {
   let nextState = state;
   switch (action.type) {
     case "select_campaign":
-      setInStorage(LocalStorage.ACTIVE_CAMPAIGN, action.payload.campaign);
+      action.payload.campaign
+        ? setInStorage(LocalStorage.ACTIVE_CAMPAIGN, action.payload.campaign)
+        : removeFromStorage(LocalStorage.ACTIVE_CAMPAIGN);
       nextState = { ...state, activeCampaign: action.payload.campaign };
       break;
     case "open_modal":
