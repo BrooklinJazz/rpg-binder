@@ -33,7 +33,7 @@ export enum GridTemplateAreas {
   NPC_DETAILS = "NPC_DETAILS"
 }
 
-export const PROJECT_NAME = "DM Binder";
+export const PROJECT_NAME = "DND Binder";
 
 export const pollInterval =
   process.env.NODE_ENV === "development" ? 4000 : 1000;
