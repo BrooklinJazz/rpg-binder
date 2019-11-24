@@ -68,9 +68,10 @@ const Item = ({
 };
 
 const List = styled(FadeAnimation)`
-  grid-area: campaign-list;
   display: flex;
   flex-direction: column;
+grid-area: campaign-list;
+  background-color: orange;
 `;
 
 export const CampaignList = ({ open }: { open: boolean }) => {
@@ -85,5 +86,7 @@ export const CampaignList = ({ open }: { open: boolean }) => {
         campaign={campaign}
       />
     ));
-  return <List open={open}>{renderCampaigns()}</List>;
+  return (
+      <List open={open}>{renderCampaigns()}</List>
+  );
 };

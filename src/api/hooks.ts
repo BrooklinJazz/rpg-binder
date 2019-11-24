@@ -4,7 +4,11 @@ import { pollInterval } from "../common/constants";
 import { ICampaign, IPage, ISection } from "../common/types";
 import { authRequestSuccess } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
-import { closeModal, selectCampaign } from "../context/campaign/actions";
+import {
+  closeModal,
+  selectCampaign,
+  openModal
+} from "../context/campaign/actions";
 import {
   useCampaignDispatch,
   useCampaignState
@@ -324,23 +328,23 @@ export const useDeleteCampaign = () => {
     DELETE_CAMPAIGN
   );
 
-  const { campaigns } = useCampaigns();
-  const select = useSelectCampaign();
-  const { activeCampaign } = useCampaignState();
-  const defaultCampaign =
-    campaigns && campaigns.find(({ _id }) => _id !== activeCampaign);
-
   const deleteCampaign = (id: string) => {
-    // console.log(id);
-    // select a campaign to default to when deleting.
-    // if (activeCampaign === id) {
-    //   select((defaultCampaign && defaultCampaign._id) || undefined);
-    // }
     sendDeleteRequest({ variables: { id } });
   };
 
   return {
     loading,
     deleteCampaign
+  };
+};
+
+export const useCampaignModalActions = () => {
+  const dispatch = useCampaignDispatch();
+  const open = () => dispatch(openModal());
+  const close = () => dispatch(closeModal());
+
+  return {
+    open,
+    close
   };
 };

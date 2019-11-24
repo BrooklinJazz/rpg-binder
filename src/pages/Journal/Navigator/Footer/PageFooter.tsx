@@ -8,7 +8,7 @@ import {
   useJournalModalState,
   useJournalState
 } from "../../../../context/journal";
-import { Add } from "./Add";
+import { Add } from "../../../../components/Add/index";
 
 export const Grid = styled.div`
   grid-area: page-footer;

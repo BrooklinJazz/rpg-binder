@@ -1,25 +1,52 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import { Campaigns } from "./Campaigns";
-import { ScrollAnimation } from "./ScrollAnimation";
+import { buttonHeight, navigatorWidth } from "../../../../../common/styles";
+import { CampaignList } from "./CampaignList";
+import { CampaignFooter } from "./Footer";
+import { CampaignHeader } from "./Header";
+import { Transition } from "react-transition-group";
+
+const ScrollAnimation = css`
+  transition: 0.3s;
+  width: ${({ state }: { state: string }) => {
+    switch (state) {
+      case "entering":
+        return 0;
+      case "entered":
+        return navigatorWidth;
+      case "exiting":
+        return navigatorWidth;
+      case "exited":
+        return 0;
+    }
+  }};
+  overflow: hidden;
+`;
 
 const Grid = styled.section`
   display: grid;
   grid-area: drawer;
+  grid-gap: 2px;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, minMax(1fr, 1fr));
+  grid-template-rows: ${buttonHeight} 1fr ${buttonHeight};
   grid-template-areas:
-    "campaign-drawer"
-    ".";
+    "campaign-header"
+    "campaign-list"
+    "campaign-footer";
+  ${ScrollAnimation}
 `;
 
 export const Drawer = ({ open }: { open: boolean }) => {
   return (
-    <Grid>
-      <ScrollAnimation open={open}>
-        <Campaigns open={open} />
-      </ScrollAnimation>
-    </Grid>
+    <Transition in={open} timeout={0}>
+      {state => (
+        <Grid state={state}>
+          <CampaignHeader>Campaigns</CampaignHeader>
+          <CampaignList open={open} />
+          <CampaignFooter />
+        </Grid>
+      )}
+    </Transition>
   );
 };

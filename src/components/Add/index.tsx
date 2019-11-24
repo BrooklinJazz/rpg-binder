@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { Icon } from "../../../../components/StyledIcon";
-import { Text } from "../../../../components/StyledTypography";
-import { ListItem } from "../ListItem";
-import { surface3, hover } from "../../../../common/styles";
+import { Icon } from "../StyledIcon";
+import { Text } from "../StyledTypography";
+import { ListItem } from "../../pages/Journal/Navigator/ListItem";
+import { surface3, hover } from "../../common/styles";
 
 const Container = styled(ListItem)`
   & {
