@@ -42,12 +42,10 @@ export const RightClickMenu = ({
   select: () => void;
   handleDelete: () => void;
 }) => {
-  const confirmDelete = () =>
-    confirmAlert({ onConfirm: handleDelete, message: DELETE_SECTION_MESSAGE });
   return (
     <Menu id={id}>
       <Item onClick={select}>Select</Item>
-      <Item onClick={confirmDelete}>Delete</Item>
+      <Item onClick={handleDelete}>Delete</Item>
     </Menu>
   );
 };

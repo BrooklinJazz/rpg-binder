@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { usePinPage } from "../../../../api/hooks";
+import { usePinPage, useDeletePage } from "../../../../api/hooks";
 import { hover, primary1, surface1 } from "../../../../common/styles";
 import { IPage } from "../../../../common/types";
 import { useJournalState } from "../../../../context/journal";
 import { ListItem } from "../ListItem";
 import { ItemContent } from "../ItemContent";
+import { ToolTip } from "../../../../components/StyledTooltip";
+import { ContextMenuTrigger } from "react-contextmenu";
+import { RightClickMenu } from "../RightClickMenu";
 
 export const Star = styled(FontAwesomeIcon).attrs(props => ({
   icon: faStar
@@ -28,22 +31,44 @@ export const Star = styled(FontAwesomeIcon).attrs(props => ({
 const PageItem = ({ _id, name, inSession }: IPage) => {
   const { add, remove } = usePinPage();
   const { setPage, page } = useJournalState();
+  const selectPage = () => setPage(_id);
+
+  const { deletePage } = useDeletePage();
+  const [isDeleted, setDeleted] = useState(false);
+  const handleDelete = () => {
+    setDeleted(true);
+    deletePage(_id);
+    setPage(undefined);
+  };
+
   const handlePin = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     return inSession ? remove(_id) : add(_id);
   };
+
+  if (isDeleted) {
+    return null;
+  }
+
   return (
-    <ListItem key={_id} active={page === _id} onClick={() => setPage(_id)}>
-      <ReactTooltip delayShow={1000} id={_id} place="top">
-        {name}
-      </ReactTooltip>
-      <ItemContent data-tip data-for={_id}>
-        {name}
-      </ItemContent>
-      <div onClick={handlePin}>
-        <Star isPinned={inSession} />
-      </div>
-    </ListItem>
+    <>
+      <ContextMenuTrigger id={_id}>
+        <ListItem key={_id} active={page === _id} onClick={selectPage}>
+          <ToolTip id={_id}>{name}</ToolTip>
+          <ItemContent data-tip data-for={_id}>
+            {name}
+          </ItemContent>
+          <div onClick={handlePin}>
+            <Star isPinned={inSession} />
+          </div>
+        </ListItem>
+      </ContextMenuTrigger>
+      <RightClickMenu
+        handleDelete={handleDelete}
+        select={selectPage}
+        id={_id}
+      />
+    </>
   );
 };
 
@@ -51,7 +76,7 @@ export const PageItems = ({ data }: { data: IPage[] }) => {
   return (
     <>
       {data.map(page => (
-        <PageItem {...page} />
+        <PageItem key={page._id} {...page} />
       ))}
     </>
   );

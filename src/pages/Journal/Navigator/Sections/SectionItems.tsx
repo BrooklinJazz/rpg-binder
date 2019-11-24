@@ -9,16 +9,21 @@ import { ListItem } from "../ListItem";
 import { useDeleteSection } from "../../../../api/hooks";
 import { Spinner } from "../../../../components/Loading";
 import { RightClickMenu } from "../RightClickMenu";
+import { confirmAlert } from "../../../../common/helpers";
+import { DELETE_SECTION_MESSAGE } from "../../../../common/constants";
 
 const SectionItem = ({ _id, name }: ISection) => {
-  const { setSection, section } = useJournalState();
-  const selectSection = () => setSection(_id);
-  const { deleteSection, loading } = useDeleteSection();
+  const { setSection, section, clearPageAndSetSection } = useJournalState();
+  const selectSection = () => clearPageAndSetSection(_id);
+  const { deleteSection } = useDeleteSection();
   const [isDeleted, setDeleted] = useState(false);
   const handleDelete = () => {
     setDeleted(true);
     deleteSection(_id);
+    setSection(undefined)
   };
+  const confirmDelete = () =>
+  confirmAlert({ onConfirm: handleDelete, message: DELETE_SECTION_MESSAGE });
   if (isDeleted) {
     return null;
   }
@@ -32,12 +37,12 @@ const SectionItem = ({ _id, name }: ISection) => {
           active={section === _id}
           onClick={selectSection}
         >
-          <ToolTip>{name}</ToolTip>
-          <ItemContent>{loading ? <Spinner /> : name}</ItemContent>
+          <ToolTip id={_id}>{name}</ToolTip>
+          <ItemContent>{name}</ItemContent>
         </ListItem>
       </ContextMenuTrigger>
       <RightClickMenu
-        handleDelete={handleDelete}
+        handleDelete={confirmDelete}
         select={selectSection}
         id={_id}
       />

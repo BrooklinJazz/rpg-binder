@@ -143,3 +143,9 @@ mutation DeleteSection($id: ID!) {
     deleteSection(input: {_id: $id})
   }
 `);
+
+export const DELETE_PAGE = gql(`
+mutation DeletePage($id: ID!) {
+    deletePage(input: {_id: $id})
+  }
+`);

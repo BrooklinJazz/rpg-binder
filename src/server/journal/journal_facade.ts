@@ -38,6 +38,8 @@ export default class JournalFacade {
   public createPage = (input: IPageInput) =>
     PageRepo.create(input).then(page => PageObject.fromPage(page));
 
+  public deletePage = (input: { _id: string }) => PageRepo.deleteById(input._id);
+
   public deleteSection = (input: { _id: string }) =>
     SectionRepo.findById(input._id)
       .then(section => {

@@ -56,5 +56,6 @@ export default gql`
     updateOrCreateSection(input: SectionInput): Section!
     updateOrCreatePage(input: PageInput): Page!
     deleteSection(input: SingleID): ID
+    deletePage(input: SingleID): ID
   }
 `;

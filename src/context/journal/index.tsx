@@ -2,8 +2,8 @@ import React, {
   createContext,
   ReactNode,
   useContext,
-  useState,
-  useEffect
+  useEffect,
+  useState
 } from "react";
 
 import { Setter } from "../../common/types";
@@ -12,7 +12,8 @@ import { useCampaignState } from "../campaign/store";
 interface IJournalState {
   section?: string;
   page?: string;
-  setSection: (sectionId: string) => void;
+  setSection: Setter<string | undefined>;
+  clearPageAndSetSection: (sectionId: string) => void;
   selectPinned: (sectionId: string, pageId: string) => void;
   setPage: Setter<string | undefined>;
 }
@@ -57,9 +58,9 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
     setPage(undefined);
   };
   const selectPinned = (sectionId: string, pageId: string) => {
-    setSection(sectionId)
-    setPage(pageId)
-  }
+    setSection(sectionId);
+    setPage(pageId);
+  };
   useEffect(
     function clearOnCampaignChange() {
       setPage(undefined);
@@ -72,7 +73,8 @@ export const JournalStateProvider = ({ children }: { children: ReactNode }) => {
     <JournalStateContext.Provider
       value={{
         section,
-        setSection: clearPageAndSetSection,
+        clearPageAndSetSection,
+        setSection,
         page,
         setPage,
         selectPinned

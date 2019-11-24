@@ -24,7 +24,8 @@ import {
   SESSION,
   ADD_PIN,
   REMOVE_PIN,
-  DELETE_SECTION
+  DELETE_SECTION,
+  DELETE_PAGE
 } from "./gqls";
 
 interface IQueryRes {
@@ -276,8 +277,13 @@ export const usePinnedItems = (): IUsePinnedItems => {
 };
 
 export const usePinPage = () => {
-  const [add, {loading: addLoading}] = useMutation<any, { page: string }>(ADD_PIN);
-  const [remove, {loading: removeLoading}] = useMutation<any, { page: string }>(REMOVE_PIN);
+  const [add, { loading: addLoading }] = useMutation<any, { page: string }>(
+    ADD_PIN
+  );
+  const [remove, { loading: removeLoading }] = useMutation<
+    any,
+    { page: string }
+  >(REMOVE_PIN);
   return {
     loading: addLoading || removeLoading,
     add: (page: string) => add({ variables: { page } }),
@@ -286,9 +292,21 @@ export const usePinPage = () => {
 };
 
 export const useDeleteSection = () => {
-  const [deleteSection, {loading}] = useMutation<any, { id: string }>(DELETE_SECTION);
+  const [deleteSection, { loading }] = useMutation<any, { id: string }>(
+    DELETE_SECTION
+  );
   return {
     loading,
-    deleteSection: (id: string) => deleteSection({ variables: { id } }),
+    deleteSection: (id: string) => deleteSection({ variables: { id } })
+  };
+};
+
+export const useDeletePage = () => {
+  const [deletePage, { loading }] = useMutation<any, { id: string }>(
+    DELETE_PAGE
+  );
+  return {
+    loading,
+    deletePage: (id: string) => deletePage({ variables: { id } })
   };
 };
