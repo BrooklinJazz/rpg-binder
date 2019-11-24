@@ -12,7 +12,8 @@ import {
   linkedinBlue,
   mediumGreen,
   patreonOrange,
-  twitterBlue
+  twitterBlue,
+  onSurface
 } from "../common/styles";
 import {
   FACEBOOK_URL,
@@ -24,6 +25,7 @@ import {
   Provider,
   TWITTER_URL
 } from "./constants";
+import theme from "styled-theming";
 
 export const valueFromStorage = (key: LocalStorage) =>
   localStorage.getItem(key) || undefined;
@@ -52,7 +54,7 @@ export const ProviderList = Object.values(Provider);
 
 export const propsFromProvider = (
   provider: Provider
-): { color: string; icon: any; url: string } => {
+): { color: string | theme.ThemeSet; icon: any; url: string } => {
   switch (provider) {
     case Provider.FACEBOOK:
       return { color: facebookBlue, icon: faFacebook, url: FACEBOOK_URL };
@@ -65,7 +67,7 @@ export const propsFromProvider = (
     case Provider.PATREON:
       return { color: patreonOrange, icon: faPatreon, url: PATREON_URL };
     case Provider.GITHUB:
-      return { color: "black", icon: faGithub, url: GITHUB_URL };
+      return { color: onSurface, icon: faGithub, url: GITHUB_URL };
     default:
       throw new Error(
         "colorFromProvider called with invalid provider: " + provider
