@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -8,18 +9,19 @@ import { usePinnedItems, usePinPage } from "../../../api/hooks";
 import {
   buttonHeight,
   danger1,
+  onSurface,
   phoneBreakpoint,
+  primary1,
   surface1,
   surface2,
   surface3,
-  surface4,
-  onSurface
+  surface4
 } from "../../../common/styles";
 import { IPage } from "../../../common/types";
 import { FetchContainer } from "../../../components/FetchContainer/index";
 import { H2, Text } from "../../../components/StyledTypography";
 import { useJournalState } from "../../../context/journal";
-import ReactTooltip from "react-tooltip";
+import { Star } from "../Navigator/Pages/PageItems";
 
 const Sidebar = styled.section`
   background-color: ${surface1};
@@ -125,9 +127,31 @@ const PageItem = ({ name, _id, sectionId }: IProps) => {
   );
 };
 
+const NoContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${onSurface};
+`;
+
+const StarIcon = styled(Star)`
+  margin-right: 5px;
+  &:hover {
+    color: ${primary1};
+  }
+`;
+
 const SessionItems = () => {
   const { pinnedItems, loading } = usePinnedItems();
-
+  if (pinnedItems && pinnedItems.length === 0) {
+    return (
+      <NoContent>
+        <StarIcon isPinned={true} /> a page to see it here
+      </NoContent>
+    );
+  }
   return (
     <FetchContainer loading={loading}>
       {pinnedItems.map(({ section, pages }) => {
