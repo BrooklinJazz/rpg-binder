@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-import { Omit } from "../common/types";
+import { Omit } from "../src/common/types";
 
 export interface IUserInput {
   email: string;

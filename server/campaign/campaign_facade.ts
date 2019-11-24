@@ -1,6 +1,6 @@
 import CampaignRepo from "./campaign_repo";
 import CampaignObject from "./campaign_object";
-import { ICampaignInput } from "../../common/types";
+import { ICampaignInput } from "../../src/common/types";
 
 export default class CampaignFacade {
   private user: string;
