@@ -6,6 +6,14 @@ export enum LocalStorage {
   THEME = "theme"
 }
 
+export const FACEBOOK_URL =
+  "https://www.facebook.com/Brooklin-Myers-100515724763552/?modal=admin_todo_tour";
+export const MEDIUM_URL = "https://medium.com/@brooklinjazzmyers";
+export const TWITTER_URL = "https://twitter.com/BrooklinJMyers";
+export const GITHUB_URL = "https://github.com/BrooklinJazz";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/brooklinmyers/";
+export const PATREON_URL = "https://www.patreon.com/user/creators?u=27328350";
+
 // used for defining the grid template area for a component
 /**
  * NAVBAR
@@ -35,11 +43,14 @@ export enum Provider {
   TWITTER = "twitter",
   LINKEDIN = "linkedin",
   MEDIUM = "medium",
-  PATREON = "patreon"
+  PATREON = "patreon",
+  GITHUB = "github"
 }
 
 export const PAGE_NAME_LENGTH = 40;
 export const SECTION_NAME_LENGTH = 40;
 
-export const DELETE_SECTION_MESSAGE = "This will also delete this section's pages";
-export const DELETE_CAMPAIGN_MESSAGE = "This will also delete this campaign's sections and pages";
+export const DELETE_SECTION_MESSAGE =
+  "This will also delete this section's pages";
+export const DELETE_CAMPAIGN_MESSAGE =
+  "This will also delete this campaign's sections and pages";

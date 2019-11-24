@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { ProviderList } from "../../../common/helpers";
+import { ProviderList, propsFromProvider } from "../../../common/helpers";
 import { onPrimary, onPrimaryHover } from "../../../common/styles";
 import BaseProviderIcon from "../../../components/ProviderIcon";
 import { useAuthDispatch } from "../../../context/auth/store";
@@ -35,7 +35,9 @@ const ProviderIcons = () => {
   return (
     <ProviderIconWrapper>
       {ProviderList.map(provider => (
-        <ProviderIcon key={provider} provider={provider} hoverable />
+        <a href={propsFromProvider(provider).url} target="_blank">
+          <ProviderIcon key={provider} provider={provider} hoverable />
+        </a>
       ))}
     </ProviderIconWrapper>
   );

@@ -1,7 +1,11 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-import { capitalize, ProviderList } from "../../../common/helpers";
+import {
+  capitalize,
+  ProviderList,
+  propsFromProvider
+} from "../../../common/helpers";
 import {
   hover,
   navbarHeight,
@@ -77,10 +81,12 @@ export const MobileDropdown = ({ open }: { open: boolean }) => {
     <DropdownWrapper>
       <Animation open={open}>
         {ProviderList.map(provider => (
-          <Item key={provider}>
-            <ProviderIcon colored={true} provider={provider} />
-            {capitalize(provider)}
-          </Item>
+          <a target="_blank" href={propsFromProvider(provider).url}>
+            <Item key={provider}>
+              <ProviderIcon colored={true} provider={provider} />
+              {capitalize(provider)}
+            </Item>
+          </a>
         ))}
         <div onClick={() => dispatch(logoutAction())}>
           <ItemWithoutIcon>Sign Out</ItemWithoutIcon>
