@@ -30,7 +30,6 @@ const Item = ({
   const { _id, name } = campaign;
   const select = useSelectCampaign();
   const selectCurrentCampaign = () => select(_id);
-  const { activeCampaign } = useCampaignState();
   const { deleteCampaign } = useDeleteCampaign();
   const [isDeleted, setDeleted] = useState(false);
   const handleDelete = () => {
