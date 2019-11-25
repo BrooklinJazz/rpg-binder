@@ -1,7 +1,13 @@
+import { DataProxy } from "apollo-cache";
+import jwt from "jsonwebtoken";
+// TODO sort these based on context
+import moment from "moment";
+import { useEffect } from "react";
+
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
-import { pollInterval, pinnedItemsPollInterval } from "../common/constants";
-import { ICampaign, IPage, ISection } from "../common/types";
+import { pinnedItemsPollInterval, pollInterval } from "../common/constants";
+import { ICampaign, IDecodedToken, IPage, ISection } from "../common/types";
 import { authRequestSuccess, logoutAction } from "../context/auth/actions";
 import { useAuthDispatch, useAuthState } from "../context/auth/store";
 import {
@@ -24,18 +30,15 @@ import {
   DELETE_SECTION,
   LOGIN,
   PAGE,
+  PAGES,
   REFRESH_TOKEN,
   REMOVE_PIN,
   SECTIONS,
   SESSION,
   SIGNUP,
   UPDATE_OR_CREATE_PAGE,
-  UPDATE_OR_CREATE_SECTION,
-  PAGES
+  UPDATE_OR_CREATE_SECTION
 } from "./gqls";
-import { DataProxy } from "apollo-cache";
-
-// TODO sort these based on context
 
 interface IQueryRes {
   loading: boolean;
@@ -104,12 +107,19 @@ export const useRefreshToken = () => {
     IRefreshTokenResponse,
     IRefreshTokenInput
   >(REFRESH_TOKEN, {
-    onCompleted: data =>
-      dispatch(authRequestSuccess({ token: data.refreshToken.token })),
-    onError: () => dispatch(logoutAction()),
-    pollInterval: 900000, // 15 minutes
+    // only called in App where token is always defined
     variables: { token: token! },
-    skip: !token
+    fetchPolicy: "cache-and-network",
+    onCompleted: data => {
+      dispatch(authRequestSuccess({ token: data.refreshToken.token }));
+    },
+    onError: () => {
+      alert(
+        "Sorry, something went wrong with your account. You will now be logged out."
+      );
+      dispatch(logoutAction());
+    },
+    pollInterval: 60000 * 15 // 15 minutes
   });
   return {
     loading,
@@ -346,7 +356,6 @@ const useUpdatePin = () => {
           ? { ...page, inSession: !page.inSession }
           : page
       );
-    console.log(pages, pageData);
     store.writeQuery({ query: PAGES, variables, data: { pages } });
   };
 };

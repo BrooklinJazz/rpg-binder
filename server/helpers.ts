@@ -23,5 +23,5 @@ export const authTokenFromUser = (user: IUser) =>
     { userId: user._id, email: user.email },
     // NOTE using an empty string when undefined to avoid a type issue.
     process.env.JWT_SECRET_KEY || "",
-    { expiresIn: "1h" }
+    { expiresIn: "1hr" }
   );

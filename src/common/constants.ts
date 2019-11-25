@@ -34,7 +34,7 @@ export enum GridTemplateAreas {
 export const PROJECT_NAME = "DND Binder";
 
 export const pollInterval =
-  process.env.NODE_ENV === "development" ? 1000 : 1000;
+  process.env.NODE_ENV === "development" ? 500 : 1000;
 
 export const pinnedItemsPollInterval = 500;
 
