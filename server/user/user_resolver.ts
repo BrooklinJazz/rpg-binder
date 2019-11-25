@@ -6,7 +6,11 @@ export default {
     login: async (
       root: any,
       { input }: IInput<IUserInput>
-    ): Promise<IAuthData> => new UserFacade().login(input)
+    ): Promise<IAuthData> => new UserFacade().login(input),
+    refreshToken: async (
+      root: any,
+      { input }: IInput<{token: string}>
+    ): Promise<IAuthData> => new UserFacade().refreshToken(input)
   },
   Mutation: {
     createUser: async (

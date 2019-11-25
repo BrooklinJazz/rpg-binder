@@ -1,13 +1,14 @@
-import UserObject from "./user_object";
-import user_model from "./user_model";
+import { IUser, IUserDocument, IUserInput } from "../types";
 import UserModel from "./user_model";
-import { IUserDocument, IUser, IUserInput } from "../types";
 
 const build = (user: IUserDocument | null): IUser => user && user.toObject();
 
 export class UserRepo {
-  findByEmail = (email: string) =>
-    UserModel.findOne({ email: email }).then(build);
+  public static findByEmail = (email: string) =>
+    UserModel.findOne({ email }).then(build);
 
-  create = (input: IUserInput) => UserModel.create(input).then(build);
+  public static findById = (id: string) => UserModel.findById(id).then(build);
+
+  public static create = (input: IUserInput) =>
+    UserModel.create(input).then(build);
 }

@@ -103,6 +103,13 @@ export interface IPage extends IPageInput {
   inSession: boolean;
 }
 
+export interface IDecodedToken {
+  userId: string;
+  email: string;
+  exp: number;
+  iat: number;
+}
+
 export interface ISessionItem {
   section: ISection;
   pages: IPage[];

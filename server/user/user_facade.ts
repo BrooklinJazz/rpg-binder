@@ -4,9 +4,12 @@ import { UserRepo } from "./user_repo";
 
 export default class UserFacade {
   public signUp = (input: IUserInput) => {
-    return new UserObject(input, new UserRepo()).createAndSave();
+    return new UserObject(input).createAndSave();
   };
   public login = (input: IUserInput) => {
-    return new UserObject(input, new UserRepo()).getAuthCredentials();
+    return new UserObject(input).getAuthCredentials();
+  };
+  public refreshToken = (input: { token: string }) => {
+    return UserObject.refreshToken(input.token);
   };
 }

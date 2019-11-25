@@ -6,6 +6,10 @@ export default gql`
     password: String
   }
 
+  input RefreshInput {
+    token: String!
+  }
+
   type User {
     _id: ID
     email: String!
@@ -21,6 +25,7 @@ export default gql`
 
   extend type Query {
     login(input: UserInput): AuthData
+    refreshToken(input: RefreshInput): AuthData
   }
 
   extend type Mutation {
