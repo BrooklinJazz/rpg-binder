@@ -14,6 +14,7 @@ import { ItemContent } from "../ItemContent";
 import { ToolTip } from "../../../../components/StyledTooltip";
 import { ContextMenuTrigger } from "react-contextmenu";
 import { RightClickMenu } from "../RightClickMenu";
+import { Spinner } from "../../../../components/Loading";
 
 export const Star = styled(FontAwesomeIcon).attrs(props => ({
   icon: faStar
@@ -29,7 +30,7 @@ export const Star = styled(FontAwesomeIcon).attrs(props => ({
 `;
 
 const PageItem = ({ _id, name, inSession }: IPage) => {
-  const { add, remove } = usePinPage();
+  const { add, remove, loading } = usePinPage();
   const { setPage, page } = useJournalState();
   const selectPage = () => setPage(_id);
 
@@ -59,7 +60,7 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
             {name}
           </ItemContent>
           <div onClick={handlePin}>
-            <Star isPinned={inSession} />
+            {loading ? <Spinner /> : <Star isPinned={inSession} />}
           </div>
         </ListItem>
       </ContextMenuTrigger>

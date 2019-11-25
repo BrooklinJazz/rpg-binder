@@ -1,9 +1,9 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
-import { pollInterval } from "../common/constants";
+import { pollInterval, pinnedItemsPollInterval } from "../common/constants";
 import { ICampaign, IPage, ISection } from "../common/types";
 import { authRequestSuccess, logoutAction } from "../context/auth/actions";
-import { useAuthDispatch } from "../context/auth/store";
+import { useAuthDispatch, useAuthState } from "../context/auth/store";
 import {
   closeModal,
   openModal,
@@ -24,15 +24,16 @@ import {
   DELETE_SECTION,
   LOGIN,
   PAGE,
-  PAGES,
   REFRESH_TOKEN,
   REMOVE_PIN,
   SECTIONS,
   SESSION,
   SIGNUP,
   UPDATE_OR_CREATE_PAGE,
-  UPDATE_OR_CREATE_SECTION
+  UPDATE_OR_CREATE_SECTION,
+  PAGES
 } from "./gqls";
+import { DataProxy } from "apollo-cache";
 
 // TODO sort these based on context
 
@@ -98,6 +99,7 @@ interface IRefreshTokenInput {
 
 export const useRefreshToken = () => {
   const dispatch = useAuthDispatch();
+  const { token } = useAuthState();
   const { loading, error } = useQuery<
     IRefreshTokenResponse,
     IRefreshTokenInput
@@ -105,7 +107,9 @@ export const useRefreshToken = () => {
     onCompleted: data =>
       dispatch(authRequestSuccess({ token: data.refreshToken.token })),
     onError: () => dispatch(logoutAction()),
-    pollInterval: 900000 // 15 minutes
+    pollInterval: 900000, // 15 minutes
+    variables: { token: token! },
+    skip: !token
   });
   return {
     loading,
@@ -167,16 +171,22 @@ interface ISectionsResponse {
   sections?: ISection[];
 }
 
-interface IUseSections extends IQueryRes, ISectionsResponse {}
+interface IUseSections extends IQueryRes, ISectionsResponse {
+  refetch: () => void;
+}
 
 export const useSections = (): IUseSections => {
   const { activeCampaign } = useCampaignState();
-  const { data, loading, error } = useQuery<ISectionsResponse>(SECTIONS, {
-    pollInterval,
-    variables: { campaign: activeCampaign }
-  });
+  const { data, loading, error, refetch } = useQuery<ISectionsResponse>(
+    SECTIONS,
+    {
+      pollInterval,
+      variables: { campaign: activeCampaign }
+    }
+  );
   return {
     loading,
+    refetch,
     sections: Boolean(activeCampaign && data) ? data!.sections : [],
     error: error && error.message
   };
@@ -306,7 +316,7 @@ interface IUsePinnedItems extends IQueryRes {
 export const usePinnedItems = (): IUsePinnedItems => {
   const { activeCampaign } = useCampaignState();
   const { data, loading, error } = useQuery<IPinnedItemsResponse>(SESSION, {
-    pollInterval,
+    pollInterval: pinnedItemsPollInterval,
     variables: { campaign: activeCampaign }
   });
   return {
@@ -316,14 +326,50 @@ export const usePinnedItems = (): IUsePinnedItems => {
   };
 };
 
+const useUpdatePin = () => {
+  const { section } = useJournalState();
+  const { activeCampaign } = useCampaignState();
+  const variables = { section, campaign: activeCampaign };
+  return (
+    store: DataProxy,
+    { data }: { data: { addSessionItem: string; removeSessionItem: string } }
+  ) => {
+    const pinnedPageId = data.addSessionItem || data.removeSessionItem;
+    const pageData: { pages: IPage[] } | null = store.readQuery({
+      query: PAGES,
+      variables
+    });
+    const pages =
+      pageData &&
+      pageData.pages.map(page =>
+        page._id === pinnedPageId
+          ? { ...page, inSession: !page.inSession }
+          : page
+      );
+    console.log(pages, pageData);
+    store.writeQuery({ query: PAGES, variables, data: { pages } });
+  };
+};
+
 export const usePinPage = () => {
+  const update = useUpdatePin();
   const [add, { loading: addLoading }] = useMutation<any, { page: string }>(
-    ADD_PIN
+    ADD_PIN,
+    // @ts-ignore update fn uses more precise types, but they are accurate
+    {
+      update
+    }
   );
   const [remove, { loading: removeLoading }] = useMutation<
     any,
     { page: string }
-  >(REMOVE_PIN);
+  >(
+    REMOVE_PIN,
+    // @ts-ignore update fn uses more precise types, but they are accurate
+    {
+      update
+    }
+  );
   return {
     loading: addLoading || removeLoading,
     add: (page: string) => add({ variables: { page } }),
