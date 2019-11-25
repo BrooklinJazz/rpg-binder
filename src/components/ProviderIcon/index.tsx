@@ -30,7 +30,6 @@ import { propsFromProvider } from "../../common/helpers";
 interface IProps extends Omit<FontAwesomeIconProps, "icon"> {
   provider: Provider;
   colored?: boolean;
-  hoverable?: boolean;
 }
 
 const ProviderIcon = styled(Icon).attrs((props: IProps) => ({
@@ -45,12 +44,8 @@ const ProviderIcon = styled(Icon).attrs((props: IProps) => ({
   }
   /* if hoverable, set hover color as provider color */
   &:hover {
-    ${(props: IProps) =>
-      props.hoverable &&
-      css`
-        cursor: pointer;
-        color: ${propsFromProvider(props.provider).color};
-      `}
+    cursor: pointer;
+    color: ${props => propsFromProvider(props.provider).color};
   }
 `;
 
