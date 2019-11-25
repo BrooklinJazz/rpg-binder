@@ -35,8 +35,8 @@ const ProviderIcons = () => {
   return (
     <ProviderIconWrapper>
       {ProviderList.map(provider => (
-        <a href={propsFromProvider(provider).url} target="_blank">
-          <ProviderIcon key={provider} provider={provider} hoverable />
+        <a  key={provider} href={propsFromProvider(provider).url} target="_blank">
+          <ProviderIcon provider={provider} hoverable />
         </a>
       ))}
     </ProviderIconWrapper>
