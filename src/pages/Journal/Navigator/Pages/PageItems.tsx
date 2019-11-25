@@ -21,11 +21,11 @@ export const Star = styled(FontAwesomeIcon).attrs(props => ({
 }))`
   min-width: 20px;
   margin: 0;
-  color: ${(props: { isPinned: boolean }) =>
-    props.isPinned ? primary1(props) : surface1(props)};
+  color: ${(props: { checked: boolean }) =>
+    props.checked ? primary1(props) : surface1(props)};
   &:hover {
     color: ${props =>
-      props.isPinned ? hover(primary1(props)) : hover(surface1(props))};
+      props.checked ? hover(primary1(props)) : hover(surface1(props))};
   }
 `;
 
@@ -60,7 +60,7 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
             {name}
           </ItemContent>
           <div onClick={handlePin}>
-            {loading ? <Spinner /> : <Star isPinned={inSession} />}
+            {loading ? <Spinner /> : <Star checked={inSession} />}
           </div>
         </ListItem>
       </ContextMenuTrigger>

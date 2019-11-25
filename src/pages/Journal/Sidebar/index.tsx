@@ -148,7 +148,7 @@ const SessionItems = () => {
   if (pinnedItems && pinnedItems.length === 0) {
     return (
       <NoContent>
-        <StarIcon isPinned={true} /> a page to see it here
+        <StarIcon checked={true} /> a page to see it here
       </NoContent>
     );
   }
