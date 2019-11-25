@@ -10,6 +10,14 @@ mutation Signup($email: String!, $password: String!) {
 }
 `);
 
+export const REFRESH_TOKEN = gql(`
+query RefreshToken($token: String!) {
+  refreshToken(input: {token: $token}) {
+    token
+  }
+}
+`);
+
 export const LOGIN = gql(`
 query Login($email: String!, $password: String!) {
   login(input: {email: $email, password: $password}) {

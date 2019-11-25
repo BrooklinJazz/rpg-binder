@@ -1,6 +1,7 @@
 import "./index.scss";
 
-import React from "react";
+import jwt from "jsonwebtoken";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch } from "react-router-dom";
 import { ThemeProvider as StyledComponentThemeProvider } from "styled-components";
@@ -13,16 +14,17 @@ import { Routes } from "./common/routes";
 import AuthRoute from "./components/AuthRoute";
 import { AuthProvider, useAuthState } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
-import { JournalStateProvider, JournalModalProvider } from "./context/journal";
+import { JournalModalProvider, JournalStateProvider } from "./context/journal";
+import { EntryStateProvider } from "./context/journal/entry";
 import { ThemeProvider, useThemeState } from "./context/theme/store";
 import DevComponents from "./DevComponents";
 import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
-import { EntryStateProvider } from "./context/journal/entry";
 
 const PageRouting = () => {
   const { token } = useAuthState();
   const { theme } = useThemeState();
+
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>
       <>

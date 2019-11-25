@@ -2,12 +2,12 @@ import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pollInterval } from "../common/constants";
 import { ICampaign, IPage, ISection } from "../common/types";
-import { authRequestSuccess } from "../context/auth/actions";
+import { authRequestSuccess, logoutAction } from "../context/auth/actions";
 import { useAuthDispatch } from "../context/auth/store";
 import {
   closeModal,
-  selectCampaign,
-  openModal
+  openModal,
+  selectCampaign
 } from "../context/campaign/actions";
 import {
   useCampaignDispatch,
@@ -15,23 +15,26 @@ import {
 } from "../context/campaign/store";
 import { useJournalModalState, useJournalState } from "../context/journal";
 import {
+  ADD_PIN,
   CAMPAIGN,
   CAMPAIGNS,
   CREATE_CAMPAIGN,
+  DELETE_CAMPAIGN,
+  DELETE_PAGE,
+  DELETE_SECTION,
   LOGIN,
   PAGE,
   PAGES,
+  REFRESH_TOKEN,
+  REMOVE_PIN,
   SECTIONS,
+  SESSION,
   SIGNUP,
   UPDATE_OR_CREATE_PAGE,
-  UPDATE_OR_CREATE_SECTION,
-  SESSION,
-  ADD_PIN,
-  REMOVE_PIN,
-  DELETE_SECTION,
-  DELETE_PAGE,
-  DELETE_CAMPAIGN
+  UPDATE_OR_CREATE_SECTION
 } from "./gqls";
+
+// TODO sort these based on context
 
 interface IQueryRes {
   loading: boolean;
@@ -80,6 +83,31 @@ export const useSignup = () => {
   return {
     signUp: (variables: { email: string; password: string }) =>
       signUp({ variables }),
+    loading,
+    error: error && error.message
+  };
+};
+
+interface IRefreshTokenResponse {
+  refreshToken: { token: string };
+}
+
+interface IRefreshTokenInput {
+  token: string;
+}
+
+export const useRefreshToken = () => {
+  const dispatch = useAuthDispatch();
+  const { loading, error } = useQuery<
+    IRefreshTokenResponse,
+    IRefreshTokenInput
+  >(REFRESH_TOKEN, {
+    onCompleted: data =>
+      dispatch(authRequestSuccess({ token: data.refreshToken.token })),
+    onError: () => dispatch(logoutAction()),
+    pollInterval: 900000 // 15 minutes
+  });
+  return {
     loading,
     error: error && error.message
   };
