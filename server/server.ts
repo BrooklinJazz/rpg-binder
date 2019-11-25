@@ -44,7 +44,7 @@ mongoose
   )
   .then(() => {
     server
-      .listen(PORT)
+      .listen({ port: process.env.PORT || 4000 })
       .then(({ url }: { url: string }) => {
         console.log(`🚀  Server ready at ${url}`);
       })
