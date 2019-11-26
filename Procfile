@@ -1,2 +1,2 @@
 web: npm start
-web: npm run server
+web: node server/dist/server.js

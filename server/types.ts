@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-import { Omit } from "../src/common/types";
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface IUserInput {
   email: string;
