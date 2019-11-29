@@ -40,13 +40,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var apollo_server_1 = require("apollo-server");
+var apollo_server_express_1 = require("apollo-server-express");
 var dotenv_1 = __importDefault(require("dotenv"));
+var express_1 = __importDefault(require("express"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var mongoose_1 = __importDefault(require("mongoose"));
 var resolvers_1 = __importDefault(require("./resolvers"));
 var typeDefs_1 = __importDefault(require("./typeDefs"));
 var user_model_1 = __importDefault(require("./user/user_model"));
-var server = new apollo_server_1.ApolloServer({
+var app = express_1.default();
+// app.use(express.static(path.join(__dirname, "../build")));
+var server = new apollo_server_express_1.ApolloServer({
     typeDefs: typeDefs_1.default,
     resolvers: resolvers_1.default,
     context: function (_a) {
@@ -80,21 +84,26 @@ var server = new apollo_server_1.ApolloServer({
                 }
             });
         });
-    }
+    },
+    playground: false
 });
+server.applyMiddleware({ app: app, path: "/api" });
 dotenv_1.default.config();
 var PORT = process.env.PORT || 4000;
+app.get("*", function (req, res) {
+    res.send("Hello");
+    // res.sendFile(path.join(__dirname, "../build", "index.html"));
+});
 mongoose_1.default
     .connect(process.env.MONGODB_URI ||
     "mongodb+srv://" + process.env.MONGO_USER + ":" + process.env.MONGO_PASSWORD + "@cluster0-o0hne.mongodb.net/" + process.env.MONGO_DB + "?retryWrites=true&w=majority")
     .then(function () {
-    server
-        .listen({ port: PORT })
-        .then(function (_a) {
-        var url = _a.url;
-        console.log("\uD83D\uDE80  Server ready at " + url);
-    })
-        .catch(function (err) { return console.log("SERVER ERROR", err); });
+    app.listen({ port: PORT, path: "/api" }, function () {
+        console.log("\uD83D\uDE80  Server ready at UNKNOWN probably 4000");
+    });
+    // .then(({ url }: { url: string }) => {
+    // })
+    // .catch(err => console.log("SERVER ERROR", err));
 })
     .catch(function (err) {
     console.log(err);
