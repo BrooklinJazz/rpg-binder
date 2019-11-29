@@ -13,7 +13,7 @@ import { IAuthData, IContext } from "./types";
 import UserModel from "./user/user_model";
 
 const app = express();
-// app.use(express.static(path.join(__dirname, "../build")));
+app.use(express.static(path.join(__dirname, "../build")));
 
 const server = new ApolloServer({
   typeDefs,
@@ -48,8 +48,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 app.get("*", function(req, res) {
-  res.send("Hello");
-  // res.sendFile(path.join(__dirname, "../build", "index.html"));
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
 mongoose
