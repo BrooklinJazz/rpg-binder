@@ -1,12 +1,19 @@
-import { ApolloServer, AuthenticationError } from "apollo-server";
+import { AuthenticationError } from "apollo-server";
+import { ApolloServer } from "apollo-server-express";
+import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import express from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import path from "path";
 
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
 import { IAuthData, IContext } from "./types";
 import UserModel from "./user/user_model";
+
+const app = express();
+app.use(express.static(path.join(__dirname, "../build")));
 
 const server = new ApolloServer({
   typeDefs,
@@ -31,7 +38,14 @@ const server = new ApolloServer({
     }
     // NOTE using || undefined to get around possible null type.
     return { user: user || undefined };
-  }
+  },
+  playground: false
+});
+
+server.applyMiddleware({ app });
+
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
 dotenv.config();
@@ -44,12 +58,12 @@ mongoose
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-o0hne.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
   )
   .then(() => {
-    server
-      .listen({ port: PORT })
-      .then(({ url }: { url: string }) => {
-        console.log(`🚀  Server ready at ${url}`);
-      })
-      .catch(err => console.log("SERVER ERROR", err));
+    app.listen({ port: PORT }, () => {
+      console.log(`🚀  Server ready at UNKNOWN probably 4000`);
+    });
+    // .then(({ url }: { url: string }) => {
+    // })
+    // .catch(err => console.log("SERVER ERROR", err));
   })
   .catch(err => {
     console.log(err);

@@ -28,7 +28,7 @@
     "apollo-boost": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-server": "^2.9.5",
-    "apollo-server-express": "^2.9.4",
+    "apollo-server-express": "^2.9.12",
     "bcryptjs": "^2.4.3",
     "combine-classes": "^1.0.3",
     "dotenv": "^8.1.0",
