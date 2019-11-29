@@ -45,11 +45,12 @@ var dotenv_1 = __importDefault(require("dotenv"));
 var express_1 = __importDefault(require("express"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var mongoose_1 = __importDefault(require("mongoose"));
+var path_1 = __importDefault(require("path"));
 var resolvers_1 = __importDefault(require("./resolvers"));
 var typeDefs_1 = __importDefault(require("./typeDefs"));
 var user_model_1 = __importDefault(require("./user/user_model"));
 var app = express_1.default();
-// app.use(express.static(path.join(__dirname, "../build")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "../build")));
 var server = new apollo_server_express_1.ApolloServer({
     typeDefs: typeDefs_1.default,
     resolvers: resolvers_1.default,
@@ -91,8 +92,7 @@ server.applyMiddleware({ app: app, path: "/api" });
 dotenv_1.default.config();
 var PORT = process.env.PORT || 4000;
 app.get("*", function (req, res) {
-    res.send("Hello");
-    // res.sendFile(path.join(__dirname, "../build", "index.html"));
+    res.sendFile(path_1.default.join(__dirname, "../build", "index.html"));
 });
 mongoose_1.default
     .connect(process.env.MONGODB_URI ||
