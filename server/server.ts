@@ -44,14 +44,13 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: "/api" });
 
+dotenv.config();
+
+const PORT = process.env.PORT || 4000;
 app.get("*", function(req, res) {
   res.send("Hello");
   // res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
-
-dotenv.config();
-
-const PORT = process.env.PORT || 4000;
 
 mongoose
   .connect(
