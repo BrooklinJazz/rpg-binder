@@ -45,7 +45,8 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "../build", "index.html"));
+  res.send("Hello");
+  // res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
 dotenv.config();
