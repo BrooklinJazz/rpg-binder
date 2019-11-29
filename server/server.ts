@@ -44,7 +44,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: "/api" });
 
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
   res.send("Hello");
   // res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
@@ -59,7 +59,7 @@ mongoose
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-o0hne.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen({ port: PORT }, () => {
+    app.listen({ port: PORT, path: "/api" }, () => {
       console.log(`🚀  Server ready at UNKNOWN probably 4000`);
     });
     // .then(({ url }: { url: string }) => {
