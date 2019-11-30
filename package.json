@@ -59,6 +59,7 @@
     "typescript": "3.6.3",
     "xstate": "^4.6.7"
   },
+  "proxy": "http://localhost:4000/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
