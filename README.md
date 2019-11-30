@@ -4,7 +4,7 @@ A note taking web app designed to help rpg players and game masters organize the
 
 # Demo
 
-go to https://rpg-binder.herokuapp.com/ to see the app and create an account or see the screenshots below
+go to https://rpg-binder.herokuapp.com/ to see the site and create an account or see the screenshots below
 
 # Installation
 
@@ -32,30 +32,40 @@ go to https://rpg-binder.herokuapp.com/ to see the app and create an account or 
 # Features
 ## Campaigns
 Organize all of your notes according to your campaigns
+
 ![](screenshots/createCampaign.png)
 ## Sections
 Group your notes by section. If you're running DND or Pathfinder You might want to check out [Sly Flourish's Lazy Dungeon Master](https://slyflourish.com/lazydm/) for inspiration on how to group your notes
+
 ![](screenshots/createSection.png)
 ## Pages
 Create "Pages" in your binder that store your game notes. A page might be all of the info for an NPC, Location, or the entire Session!
+
 ![](screenshots/createPage.png)
 ## Pinned Pages
 pin pages so that they stay in the sidebar on the right. You might pin important information for your session so that you can access them quicker.
+
 ![](screenshots/pinnedPages.png)
+
 ## Markdown Content Editing
 Edit your pages using markdown
 
 Here's my favourite [Markdown Cheetsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) if you want to know how to make headers, links, images, or anything else with markdown
+
 ![](screenshots/markdownContent.png)
+
 ![](screenshots/markdownPreview.png)
 
 ## Responsive Styles
 ### Small Screen
+
 ![](screenshots/smallScreen.png)
 ### Mobile
+
 ![](screenshots/mobileScreen.png)
 
 ## Dark & Light Mode
+
 ![](screenshots/lightMode.png)
 
 # Special Thanks
