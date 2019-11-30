@@ -49,6 +49,12 @@ Here's my favourite [Markdown Cheetsheet](https://github.com/adam-p/markdown-her
 ![](screenshots/markdownContent.png)
 ![](screenshots/markdownPreview.png)
 
+## Responsive Styles
+### Small Screen
+![](screenshots/smallScreen.png)
+### Mobile
+![](screenshots/mobileScreen.png)
+
 ## Dark & Light Mode
 ![](screenshots/lightMode.png)
 
