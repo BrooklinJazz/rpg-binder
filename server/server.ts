@@ -58,7 +58,7 @@ mongoose
   )
   .then(() => {
     app.listen({ port: PORT, path: "/api" }, () => {
-      console.log(`🚀  Server ready at UNKNOWN probably 4000`);
+      console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
     });
     // .then(({ url }: { url: string }) => {
     // })

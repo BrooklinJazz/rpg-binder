@@ -99,7 +99,7 @@ mongoose_1.default
     "mongodb+srv://" + process.env.MONGO_USER + ":" + process.env.MONGO_PASSWORD + "@cluster0-o0hne.mongodb.net/" + process.env.MONGO_DB + "?retryWrites=true&w=majority")
     .then(function () {
     app.listen({ port: PORT, path: "/api" }, function () {
-        console.log("\uD83D\uDE80  Server ready at UNKNOWN probably 4000");
+        console.log("\uD83D\uDE80 Server ready at http://localhost:4000" + server.graphqlPath);
     });
     // .then(({ url }: { url: string }) => {
     // })
