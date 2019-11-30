@@ -1,44 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# RPG Binder
+A note taking web app designed to help rpg players and game masters organize their game notes
 
-In the project directory, you can run:
+# Demo
 
-### `yarn start`
+go to https://rpg-binder.herokuapp.com/ to see the app and create an account or see the screenshots below
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# Tech/Framework
+1. [Apollo-Server](https://www.apollographql.com/docs/apollo-server/)
+1. [Apollo-Client](https://www.apollographql.com/docs/react/)
+1. React + Context + Hooks
+1. Heroku
+1. Node
+1. Graphql
+1. Typescript
+1. Styled Components w/ Styled Theming
+1. React Transition Group
+1. JWT Authentication
+1. Mongoose/MongoDB
+1. Xstate
+1. Cypress E2E Testing
 
-### `yarn test`
+## Other Libraries
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. [combine-classes](https://github.com/BrooklinJazz/combine-classes#readme) My first npm package!
+1. [react-tooltip](https://www.npmjs.com/package/react-tooltip)
+1. [polished](https://github.com/styled-components/polished)
+1. [react-contextmenu](https://github.com/vkbansal/react-contextmenu)
+# Features
+## Campaigns
+Organize all of your notes according to your campaigns
+![](screenshots/createCampaign.png)
+## Sections
+Group your notes by section. If you're running DND or Pathfinder You might want to check out [Sly Flourish's Lazy Dungeon Master](https://slyflourish.com/lazydm/) for inspiration on how to group your notes
+![](screenshots/createSection.png)
+## Pages
+Create "Pages" in your binder that store your game notes. A page might be all of the info for an NPC, Location, or the entire Session!
+![](screenshots/createPage.png)
+## Pinned Pages
+pin pages so that they stay in the sidebar on the right. You might pin important information for your session so that you can access them quicker.
+![](screenshots/pinnedPages.png)
+## Markdown Content Editing
+Edit your pages using markdown
 
-### `yarn build`
+Here's my favourite [Markdown Cheetsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) if you want to know how to make headers, links, images, or anything else with markdown
+![](screenshots/markdownContent.png)
+![](screenshots/markdownPreview.png)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dark & Light Mode
+![](screenshots/lightMode.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Special Thanks
+Thank you to my awesome players, friends, & mentors for your feedback and support.
