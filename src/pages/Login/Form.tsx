@@ -9,7 +9,7 @@ import { Form as BaseForm } from "../../components/StyledForm";
 import { Input } from "../../components/StyledInput";
 import { Label } from "../../components/StyledLabel";
 import { H1 } from "../../components/StyledTypography";
-
+import {useAuth0} from "../../react-auth0-spa"
 const Form = styled(BaseForm)`
   grid-area: login_form;
   padding: 20px;
@@ -50,31 +50,35 @@ export const LoginForm = () => {
       signUp(input);
     }
   };
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   return (
-    <Form error={error} loading={loading} onSubmit={submit}>
-      <H1>{capitalizeAll(state)}</H1>
-      <Label>
-        Email
-        <Input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </Label>
-      <Label>
-        Password
-        <Input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </Label>
-      <ButtonWrapper>
-        <DefaultButton type="button" onClick={toggleState}>
-          Switch to {oppositeState}
-        </DefaultButton>
-        <PrimaryButton type="submit">{capitalizeAll(state)}</PrimaryButton>
-      </ButtonWrapper>
-    </Form>
+    <>
+      <Form error={error} loading={loading} onSubmit={submit}>
+        <H1>{capitalizeAll(state)}</H1>
+        <Label>
+          Email
+          <Input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </Label>
+        <Label>
+          Password
+          <Input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </Label>
+        <ButtonWrapper>
+          <DefaultButton type="button" onClick={toggleState}>
+            Switch to {oppositeState}
+          </DefaultButton>
+          <PrimaryButton type="submit">{capitalizeAll(state)}</PrimaryButton>
+        </ButtonWrapper>
+      </Form>
+      <DefaultButton onClick={() => loginWithRedirect({})}>TESTING AUTH0</DefaultButton>
+    </>
   );
 };
