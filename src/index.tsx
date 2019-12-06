@@ -43,7 +43,7 @@ const PageRouting = () => {
   }, [loading, isAuthenticated]);
   if (loading) {
     // TODO add loading spinner
-    return;
+    return <div/>
   }
 
   return (
