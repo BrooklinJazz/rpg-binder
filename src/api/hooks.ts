@@ -100,33 +100,6 @@ interface IRefreshTokenInput {
   token: string;
 }
 
-export const useRefreshToken = () => {
-  const dispatch = useAuthDispatch();
-  const { token } = useAuthState();
-  const { loading, error } = useQuery<
-    IRefreshTokenResponse,
-    IRefreshTokenInput
-  >(REFRESH_TOKEN, {
-    // only called in App where token is always defined
-    variables: { token: token! },
-    fetchPolicy: "cache-and-network",
-    onCompleted: data => {
-      dispatch(authRequestSuccess({ token: data.refreshToken.token }));
-    },
-    onError: () => {
-      alert(
-        "Sorry, something went wrong with your account. You will now be logged out."
-      );
-      dispatch(logoutAction());
-    },
-    pollInterval: 60000 * 15 // 15 minutes
-  });
-  return {
-    loading,
-    error: error && error.message
-  };
-};
-
 interface ICampaignsResponse {
   campaigns?: ICampaign[];
 }

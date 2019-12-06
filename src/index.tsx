@@ -34,37 +34,25 @@ const onRedirectCallback = (appState: any) => {
 };
 
 const PageRouting = () => {
-  const { isAuthenticated, loading } = useAuth0();
+  const { isAuthenticated, loading, loginWithRedirect } = useAuth0();
   const { theme } = useThemeState();
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      loginWithRedirect({})
+    }
+  }, [loading, isAuthenticated]);
   if (loading) {
-    return <div>loading</div>
+    // TODO add loading spinner
+    return;
   }
+
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>
-      <>
-        {process.env.NODE_ENV === "development" && <DevComponents />}
-        <Switch>
-          <AuthRoute
-            isAuth={!isAuthenticated}
-            redirectUrl={Routes.APP}
-            path={Routes.LOGIN}
-            component={Login}
-          />
-          <AuthRoute
-            isAuth={isAuthenticated}
-            path={Routes.APP}
-            component={App}
-          />
-        </Switch>
-      </>
+      {process.env.NODE_ENV === "development" && <DevComponents />}
+      <App />
     </StyledComponentThemeProvider>
   );
 };
-
-const MockApp = () => {
-  const {loginWithRedirect, isAuthenticated} = useAuth0()
-  return <button onClick={() => loginWithRedirect({})}>REDIRECT {isAuthenticated && "YAY"}</button>
-}
 
 ReactDOM.render(
   // tslint:disable-next-line: jsx-wrap-multiline
