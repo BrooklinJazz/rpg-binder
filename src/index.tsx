@@ -12,7 +12,6 @@ import App from "./App";
 import config from "./auth_config.json";
 import { LocalStorage } from "./common/constants";
 import { setInStorage } from "./common/helpers";
-import { AuthProvider } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
 import { JournalModalProvider, JournalStateProvider } from "./context/journal";
 import { EntryStateProvider } from "./context/journal/entry";
@@ -34,11 +33,11 @@ const PageRouting = () => {
     isAuthenticated,
     loading,
     loginWithRedirect,
+    user,
     getTokenSilently
   } = useAuth0();
   const { theme } = useThemeState();
   useEffect(() => {
-    console.log({loading, isAuthenticated, evaluation: !loading && !isAuthenticated})
     if (!loading && !isAuthenticated) {
       loginWithRedirect({});
     }
@@ -48,6 +47,13 @@ const PageRouting = () => {
     // TODO add loading spinner
     return <div />;
   }
+
+  const setToken = async () => {
+    const token = await getTokenSilently();
+    setInStorage(LocalStorage.TOKEN, token);
+  };
+  // used in apollo client for now TODO remove
+  setToken();
 
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>
@@ -68,7 +74,6 @@ ReactDOM.render(
   >
     <Router history={history}>
       <ApolloProvider client={client}>
-        <AuthProvider>
           <CampaignProvider>
             <JournalStateProvider>
               <JournalModalProvider>
@@ -80,7 +85,6 @@ ReactDOM.render(
               </JournalModalProvider>
             </JournalStateProvider>
           </CampaignProvider>
-        </AuthProvider>
       </ApolloProvider>
     </Router>
   </Auth0Provider>,

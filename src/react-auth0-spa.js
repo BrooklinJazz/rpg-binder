@@ -55,6 +55,18 @@ export const Auth0Provider = ({
     setUser(user);
     setIsAuthenticated(true);
   };
+  const checkSession = async () => {
+    try {
+      console.log({auth0Client: auth0Client.checkSession})
+      // await auth0Client.checkSession().then((checkResponse) => {
+      // });
+    } catch (error) {
+      console.error(error);
+    }
+    // const user = await auth0Client.getUser();
+    // setUser(user);
+    // setIsAuthenticated(true);
+  };
 
   const handleRedirectCallback = async () => {
     setLoading(true);
@@ -72,6 +84,7 @@ export const Auth0Provider = ({
         loading,
         popupOpen,
         loginWithPopup,
+        checkSession,
         handleRedirectCallback,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
