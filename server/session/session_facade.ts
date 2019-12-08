@@ -1,4 +1,4 @@
-import { IPageInput, ISectionInput } from "../types";
+import { IPageInput, ISectionData } from "../types";
 import PageObject from "../journal/page_object";
 import { PageRepo } from "../journal/page_repo";
 import SectionObject from "../journal/section_object";

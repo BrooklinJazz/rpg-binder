@@ -1,4 +1,4 @@
-import { IPageInput, ISectionInput } from "../types";
+import { IPageInput, ISectionData, ISectionInput } from "../types";
 import PageObject from "./page_object";
 import { PageRepo } from "./page_repo";
 import SectionObject from "./section_object";
@@ -28,7 +28,7 @@ export default class JournalFacade {
     PageRepo.findById(id).then(async page => await PageObject.fromPage(page));
 
   public updateOrCreateSection = (input: ISectionInput) =>
-    SectionRepo.updateOrCreate(input).then(section =>
+    SectionRepo.updateOrCreate({...input, creator: this.user, campaign: this.campaign}).then(section =>
       SectionObject.fromSection(section)
     );
 

@@ -47,11 +47,11 @@ export interface ICampaign extends ICampaignInput {
   _id: string;
 }
 
-export interface ISectionInput {
+export interface ISectionData {
   name: string;
 }
 
-export interface ISection extends ISectionInput {
+export interface ISection extends ISectionData {
   _id: string;
   pages: IPage[];
 }

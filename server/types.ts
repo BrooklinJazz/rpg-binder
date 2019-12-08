@@ -89,6 +89,10 @@ export interface ISectionInput {
   campaign: string;
 }
 
+export interface ISectionData extends ISectionInput {
+  creator: string;
+}
+
 export interface IPageInput {
   _id?: string;
   name: string;

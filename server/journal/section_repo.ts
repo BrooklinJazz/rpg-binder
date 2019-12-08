@@ -1,4 +1,4 @@
-import { ISectionDocument, ISection, ISectionInput } from "../types";
+import { ISectionDocument, ISection, ISectionData } from "../types";
 import SectionModel from "./section_model";
 
 const build = (section: ISectionDocument | null): ISection => {
@@ -18,7 +18,7 @@ export class SectionRepo {
   public static findByIds = (sectionIds: string[]) =>
     SectionModel.find({ _id: { $in: sectionIds } }).then(buildMany);
 
-  public static create = (input: ISectionInput): Promise<ISection> =>
+  public static create = (input: ISectionData): Promise<ISection> =>
     SectionModel.create(input).then(build);
 
   public static deleteById = (id: string) =>
@@ -30,9 +30,9 @@ export class SectionRepo {
   public static update = ({
     _id,
     ...input
-  }: ISectionInput): Promise<ISection> =>
+  }: ISectionData): Promise<ISection> =>
     SectionModel.update({ _id }, { ...input }, { upsert: true }).then(build);
 
-  public static updateOrCreate = (input: ISectionInput): Promise<ISection> =>
+  public static updateOrCreate = (input: ISectionData): Promise<ISection> =>
     input._id ? SectionRepo.update(input) : SectionRepo.create(input);
 }
