@@ -1,8 +1,6 @@
+import { transparentize } from "polished";
 import React, { useEffect } from "react";
 import styled from "styled-components";
-
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   modalSpacing,
@@ -13,7 +11,6 @@ import {
   surface4
 } from "../../common/styles";
 import { H3 } from "../StyledTypography";
-import { transparentize } from "polished";
 
 const ModalWrapper = styled.div`
   position: absolute;

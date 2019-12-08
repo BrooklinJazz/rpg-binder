@@ -1,8 +1,4 @@
-import { IPageData, ISectionData } from "../types";
-import PageObject from "../journal/page_object";
 import { PageRepo } from "../journal/page_repo";
-import SectionObject from "../journal/section_object";
-import { SectionRepo } from "../journal/section_repo";
 import SessionObject from "./session_object";
 
 export default class SessionFacade {

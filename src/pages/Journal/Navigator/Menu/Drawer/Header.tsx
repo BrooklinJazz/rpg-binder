@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { surface3 } from "../../../../../common/styles";

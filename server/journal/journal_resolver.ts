@@ -1,19 +1,7 @@
-import {
-  IInput,
-  IUserInput,
-  IAuthData,
-  IContext,
-  ICampaign,
-  ICampaignInput,
-  ISectionInput,
-  IPage,
-  IPageData,
-  IPageInput
-} from "../types";
+import { IContext, IInput, IPageInput, ISectionInput } from "../types";
 import JournalFacade from "./journal_facade";
-import { checkSignedIn } from "../helpers";
-import SectionObject from "./section_object";
 import PageObject from "./page_object";
+import SectionObject from "./section_object";
 
 export default {
   Query: {

@@ -2,8 +2,6 @@ import React from "react";
 import { ContextMenu, MenuItem } from "react-contextmenu";
 import styled from "styled-components";
 
-import { DELETE_SECTION_MESSAGE } from "../../../common/constants";
-import { confirmAlert } from "../../../common/helpers";
 import {
   hover,
   menuZIndex,

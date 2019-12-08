@@ -1,15 +1,9 @@
 import { DataProxy } from "apollo-cache";
-import jwt from "jsonwebtoken";
-// TODO sort these based on context
-import moment from "moment";
-import { useEffect } from "react";
 
-import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pinnedItemsPollInterval, pollInterval } from "../common/constants";
-import { ICampaign, IDecodedToken, IPage, ISection } from "../common/types";
-import { authRequestSuccess, logoutAction } from "../context/auth/actions";
-import { useAuthDispatch, useAuthState } from "../context/auth/store";
+import { ICampaign, IPage, ISection } from "../common/types";
 import {
   closeModal,
   openModal,

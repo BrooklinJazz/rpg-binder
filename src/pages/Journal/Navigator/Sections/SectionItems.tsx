@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
+import { ContextMenuTrigger } from "react-contextmenu";
 
+import { useDeleteSection } from "../../../../api/hooks";
+import { DELETE_SECTION_MESSAGE } from "../../../../common/constants";
+import { confirmAlert } from "../../../../common/helpers";
 import { ISection } from "../../../../common/types";
 import { ToolTip } from "../../../../components/StyledTooltip";
 import { useJournalState } from "../../../../context/journal";
 import { ItemContent } from "../ItemContent";
 import { ListItem } from "../ListItem";
-import { useDeleteSection } from "../../../../api/hooks";
-import { Spinner } from "../../../../components/Loading";
 import { RightClickMenu } from "../RightClickMenu";
-import { confirmAlert } from "../../../../common/helpers";
-import { DELETE_SECTION_MESSAGE } from "../../../../common/constants";
 
 const SectionItem = ({ _id, name }: ISection) => {
   const { setSection, section, clearPageAndSetSection } = useJournalState();
@@ -20,10 +19,10 @@ const SectionItem = ({ _id, name }: ISection) => {
   const handleDelete = () => {
     setDeleted(true);
     deleteSection(_id);
-    setSection(undefined)
+    setSection(undefined);
   };
   const confirmDelete = () =>
-  confirmAlert({ onConfirm: handleDelete, message: DELETE_SECTION_MESSAGE });
+    confirmAlert({ onConfirm: handleDelete, message: DELETE_SECTION_MESSAGE });
   if (isDeleted) {
     return null;
   }

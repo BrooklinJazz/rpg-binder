@@ -31,6 +31,11 @@ export const EntryStateProvider = ({ children }: { children: ReactNode }) => {
     page ? page.description || "" : ""
   );
   const [relatedPages, setRelatedPages] = useState([] as string[]);
+  const revert = () => {
+    setName(page ? page.name : "");
+    setDescription(page ? page.description || "" : "");
+    setRelatedPages(page ? page.relatedPages : []);
+  };
   useEffect(() => {
     if (page) {
       revert();
@@ -38,11 +43,6 @@ export const EntryStateProvider = ({ children }: { children: ReactNode }) => {
   }, [page]);
   const { create } = useUpdateOrCreatePage();
   const save = () => create({ name, id, description, relatedPages });
-  const revert = () => {
-    setName(page ? page.name : "");
-    setDescription(page ? page.description || "" : "");
-    setRelatedPages(page ? page.relatedPages : []);
-  };
 
   return (
     <EntryStateContext.Provider

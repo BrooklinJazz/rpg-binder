@@ -1,4 +1,4 @@
-import { IPage, IPageDocument, IPageData } from "../types";
+import { IPage, IPageData, IPageDocument } from "../types";
 import PageModel from "./page_model";
 
 const build = (page: IPageDocument | null): IPage => page && page.toObject();

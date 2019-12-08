@@ -1,6 +1,7 @@
-import { Document } from "mongoose";
-import { IContext, IUser } from "./types";
 import jwt from "jsonwebtoken";
+import { Document } from "mongoose";
+
+import { IContext, IUser } from "./types";
 
 export const toObject = (found: Document[] | Document | null) => {
   if (!found) {

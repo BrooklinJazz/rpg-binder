@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 import { useUpdateOrCreatePage } from "../../../../api/hooks";
+import { PAGE_NAME_LENGTH } from "../../../../common/constants";
 import { CreateButton } from "../../../../components/StyledButtons";
 import { ModalForm } from "../../../../components/StyledForm";
 import { Input } from "../../../../components/StyledInput";
 import { Label } from "../../../../components/StyledLabel";
-import { PAGE_NAME_LENGTH } from "../../../../common/constants";
 
 export const PageForm = () => {
   const [name, setName] = useState("");

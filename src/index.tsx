@@ -1,29 +1,25 @@
 import "./index.scss";
 
-import jwt from "jsonwebtoken";
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { Router, Switch } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { ThemeProvider as StyledComponentThemeProvider } from "styled-components";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 
 import { client } from "./api/client";
 import App from "./App";
-import { Routes } from "./common/routes";
-import AuthRoute from "./components/AuthRoute";
-import { AuthProvider, useAuthState } from "./context/auth/store";
+import config from "./auth_config.json";
+import { LocalStorage } from "./common/constants";
+import { setInStorage } from "./common/helpers";
+import { AuthProvider } from "./context/auth/store";
 import { CampaignProvider } from "./context/campaign/store";
 import { JournalModalProvider, JournalStateProvider } from "./context/journal";
 import { EntryStateProvider } from "./context/journal/entry";
 import { ThemeProvider, useThemeState } from "./context/theme/store";
 import history from "./history";
-import * as serviceWorker from "./serviceWorker";
-
-import config from "./auth_config.json";
 import { Auth0Provider, useAuth0 } from "./react-auth0-spa";
-import { setInStorage } from "./common/helpers";
-import { LocalStorage } from "./common/constants";
+import * as serviceWorker from "./serviceWorker";
 
 const onRedirectCallback = (appState: any) => {
   history.push(
@@ -34,25 +30,30 @@ const onRedirectCallback = (appState: any) => {
 };
 
 const PageRouting = () => {
-  const { isAuthenticated, loading, loginWithRedirect, getTokenSilently } = useAuth0();
+  const {
+    isAuthenticated,
+    loading,
+    loginWithRedirect,
+    getTokenSilently
+  } = useAuth0();
   const { theme } = useThemeState();
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      loginWithRedirect({})
+      loginWithRedirect({});
     }
   }, [loading, isAuthenticated]);
 
   if (loading) {
     // TODO add loading spinner
-    return <div/>
+    return <div />;
   }
 
   const setToken = async () => {
-    const token = await getTokenSilently()
-    setInStorage(LocalStorage.TOKEN, token)
-  }
+    const token = await getTokenSilently();
+    setInStorage(LocalStorage.TOKEN, token);
+  };
 
-  setToken()
+  setToken();
 
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>

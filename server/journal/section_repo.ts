@@ -1,4 +1,4 @@
-import { ISectionDocument, ISection, ISectionData } from "../types";
+import { ISection, ISectionData, ISectionDocument } from "../types";
 import SectionModel from "./section_model";
 
 const build = (section: ISectionDocument | null): ISection => {
@@ -25,12 +25,9 @@ export class SectionRepo {
     SectionModel.findByIdAndDelete(id).then(build);
 
   public static deleteInCampaign = (campaign: string) =>
-    SectionModel.deleteMany({campaign});
+    SectionModel.deleteMany({ campaign });
 
-  public static update = ({
-    _id,
-    ...input
-  }: ISectionData): Promise<ISection> =>
+  public static update = ({ _id, ...input }: ISectionData): Promise<ISection> =>
     SectionModel.update({ _id }, { ...input }, { upsert: true }).then(build);
 
   public static updateOrCreate = (input: ISectionData): Promise<ISection> =>

@@ -1,4 +1,4 @@
-import { IInput, IContext, ISessionItem } from "../types";
+import { IContext, IInput, ISessionItem } from "../types";
 import SessionFacade from "./session_facade";
 
 export default {

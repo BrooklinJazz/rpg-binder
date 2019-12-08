@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 import { useUpdateOrCreateSection } from "../../../../api/hooks";
 import { SECTION_NAME_LENGTH } from "../../../../common/constants";
