@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { primary1 } from "../../common/styles";
 

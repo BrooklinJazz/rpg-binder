@@ -8,7 +8,6 @@ import {
   modalSpacing,
   onDanger,
   onSurface,
-  surface1,
   surface4
 } from "../../common/styles";
 import { Spinner } from "../Loading";

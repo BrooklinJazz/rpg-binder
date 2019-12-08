@@ -1,9 +1,9 @@
-import React from "react";
 import styled, { css } from "styled-components";
+
 import {
   landscapeBreakpoint,
-  tabletBreakpoint,
-  onSurface
+  onSurface,
+  tabletBreakpoint
 } from "../../common/styles";
 
 type Weight = "bold" | "medium" | "normal" | "light";

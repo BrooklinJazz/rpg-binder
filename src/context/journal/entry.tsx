@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 import { usePage, useUpdateOrCreatePage } from "../../api/hooks";
-import { IPage, Setter } from "../../common/types";
+import { Setter } from "../../common/types";
 import { useJournalState } from "./";
 
 interface IPageState {

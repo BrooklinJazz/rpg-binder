@@ -1,10 +1,12 @@
-import React from "react";
 import styled from "styled-components";
 
 import {
   buttonHeight,
   buttonWidth,
+  danger1,
+  hover,
   info1,
+  modalSpacing,
   onDanger,
   onInfo,
   onPrimary,
@@ -12,12 +14,9 @@ import {
   onSuccess,
   onSurface,
   primary1,
-  surface1,
   secondary1,
   success1,
-  danger1,
-  hover,
-  modalSpacing
+  surface1
 } from "../../common/styles";
 
 export const Button = styled.button`

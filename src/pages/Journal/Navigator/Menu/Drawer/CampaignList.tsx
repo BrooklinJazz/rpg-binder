@@ -12,9 +12,7 @@ import { confirmAlert } from "../../../../../common/helpers";
 import { ICampaign } from "../../../../../common/types";
 import { FadeAnimation } from "../../../../../components/FadeAnimation/index";
 import { ToolTip } from "../../../../../components/StyledTooltip";
-import { selectCampaign } from "../../../../../context/campaign/actions";
 import {
-  useCampaignDispatch,
   useCampaignState
 } from "../../../../../context/campaign/store";
 import { ListItem } from "../../ListItem";

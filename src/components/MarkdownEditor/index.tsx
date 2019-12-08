@@ -7,11 +7,10 @@ import {
   landscapeBreakpoint,
   onSurface,
   primary1,
-  surface2,
-  tabletBreakpoint,
-  background,
+  primary2,
   surface1,
-  primary2
+  surface2,
+  tabletBreakpoint
 } from "../../common/styles";
 import { Setter } from "../../common/types";
 import useClickoutHandler from "../../hooks/useClickoutHandler";

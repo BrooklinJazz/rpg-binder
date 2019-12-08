@@ -43,7 +43,7 @@ export const CampaignList = () => {
       dispatch(selectCampaign({ campaign: campaign._id }));
     };
     return (
-      <ListItem onClick={setCampaign}>
+      <ListItem key={campaign._id} onClick={setCampaign}>
         <FontAwesomeIcon
           className="CampaignSelectListItemIcon"
           icon={faBookDead}

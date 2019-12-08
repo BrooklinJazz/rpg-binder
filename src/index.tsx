@@ -17,9 +17,7 @@ import { CampaignProvider } from "./context/campaign/store";
 import { JournalModalProvider, JournalStateProvider } from "./context/journal";
 import { EntryStateProvider } from "./context/journal/entry";
 import { ThemeProvider, useThemeState } from "./context/theme/store";
-import DevComponents from "./DevComponents";
 import history from "./history";
-import Login from "./pages/Login/index";
 import * as serviceWorker from "./serviceWorker";
 
 import config from "./auth_config.json";
@@ -58,7 +56,6 @@ const PageRouting = () => {
 
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>
-      {process.env.NODE_ENV === "development" && <DevComponents />}
       <App />
     </StyledComponentThemeProvider>
   );

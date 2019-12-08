@@ -1,33 +1,5 @@
 import { gql } from "apollo-boost";
 
-export const SIGNUP = gql(`
-mutation Signup($email: String!, $password: String!) {
-  createUser(input: {email: $email, password: $password}) {
-    token
-    userId
-    tokenExpiration
-  }
-}
-`);
-
-export const REFRESH_TOKEN = gql(`
-query RefreshToken($token: String!) {
-  refreshToken(input: {token: $token}) {
-    token
-  }
-}
-`);
-
-export const LOGIN = gql(`
-query Login($email: String!, $password: String!) {
-  login(input: {email: $email, password: $password}) {
-    token
-    userId
-    tokenExpiration
-  }
-}
-`);
-
 export const CAMPAIGN = gql(`
 query Campaign($campaignId: ID!) {
   campaign(input: {_id: $campaignId}) {

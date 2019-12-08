@@ -28,14 +28,11 @@ import {
   DELETE_CAMPAIGN,
   DELETE_PAGE,
   DELETE_SECTION,
-  LOGIN,
   PAGE,
   PAGES,
-  REFRESH_TOKEN,
   REMOVE_PIN,
   SECTIONS,
   SESSION,
-  SIGNUP,
   UPDATE_OR_CREATE_PAGE,
   UPDATE_OR_CREATE_SECTION
 } from "./gqls";
@@ -43,61 +40,6 @@ import {
 interface IQueryRes {
   loading: boolean;
   error?: string;
-}
-
-interface ILoginResponse {
-  login: { token: string };
-}
-
-interface ILoginInput {
-  email: string;
-  password: string;
-}
-
-export const useLogin = () => {
-  const dispatch = useAuthDispatch();
-  const [login, { loading, error }] = useLazyQuery<ILoginResponse, ILoginInput>(
-    LOGIN,
-    {
-      onCompleted: data =>
-        dispatch(authRequestSuccess({ token: data.login.token }))
-    }
-  );
-  return {
-    login: (variables: { email: string; password: string }) =>
-      login({ variables }),
-    loading,
-    error: error && error.message
-  };
-};
-
-interface ISignupResponse {
-  createUser: { token: string };
-}
-
-export const useSignup = () => {
-  const dispatch = useAuthDispatch();
-  const [signUp, { loading, error }] = useMutation<
-    ISignupResponse,
-    ILoginInput
-  >(SIGNUP, {
-    onCompleted: data =>
-      dispatch(authRequestSuccess({ token: data.createUser.token }))
-  });
-  return {
-    signUp: (variables: { email: string; password: string }) =>
-      signUp({ variables }),
-    loading,
-    error: error && error.message
-  };
-};
-
-interface IRefreshTokenResponse {
-  refreshToken: { token: string };
-}
-
-interface IRefreshTokenInput {
-  token: string;
 }
 
 interface ICampaignsResponse {
