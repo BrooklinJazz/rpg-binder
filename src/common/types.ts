@@ -56,13 +56,13 @@ export interface ISection extends ISectionData {
   pages: IPage[];
 }
 
-export interface IPageInput {
+export interface IPageData {
   name: string;
   description?: string;
   relatedPages: string[];
 }
 
-export interface IPage extends IPageInput {
+export interface IPage extends IPageData {
   _id: string;
   inSession: boolean;
 }

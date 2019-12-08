@@ -101,8 +101,11 @@ export interface IPageInput {
   relatedPages: string[];
   campaign: string;
 }
+export interface IPageData extends IPageInput {
+ creator: string;
+}
 
-export interface IPage extends IPageInput {
+export interface IPage extends IPageData {
   _id: string;
   inSession: boolean;
 }
@@ -119,6 +122,6 @@ export interface ISessionItem {
   pages: IPage[];
 }
 
-export interface IPage extends IPageInput {
+export interface IPage extends IPageData {
   _id: string;
 }

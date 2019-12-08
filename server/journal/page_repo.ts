@@ -1,4 +1,4 @@
-import { IPage, IPageDocument, IPageInput } from "../types";
+import { IPage, IPageDocument, IPageData } from "../types";
 import PageModel from "./page_model";
 
 const build = (page: IPageDocument | null): IPage => page && page.toObject();
@@ -18,7 +18,7 @@ export class PageRepo {
   public static findById = (input: string) =>
     PageModel.findById(input).then(build);
 
-  public static create = (input: IPageInput) =>
+  public static create = (input: IPageData) =>
     PageModel.create(input).then(build);
 
   public static deleteById = (id: string) =>
@@ -30,7 +30,7 @@ export class PageRepo {
   public static deleteByIds = (ids: string[]) =>
     PageModel.deleteMany({ id: { $in: ids } });
 
-  public static update = ({ _id, ...input }: IPageInput): Promise<IPage> =>
+  public static update = ({ _id, ...input }: IPageData): Promise<IPage> =>
     PageModel.update({ _id }, { ...input }, { upsert: true }).then(build);
 
   // NOTE addToSession * removeFromSession is not returning buildable page,
@@ -41,6 +41,6 @@ export class PageRepo {
   public static removeFromSession = (_id: string) =>
     PageModel.update({ _id }, { inSession: false });
 
-  public static updateOrCreate = (input: IPageInput): Promise<IPage> =>
+  public static updateOrCreate = (input: IPageData): Promise<IPage> =>
     input._id ? PageRepo.update(input) : PageRepo.create(input);
 }

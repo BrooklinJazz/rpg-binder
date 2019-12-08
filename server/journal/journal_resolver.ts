@@ -7,6 +7,7 @@ import {
   ICampaignInput,
   ISectionInput,
   IPage,
+  IPageData,
   IPageInput
 } from "../types";
 import JournalFacade from "./journal_facade";
