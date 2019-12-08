@@ -5,13 +5,12 @@ import {
   landscapeBreakpoint,
   navbarHeight,
   phoneBreakpoint,
-  surface1,
   tabletBreakpoint
 } from "../../common/styles";
 import { Page } from "../../components/StyledPage";
+import { Entry } from "./Entry";
 import { Navbar } from "./Navbar";
 import { Navigator } from "./Navigator";
-import { Entry } from "./Entry";
 import { SessionSidebar } from "./Sidebar";
 
 const Grid = styled(Page)`
