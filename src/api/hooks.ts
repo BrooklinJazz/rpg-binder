@@ -43,8 +43,14 @@ interface ICampaignsResponse {
 interface IUseCampaigns extends ICampaignsResponse, IQueryRes {}
 
 export const useCampaigns = (): IUseCampaigns => {
+  const select = useSelectCampaign()
+  const {activeCampaign} = useCampaignState()
   const { data, loading, error } = useQuery<ICampaignsResponse>(CAMPAIGNS, {
-    pollInterval
+    pollInterval,
+    onCompleted: data => {
+      const campaign = data && data.campaigns && data.campaigns.find(({_id}) => _id === activeCampaign)
+      select(campaign && campaign._id)
+    }
   });
   return {
     loading,

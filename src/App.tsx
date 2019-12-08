@@ -15,12 +15,18 @@ const App: React.FC = () => {
       <CampaignModal />
       <Switch>
         <AuthRoute
+          exact
           path={Routes.JOURNAL}
           isAuth={Boolean(activeCampaign)}
           component={Journal}
           redirectUrl={Routes.CAMPAIGN_SELECT}
         />
-        <Route path={Routes.CAMPAIGN_SELECT} component={CampaignSelect} />
+        <AuthRoute
+          path={Routes.CAMPAIGN_SELECT}
+          isAuth={Boolean(!activeCampaign)}
+          component={CampaignSelect}
+          redirectUrl={Routes.CAMPAIGN_SELECT}
+        />
       </Switch>
     </>
   );

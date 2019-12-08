@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
-
+import {client} from "./api/client"
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
@@ -76,6 +76,12 @@ export const Auth0Provider = ({
     setIsAuthenticated(true);
     setUser(user);
   };
+
+  const logout = async (...p) => {
+    client.clearStore()
+    localStorage.clear()
+    auth0Client.logout(...p)
+  }
   return (
     <Auth0Context.Provider
       value={{
@@ -86,11 +92,11 @@ export const Auth0Provider = ({
         loginWithPopup,
         checkSession,
         handleRedirectCallback,
+        logout,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-        logout: (...p) => auth0Client.logout(...p)
       }}
     >
       {children}
