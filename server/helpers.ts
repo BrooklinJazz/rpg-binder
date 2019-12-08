@@ -13,7 +13,7 @@ export const toObject = (found: Document[] | Document | null) => {
 };
 
 export const checkSignedIn = (context: IContext) => {
-  if (!context.user) {
+  if (!context.userId) {
     throw new Error("User is not authenticated");
   }
 };

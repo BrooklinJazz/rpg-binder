@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { ICampaignDocument } from "../types";
+import { string } from "prop-types";
 const campaignSchema = new Schema({
   name: {
     type: String,
@@ -12,8 +13,7 @@ const campaignSchema = new Schema({
     }
   ],
   creator: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true
   }
 });

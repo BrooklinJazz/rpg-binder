@@ -20,8 +20,8 @@ const pageSchema = new Schema({
     ref: "Section"
   },
   creator: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+    type: String,
+    required: true
   },
   campaign: {
     type: Schema.Types.ObjectId,
