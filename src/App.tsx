@@ -7,6 +7,7 @@ import { useCampaignState } from "./context/campaign/store";
 import CampaignSelect from "./pages/Campaigns";
 import Journal from "./pages/Journal";
 import { CampaignModal } from "./pages/Campaigns/Modal";
+import { useAuth0 } from "./react-auth0-spa";
 
 const App: React.FC = () => {
   const { activeCampaign } = useCampaignState();

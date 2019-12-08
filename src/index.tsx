@@ -24,6 +24,8 @@ import * as serviceWorker from "./serviceWorker";
 
 import config from "./auth_config.json";
 import { Auth0Provider, useAuth0 } from "./react-auth0-spa";
+import { setInStorage } from "./common/helpers";
+import { LocalStorage } from "./common/constants";
 
 const onRedirectCallback = (appState: any) => {
   history.push(
@@ -34,17 +36,25 @@ const onRedirectCallback = (appState: any) => {
 };
 
 const PageRouting = () => {
-  const { isAuthenticated, loading, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loading, loginWithRedirect, getTokenSilently } = useAuth0();
   const { theme } = useThemeState();
   useEffect(() => {
     if (!loading && !isAuthenticated) {
       loginWithRedirect({})
     }
   }, [loading, isAuthenticated]);
+
   if (loading) {
     // TODO add loading spinner
     return <div/>
   }
+
+  const setToken = async () => {
+    const token = await getTokenSilently()
+    setInStorage(LocalStorage.TOKEN, token)
+  }
+
+  setToken()
 
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>
@@ -60,6 +70,7 @@ ReactDOM.render(
     domain={config.domain}
     client_id={config.clientId}
     redirect_uri={window.location.origin}
+    audience={config.audience}
     // @ts-ignore
     onRedirectCallback={onRedirectCallback}
   >
