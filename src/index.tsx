@@ -38,6 +38,7 @@ const PageRouting = () => {
   } = useAuth0();
   const { theme } = useThemeState();
   useEffect(() => {
+    console.log({loading, isAuthenticated, evaluation: !loading && !isAuthenticated})
     if (!loading && !isAuthenticated) {
       loginWithRedirect({});
     }
@@ -47,13 +48,6 @@ const PageRouting = () => {
     // TODO add loading spinner
     return <div />;
   }
-
-  const setToken = async () => {
-    const token = await getTokenSilently();
-    setInStorage(LocalStorage.TOKEN, token);
-  };
-
-  setToken();
 
   return (
     <StyledComponentThemeProvider theme={{ mode: theme }}>
