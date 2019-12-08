@@ -27,7 +27,7 @@ export interface IInput<T> {
 }
 
 export interface IContext {
-  user: string;
+  userId: string;
 }
 
 export interface IUserDocument extends Document, Omit<ISection, "_id"> {
