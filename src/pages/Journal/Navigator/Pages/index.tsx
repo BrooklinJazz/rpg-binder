@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { usePages } from "../../../../api/hooks";
-import { useJournalState } from "../../../../context/journal";
 import { FetchContainer } from "../../../../components/FetchContainer/index";
 import { PageItems } from "./PageItems";
 

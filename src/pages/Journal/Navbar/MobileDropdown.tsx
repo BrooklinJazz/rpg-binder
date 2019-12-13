@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
+import { Transition } from "react-transition-group";
 import styled from "styled-components";
 
 import {
   capitalize,
-  ProviderList,
-  propsFromProvider
+  propsFromProvider,
+  ProviderList
 } from "../../../common/helpers";
 import {
   hover,
@@ -14,9 +15,7 @@ import {
 } from "../../../common/styles";
 import ProviderIcon from "../../../components/ProviderIcon";
 import { DefaultButton } from "../../../components/StyledButtons";
-import { logoutAction } from "../../../context/auth/actions";
-import { useAuthDispatch } from "../../../context/auth/store";
-import { Transition } from "react-transition-group";
+import { useAuth0 } from "../../../react-auth0-spa";
 
 const DropdownWrapper = styled.div`
   position: absolute;
@@ -76,19 +75,23 @@ const Animation = ({
 };
 
 export const MobileDropdown = ({ open }: { open: boolean }) => {
-  const dispatch = useAuthDispatch();
+  const { logout } = useAuth0();
   return (
     <DropdownWrapper>
       <Animation open={open}>
         {ProviderList.map(provider => (
-          <a target="_blank" href={propsFromProvider(provider).url}>
-            <Item key={provider}>
+          <a
+            key={provider}
+            target="_blank"
+            href={propsFromProvider(provider).url}
+          >
+            <Item>
               <ProviderIcon colored={true} provider={provider} />
               {capitalize(provider)}
             </Item>
           </a>
         ))}
-        <div onClick={() => dispatch(logoutAction())}>
+        <div role="button" onClick={logout}>
           <ItemWithoutIcon>Sign Out</ItemWithoutIcon>
         </div>
       </Animation>

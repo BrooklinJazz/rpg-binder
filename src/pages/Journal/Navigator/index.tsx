@@ -1,20 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-import {
-  buttonHeight,
-  navbarHeight,
-  navigatorWidth,
-  surface1
-} from "../../../common/styles";
-import { Menu } from "./Menu/index";
-import { PageFooter } from "./Footer/PageFooter";
-import { Pages } from "./Pages/index";
-import { SectionFooter } from "./Footer/SectionFooter";
-import { Sections } from "./Sections/index";
+import { buttonHeight, navigatorWidth, surface1 } from "../../../common/styles";
 import { JournalModal } from "../Modal";
-import { SectionHeader } from "./Sections/Header";
+import { PageFooter } from "./Footer/PageFooter";
+import { SectionFooter } from "./Footer/SectionFooter";
+import { Menu } from "./Menu/index";
 import { PageHeader } from "./Pages/Header";
+import { Pages } from "./Pages/index";
+import { SectionHeader } from "./Sections/Header";
+import { Sections } from "./Sections/index";
 
 const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 

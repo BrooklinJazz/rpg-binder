@@ -5,7 +5,7 @@ export default gql`
     _id: ID!
     name: String!
     pages: [Page!]!
-    creator: User!
+    creator: String!
     campaign: Campaign!
   }
 
@@ -15,7 +15,7 @@ export default gql`
     description: String
     relatedPages: [Page!]!
     section: Section
-    creator: User!
+    creator: String!
     campaign: Campaign!
     inSession: Boolean
   }

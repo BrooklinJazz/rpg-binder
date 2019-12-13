@@ -13,8 +13,8 @@ const sectionSchema = new Schema({
     }
   ],
   creator: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+    type: String,
+    required: true
   },
   campaign: {
     type: Schema.Types.ObjectId,

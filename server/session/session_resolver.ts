@@ -1,4 +1,4 @@
-import { IInput, IContext, ISessionItem } from "../types";
+import { IContext, IInput, ISessionItem } from "../types";
 import SessionFacade from "./session_facade";
 
 export default {
@@ -9,7 +9,7 @@ export default {
       context: IContext
     ): Promise<ISessionItem[]> =>
       new SessionFacade({
-        user: context.user,
+        user: context.userId,
         campaign: input.campaign
       }).getSessionItems()
   },
@@ -20,7 +20,7 @@ export default {
       context: IContext
     ): Promise<any> =>
       new SessionFacade({
-        user: context.user,
+        user: context.userId,
         campaign: ""
       }).addPage(input.page),
     removeSessionItem: async (
@@ -29,7 +29,7 @@ export default {
       context: IContext
     ): Promise<any> =>
       new SessionFacade({
-        user: context.user,
+        user: context.userId,
         campaign: ""
       }).removePage(input.page)
   }

@@ -27,7 +27,7 @@ export interface IInput<T> {
 }
 
 export interface IContext {
-  user: string;
+  userId: string;
 }
 
 export interface IUserDocument extends Document, Omit<ISection, "_id"> {
@@ -89,6 +89,10 @@ export interface ISectionInput {
   campaign: string;
 }
 
+export interface ISectionData extends ISectionInput {
+  creator: string;
+}
+
 export interface IPageInput {
   _id?: string;
   name: string;
@@ -97,8 +101,11 @@ export interface IPageInput {
   relatedPages: string[];
   campaign: string;
 }
+export interface IPageData extends IPageInput {
+ creator: string;
+}
 
-export interface IPage extends IPageInput {
+export interface IPage extends IPageData {
   _id: string;
   inSession: boolean;
 }
@@ -115,6 +122,6 @@ export interface ISessionItem {
   pages: IPage[];
 }
 
-export interface IPage extends IPageInput {
+export interface IPage extends IPageData {
   _id: string;
 }

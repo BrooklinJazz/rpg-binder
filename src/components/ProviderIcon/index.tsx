@@ -1,31 +1,13 @@
 import "./ProviderIcon.scss";
 
-import combineClasses from "combine-classes/lib";
-import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-import {
-  faFacebook,
-  faLinkedin,
-  faMedium,
-  faPatreon,
-  faTwitter,
-  faGithub
-} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 
 import { Provider } from "../../common/constants";
-import {
-  facebookBlue,
-  linkedinBlue,
-  mediumGreen,
-  onSurface,
-  patreonOrange,
-  twitterBlue
-} from "../../common/styles";
-import { Omit } from "../../common/types";
-import { Icon } from "../StyledIcon";
 import { propsFromProvider } from "../../common/helpers";
+import { onSurface } from "../../common/styles";
+import { Icon } from "../StyledIcon";
 
 interface IProps extends Omit<FontAwesomeIconProps, "icon"> {
   provider: Provider;

@@ -16,6 +16,5 @@ export const Handler = () => {
       return <SectionModal />;
     default:
       throw new Error("Handler rendered with invalid state: " + state);
-      break;
   }
 };

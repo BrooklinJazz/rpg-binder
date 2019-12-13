@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "styled-components";
+
+import { hover, surface2, surface3 } from "../../../common/styles";
 import { DefaultButton } from "../../../components/StyledButtons";
-import { surface3, surface2, hover } from "../../../common/styles";
 
 export const ListItem = styled(DefaultButton)`
   width: 100%;
@@ -15,6 +15,7 @@ export const ListItem = styled(DefaultButton)`
     props.active ? hover(surface3(props)) : surface2(props)};
   margin-bottom: 2px;
   &:hover {
-    background-color: ${props => props.active ? hover(surface3(props)) :hover(surface2(props))};
+    background-color: ${props =>
+      props.active ? hover(surface3(props)) : hover(surface2(props))};
   }
 `;

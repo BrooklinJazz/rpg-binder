@@ -14,7 +14,6 @@ import {
   primary1,
   surface1,
   surface2,
-  surface3,
   surface4
 } from "../../../common/styles";
 import { IPage } from "../../../common/types";

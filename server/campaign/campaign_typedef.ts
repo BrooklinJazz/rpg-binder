@@ -5,7 +5,7 @@ export default gql`
     _id: ID!
     name: String!
     # sections: [Section!]!
-    creator: User!
+    creator: String!
   }
 
   input CampaignInput {

@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 import { useCampaign } from "../../../api/hooks";
 import { PROJECT_NAME } from "../../../common/constants";
-import { phoneBreakpoint, navbarPadding } from "../../../common/styles";
+import { navbarPadding, phoneBreakpoint } from "../../../common/styles";
 import { Navbar as BaseNavbar } from "../../../components/StyledNavbar";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { Brand } from "./Brand";
 import { ExpandedContent } from "./ExpandedContent";
 import { Header } from "./Header";
 import { MobileContent } from "./MobileContent";
-import ReactTooltip from "react-tooltip";
 
 const Grid = styled(BaseNavbar)`
   display: grid;

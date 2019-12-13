@@ -47,22 +47,22 @@ export interface ICampaign extends ICampaignInput {
   _id: string;
 }
 
-export interface ISectionInput {
+export interface ISectionData {
   name: string;
 }
 
-export interface ISection extends ISectionInput {
+export interface ISection extends ISectionData {
   _id: string;
   pages: IPage[];
 }
 
-export interface IPageInput {
+export interface IPageData {
   name: string;
   description?: string;
   relatedPages: string[];
 }
 
-export interface IPage extends IPageInput {
+export interface IPage extends IPageData {
   _id: string;
   inSession: boolean;
 }

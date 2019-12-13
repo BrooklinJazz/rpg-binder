@@ -5,9 +5,8 @@ import { propsFromProvider, ProviderList } from "../../../common/helpers";
 import { onPrimary, onPrimaryHover } from "../../../common/styles";
 import BaseProviderIcon from "../../../components/ProviderIcon";
 import { Button } from "../../../components/StyledButtons";
-import { logoutAction } from "../../../context/auth/actions";
-import { useAuthDispatch } from "../../../context/auth/store";
 import { ThemeIcon } from "./ThemeIcon";
+import { useAuth0 } from "../../../react-auth0-spa";
 
 const SignOut = styled(Button).attrs(props => ({
   children: "Sign Out"
@@ -48,12 +47,12 @@ const ProviderIcons = () => {
 };
 
 export const ExpandedContent = () => {
-  const dispatch = useAuthDispatch();
+  const {logout} = useAuth0();
   return (
     <>
       <ThemeIcon />
       <ProviderIcons />
-      <SignOut onClick={() => dispatch(logoutAction())} />
+      <SignOut onClick={logout} />
     </>
   );
 };

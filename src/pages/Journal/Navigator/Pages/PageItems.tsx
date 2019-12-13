@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import ReactTooltip from "react-tooltip";
+import { ContextMenuTrigger } from "react-contextmenu";
 import styled from "styled-components";
 
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { usePinPage, useDeletePage } from "../../../../api/hooks";
+import { useDeletePage, usePinPage } from "../../../../api/hooks";
 import { hover, primary1, surface1 } from "../../../../common/styles";
 import { IPage } from "../../../../common/types";
-import { useJournalState } from "../../../../context/journal";
-import { ListItem } from "../ListItem";
-import { ItemContent } from "../ItemContent";
-import { ToolTip } from "../../../../components/StyledTooltip";
-import { ContextMenuTrigger } from "react-contextmenu";
-import { RightClickMenu } from "../RightClickMenu";
 import { Spinner } from "../../../../components/Loading";
+import { ToolTip } from "../../../../components/StyledTooltip";
+import { useJournalState } from "../../../../context/journal";
+import { ItemContent } from "../ItemContent";
+import { ListItem } from "../ListItem";
+import { RightClickMenu } from "../RightClickMenu";
 
 export const Star = styled(FontAwesomeIcon).attrs(props => ({
   icon: faStar

@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { buttonHeight, surface1, onSurface } from "../../../common/styles";
-import { Description } from "./Description";
-import { Images } from "./Images";
-import { Name } from "./Name";
-import { useJournalState } from "../../../context/journal";
 import { usePage } from "../../../api/hooks";
+import { buttonHeight, onSurface, surface1 } from "../../../common/styles";
 import { Spinner } from "../../../components/Loading";
-import { FadeAnimation } from "../../../components/FadeAnimation";
+import { useJournalState } from "../../../context/journal";
+import { Description } from "./Description";
+import { Name } from "./Name";
+
 const Grid = styled.section`
   background-color: ${surface1};
   grid-area: entry;

@@ -1,18 +1,7 @@
-import {
-  IInput,
-  IUserInput,
-  IAuthData,
-  IContext,
-  ICampaign,
-  ICampaignInput,
-  ISectionInput,
-  IPage,
-  IPageInput
-} from "../types";
+import { IContext, IInput, IPageInput, ISectionInput } from "../types";
 import JournalFacade from "./journal_facade";
-import { checkSignedIn } from "../helpers";
-import SectionObject from "./section_object";
 import PageObject from "./page_object";
+import SectionObject from "./section_object";
 
 export default {
   Query: {
@@ -22,7 +11,7 @@ export default {
       context: IContext
     ): Promise<SectionObject[]> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: input.campaign
       }).getSections(),
     pages: async (
@@ -31,7 +20,7 @@ export default {
       context: IContext
     ): Promise<PageObject[]> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: input.campaign
       }).getPages(input.section),
     page: async (
@@ -40,7 +29,7 @@ export default {
       context: IContext
     ): Promise<PageObject> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: ""
       }).getPage(input._id)
   },
@@ -51,7 +40,7 @@ export default {
       context: IContext
     ): Promise<any> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: ""
       }).deleteSection(input),
     deletePage: async (
@@ -60,7 +49,7 @@ export default {
       context: IContext
     ): Promise<any> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: ""
       }).deletePage(input),
     updateOrCreateSection: async (
@@ -69,7 +58,7 @@ export default {
       context: IContext
     ): Promise<SectionObject> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: input.campaign
       }).updateOrCreateSection(input),
     updateOrCreatePage: async (
@@ -78,7 +67,7 @@ export default {
       context: IContext
     ): Promise<PageObject> =>
       new JournalFacade({
-        user: context.user,
+        user: context.userId,
         campaign: input.campaign
       }).updateOrCreatePage(input)
   }

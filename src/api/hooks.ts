@@ -1,15 +1,9 @@
 import { DataProxy } from "apollo-cache";
-import jwt from "jsonwebtoken";
-// TODO sort these based on context
-import moment from "moment";
-import { useEffect } from "react";
 
-import { useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 import { pinnedItemsPollInterval, pollInterval } from "../common/constants";
-import { ICampaign, IDecodedToken, IPage, ISection } from "../common/types";
-import { authRequestSuccess, logoutAction } from "../context/auth/actions";
-import { useAuthDispatch, useAuthState } from "../context/auth/store";
+import { ICampaign, IPage, ISection } from "../common/types";
 import {
   closeModal,
   openModal,
@@ -28,14 +22,11 @@ import {
   DELETE_CAMPAIGN,
   DELETE_PAGE,
   DELETE_SECTION,
-  LOGIN,
   PAGE,
   PAGES,
-  REFRESH_TOKEN,
   REMOVE_PIN,
   SECTIONS,
   SESSION,
-  SIGNUP,
   UPDATE_OR_CREATE_PAGE,
   UPDATE_OR_CREATE_SECTION
 } from "./gqls";
@@ -45,88 +36,6 @@ interface IQueryRes {
   error?: string;
 }
 
-interface ILoginResponse {
-  login: { token: string };
-}
-
-interface ILoginInput {
-  email: string;
-  password: string;
-}
-
-export const useLogin = () => {
-  const dispatch = useAuthDispatch();
-  const [login, { loading, error }] = useLazyQuery<ILoginResponse, ILoginInput>(
-    LOGIN,
-    {
-      onCompleted: data =>
-        dispatch(authRequestSuccess({ token: data.login.token }))
-    }
-  );
-  return {
-    login: (variables: { email: string; password: string }) =>
-      login({ variables }),
-    loading,
-    error: error && error.message
-  };
-};
-
-interface ISignupResponse {
-  createUser: { token: string };
-}
-
-export const useSignup = () => {
-  const dispatch = useAuthDispatch();
-  const [signUp, { loading, error }] = useMutation<
-    ISignupResponse,
-    ILoginInput
-  >(SIGNUP, {
-    onCompleted: data =>
-      dispatch(authRequestSuccess({ token: data.createUser.token }))
-  });
-  return {
-    signUp: (variables: { email: string; password: string }) =>
-      signUp({ variables }),
-    loading,
-    error: error && error.message
-  };
-};
-
-interface IRefreshTokenResponse {
-  refreshToken: { token: string };
-}
-
-interface IRefreshTokenInput {
-  token: string;
-}
-
-export const useRefreshToken = () => {
-  const dispatch = useAuthDispatch();
-  const { token } = useAuthState();
-  const { loading, error } = useQuery<
-    IRefreshTokenResponse,
-    IRefreshTokenInput
-  >(REFRESH_TOKEN, {
-    // only called in App where token is always defined
-    variables: { token: token! },
-    fetchPolicy: "cache-and-network",
-    onCompleted: data => {
-      dispatch(authRequestSuccess({ token: data.refreshToken.token }));
-    },
-    onError: () => {
-      alert(
-        "Sorry, something went wrong with your account. You will now be logged out."
-      );
-      dispatch(logoutAction());
-    },
-    pollInterval: 60000 * 15 // 15 minutes
-  });
-  return {
-    loading,
-    error: error && error.message
-  };
-};
-
 interface ICampaignsResponse {
   campaigns?: ICampaign[];
 }
@@ -134,8 +43,14 @@ interface ICampaignsResponse {
 interface IUseCampaigns extends ICampaignsResponse, IQueryRes {}
 
 export const useCampaigns = (): IUseCampaigns => {
+  const select = useSelectCampaign()
+  const {activeCampaign} = useCampaignState()
   const { data, loading, error } = useQuery<ICampaignsResponse>(CAMPAIGNS, {
-    pollInterval
+    pollInterval,
+    onCompleted: data => {
+      const campaign = data && data.campaigns && data.campaigns.find(({_id}) => _id === activeCampaign)
+      select(campaign && campaign._id)
+    }
   });
   return {
     loading,

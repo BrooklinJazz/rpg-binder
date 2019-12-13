@@ -1,4 +1,4 @@
-import { IPageInput, ISectionInput } from "../types";
+import { IPageData, IPageInput, ISectionInput } from "../types";
 import PageObject from "./page_object";
 import { PageRepo } from "./page_repo";
 import SectionObject from "./section_object";
@@ -17,33 +17,36 @@ export default class JournalFacade {
       Promise.all(
         sections.map(async section => await SectionObject.fromSection(section))
       )
-    );
+    )
 
   public getPages = (section: string) =>
     PageRepo.findBySection(section).then(async sections =>
       Promise.all(sections.map(async page => await PageObject.fromPage(page)))
-    );
+    )
 
   public getPage = (id: string) =>
-    PageRepo.findById(id).then(async page => await PageObject.fromPage(page));
+    PageRepo.findById(id).then(async page => await PageObject.fromPage(page))
 
   public updateOrCreateSection = (input: ISectionInput) =>
-    SectionRepo.updateOrCreate(input).then(section =>
+    SectionRepo.updateOrCreate({ ...input, creator: this.user }).then(section =>
       SectionObject.fromSection(section)
-    );
+    )
 
   public updateOrCreatePage = (input: IPageInput) =>
-    PageRepo.updateOrCreate(input).then(page => PageObject.fromPage(page));
+    PageRepo.updateOrCreate({ ...input, creator: this.user }).then(page =>
+      PageObject.fromPage(page)
+    )
 
-  public createPage = (input: IPageInput) =>
-    PageRepo.create(input).then(page => PageObject.fromPage(page));
+  public createPage = (input: IPageData) =>
+    PageRepo.create(input).then(page => PageObject.fromPage(page))
 
-  public deletePage = (input: { _id: string }) => PageRepo.deleteById(input._id);
+  public deletePage = (input: { _id: string }) =>
+    PageRepo.deleteById(input._id)
 
   public deleteSection = (input: { _id: string }) =>
     SectionRepo.findById(input._id)
       .then(section => {
         return SectionObject.fromSection(section);
       })
-      .then(section => section.delete());
+      .then(section => section.delete())
 }

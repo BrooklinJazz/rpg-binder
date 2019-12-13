@@ -1,6 +1,7 @@
-import { Document } from "mongoose";
-import { IContext, IUser } from "./types";
 import jwt from "jsonwebtoken";
+import { Document } from "mongoose";
+
+import { IContext, IUser } from "./types";
 
 export const toObject = (found: Document[] | Document | null) => {
   if (!found) {
@@ -13,7 +14,7 @@ export const toObject = (found: Document[] | Document | null) => {
 };
 
 export const checkSignedIn = (context: IContext) => {
-  if (!context.user) {
+  if (!context.userId) {
     throw new Error("User is not authenticated");
   }
 };
