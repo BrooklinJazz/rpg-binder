@@ -16,19 +16,7 @@ import { ItemContent } from "../ItemContent";
 import { ListItem } from "../ListItem";
 import { RightClickMenu } from "../RightClickMenu";
 import Gear from "../../../../components/Gear";
-
-export const Pin = styled(FontAwesomeIcon).attrs(props => ({
-  icon: faThumbtack
-}))`
-  min-width: 20px;
-  margin: 0;
-  color: ${(props: { checked: boolean }) =>
-    props.checked ? primary1(props) : surface1(props)};
-  &:hover {
-    color: ${props =>
-      props.checked ? hover(primary1(props)) : hover(surface1(props))};
-  }
-`;
+import Pin from "../../../../components/Pin";
 
 const PageItem = ({ _id, name, inSession }: IPage) => {
   const { add, remove, loading } = usePinPage();
