@@ -70,3 +70,9 @@ Here's my favourite [Markdown Cheetsheet](https://github.com/adam-p/markdown-her
 
 # Special Thanks
 Thank you to my awesome players, friends, & mentors for your feedback and support.
+
+# Contributors
+- [Julian Alonzo](https://github.com/julianalonzo)
+
+# Licence
+MIT
