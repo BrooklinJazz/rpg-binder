@@ -20,7 +20,7 @@ import { IPage } from "../../../common/types";
 import { FetchContainer } from "../../../components/FetchContainer/index";
 import { H2, Text } from "../../../components/StyledTypography";
 import { useJournalState } from "../../../context/journal";
-import { Pin } from "../Navigator/Pages/PageItems";
+import Pin from "../../../components/Pin";
 
 const Sidebar = styled.section`
   background-color: ${surface1};
