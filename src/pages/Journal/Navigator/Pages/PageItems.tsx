@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ContextMenuTrigger } from "react-contextmenu";
 import styled from "styled-components";
 
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useDeletePage, usePinPage } from "../../../../api/hooks";
@@ -15,8 +15,8 @@ import { ItemContent } from "../ItemContent";
 import { ListItem } from "../ListItem";
 import { RightClickMenu } from "../RightClickMenu";
 
-export const Star = styled(FontAwesomeIcon).attrs(props => ({
-  icon: faStar
+export const Pin = styled(FontAwesomeIcon).attrs(props => ({
+  icon: faThumbtack
 }))`
   min-width: 20px;
   margin: 0;
@@ -59,7 +59,7 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
             {name}
           </ItemContent>
           <div onClick={handlePin}>
-            {loading ? <Spinner /> : <Star checked={inSession} />}
+            {loading ? <Spinner /> : <Pin checked={inSession} />}
           </div>
         </ListItem>
       </ContextMenuTrigger>

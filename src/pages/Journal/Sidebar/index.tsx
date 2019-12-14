@@ -20,7 +20,7 @@ import { IPage } from "../../../common/types";
 import { FetchContainer } from "../../../components/FetchContainer/index";
 import { H2, Text } from "../../../components/StyledTypography";
 import { useJournalState } from "../../../context/journal";
-import { Star } from "../Navigator/Pages/PageItems";
+import { Pin } from "../Navigator/Pages/PageItems";
 
 const Sidebar = styled.section`
   background-color: ${surface1};
@@ -135,7 +135,7 @@ const NoContent = styled.div`
   color: ${onSurface};
 `;
 
-const StarIcon = styled(Star)`
+const PinIcon = styled(Pin)`
   margin-right: 5px;
   &:hover {
     color: ${primary1};
@@ -147,7 +147,7 @@ const SessionItems = () => {
   if (pinnedItems && pinnedItems.length === 0) {
     return (
       <NoContent>
-        <StarIcon checked={true} /> a page to see it here
+        <PinIcon checked={true} /> a page to see it here
       </NoContent>
     );
   }
