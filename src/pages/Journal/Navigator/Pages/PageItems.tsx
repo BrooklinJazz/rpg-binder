@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { ContextMenuTrigger } from "react-contextmenu";
+import { showMenu } from "react-contextmenu/modules/actions";
 import styled from "styled-components";
 
-import { faStar, faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useDeletePage, usePinPage } from "../../../../api/hooks";
@@ -14,6 +15,7 @@ import { useJournalState } from "../../../../context/journal";
 import { ItemContent } from "../ItemContent";
 import { ListItem } from "../ListItem";
 import { RightClickMenu } from "../RightClickMenu";
+import Gear from "../../../../components/Gear";
 
 export const Pin = styled(FontAwesomeIcon).attrs(props => ({
   icon: faThumbtack
@@ -58,6 +60,24 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
           <ItemContent data-tip data-for={_id}>
             {name}
           </ItemContent>
+          <div
+            className="Gear"
+            onClick={e => {
+              e.stopPropagation();
+
+              const rects = e.currentTarget.getBoundingClientRect();
+              const x = rects.left;
+              const y = rects.top;
+
+              showMenu({
+                position: { x, y },
+                target: e,
+                id: _id
+              });
+            }}
+          >
+            <Gear />
+          </div>
           <div onClick={handlePin}>
             {loading ? <Spinner /> : <Pin checked={inSession} />}
           </div>

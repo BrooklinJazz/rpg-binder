@@ -14,8 +14,14 @@ export const ListItem = styled(DefaultButton)`
   background-color: ${(props: { active?: boolean }) =>
     props.active ? hover(surface3(props)) : surface2(props)};
   margin-bottom: 2px;
+  .Gear {
+    display: none;
+  }
   &:hover {
     background-color: ${props =>
       props.active ? hover(surface3(props)) : hover(surface2(props))};
+    .Gear {
+      display: inline;
+    }
   }
 `;
