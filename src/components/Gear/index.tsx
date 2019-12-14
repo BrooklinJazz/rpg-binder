@@ -7,7 +7,6 @@ const Gear = styled(FontAwesomeIcon).attrs(props => ({
   icon: faCog
 }))`
   min-width: 20px;
-  margin-right: 8px;
 `;
 
 export default Gear;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ContextMenuTrigger } from "react-contextmenu";
+import { showMenu } from "react-contextmenu/modules/actions";
 
 import { useDeleteSection } from "../../../../api/hooks";
 import { DELETE_SECTION_MESSAGE } from "../../../../common/constants";
@@ -10,6 +11,7 @@ import { useJournalState } from "../../../../context/journal";
 import { ItemContent } from "../ItemContent";
 import { ListItem } from "../ListItem";
 import { RightClickMenu } from "../RightClickMenu";
+import Gear from "../../../../components/Gear";
 
 const SectionItem = ({ _id, name }: ISection) => {
   const { setSection, section, clearPageAndSetSection } = useJournalState();
@@ -38,6 +40,22 @@ const SectionItem = ({ _id, name }: ISection) => {
         >
           <ToolTip id={_id}>{name}</ToolTip>
           <ItemContent>{name}</ItemContent>
+          <div
+            className="Gear"
+            onClick={e => {
+              e.stopPropagation();
+
+              const { left, top } = e.currentTarget.getBoundingClientRect();
+
+              showMenu({
+                position: { x: left, y: top },
+                target: e,
+                id: _id
+              });
+            }}
+          >
+            <Gear />
+          </div>
         </ListItem>
       </ContextMenuTrigger>
       <RightClickMenu

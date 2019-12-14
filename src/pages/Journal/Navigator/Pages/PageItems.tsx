@@ -65,12 +65,10 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
             onClick={e => {
               e.stopPropagation();
 
-              const rects = e.currentTarget.getBoundingClientRect();
-              const x = rects.left;
-              const y = rects.top;
+              const { left, top } = e.currentTarget.getBoundingClientRect();
 
               showMenu({
-                position: { x, y },
+                position: { x: left, y: top },
                 target: e,
                 id: _id
               });
