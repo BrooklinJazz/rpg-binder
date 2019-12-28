@@ -14,6 +14,7 @@ import {
 import { H3 } from "../../../components/StyledTypography";
 import { useEntryState } from "../../../context/journal/entry";
 import useClickoutHandler from "../../../hooks/useClickoutHandler";
+import { useJournalState } from "../../../context/journal";
 
 const Grid = styled.section`
   grid-area: name;
@@ -103,15 +104,17 @@ const EditName = ({ stopEditing }: { stopEditing: () => void }) => {
 
 export const Name = () => {
   const [editing, setEditing] = useState(false);
+  const { page } = useJournalState();
   const stopEditing = () => setEditing(false);
   const startEditing = () => setEditing(true);
   const { name } = useEntryState();
+  const defaultName = page ? "Untitled Page" : "Welcome!";
   return (
     <Grid>
-      {editing ? (
+      {editing && page ? (
         <EditName stopEditing={stopEditing} />
       ) : (
-        <NameHeader onClick={startEditing}>{name}</NameHeader>
+        <NameHeader onClick={startEditing}>{name || defaultName}</NameHeader>
       )}
     </Grid>
   );

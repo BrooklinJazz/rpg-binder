@@ -31,12 +31,11 @@ const LoadingGrid = styled.section`
 `;
 
 export const Entry = () => {
-  const { page } = useJournalState();
   const { loading } = usePage();
-  if (!page || loading) {
+  if (loading) {
     return (
       <LoadingGrid>
-        {loading ? <Spinner /> : "Select a page to start editing"}
+        <Spinner />
       </LoadingGrid>
     );
   }
