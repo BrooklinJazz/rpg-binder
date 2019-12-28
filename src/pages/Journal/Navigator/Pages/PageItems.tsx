@@ -17,6 +17,7 @@ import { ListItem } from "../ListItem";
 import { RightClickMenu } from "../RightClickMenu";
 import Gear from "../../../../components/Gear";
 import Pin from "../../../../components/Pin";
+import { UNTITLED_PAGE } from "../../../../common/constants";
 
 const PageItem = ({ _id, name, inSession }: IPage) => {
   const { add, remove, loading } = usePinPage();
@@ -46,7 +47,7 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
         <ListItem key={_id} active={page === _id} onClick={selectPage}>
           <ToolTip id={_id}>{name}</ToolTip>
           <ItemContent data-tip data-for={_id}>
-            {name}
+            {name || UNTITLED_PAGE}
           </ItemContent>
           <div
             className="Gear"

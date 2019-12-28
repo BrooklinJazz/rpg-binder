@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-import { PAGE_NAME_LENGTH } from "../../../common/constants";
+import { PAGE_NAME_LENGTH, UNTITLED_PAGE } from "../../../common/constants";
 import { confirmAlert } from "../../../common/helpers";
 import {
   landscapeBreakpoint,
@@ -108,7 +108,7 @@ export const Name = () => {
   const stopEditing = () => setEditing(false);
   const startEditing = () => setEditing(true);
   const { name } = useEntryState();
-  const defaultName = page ? "Untitled Page" : "Welcome!";
+  const defaultName = page ? UNTITLED_PAGE : "Welcome!";
   return (
     <Grid>
       {editing && page ? (
