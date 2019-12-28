@@ -105,7 +105,7 @@ const PageItem = ({ name, _id, sectionId }: IProps) => {
   const { remove } = usePinPage();
   const [hide, setHide] = useState(false);
   const select = () => selectPinned(sectionId, _id);
-  const defaultName = name || UNTITLED_PAGE
+  const defaultName = name || UNTITLED_PAGE;
   const handleRemove = () => {
     remove(_id);
     setHide(true);
