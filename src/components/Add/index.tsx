@@ -14,6 +14,8 @@ const Container = styled(ListItem)`
     align-items: center;
     display: flex;
   }
+  // override ListItem Border
+  border: none;
   background-color: ${surface3};
   &:hover {
     background-color: ${props => hover(surface3(props))};
