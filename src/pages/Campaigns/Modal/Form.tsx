@@ -13,7 +13,7 @@ export const CampaignForm = () => {
     <ModalForm loading={loading} error={error} onSubmit={() => create(name)}>
       <Label>
         Campaign Name
-        <Input value={name} onChange={e => setName(e.target.value)} />
+        <Input autoFocus value={name} onChange={e => setName(e.target.value)} />
       </Label>
       <CreateButton />
     </ModalForm>

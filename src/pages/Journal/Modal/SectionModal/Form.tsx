@@ -18,6 +18,7 @@ export const SectionForm = () => {
       <Label>
         Section Name
         <Input
+          autoFocus
           maxLength={SECTION_NAME_LENGTH}
           value={name}
           onChange={e => setName(e.target.value)}

@@ -20,6 +20,7 @@ export const PageForm = () => {
         <Input
           maxLength={PAGE_NAME_LENGTH}
           value={name}
+          autoFocus
           onChange={e => setName(e.target.value)}
         />
       </Label>
