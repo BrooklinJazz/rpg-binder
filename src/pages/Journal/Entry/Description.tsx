@@ -31,7 +31,7 @@ export const Description = () => {
   if (!page) {
     return (
       <HowToCreatePage>
-        <H2>First Time? Here's how to start!</H2>
+        <H2>First Time? Here's How to Start!</H2>
         <ol>
         <li>Create a Section</li>
         <li>Create a Page</li>
