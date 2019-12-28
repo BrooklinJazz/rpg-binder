@@ -21,6 +21,7 @@ import { FetchContainer } from "../../../components/FetchContainer/index";
 import { H2, Text } from "../../../components/StyledTypography";
 import { useJournalState } from "../../../context/journal";
 import Pin from "../../../components/Pin";
+import { UNTITLED_PAGE } from "../../../common/constants";
 
 const Sidebar = styled.section`
   background-color: ${surface1};
@@ -104,6 +105,7 @@ const PageItem = ({ name, _id, sectionId }: IProps) => {
   const { remove } = usePinPage();
   const [hide, setHide] = useState(false);
   const select = () => selectPinned(sectionId, _id);
+  const defaultName = name || UNTITLED_PAGE
   const handleRemove = () => {
     remove(_id);
     setHide(true);
@@ -114,10 +116,10 @@ const PageItem = ({ name, _id, sectionId }: IProps) => {
   return (
     <PageContainer>
       <PageName data-tip data-for={_id} key={_id} onClick={select}>
-        {name}
+        {defaultName}
       </PageName>
       <ReactTooltip delayShow={1000} id={_id} place="top">
-        {name}
+        {defaultName}
       </ReactTooltip>
       <IconContainer onClick={handleRemove}>
         <FontAwesomeIcon className="Delete" icon={faMinusCircle} />
