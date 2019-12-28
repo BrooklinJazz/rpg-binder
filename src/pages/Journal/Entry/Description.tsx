@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { surface2, primary2, primary1 } from "../../../common/styles";
 import { MarkdownEditor } from "../../../components/MarkdownEditor";
+import { H2 } from "../../../components/StyledTypography";
 import { useEntryState } from "../../../context/journal/entry";
 import { useJournalState } from "../../../context/journal";
 
@@ -13,6 +14,7 @@ const Grid = styled.section`
 `;
 const HowToCreatePage = styled(Grid)`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   a {
@@ -29,11 +31,12 @@ export const Description = () => {
   if (!page) {
     return (
       <HowToCreatePage>
+        <H2>First Time? Here's how to start!</H2>
         <ol>
         <li>Create a Section</li>
         <li>Create a Page</li>
-        <li>Select your Page</li>
-        <li>Start Editing using <a target="_blank" href="https://www.markdownguide.org/basic-syntax">Feature Rich Markdown!</a></li>
+        <li>Select Your Page</li>
+        <li>Start Editing Using <a target="_blank" href="https://www.markdownguide.org/basic-syntax">Feature Rich Markdown!</a></li>
         </ol>
       </HowToCreatePage>
     )
