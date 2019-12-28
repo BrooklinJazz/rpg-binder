@@ -14,7 +14,7 @@ import {
   primary1,
   surface1,
   surface2,
-  surface4
+  surface5
 } from "../../../common/styles";
 import { IPage } from "../../../common/types";
 import { FetchContainer } from "../../../components/FetchContainer/index";
@@ -175,7 +175,7 @@ const SidebarHeader = styled(Text).attrs(props => ({
   align-items: center;
   /* margin-bottom: 2px; */
   justify-content: center;
-  background-color: ${surface4};
+  background-color: ${surface5};
 `;
 
 export const SessionSidebar = () => {

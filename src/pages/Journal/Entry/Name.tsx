@@ -9,6 +9,7 @@ import {
   primary1,
   surface2,
   surface4,
+  surface5,
   tabletBreakpoint
 } from "../../../common/styles";
 import { H3 } from "../../../components/StyledTypography";
@@ -26,7 +27,7 @@ const NameInput = styled.input`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  background-color: ${surface4};
+  background-color: ${surface5};
   color: ${onSurface};
   text-align: center;
   font-family: "Roboto", sans-serif;
@@ -41,7 +42,7 @@ const NameInput = styled.input`
 `;
 
 const NameHeader = styled(H3)`
-  background-color: ${surface4};
+  background-color: ${surface5};
   width: 100%;
   height: 100%;
   text-align: center;

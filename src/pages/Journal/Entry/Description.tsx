@@ -35,7 +35,6 @@ export const Description = () => {
         <ol>
         <li>Create a Section</li>
         <li>Create a Page</li>
-        <li>Select Your Page</li>
         <li>Start Editing Using <a target="_blank" href="https://www.markdownguide.org/basic-syntax">Feature Rich Markdown!</a></li>
         </ol>
       </HowToCreatePage>

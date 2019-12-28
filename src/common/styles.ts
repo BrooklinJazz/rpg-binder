@@ -64,9 +64,9 @@ const darkWarning = "#ffa004";
 const lightDanger = "#b00020";
 const darkDanger = "#cf6679";
 
-export const [background, surface1, surface2, surface3, surface4] = colorRange(
-  0.1,
-  5,
+export const [background, surface1, surface2, surface3, surface4, surface5] = colorRange(
+  0.08,
+  6,
   lightBackground,
   darkBackground
 );

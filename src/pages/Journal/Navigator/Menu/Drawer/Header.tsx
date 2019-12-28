@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { surface3 } from "../../../../../common/styles";
+import { surface5 } from "../../../../../common/styles";
 import { Text } from "../../../../../components/StyledTypography";
 
 export const CampaignHeader = styled(Text)`
@@ -9,5 +9,5 @@ export const CampaignHeader = styled(Text)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${surface3};
+  background-color: ${surface5};
 `;
