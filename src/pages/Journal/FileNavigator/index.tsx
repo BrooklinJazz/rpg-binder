@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import {
-  navigatorWidth,
   surface1,
   INITIAL_NAVIGATOR_WIDTH,
-  phoneBreakpoint,
+  phoneBreakpoint
 } from "../../../common/styles";
 import { JournalModal } from "../Modal";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import { Folders } from "./Folders";
 
 const DragArea = styled.div`
   grid-area: navigator-drag;
@@ -52,10 +52,12 @@ const protectedVwFromVw = (vw: number) => {
 };
 
 export const FileNavigator = () => {
-  const [width, setWidth] = useState(INITIAL_NAVIGATOR_WIDTH);
-  const { width: screenWidth } = useWindowDimensions();
+    const { width: screenWidth } = useWindowDimensions();
+    const initialWidth = screenWidth * 0.3; // 30% of screen as initial width
+    const [width, setWidth] = useState(initialWidth);
   const [lastScreenWidth, setLastScreenWidth] = useState(screenWidth);
   const img = document.createElement("img");
+  // using a transparent pixel for the draggable img
   img.src =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
   const widthAsVw = 100 / (lastScreenWidth / width);
@@ -64,13 +66,15 @@ export const FileNavigator = () => {
     <>
       <JournalModal />
       <Grid>
-        <Content width={protectedVw}>Content</Content>
+        <Content width={protectedVw}>
+          <Folders />
+        </Content>
         <DragArea
           draggable
           onDragStart={e => {
             // TODO display move cursor on Drag. currently it is the pointer
             setLastScreenWidth(screenWidth);
-            setWidth(e.clientX)
+            setWidth(e.clientX);
             e.dataTransfer.setDragImage(img, 10, 10);
           }}
           // prevent setting to zero on drag end
