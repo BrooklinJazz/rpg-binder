@@ -7,20 +7,28 @@ export default class SectionObject {
   public pages: IPage[];
   public name: string;
   public campaign: string;
+  public creator: string;
   public parentSection?: string;
   public sections: SectionObject[];
+  public index?: number;
 
   constructor(
-    { name, campaign, _id, parentSection }: ISection,
+    { name, campaign, _id, parentSection, index, creator }: ISection,
     pages: IPage[] = [],
     sections: SectionObject[] = []
   ) {
     this.name = name;
+    this.index = index;
     this._id = _id;
     this.campaign = campaign;
+    this.creator = creator;
     this.parentSection = parentSection;
     this.sections = sections;
     this.pages = pages;
+  }
+
+  public save() {
+    return SectionRepo.updateOrCreate(this);
   }
 
   public delete = () =>

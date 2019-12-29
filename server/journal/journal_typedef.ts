@@ -6,6 +6,7 @@ export default gql`
     name: String!
     pages: [Page!]!
     creator: String!
+    index: Int
     campaign: Campaign!
     parentSection: ID
     sections: [Section!]!
@@ -55,10 +56,17 @@ export default gql`
     parentSection: ID
   }
 
+  input ReorderSectionsInput {
+    startIndex: Int!
+    endIndex: Int!
+    campaign: ID!
+  }
+
   extend type Mutation {
     updateOrCreateSection(input: SectionInput): Section!
     updateOrCreatePage(input: PageInput): Page!
     deleteSection(input: SingleID): ID
     deletePage(input: SingleID): ID
+    reorderSections(input: ReorderSectionsInput): ID
   }
 `;

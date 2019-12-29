@@ -69,10 +69,12 @@ export interface ISectionDocument extends Document, Omit<ISection, "_id"> {
 export interface ISection {
   _id: string;
   name: string;
+  creator: string;
   campaign: string;
   pages: IPage[];
   parentSection?: string;
   sections: ISection[];
+  index?: number;
 }
 export interface IPageDocument extends Document, Omit<IPage, "_id"> {
   name: string;
@@ -95,6 +97,7 @@ export interface ISectionInput {
 }
 
 export interface ISectionData extends ISectionInput {
+  index?: number;
   creator: string;
 }
 

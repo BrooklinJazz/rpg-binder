@@ -22,19 +22,19 @@ export const Folders = ({ width }: { width: number }) => {
     <Container width={width}>
       <DragDropContext onDragEnd={console.log}>
         <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
+          {provided => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {sections &&
                 sections.map((section, i) => {
                   return (
                     <Draggable draggableId={section._id} index={i} key={i}>
-                      {(provided, snapshot) => (
+                      {provided => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          Drag
+                          Drag {section.name}
                         </div>
                       )}
                     </Draggable>

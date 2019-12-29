@@ -16,6 +16,7 @@ const sectionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Section"
   },
+  index: Number,
   creator: {
     type: String,
     required: true

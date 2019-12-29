@@ -69,6 +69,17 @@ export default {
       new JournalFacade({
         user: context.userId,
         campaign: input.campaign
-      }).updateOrCreatePage(input)
+      }).updateOrCreatePage(input),
+    reorderSections: async (
+      root: any,
+      {
+        input
+      }: IInput<{ startIndex: number; endIndex: number; campaign: string }>,
+      context: IContext
+    ) =>
+      new JournalFacade({
+        user: context.userId,
+        campaign: input.campaign
+      }).reorderSections(input.startIndex, input.endIndex)
   }
 };
