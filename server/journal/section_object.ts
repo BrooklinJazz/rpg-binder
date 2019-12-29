@@ -8,14 +8,18 @@ export default class SectionObject {
   public name: string;
   public campaign: string;
   public parentSection?: string;
-  public sections: ISection[];
+  public sections: SectionObject[];
 
-  constructor({ name, campaign, _id, parentSection, sections }: ISection, pages: IPage[] = []) {
+  constructor(
+    { name, campaign, _id, parentSection }: ISection,
+    pages: IPage[] = [],
+    sections: SectionObject[] = []
+  ) {
     this.name = name;
     this._id = _id;
     this.campaign = campaign;
     this.parentSection = parentSection;
-    this.sections = sections || [];
+    this.sections = sections;
     this.pages = pages;
   }
 
@@ -26,6 +30,10 @@ export default class SectionObject {
 
   public static fromSection = async (section: ISection) => {
     const pages = await PageRepo.findBySection(section._id);
-    return new SectionObject(section, pages);
+    const sections = await SectionRepo.findBySection(section._id);
+    const sectionObjects: SectionObject[] = await Promise.all(
+      sections.map(SectionObject.fromSection)
+    );
+    return new SectionObject(section, pages, sectionObjects);
   };
 }

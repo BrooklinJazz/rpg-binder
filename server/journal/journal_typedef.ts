@@ -52,6 +52,7 @@ export default gql`
     _id: ID
     campaign: ID!
     name: String!
+    parentSection: ID
   }
 
   extend type Mutation {
