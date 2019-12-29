@@ -1,5 +1,5 @@
 import SectionObject from "./section_object";
-import { ISection } from "../types";
+import { ISection } from "../../types";
 import { tsImportEqualsDeclaration } from "@babel/types";
 
 export default class SectionCollection {

@@ -1,9 +1,10 @@
 import { IPageData, IPageInput, ISectionInput } from "../types";
 import PageObject from "./page_object";
 import { PageRepo } from "./page_repo";
-import SectionObject from "./section_object";
-import { SectionRepo } from "./section_repo";
-import SectionCollection from "./section_collection";
+import SectionObject from "./sections/section_object";
+import { SectionRepo } from "./sections/section_repo";
+import SectionCollection from "./sections/section_collection";
+import { SectionFinder } from "./sections/section_finder";
 
 export default class JournalFacade {
   private user: string;
@@ -18,8 +19,8 @@ export default class JournalFacade {
       .then(async sections => SectionCollection.fromSections(sections))
       .then(collection => collection.getSortedSections());
 
-  public reorderSections = (startIndex: number, endIndex: number) =>
-    SectionRepo.findByCampaign(this.campaign)
+  public reorderSections = (startIndex: number, endIndex: number, parentSection?: string) =>
+    new SectionFinder(this.campaign, parentSection).getSectionsForReorder()
       .then(sections => SectionCollection.fromSections(sections))
       .then(sectionCollection =>
         sectionCollection.reorder(startIndex, endIndex)

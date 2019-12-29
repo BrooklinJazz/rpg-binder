@@ -1,4 +1,4 @@
-import { ISection, ISectionData, ISectionDocument } from "../types";
+import { ISection, ISectionData, ISectionDocument } from "../../types";
 import SectionModel from "./section_model";
 
 const build = (section: ISectionDocument | null): ISection => {

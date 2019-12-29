@@ -1,7 +1,7 @@
 import { IContext, IInput, IPageInput, ISectionInput } from "../types";
 import JournalFacade from "./journal_facade";
 import PageObject from "./page_object";
-import SectionObject from "./section_object";
+import SectionObject from "./sections/section_object";
 
 export default {
   Query: {
@@ -74,12 +74,17 @@ export default {
       root: any,
       {
         input
-      }: IInput<{ startIndex: number; endIndex: number; campaign: string }>,
+      }: IInput<{
+        startIndex: number;
+        endIndex: number;
+        campaign: string;
+        parentSection?: string;
+      }>,
       context: IContext
     ) =>
       new JournalFacade({
         user: context.userId,
         campaign: input.campaign
-      }).reorderSections(input.startIndex, input.endIndex)
+      }).reorderSections(input.startIndex, input.endIndex, input.parentSection)
   }
 };

@@ -1,6 +1,6 @@
 import CampaignRepo from "./campaign_repo";
 import { ICampaignInput, ICampaign } from "../types";
-import { SectionRepo } from "../journal/section_repo";
+import { SectionRepo } from "../journal/sections/section_repo";
 import { PageRepo } from "../journal/page_repo";
 
 export default class CampaignObject {

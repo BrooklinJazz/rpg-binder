@@ -1,5 +1,5 @@
-import { IPage, ISection } from "../types";
-import { PageRepo } from "./page_repo";
+import { IPage, ISection } from "../../types";
+import { PageRepo } from "../page_repo";
 import { SectionRepo } from "./section_repo";
 
 export default class SectionObject {

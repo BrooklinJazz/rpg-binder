@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { ISectionDocument } from "../types";
+import { ISectionDocument } from "../../types";
 
 const sectionSchema = new Schema({
   name: {

@@ -1,4 +1,4 @@
-import { SectionRepo } from "../journal/section_repo";
+import { SectionRepo } from "../journal/sections/section_repo";
 import { IPage, ISection } from "../types";
 
 export default class SessionObject {

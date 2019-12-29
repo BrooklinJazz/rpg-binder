@@ -60,6 +60,7 @@ export default gql`
     startIndex: Int!
     endIndex: Int!
     campaign: ID!
+    parentSection: ID
   }
 
   extend type Mutation {
