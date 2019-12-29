@@ -2,22 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import {
-  buttonHeight,
   navigatorWidth,
   surface1,
   INITIAL_NAVIGATOR_WIDTH,
-  MIN_NAVIGATOR_WIDTH,
-  tabletBreakpoint,
   phoneBreakpoint,
-  MAX_NAVIGATOR_WIDTH
 } from "../../../common/styles";
 import { JournalModal } from "../Modal";
-import { Button } from "../../../components/StyledButtons";
-import { Icon } from "../../../components/StyledIcon";
-import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
-
-const halfNavigatorWidth = `${parseInt(navigatorWidth, 10) / 2}px`;
 
 const DragArea = styled.div`
   grid-area: navigator-drag;
