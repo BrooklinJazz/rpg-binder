@@ -1,6 +1,5 @@
 import SectionObject from "./section_object";
 import { ISection } from "../../types";
-import { tsImportEqualsDeclaration } from "@babel/types";
 
 export default class SectionCollection {
   private sections: SectionObject[];
@@ -18,6 +17,7 @@ export default class SectionCollection {
   }
 
   public reorder(startIndex: number, endIndex: number) {
+    console.log("REORDERING", startIndex, endIndex)
     let result = Array.from(this.getSortedSections());
     const existingIndex = result.findIndex(found => found.index === startIndex);
     const [removed] = result.splice(

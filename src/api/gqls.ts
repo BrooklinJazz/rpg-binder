@@ -71,6 +71,12 @@ export const UPDATE_OR_CREATE_SECTION = gql(`
     }
 `);
 
+export const REORDER_SECTIONS = gql(`
+  mutation ReorderSections($startIndex: Int!, $endIndex: Int!, $parentSection: ID, $campaign: ID!) {
+    reorderSections(input: {startIndex: $startIndex, endIndex: $endIndex, parentSection: $parentSection, campaign: $campaign})
+    }
+`);
+
 export const UPDATE_OR_CREATE_PAGE = gql(`
   mutation UpdateOrCreatePage($name: String!, $campaign: ID!, $id: ID, $section: ID!, $relatedPages: [ID!]!, $description: String) {
     updateOrCreatePage(input: {_id: $id, name: $name, campaign: $campaign, section: $section, relatedPages: $relatedPages, description: $description}) {
