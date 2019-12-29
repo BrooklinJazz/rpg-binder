@@ -16,6 +16,12 @@ const sectionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Section"
   },
+  sections: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Section"
+    }
+  ],
   creator: {
     type: String,
     required: true

@@ -8,11 +8,14 @@ export default class SectionObject {
   public name: string;
   public campaign: string;
   public parentSection?: string;
-  constructor({ name, campaign, _id, parentSection }: ISection, pages: IPage[] = []) {
+  public sections: ISection[];
+
+  constructor({ name, campaign, _id, parentSection, sections }: ISection, pages: IPage[] = []) {
     this.name = name;
     this._id = _id;
     this.campaign = campaign;
     this.parentSection = parentSection;
+    this.sections = sections || [];
     this.pages = pages;
   }
 

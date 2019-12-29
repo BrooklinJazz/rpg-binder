@@ -60,6 +60,8 @@ export interface ICampaign {
 export interface ISectionDocument extends Document, Omit<ISection, "_id"> {
   name: string;
   pages: IPageDocument["_id"][];
+  sections: ISectionDocument["_id"][];
+  parentSection?: ISectionDocument["_id"];
   creator: IUserDocument["_id"];
   campaign: ICampaign["_id"];
 }
@@ -70,6 +72,7 @@ export interface ISection {
   campaign: string;
   pages: IPage[];
   parentSection?: string;
+  sections: ISection[];
 }
 export interface IPageDocument extends Document, Omit<IPage, "_id"> {
   name: string;

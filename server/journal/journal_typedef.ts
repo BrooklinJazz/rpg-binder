@@ -7,6 +7,8 @@ export default gql`
     pages: [Page!]!
     creator: String!
     campaign: Campaign!
+    parentSection: ID
+    sections: [Section!]!
   }
 
   type Page {

@@ -10,7 +10,7 @@ const buildMany = (sections: ISectionDocument[]): ISection[] =>
 
 export class SectionRepo {
   public static findByCampaign = (campaign: string) =>
-    SectionModel.find({ campaign }).then(buildMany);
+    SectionModel.find({ campaign, parentSection: undefined }).then(buildMany);
 
   public static findById = (id: string) =>
     SectionModel.findById(id).then(build);
