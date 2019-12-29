@@ -12,6 +12,10 @@ const sectionSchema = new Schema({
       ref: "Page"
     }
   ],
+  parentSection: {
+    type: Schema.Types.ObjectId,
+    ref: "Section"
+  },
   creator: {
     type: String,
     required: true

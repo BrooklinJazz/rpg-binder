@@ -7,10 +7,12 @@ export default class SectionObject {
   public pages: IPage[];
   public name: string;
   public campaign: string;
-  constructor({ name, campaign, _id }: ISection, pages: IPage[] = []) {
+  public parentSection?: string;
+  constructor({ name, campaign, _id, parentSection }: ISection, pages: IPage[] = []) {
     this.name = name;
     this._id = _id;
     this.campaign = campaign;
+    this.parentSection = parentSection;
     this.pages = pages;
   }
 

@@ -17,7 +17,7 @@ export default gql`
     section: Section
     creator: String!
     campaign: Campaign!
-    inSession: Boolean
+    isPinned: Boolean
   }
 
   input SectionsInput {

@@ -9,8 +9,8 @@ export class PageRepo {
   public static findBySection = (section: string) =>
     PageModel.find({ section }).then(buildMany);
 
-  public static findInSession = (campaign: string) =>
-    PageModel.find({ inSession: true, campaign }).then(buildMany);
+  public static findisPinned = (campaign: string) =>
+    PageModel.find({ isPinned: true, campaign }).then(buildMany);
 
   public static findByIds = (pageIds: string[]) =>
     PageModel.find({ _id: { $in: pageIds } }).then(buildMany);
@@ -36,10 +36,10 @@ export class PageRepo {
   // NOTE addToSession * removeFromSession is not returning buildable page,
   // but we don't have to return anything currently so I'm just not building for now.
   public static addToSession = (_id: string) =>
-    PageModel.update({ _id }, { inSession: true });
+    PageModel.update({ _id }, { isPinned: true });
 
   public static removeFromSession = (_id: string) =>
-    PageModel.update({ _id }, { inSession: false });
+    PageModel.update({ _id }, { isPinned: false });
 
   public static updateOrCreate = (input: IPageData): Promise<IPage> =>
     input._id ? PageRepo.update(input) : PageRepo.create(input);

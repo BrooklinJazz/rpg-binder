@@ -69,6 +69,7 @@ export interface ISection {
   name: string;
   campaign: string;
   pages: IPage[];
+  parentSection?: string;
 }
 export interface IPageDocument extends Document, Omit<IPage, "_id"> {
   name: string;
@@ -87,6 +88,7 @@ export interface ISectionInput {
   _id?: string;
   name: string;
   campaign: string;
+  parentSection?: string;
 }
 
 export interface ISectionData extends ISectionInput {
@@ -102,12 +104,12 @@ export interface IPageInput {
   campaign: string;
 }
 export interface IPageData extends IPageInput {
- creator: string;
+  creator: string;
 }
 
 export interface IPage extends IPageData {
   _id: string;
-  inSession: boolean;
+  isPinned: boolean;
 }
 
 export interface IDecodedToken {

@@ -10,7 +10,7 @@ export default class SessionFacade {
   }
   // NOTE using the repo directly may be an antipattern
   public getSessionItems = () =>
-    PageRepo.findInSession(this.campaign)
+    PageRepo.findisPinned(this.campaign)
       .then(pages => new SessionObject(pages).getSessionItems())
       .then(session => {
         return session;

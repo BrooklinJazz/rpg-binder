@@ -72,7 +72,7 @@ query Pages($campaign: ID!, $section: ID!) {
     pages(input: {campaign: $campaign, section: $section}) {
       _id
       name
-      inSession
+      isPinned
     }
   }
 `);
@@ -83,7 +83,7 @@ query Page($id: ID!) {
       _id
       name
       description
-      inSession
+      isPinned
       relatedPages {
         _id
       }

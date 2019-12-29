@@ -28,7 +28,7 @@ const pageSchema = new Schema({
     ref: "Campaign",
     required: true
   },
-  inSession: {
+  isPinned: {
     type: Schema.Types.Boolean,
     default: false
   }

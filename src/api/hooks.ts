@@ -268,7 +268,7 @@ const useUpdatePin = () => {
       pageData &&
       pageData.pages.map(page =>
         page._id === pinnedPageId
-          ? { ...page, inSession: !page.inSession }
+          ? { ...page, isPinned: !page.isPinned }
           : page
       );
     store.writeQuery({ query: PAGES, variables, data: { pages } });

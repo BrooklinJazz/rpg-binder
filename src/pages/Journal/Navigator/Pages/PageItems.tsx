@@ -19,7 +19,7 @@ import Gear from "../../../../components/Gear";
 import Pin from "../../../../components/Pin";
 import { UNTITLED_PAGE } from "../../../../common/constants";
 
-const PageItem = ({ _id, name, inSession }: IPage) => {
+const PageItem = ({ _id, name, isPinned }: IPage) => {
   const { add, remove, loading } = usePinPage();
   const { setPage, page } = useJournalState();
   const selectPage = () => setPage(_id);
@@ -34,7 +34,7 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
 
   const handlePin = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    return inSession ? remove(_id) : add(_id);
+    return isPinned ? remove(_id) : add(_id);
   };
 
   if (isDeleted) {
@@ -66,7 +66,7 @@ const PageItem = ({ _id, name, inSession }: IPage) => {
             <Gear />
           </div>
           <div onClick={handlePin}>
-            {loading ? <Spinner /> : <Pin checked={inSession} />}
+            {loading ? <Spinner /> : <Pin checked={isPinned} />}
           </div>
         </ListItem>
       </ContextMenuTrigger>
