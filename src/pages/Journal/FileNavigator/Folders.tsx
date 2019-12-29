@@ -25,9 +25,11 @@ const Container = styled.div`
 export const Folders = ({ width }: { width: number }) => {
   const { sections, loading } = useFolderData();
   const { reorder, loading: aLoading } = useReorderSection();
+  const [copiedList, setCopiedList] = useState<ISection[]>([]);
+  const list: ISection[] = copiedList.length > 0 ? copiedList : sections;
   const localReorder = (startIndex: number, endIndex: number) => {
     const sortedSections = Array.from(
-      sections.sort(byIndex).map((section, index) => ({
+      list.sort(byIndex).map((section, index) => ({
         ...section,
         index: section.index || index
       }))
@@ -50,8 +52,6 @@ export const Folders = ({ width }: { width: number }) => {
       reorder({ startIndex, endIndex });
     }
   };
-  const [copiedList, setCopiedList] = useState<ISection[]>([]);
-  const list: ISection[] = copiedList.length > 0 ? copiedList : sections;
   return (
     <Container width={width}>
       <DragDropContext onDragEnd={handleDragEnd}>
