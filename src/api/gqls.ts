@@ -36,6 +36,7 @@ export const FOLDERS = gql(`
 fragment sectionData on Section {
   _id
   name
+  index
   pages {
     _id
     name

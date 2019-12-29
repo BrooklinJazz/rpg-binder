@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useFolderData } from "../../../api/hooks";
 import { phoneBreakpoint } from "../../../common/styles";
 import { Menu } from "../Navigator/Menu";
+import { ISection } from "../../../common/types";
 
 const Container = styled.div`
   right: 0;
@@ -18,9 +19,20 @@ const Container = styled.div`
 
 export const Folders = ({ width }: { width: number }) => {
   const { sections } = useFolderData();
+  console.log(sections)
+  const byIndex = (first: ISection, second: ISection) =>
+    (first.index || 0) - (second.index || 0);
   return (
     <Container width={width}>
-      <DragDropContext onDragEnd={console.log}>
+      {sections.sort(byIndex).map(section => (
+        <div key={section._id}>
+          <h1>{section.name}</h1>
+          {section.sections.sort(byIndex).map(each => (
+            <div key={each._id}>{each.name}</div>
+          ))}
+        </div>
+      ))}
+      {/* <DragDropContext onDragEnd={console.log}>
         <Droppable droppableId="droppable">
           {provided => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -43,7 +55,7 @@ export const Folders = ({ width }: { width: number }) => {
             </div>
           )}
         </Droppable>
-      </DragDropContext>
+      </DragDropContext> */}
     </Container>
   );
 };
