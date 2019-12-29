@@ -78,7 +78,8 @@ export const FileNavigator = () => {
           draggable
           onDragStart={e => {
             // TODO display move cursor on Drag. currently it is the pointer
-            setLastScreenWidth(lastScreenWidth);
+            setLastScreenWidth(screenWidth);
+            setWidth(e.clientX)
             e.dataTransfer.setDragImage(img, 10, 10);
           }}
           // prevent setting to zero on drag end
