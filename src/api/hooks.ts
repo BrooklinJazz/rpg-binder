@@ -28,7 +28,8 @@ import {
   SECTIONS,
   SESSION,
   UPDATE_OR_CREATE_PAGE,
-  UPDATE_OR_CREATE_SECTION
+  UPDATE_OR_CREATE_SECTION,
+  FOLDERS
 } from "./gqls";
 
 interface IQueryRes {
@@ -43,13 +44,16 @@ interface ICampaignsResponse {
 interface IUseCampaigns extends ICampaignsResponse, IQueryRes {}
 
 export const useCampaigns = (): IUseCampaigns => {
-  const select = useSelectCampaign()
-  const {activeCampaign} = useCampaignState()
+  const select = useSelectCampaign();
+  const { activeCampaign } = useCampaignState();
   const { data, loading, error } = useQuery<ICampaignsResponse>(CAMPAIGNS, {
     pollInterval,
     onCompleted: data => {
-      const campaign = data && data.campaigns && data.campaigns.find(({_id}) => _id === activeCampaign)
-      select(campaign && campaign._id)
+      const campaign =
+        data &&
+        data.campaigns &&
+        data.campaigns.find(({ _id }) => _id === activeCampaign);
+      select(campaign && campaign._id);
     }
   });
   return {
@@ -92,6 +96,24 @@ export const useCreateCampaign = () => {
   };
 };
 
+interface IFolderResponse {
+  sections: ISection[];
+}
+
+interface IUseFolderData extends IQueryRes, IFolderResponse {}
+
+export const useFolderData = (): IUseFolderData => {
+  const { activeCampaign } = useCampaignState();
+  const { data, loading, error } = useQuery<IFolderResponse>(FOLDERS, {
+    pollInterval,
+    variables: { campaign: activeCampaign }
+  });
+  return {
+    loading,
+    sections: Boolean(activeCampaign && data) ? data!.sections : [],
+    error: error && error.message
+  };
+};
 interface ISectionsResponse {
   sections?: ISection[];
 }
@@ -267,9 +289,7 @@ const useUpdatePin = () => {
     const pages =
       pageData &&
       pageData.pages.map(page =>
-        page._id === pinnedPageId
-          ? { ...page, isPinned: !page.isPinned }
-          : page
+        page._id === pinnedPageId ? { ...page, isPinned: !page.isPinned } : page
       );
     store.writeQuery({ query: PAGES, variables, data: { pages } });
   };

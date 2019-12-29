@@ -31,6 +31,36 @@ query Sections($campaign: ID!) {
   }
 `);
 
+// TODO figure out how deep we're going to recursively query
+export const FOLDERS = gql(`
+fragment sectionData on Section {
+  _id
+  name
+  pages {
+    _id
+    name
+    description
+  }
+}
+query Sections($campaign: ID!) {
+    sections(input: {campaign: $campaign}) {
+      ...sectionData
+      sections {
+        ...sectionData
+        sections {
+          ...sectionData
+          sections {
+            ...sectionData
+            sections {
+              ...sectionData
+            }
+          }
+        }
+      }
+    }
+  }
+`);
+
 export const UPDATE_OR_CREATE_SECTION = gql(`
   mutation UpdateOrCreateSection($name: String!, $campaign: ID!, $id: ID) {
     updateOrCreateSection(input: {_id: $id, name: $name, campaign: $campaign}) {

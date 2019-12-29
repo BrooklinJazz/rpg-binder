@@ -49,11 +49,13 @@ export interface ICampaign extends ICampaignInput {
 
 export interface ISectionData {
   name: string;
+  parentSection?: string;
 }
 
 export interface ISection extends ISectionData {
   _id: string;
   pages: IPage[];
+  sections: ISection[];
 }
 
 export interface IPageData {

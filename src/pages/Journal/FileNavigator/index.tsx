@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import {
-  surface1,
-  INITIAL_NAVIGATOR_WIDTH,
-  phoneBreakpoint
-} from "../../../common/styles";
-import { JournalModal } from "../Modal";
+import { phoneBreakpoint, surface1 } from "../../../common/styles";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import { JournalModal } from "../Modal";
 import { Folders } from "./Folders";
 
 const DragArea = styled.div`
@@ -17,16 +13,6 @@ const DragArea = styled.div`
   justify-content: center;
   align-items: center;
   cursor: move;
-`;
-
-const Content = styled.div`
-  right: 0;
-  color: white;
-  grid-area: navigator-content;
-  width: ${(props: { width: number }) => props.width}vw;
-  @media (max-width: ${phoneBreakpoint}) {
-    width: 100vw;
-  }
 `;
 
 const Grid = styled.section`
@@ -51,10 +37,10 @@ const protectedVwFromVw = (vw: number) => {
   }
 };
 
-export const FileNavigator = () => {
-    const { width: screenWidth } = useWindowDimensions();
-    const initialWidth = screenWidth * 0.3; // 30% of screen as initial width
-    const [width, setWidth] = useState(initialWidth);
+const useResizableLogic = () => {
+  const { width: screenWidth } = useWindowDimensions();
+  const initialWidth = screenWidth * 0.3; // 30% of screen as initial width
+  const [width, setWidth] = useState(initialWidth);
   const [lastScreenWidth, setLastScreenWidth] = useState(screenWidth);
   const img = document.createElement("img");
   // using a transparent pixel for the draggable img
@@ -62,24 +48,25 @@ export const FileNavigator = () => {
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
   const widthAsVw = 100 / (lastScreenWidth / width);
   const protectedVw = protectedVwFromVw(widthAsVw);
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    // TODO display move cursor on Drag. currently it is the pointer
+    setLastScreenWidth(screenWidth);
+    setWidth(e.clientX);
+    e.dataTransfer.setDragImage(img, 10, 10);
+  };
+  // prevent setting to zero on drag end
+  const handleDrag = (e: any) => e.clientX !== 0 && setWidth(e.clientX);
+  return { protectedVw, handleDragStart, handleDrag };
+};
+
+export const FileNavigator = () => {
+  const { protectedVw, handleDragStart, handleDrag } = useResizableLogic();
   return (
     <>
       <JournalModal />
       <Grid>
-        <Content width={protectedVw}>
-          <Folders />
-        </Content>
-        <DragArea
-          draggable
-          onDragStart={e => {
-            // TODO display move cursor on Drag. currently it is the pointer
-            setLastScreenWidth(screenWidth);
-            setWidth(e.clientX);
-            e.dataTransfer.setDragImage(img, 10, 10);
-          }}
-          // prevent setting to zero on drag end
-          onDrag={e => e.clientX !== 0 && setWidth(e.clientX)}
-        />
+        <Folders width={protectedVw}/>
+        <DragArea draggable onDragStart={handleDragStart} onDrag={handleDrag} />
       </Grid>
     </>
   );
