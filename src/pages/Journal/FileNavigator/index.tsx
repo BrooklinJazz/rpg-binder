@@ -49,6 +49,17 @@ const Grid = styled.section`
   grid-template-colums: max-content 0px;
 `;
 
+// guarantees vw will not be too small or too large.
+const protectedVwFromVw = (vw: number) => {
+  if (vw > 70) {
+    return 70;
+  } else if (vw < 20) {
+    return 20;
+  } else {
+    return vw;
+  }
+};
+
 export const FileNavigator = () => {
   const [width, setWidth] = useState(INITIAL_NAVIGATOR_WIDTH);
   const { width: screenWidth } = useWindowDimensions();
@@ -57,11 +68,12 @@ export const FileNavigator = () => {
   img.src =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
   const widthAsVw = 100 / (lastScreenWidth / width);
+  const protectedVw = protectedVwFromVw(widthAsVw);
   return (
     <>
       <JournalModal />
       <Grid>
-        <Content width={widthAsVw}>Content</Content>
+        <Content width={protectedVw}>Content</Content>
         <DragArea
           draggable
           onDragStart={e => {
@@ -69,11 +81,8 @@ export const FileNavigator = () => {
             setLastScreenWidth(lastScreenWidth);
             e.dataTransfer.setDragImage(img, 10, 10);
           }}
-          onDrag={e => {
-            e.clientX > MIN_NAVIGATOR_WIDTH &&
-              e.clientX < MAX_NAVIGATOR_WIDTH &&
-              setWidth(e.clientX - 2);
-          }}
+          // prevent setting to zero on drag end
+          onDrag={e => e.clientX !== 0 && setWidth(e.clientX)}
         />
       </Grid>
     </>
