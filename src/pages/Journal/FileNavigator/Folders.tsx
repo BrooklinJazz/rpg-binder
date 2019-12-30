@@ -27,6 +27,7 @@ export const Folders = ({ width }: { width: number }) => {
   const { reorder, loading: aLoading } = useReorderSection();
   const [copiedList, setCopiedList] = useState<ISection[]>([]);
   const list: ISection[] = copiedList.length > 0 ? copiedList : sections;
+  // TODO refactor the fuck out of this
   const localReorder = (startIndex: number, endIndex: number) => {
     const sortedSections = Array.from(
       list.sort(byIndex).map((section, index) => ({
@@ -44,41 +45,83 @@ export const Folders = ({ width }: { width: number }) => {
   };
   const byIndex = (first: ISection, second: ISection) =>
     (first.index || 0) - (second.index || 0);
-  const handleDragEnd = (result: DropResult) => {
+  const handleDragEnd = (result: DropResult, parentSection?: string) => {
     if (result.destination) {
       const startIndex = result.source.index;
       const endIndex = result.destination.index;
       localReorder(startIndex, endIndex);
-      reorder({ startIndex, endIndex });
+      reorder({ startIndex, endIndex, parentSection });
     }
   };
   return (
     <Container width={width}>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="droppable">
-          {provided => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+      <DragDropContext onDragEnd={result => handleDragEnd(result)}>
+        <Droppable droppableId="parentSection">
+          {parentProvided => (
+            <div
+              {...parentProvided.droppableProps}
+              ref={parentProvided.innerRef}
+            >
               {list &&
-                list.sort(byIndex).map((section, i) => {
+                list.sort(byIndex).map((section, sectionIndex) => {
                   return (
-                    <Draggable
-                      draggableId={section._id}
-                      index={section.index || i}
-                      key={section._id}
-                    >
-                      {dragProvided => (
-                        <div
-                          ref={dragProvided.innerRef}
-                          {...dragProvided.draggableProps}
-                          {...dragProvided.dragHandleProps}
-                        >
-                          {section.name}
-                        </div>
-                      )}
-                    </Draggable>
+                    <>
+                      <Draggable
+                        draggableId={section._id}
+                        index={section.index || sectionIndex}
+                        key={section._id}
+                      >
+                        {sectionProvided => (
+                          <div
+                            ref={sectionProvided.innerRef}
+                            {...sectionProvided.draggableProps}
+                            {...sectionProvided.dragHandleProps}
+                          >
+                            <h1>{section.name}</h1>
+                            <DragDropContext onDragEnd={result => handleDragEnd(result, section._id)}>
+                              <Droppable droppableId={section._id}>
+                                {childProvided => (
+                                  <div
+                                    {...childProvided.droppableProps}
+                                    ref={childProvided.innerRef}
+                                  >
+                                    {section.sections.sort(byIndex).map(
+                                      (subSection, subSectionIndex) => {
+                                        return (
+                                          <Draggable
+                                            draggableId={subSection._id}
+                                            index={
+                                              subSection.index ||
+                                              subSectionIndex
+                                            }
+                                            key={subSection._id}
+                                          >
+                                            {subSectionProvided => (
+                                              <div
+                                                ref={
+                                                  subSectionProvided.innerRef
+                                                }
+                                                {...subSectionProvided.draggableProps}
+                                                {...subSectionProvided.dragHandleProps}
+                                              >
+                                                sub: {subSection.name}
+                                              </div>
+                                            )}
+                                          </Draggable>
+                                        );
+                                      }
+                                    )}
+                                  </div>
+                                )}
+                              </Droppable>
+                            </DragDropContext>
+                          </div>
+                        )}
+                      </Draggable>
+                    </>
                   );
                 })}
-              {/* {provided.placeholder} */}
+              {parentProvided.placeholder}
             </div>
           )}
         </Droppable>

@@ -32,7 +32,8 @@ import {
   FOLDERS,
   REORDER_SECTIONS
 } from "./gqls";
-import { NetworkStatus } from "apollo-boost";
+
+// TODO cleanup and extract hooks into their own folders.
 
 interface IQueryRes {
   loading: boolean;
@@ -207,58 +208,8 @@ export const useUpdateOrCreateSection = () => {
   };
 };
 
-const useReorder = () => {
-  const { activeCampaign } = useCampaignState();
-  const variables = { campaign: activeCampaign };
-  return (store: DataProxy, { data }: { data: { sections: ISection[] } }) => {
-    console.log("UPDATE");
-    console.log(data);
-    const folderData: { sections: ISection[] } | null = store.readQuery({
-      query: FOLDERS,
-      variables
-    });
-    console.log({ folderData });
-    const byIndex = (first: ISection, second: ISection) =>
-      (first.index || 0) - (second.index || 0);
-    const sortedSections = folderData
-      ? folderData.sections.sort(byIndex).map((section, index) => ({
-          ...section,
-          index: section.index || index
-        }))
-      : [];
-    const startIndex = 0;
-    const endIndex = 1;
-    const existingIndex = sortedSections.findIndex(
-      found => found.index === startIndex
-    );
-    const [removed] = sortedSections.splice(
-      existingIndex !== -1 ? existingIndex : startIndex,
-      1
-    );
-    sortedSections.splice(endIndex, 0, removed);
-    const newSections = sortedSections.map((section, index) => ({
-      ...section,
-      index
-    }));
-
-    // const pages =
-    //   pageData &&
-    //   pageData.pages.map(page =>
-    //     page._id === pinnedPageId ? { ...page, isPinned: !page.isPinned } : page
-    //   );
-    console.log({ newSections });
-    store.writeQuery({
-      query: FOLDERS,
-      variables,
-      data: { sections: newSections }
-    });
-  };
-};
-
 export const useReorderSection = () => {
   const { activeCampaign } = useCampaignState();
-  const { refetch } = useFolderData();
-  const localReorder = useReorder();
   const [reorder, { loading, error }] = useMutation<
     any,
     {
@@ -268,14 +219,7 @@ export const useReorderSection = () => {
       parentSection?: string;
     }
     // @ts-ignore
-  >(REORDER_SECTIONS, {
-    onCompleted: data => {
-      console.log("COMPLETED REFETCHING", data);
-      refetch();
-    },
-    // @ts-ignore
-    // update: localReorder
-  });
+  >(REORDER_SECTIONS);
   return {
     reorder: ({
       startIndex,
