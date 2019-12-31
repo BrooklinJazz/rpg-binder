@@ -29,7 +29,7 @@ const useSectionLogic = (sections: ISection[]) => {
   const { reorder } = useReorderSection();
   const [copiedList, setCopiedList] = useState<ISection[]>([]);
   const list: ISection[] = copiedList.length > 0 ? copiedList : sections;
-  // TODO refactor the fuck out of this
+
   const localReorder = (startIndex: number, endIndex: number) => {
     const sortedSections = Array.from(
       list.sort(byIndex).map((section, index) => ({
@@ -60,42 +60,6 @@ const useSectionLogic = (sections: ISection[]) => {
   };
 };
 
-// const Sections = (sections: ISection[], parentSection?: string) => (
-//   provided: DraggableProvided
-// ) => {
-//   const { handleDragEnd } = useSectionLogic(sections);
-//   const renderSection = (section: ISection) => (
-//     <Draggable
-//       draggableId={section._id}
-//       index={section.index || sectionIndex}
-//       key={section._id}
-//     >
-//       {sectionProvided => (
-//         <div
-//           ref={sectionProvided.innerRef}
-//           {...sectionProvided.draggableProps}
-//           {...sectionProvided.dragHandleProps}
-//         >
-//           > {section.name}
-//         </div>
-//       )}
-//     </Draggable>
-//   );
-//   return (
-//     <DragDropContext onDragEnd={result => handleDragEnd(result, section._id)}>
-//       <Droppable droppableId={section._id}>
-//         {childProvided => (
-//           <div {...childProvided.droppableProps} ref={childProvided.innerRef}>
-//             {section.sections
-//               .sort(byIndex)
-//               .map((subSection, subSectionIndex) => {})}
-//           </div>
-//         )}
-//       </Droppable>
-//     </DragDropContext>
-//   );
-// };
-
 const Sections = ({
   sections,
   parentSection,
@@ -108,10 +72,13 @@ const Sections = ({
   const { list, handleDragEnd } = useSectionLogic(sections);
   return (
     <DragDropContext onDragEnd={result => handleDragEnd(result, parentSection)}>
-      <Droppable droppableId="parentSection">
+      <Droppable droppableId={parentSection || "TopLevelSections"}>
         {parentProvided => (
-          <div style={{marginLeft: depth * 20}} {...parentProvided.droppableProps} ref={parentProvided.innerRef}>
-            {list && list.sort(byIndex).map((section, index) => renderSection(section, index, depth))}
+          <div {...parentProvided.droppableProps} ref={parentProvided.innerRef}>
+            {list &&
+              list
+                .sort(byIndex)
+                .map((section, index) => renderSection(section, index, depth))}
             {parentProvided.placeholder}
           </div>
         )}
@@ -120,11 +87,17 @@ const Sections = ({
   );
 };
 
+const Section = styled.div`
+  padding: 10px 0;
+  padding-left: ${({ depth }: { depth: number }) => depth * 10}px;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+  // height: 20px;
+  // width: 100%;
+  // margin: 10px;
+`;
+
 const renderSection = (section: ISection, index: number, depth: number) => {
-  if (section.sections.length > 0) {
-    console.log(section.sections.length, section.name, section.sections)
-    
-  }
   return (
     <Draggable
       draggableId={section._id}
@@ -132,28 +105,28 @@ const renderSection = (section: ISection, index: number, depth: number) => {
       key={section._id}
     >
       {sectionProvided => (
-        <div
+        <Section
+          depth={depth}
           ref={sectionProvided.innerRef}
           {...sectionProvided.draggableProps}
-          {...sectionProvided.dragHandleProps}
         >
+          <div {...sectionProvided.dragHandleProps}>Drag Handle</div>
           {section.name}
           {section.sections.length > 0 && (
-            <>
-            parent
-            <Sections depth={depth + 1} parentSection={section._id} sections={section.sections} />
-            </>
+            <Sections
+              depth={depth + 1}
+              parentSection={section._id}
+              sections={section.sections}
+            />
           )}
-        </div>
+        </Section>
       )}
     </Draggable>
   );
 };
 
 export const Folders = ({ width }: { width: number }) => {
-  const { sections, loading } = useFolderData();
-  console.log({sections})
-  // TODO extract Sections, extract the localReorder logic, recurse
+  const { sections } = useFolderData();
   return (
     <Container width={width}>
       <Sections depth={0} sections={sections} />
