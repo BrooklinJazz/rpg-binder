@@ -46,15 +46,15 @@ export const Section = ({ section, index, depth }: IProps) => {
   const hasSubSections = section.sections.length > 0;
   return (
     <Draggable draggableId={section._id} index={section.index || index}>
-      {sectionProvided => (
+      {draggableProvided => (
         <Container
-          ref={sectionProvided.innerRef}
-          {...sectionProvided.draggableProps}
+          ref={draggableProvided.innerRef}
+          {...draggableProvided.draggableProps}
         >
           <SectionItem
             depth={depth}
             onClick={() => setOpen(!open)}
-            {...sectionProvided.dragHandleProps}
+            {...draggableProvided.dragHandleProps}
           >
             <Chevron icon={open ? faChevronDown : faChevronRight} />
             {section.name}

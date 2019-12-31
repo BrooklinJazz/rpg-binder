@@ -60,8 +60,8 @@ export const Sections = ({
   return (
     <DragDropContext onDragEnd={result => handleDragEnd(result, parentSection)}>
       <Droppable droppableId={parentSection || "TopLevelSections"}>
-        {parentProvided => (
-          <Container {...parentProvided.droppableProps} ref={parentProvided.innerRef}>
+        {droppableProvided => (
+          <Container {...droppableProvided.droppableProps} ref={droppableProvided.innerRef}>
             {list &&
               list
                 .sort(byIndex)
@@ -73,7 +73,7 @@ export const Sections = ({
                     depth={depth}
                   />
                 ))}
-            {/* {parentProvided.placeholder} */}
+            {droppableProvided.placeholder}
           </Container>
         )}
       </Droppable>
