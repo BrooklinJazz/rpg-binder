@@ -12,7 +12,6 @@ const DragArea = styled.div`
   width: 5px;
   justify-content: center;
   align-items: center;
-  cursor: move;
 `;
 
 const Grid = styled.section`
