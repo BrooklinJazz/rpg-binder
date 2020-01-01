@@ -1,9 +1,10 @@
-import React, {  } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { useFolderData } from "../../../api/hooks";
 import { phoneBreakpoint, surface1 } from "../../../common/styles";
 import { Sections } from "./Sections";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const Container = styled.div`
   right: 0;
@@ -22,7 +23,21 @@ export const Folders = ({ width }: { width: number }) => {
   const { sections } = useFolderData();
   return (
     <Container width={width}>
-      <Sections depth={0} sections={sections} />
+      <DragDropContext onDragEnd={console.log}>
+        <Droppable
+          isCombineEnabled
+          isDropDisabled
+          droppableId={"TopLevelSections"}
+        >
+          {droppableProvided => (
+            <Sections
+              droppableProvided={droppableProvided}
+              depth={0}
+              sections={sections}
+            />
+          )}
+        </Droppable>
+      </DragDropContext>
     </Container>
   );
 };

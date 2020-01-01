@@ -54,7 +54,7 @@ export interface ISectionData {
 
 export interface ISection extends ISectionData {
   _id: string;
-  index?: number;
+  // index?: number;
   pages: IPage[];
   sections: ISection[];
 }
